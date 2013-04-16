@@ -1,3 +1,4 @@
+within Spot;
 package Control "Control blocks"
   extends Base.Icons.Library;
 

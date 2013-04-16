@@ -1,3 +1,4 @@
+within SpotExamples;
 package Data "Data"
   extends Spot.Base.Icons.SpecialLibrary;
 

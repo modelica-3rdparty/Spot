@@ -1,3 +1,4 @@
+within Spot;
 package Common "Common components"
   extends Base.Icons.Library;
 

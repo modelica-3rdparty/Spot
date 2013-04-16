@@ -1,3 +1,4 @@
+within Spot;
 package Semiconductors "Semiconductors"
   extends Base.Icons.Library;
 

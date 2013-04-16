@@ -1,3 +1,4 @@
+within Spot.Base;
 package Precalculation "Precalculation functions"
   extends Icons.Base;
 

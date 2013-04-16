@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Sensors "Sensors n-phase or DC"
   extends Base.Icons.Library;
 

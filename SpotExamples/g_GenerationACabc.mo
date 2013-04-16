@@ -1,3 +1,4 @@
+within SpotExamples;
 package g_GenerationACabc "AC power generation, abc"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

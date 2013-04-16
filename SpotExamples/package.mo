@@ -1,3 +1,4 @@
+within;
 package SpotExamples "Spot examples"
   extends Spot.Base.Icons.Examples;
   import SI = Modelica.SIunits;

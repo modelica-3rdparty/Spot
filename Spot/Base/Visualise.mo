@@ -1,3 +1,4 @@
+within Spot.Base;
 package Visualise "Elementary visualisers"
   extends Icons.Base;
 

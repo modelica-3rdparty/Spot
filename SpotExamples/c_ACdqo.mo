@@ -1,3 +1,4 @@
+within SpotExamples;
 package c_ACdqo "AC 3-phase components dqo"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

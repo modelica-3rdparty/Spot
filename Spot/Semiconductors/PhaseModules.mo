@@ -1,3 +1,4 @@
+within Spot.Semiconductors;
 package PhaseModules "Phase modules"
   extends Base.Icons.Library;
 

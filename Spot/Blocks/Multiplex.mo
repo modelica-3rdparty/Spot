@@ -1,3 +1,4 @@
+within Spot.Blocks;
 package Multiplex "Multiplexer and AD converter"
   extends Base.Icons.Library;
 

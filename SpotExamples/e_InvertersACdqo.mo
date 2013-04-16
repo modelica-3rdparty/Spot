@@ -1,3 +1,4 @@
+within SpotExamples;
 package e_InvertersACdqo "Inverters dqo"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

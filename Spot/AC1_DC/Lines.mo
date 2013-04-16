@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Lines "Transmission lines 1-phase"
   extends Base.Icons.Library;
 

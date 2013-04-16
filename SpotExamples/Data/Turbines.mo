@@ -1,3 +1,4 @@
+within SpotExamples.Data;
 package Turbines "Turbine example data"
   extends Spot.Base.Icons.SpecialLibrary;
 

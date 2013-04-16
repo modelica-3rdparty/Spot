@@ -1,3 +1,4 @@
+within Spot.Control;
 package IgnitionTables "Ignition tables for inverters"
 extends Base.Icons.Library;
 

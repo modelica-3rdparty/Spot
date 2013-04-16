@@ -1,3 +1,4 @@
+within Spot.Base;
 package Complex "Complex functions (preliminary package)"
   extends Icons.Base;
 

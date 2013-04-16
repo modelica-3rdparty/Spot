@@ -1,3 +1,4 @@
+within Spot.Control;
 package Setpoints "Setpoints of generators"
   extends Base.Icons.Library;
 

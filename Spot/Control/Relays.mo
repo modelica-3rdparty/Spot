@@ -1,3 +1,4 @@
+within Spot.Control;
 package Relays "Relays"
   extends Base.Icons.Library;
 

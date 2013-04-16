@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Machines "DC-machines, electric part"
   extends Base.Icons.Library;
 
