@@ -1,3 +1,5 @@
+within Spot;
+
 package AC1_DC "AC 1-phase and DC components"
   extends Base.Icons.Library;
 

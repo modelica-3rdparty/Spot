@@ -1,3 +1,4 @@
+within SpotExamples;
 package d_DrivesACdqo "AC drives, dqo"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

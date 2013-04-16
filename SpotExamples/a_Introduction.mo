@@ -1,3 +1,4 @@
+within SpotExamples;
 package a_Introduction "Introductory examples"
   extends Spot.Base.Icons.Examples;
 

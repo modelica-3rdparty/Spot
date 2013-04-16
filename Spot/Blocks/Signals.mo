@@ -1,3 +1,4 @@
+within Spot.Blocks;
 package Signals "Special signals"
   extends Base.Icons.Library;
 

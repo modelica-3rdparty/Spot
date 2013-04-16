@@ -1,3 +1,4 @@
+within Spot.Base;
 package Math "Mathematical functions"
   extends Icons.Base;
 

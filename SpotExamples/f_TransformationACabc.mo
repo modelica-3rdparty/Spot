@@ -1,3 +1,4 @@
+within SpotExamples;
 package f_TransformationACabc "Transformation abc"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

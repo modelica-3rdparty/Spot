@@ -1,3 +1,4 @@
+within Spot.Base;
 package Transforms "Transform functions"
   extends Icons.Base;
 

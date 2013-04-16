@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Sources "DC voltage sources"
   extends Base.Icons.Library;
 

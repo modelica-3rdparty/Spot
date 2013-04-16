@@ -1,3 +1,4 @@
+within Spot.Common;
 package Switching "Common switching components"
   extends Base.Icons.Library;
 

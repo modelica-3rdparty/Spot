@@ -1,3 +1,4 @@
+within Spot.Blocks;
 package Math "Auxiliary blocks"
   extends Base.Icons.Library;
 

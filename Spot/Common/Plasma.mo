@@ -1,3 +1,4 @@
+within Spot.Common;
 package Plasma "Plasma arcs"
   extends Base.Icons.Library;
 

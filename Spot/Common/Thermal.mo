@@ -1,3 +1,4 @@
+within Spot.Common;
 package Thermal "Thermal boundary and adaptors"
   extends Base.Icons.Library;
 

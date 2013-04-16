@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Inverters "Rectifiers and Inverters"
   extends Base.Icons.Library;
 

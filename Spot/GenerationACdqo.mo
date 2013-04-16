@@ -1,3 +1,4 @@
+within Spot;
 package GenerationACdqo "Turbo generator groups dqo"
   extends Base.Icons.Library;
   import Spot.Base.Transforms.j_dqo;

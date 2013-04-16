@@ -1,3 +1,4 @@
+within SpotExamples;
 package p_Precalculation "Precalculation of machine matrices"
 extends Spot.Base.Icons.Examples;
 annotation (preferedView="info",

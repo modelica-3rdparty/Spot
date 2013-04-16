@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Transformers "Transformers 1-phase "
   extends Base.Icons.Library;
 annotation (preferedView="info",

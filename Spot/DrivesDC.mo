@@ -1,3 +1,4 @@
+within Spot;
 package DrivesDC "DC-drives"
   extends Base.Icons.Library;
 

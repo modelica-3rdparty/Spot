@@ -1,3 +1,4 @@
+within Spot.Blocks;
 package Transforms "Auxiliary blocks"
   extends Base.Icons.Library;
 

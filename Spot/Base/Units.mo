@@ -1,3 +1,4 @@
+within Spot.Base;
 package Units "Units and nominal"
   extends Icons.Base;
 

@@ -1,3 +1,4 @@
+within SpotExamples;
 package f_TransformationACdqo "Transformation dqo"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

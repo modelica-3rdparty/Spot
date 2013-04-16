@@ -1,3 +1,4 @@
+within Spot.Mechanics;
 package TurboGroups "Turbines including generator-rotor"
   extends Base.Icons.Library;
 

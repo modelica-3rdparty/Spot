@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package ImpedancesSingle "Simple mpedance and admittance two terminal"
   extends Base.Icons.Library;
 

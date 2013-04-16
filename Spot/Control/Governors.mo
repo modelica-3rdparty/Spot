@@ -1,3 +1,4 @@
+within Spot.Control;
 package Governors "Turbine Governors "
   extends Base.Icons.Library;
 

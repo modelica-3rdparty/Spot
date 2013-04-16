@@ -1,3 +1,4 @@
+within SpotExamples;
 package e_InvertersAC1_DC "Inverters 1 phase and DC"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",
