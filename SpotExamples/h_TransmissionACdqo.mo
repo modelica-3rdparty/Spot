@@ -1,3 +1,4 @@
+within SpotExamples;
 package h_TransmissionACdqo "AC transmission, dqo"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

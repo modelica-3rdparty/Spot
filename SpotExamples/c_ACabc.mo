@@ -1,3 +1,4 @@
+within SpotExamples;
 package c_ACabc "AC 3-phase components abc"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

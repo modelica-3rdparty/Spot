@@ -1,3 +1,4 @@
+within Spot.Mechanics;
 package Translation "Translating parts "
   extends Base.Icons.Library;
 

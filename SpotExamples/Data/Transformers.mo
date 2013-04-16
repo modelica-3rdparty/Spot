@@ -1,3 +1,4 @@
+within SpotExamples.Data;
 package Transformers "Transformer example data"
   extends Spot.Base.Icons.SpecialLibrary;
 

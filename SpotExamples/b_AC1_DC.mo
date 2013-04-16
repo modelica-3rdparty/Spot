@@ -1,3 +1,4 @@
+within SpotExamples;
 package b_AC1_DC "AC 1-phase and DC components"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

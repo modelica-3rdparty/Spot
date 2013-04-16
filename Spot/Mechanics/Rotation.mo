@@ -1,3 +1,4 @@
+within Spot.Mechanics;
 package Rotation "Rotating parts "
   extends Base.Icons.Library;
 

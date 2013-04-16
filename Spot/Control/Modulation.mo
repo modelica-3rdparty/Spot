@@ -1,3 +1,4 @@
+within Spot.Control;
 package Modulation "Pulse width modulation"
   extends Base.Icons.Library;
 

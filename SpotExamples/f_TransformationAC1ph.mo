@@ -1,3 +1,4 @@
+within SpotExamples;
 package f_TransformationAC1ph "Transformation 1 phase"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

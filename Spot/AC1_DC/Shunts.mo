@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Shunts
   extends Base.Icons.Library;
 

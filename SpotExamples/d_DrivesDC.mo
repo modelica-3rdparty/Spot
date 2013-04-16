@@ -1,3 +1,4 @@
+within SpotExamples;
 package d_DrivesDC "DC drives"
   extends Spot.Base.Icons.Examples;
   annotation (preferedView="info",

@@ -1,3 +1,4 @@
+within Spot.Control;
 package TapChange "Tap changers"
   extends Base.Icons.Library;
 

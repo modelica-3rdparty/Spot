@@ -1,3 +1,4 @@
+within Spot.Base;
 package Types "Additional types for power systems"
   extends Icons.Base;
 

@@ -1,3 +1,4 @@
+within;
 package Spot "Power-systems SPOT"
   extends Base.Icons.Library;
   import SI = Modelica.SIunits;
@@ -729,7 +730,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
     1973-2004: Corporate Research, ABB Switzerland<br><br>
 <dt>Address:</dt><br>
 <dd>Hans J&uuml;rg Wiesmann<br>
-    CH-8607 Seegräben (Zürich)<br><br>
+    CH-8607 Seegr&auml;ben (Z&uuml;rich)<br><br>
     email: <A HREF=\"mailto:hj.wiesmann@bluewin.ch\">hj.wiesmann@bluewin.ch</A></dd>
 </dl>
 <p><a href=\"Spot.UsersGuide\">up</a></p>

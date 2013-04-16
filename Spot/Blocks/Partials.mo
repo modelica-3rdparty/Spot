@@ -1,3 +1,4 @@
+within Spot.Blocks;
 package Partials "Partial models"
   extends Base.Icons.Partials;
 

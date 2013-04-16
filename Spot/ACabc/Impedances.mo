@@ -1,3 +1,4 @@
+within Spot.ACabc;
 package Impedances "Impedance and admittance two terminal"
   extends Base.Icons.Library;
 annotation (preferedView="info",

@@ -1,3 +1,4 @@
+within Spot;
 package ACabc "AC 3-phase components in abc-representation"
   extends Base.Icons.Library;
 import Spot.Base.Transforms.j_abc;

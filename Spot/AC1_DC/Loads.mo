@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package Loads "Loads"
   model Rload "Resistance load, 1-phase"
     extends Partials.ResLoadBase;

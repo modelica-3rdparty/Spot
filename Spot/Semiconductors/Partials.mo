@@ -1,3 +1,4 @@
+within Spot.Semiconductors;
 package Partials "Partial models"
   extends Base.Icons.Partials;
 

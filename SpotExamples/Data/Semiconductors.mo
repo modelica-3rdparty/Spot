@@ -1,3 +1,4 @@
+within SpotExamples.Data;
 package Semiconductors "Breaker example data"
   extends Spot.Base.Icons.SpecialLibrary;
 

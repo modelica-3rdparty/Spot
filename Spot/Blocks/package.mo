@@ -1,3 +1,4 @@
+within Spot;
 package Blocks "Blocks"
   extends Base.Icons.Library;
 

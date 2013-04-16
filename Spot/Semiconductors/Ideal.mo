@@ -1,3 +1,4 @@
+within Spot.Semiconductors;
 package Ideal "Custom models"
   extends Base.Icons.Library;
 

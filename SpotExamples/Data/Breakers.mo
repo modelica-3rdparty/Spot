@@ -1,3 +1,4 @@
+within SpotExamples.Data;
 package Breakers "Breaker example data"
   extends Spot.Base.Icons.SpecialLibrary;
 

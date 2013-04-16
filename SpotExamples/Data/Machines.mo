@@ -1,3 +1,4 @@
+within SpotExamples.Data;
 package Machines "Machine example data"
   extends Spot.Base.Icons.SpecialLibrary;
 

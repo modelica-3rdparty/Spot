@@ -1,3 +1,5 @@
+within Spot.AC1_DC;
+
 package ImpedancesOneTerm "Impedance and admittance one terminal"
   extends Base.Icons.Library;
 

@@ -1,3 +1,4 @@
+within SpotExamples;
 package d_DrivesACabc "AC drives, abc"
   model ASMcharacteristic
     "AC asynchronous machine: torque - slip characteristic"

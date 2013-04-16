@@ -1,3 +1,4 @@
+within Spot.ACabc;
 package Sensors "Sensors and meters 3-phase"
   extends Base.Icons.Library;
   annotation (preferedView="info",

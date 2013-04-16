@@ -1,3 +1,4 @@
+within Spot;
 package Base "Base"
   extends Icons.Base;
 

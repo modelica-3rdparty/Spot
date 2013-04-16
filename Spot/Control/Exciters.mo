@@ -1,3 +1,4 @@
+within Spot.Control;
 package Exciters "Generator Exciters "
   extends Base.Icons.Library;
 

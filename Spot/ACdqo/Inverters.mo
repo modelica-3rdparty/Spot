@@ -1,3 +1,4 @@
+within Spot.ACdqo;
 package Inverters "Rectifiers and Inverters"
   extends Base.Icons.Library;
   annotation (preferedView="info",

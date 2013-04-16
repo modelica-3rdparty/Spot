@@ -1,3 +1,4 @@
+within Spot.Common;
 package IronSaturation "Iron saturation properties"
   extends Base.Icons.Library;
 
