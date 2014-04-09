@@ -2,22 +2,6 @@ within Spot;
 package DrivesACabc "AC drives abc"
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Contains both electrical and mechanical parts of AC-drives, abc-representation.</p>
-<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
-</html>"));
   model ASM "Asynchronous machine with cage rotor"
 
     parameter Spot.Base.Types.AngularVelocity speed_ini(unit="pu")=0
@@ -26,12 +10,17 @@ Documentation(info="<html>
     extends Partials.DriveBase;
     replaceable Spot.ACabc.Machines.Asynchron motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
       "asyn motor"
-      annotation (extent=[-40,-10; -20,10]);
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
+            rotation=0)));
+
+  equation
+    connect(term, motor.term)
+      annotation (Line(points={{-100,0},{-40,0}}, color={0,0,255}));
+    connect(motor.airgap, rotor.rotor)
+      annotation (Line(points={{-30,6},{10,6}}, color={0,0,0}));
+    connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
+            {0,100}}, color={176,0,0}));
     annotation (defaultComponentName = "asm",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -42,20 +31,18 @@ Documentation(info="<html>
 <p>Complete ASM drive.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
-      Icon(
-  Text(
-    extent=[-60,20; 80,-20],
-    style(color=10),
-          string="asyn")),
-      Diagram);
-
-  equation
-    connect(term, motor.term)
-      annotation (points=[-100,0; -40,0], style(color=3, rgbcolor={0,0,255}));
-    connect(motor.airgap, rotor.rotor)
-      annotation (points=[-30,6; 10,6],style(color=0, rgbcolor={0,0,0}));
-    connect(motor.heat, heat) annotation (points=[-30,10; -30,40; 0,40; 0,100],
-        style(color=42, rgbcolor={176,0,0}));
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-60,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "asyn")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end ASM;
 
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
@@ -66,15 +53,23 @@ Documentation(info="<html>
     extends Partials.DriveBase;
    replaceable Spot.ACabc.Machines.AsynchronY_D motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
       "asyn motor Y-Delta switcheable"
-      annotation (extent=[-40,-10; -20,10]);
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
+            rotation=0)));
     input Modelica.Blocks.Interfaces.BooleanInput YDcontrol
       "true:Y, false:Delta"
-      annotation (extent=[-110,30; -90,50],rotation=0);
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
+            rotation=0)));
+
+  equation
+    connect(YDcontrol, motor.YDcontrol) annotation (Line(points={{-100,40},{-60,
+            40},{-60,6},{-40,6}}, color={255,0,255}));
+    connect(term, motor.term)
+      annotation (Line(points={{-100,0},{-40,0}}, color={0,0,255}));
+    connect(motor.airgap, rotor.rotor)
+      annotation (Line(points={{-30,6},{10,6}}, color={0,0,0}));
+    connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
+            {0,100}}, color={176,0,0}));
     annotation (defaultComponentName = "asm_Y_D",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -85,29 +80,26 @@ Documentation(info="<html>
 <p>Complete ASM drive with switcheable Y-Delta topology.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
-      Icon(
-  Text(
-    extent=[-60,20; 80,-20],
-    style(color=10),
-          string="asynY-D")),
-      Diagram(Text(
-          extent=[-100,90; -10,80],
-          style(color=5, rgbcolor={255,0,255}),
-          string="switcheable Y - Delta topology"),
-              Text(
-          extent=[-90,68; -30,60],
-          style(color=5, rgbcolor={255,0,255}),
-          string="true: Y     false: Delta")));
-
-  equation
-    connect(YDcontrol, motor.YDcontrol) annotation (points=[-100,40; -60,40;
-          -60,6; -40,6],   style(color=5, rgbcolor={255,0,255}));
-    connect(term, motor.term)
-      annotation (points=[-100,0; -40,0], style(color=3, rgbcolor={0,0,255}));
-    connect(motor.airgap, rotor.rotor)
-      annotation (points=[-30,6; 10,6],style(color=0, rgbcolor={0,0,0}));
-    connect(motor.heat, heat) annotation (points=[-30,10; -30,40; 0,40; 0,100],
-        style(color=42, rgbcolor={176,0,0}));
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-60,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "asynY-D")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-100,90},{-10,80}},
+            lineColor={255,0,255},
+            textString=
+                 "switcheable Y - Delta topology"), Text(
+            extent={{-90,68},{-30,60}},
+            lineColor={255,0,255},
+            textString=
+                 "true: Y     false: Delta")}));
   end ASM_Y_D;
 
   model ASM_ctrl "Asynchronous machine, current-control"
@@ -117,27 +109,45 @@ Documentation(info="<html>
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase_ctrl(heat_adapt(final m={2,inverter.heat.m}));
     replaceable ACabc.Inverters.InverterAverage inverter
-      extends ACabc.Inverters.Partials.AC_DC_base
-      "inverter (average or modulated)"           annotation (extent=[-80,-10; -60,10], choices(
+      constrainedby ACabc.Inverters.Partials.AC_DC_base
+      "inverter (average or modulated)"           annotation (                          choices(
       choice(redeclare Spot.ACabc.Inverters.InverterAverage inverter(final
               autosyn=false) "inverter time-average"),
       choice(redeclare Spot.ACabc.Inverters.Inverter inverter(final autosyn=false)
-            "inverter with modulator")));
+            "inverter with modulator")), Placement(transformation(extent={{-80,
+              -10},{-60,10}}, rotation=0)));
     replaceable ACabc.Machines.Asynchron_ctrl motor(
       final w_el_ini=rpm_ini*Base.Types.rpm2w*motor.par.pp)
       "asyn motor, current controlled"
-      annotation (extent=[-40,-10; -20,10],choices(
+      annotation (                         choices(
       choice(redeclare Spot.ACabc.Machines.Synchron3rd_ctrl motor
             "synchron 3rd order"),
       choice(redeclare Spot.ACabc.Machines.Synchron_ctrl motor
-            "synchron general")));
+            "synchron general")), Placement(transformation(extent={{-40,-10},{
+              -20,10}}, rotation=0)));
 
+
+  equation
+    connect(motor.airgap, rotor.rotor)
+      annotation (Line(points={{-30,6},{10,6}}, color={0,0,0}));
+    connect(term, inverter.DC)
+      annotation (Line(points={{-100,0},{-80,0}}, color={0,0,255}));
+    connect(inverter.AC, motor.term)
+      annotation (Line(points={{-60,0},{-40,0}}, color={0,130,175}));
+    connect(motor.heat, heat_adapt.port_a) annotation (Line(points={{-30,10},{
+            -30,54},{4,54},{4,64}}, color={176,0,0}));
+    connect(inverter.heat, heat_adapt.port_b) annotation (Line(points={{-70,10},
+            {-70,64},{-4,64}}, color={176,0,0}));
+    connect(motor.uPhasor, inverter.uPhasor)
+      annotation (Line(points={{-40,10},{-64,10}}, color={0,0,127}));
+    connect(motor.i_meas, i_meas)       annotation (Line(points={{-36,10},{-36,
+            40},{-60,40},{-60,100}}, color={0,0,127}));
+    connect(i_act, motor.i_act)       annotation (Line(points={{60,100},{60,40},
+            {-24,40},{-24,10}}, color={0,0,127}));
+    connect(motor.phiRotorflux, inverter.theta) annotation (Line(points={{-20,
+            10},{-16,10},{-16,20},{-84,20},{-84,10},{-76,10}}, color={0,0,127}));
     annotation (
       defaultComponentName="sm_ctrlAv",
-  Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
   Window(
       x=0.45,
       y=0.01,
@@ -148,34 +158,18 @@ Documentation(info="<html>
 <p>Complete ASM drive with inverter and motor for field oriented current control.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
-  Icon(
-  Text(
-    extent=[-60,20; 80,-20],
-    style(color=10),
-          string="asyn")),
-  Diagram);
-
-  equation
-    connect(motor.airgap, rotor.rotor)
-      annotation (points=[-30,6; 10,6], style(color=0, rgbcolor={0,0,0}));
-    connect(term, inverter.DC)
-      annotation (points=[-100,0; -80,0], style(color=3, rgbcolor={0,0,255}));
-    connect(inverter.AC, motor.term)
-      annotation (points=[-60,0; -40,0], style(color=70, rgbcolor={0,130,175}));
-    connect(motor.heat, heat_adapt.port_a) annotation (points=[-30,10; -30,54;
-          4,54; 4,64],
-               style(color=42, rgbcolor={176,0,0}));
-    connect(inverter.heat, heat_adapt.port_b) annotation (points=[-70,10; -70,
-          64; -4,64],  style(color=42, rgbcolor={176,0,0}));
-    connect(motor.uPhasor, inverter.uPhasor)
-      annotation (points=[-40,10; -64,10], style(color=74, rgbcolor={0,0,127}));
-    connect(motor.i_meas, i_meas)       annotation (points=[-36,10; -36,40; -60,40;
-          -60,100], style(color=74, rgbcolor={0,0,127}));
-    connect(i_act, motor.i_act)       annotation (points=[60,100; 60,40; -24,40;
-          -24,10], style(color=74, rgbcolor={0,0,127}));
-    connect(motor.phiRotorflux, inverter.theta) annotation (points=[-20,10; -16,
-          10; -16,20; -84,20; -84,10; -76,10], style(color=74, rgbcolor={0,0,
-            127}));
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-60,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "asyn")}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end ASM_ctrl;
 
   model SM_el "Synchronous machine, electric excitation"
@@ -185,26 +179,45 @@ Documentation(info="<html>
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase;
     replaceable Spot.ACabc.Machines.Control.Excitation excitation
-      "excitation model"                annotation (extent=[-70,20; -50,40]);
+      "excitation model"                annotation (Placement(transformation(
+            extent={{-70,20},{-50,40}}, rotation=0)));
     replaceable Spot.ACabc.Machines.Synchron3rd_el motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
       "syn motor"
-      annotation (extent=[-40,-10; -20,10],choices(
+      annotation (                         choices(
       choice(redeclare Spot.ACabc.Machines.Synchron3rd_el motor
             "synchron 3rd order"),
-      choice(redeclare Spot.ACabc.Machines.Synchron_el motor "synchron general")));
-    Modelica.Blocks.Interfaces.RealInput fieldVoltage(redeclare type SignalType
-        = SIpu.Voltage, final unit="pu")
-      "field voltage pu from exciter control"
-      annotation (extent=[50,90; 70,110], rotation=-90);
-    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(redeclare type
-        SignalType = SIpu.Voltage, final unit="pu")
-      "terminal voltage pu to exciter control"
-      annotation (extent=[-70,90; -50,110], rotation=90);
+      choice(redeclare Spot.ACabc.Machines.Synchron_el motor "synchron general")),
+        Placement(transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+    Modelica.Blocks.Interfaces.RealInput fieldVoltage(final unit="pu")
+      "field voltage pu from exciter control" annotation (Placement(
+          transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(final unit="pu")
+      "terminal voltage pu to exciter control" annotation (Placement(
+          transformation(
+          origin={-60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+
+  equation
+    connect(fieldVoltage, excitation.fieldVoltage)
+                                                  annotation (Line(points={{60,
+            100},{60,60},{-54,60},{-54,40}}, color={0,0,127}));
+    connect(excitation.term, motor.term) annotation (Line(points={{-70,30},{-80,
+            30},{-80,0},{-40,0}}, color={0,130,175}));
+    connect(excitation.field, motor.field) annotation (Line(points={{-70,26},{
+            -70,-4},{-40,-4}}, color={0,0,255}));
+    connect(term, motor.term)
+      annotation (Line(points={{-100,0},{-40,0}}, color={0,130,175}));
+    connect(motor.airgap, rotor.rotor)
+      annotation (Line(points={{-30,6},{10,6}}, color={0,0,0}));
+    connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
+            {0,100}}, color={176,0,0}));
+    connect(excitation.termVoltage, termVoltage) annotation (Line(points={{-66,
+            40},{-66,60},{-60,60},{-60,100}}, color={0,0,127}));
     annotation (defaultComponentName = "sm_el",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -215,43 +228,21 @@ Documentation(info="<html>
 <p>Complete SM drive with electrically excited motor.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
-      Icon(
-      Line(points=[-90,-10; -60,-10], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=67,
-          rgbfillColor={85,255,255},
-          fillPattern=1)),
-      Line(points=[-90,10; -60,10], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=67,
-          rgbfillColor={85,255,255},
-          fillPattern=1)),
-  Text(
-    extent=[-60,20; 80,-20],
-    style(color=10),
-          string="syn")),
-      Diagram);
-
-  equation
-    connect(fieldVoltage, excitation.fieldVoltage)
-                                                  annotation (points=[60,100;
-          60,60; -54,60; -54,40],
-                               style(color=74, rgbcolor={0,0,127}));
-    connect(excitation.term, motor.term) annotation (points=[-70,30; -80,30;
-          -80,0; -40,0],
-                     style(color=70, rgbcolor={0,130,175}));
-    connect(excitation.field, motor.field) annotation (points=[-70,26; -70,-4;
-          -40,-4],         style(color=3, rgbcolor={0,0,255}));
-    connect(term, motor.term)
-      annotation (points=[-100,0; -40,0], style(color=70, rgbcolor={0,130,175}));
-    connect(motor.airgap, rotor.rotor)
-      annotation (points=[-30,6; 10,6], style(color=0, rgbcolor={0,0,0}));
-    connect(motor.heat, heat) annotation (points=[-30,10; -30,40; 0,40; 0,100],
-        style(color=42, rgbcolor={176,0,0}));
-    connect(excitation.termVoltage, termVoltage) annotation (points=[-66,40;
-          -66,60; -60,60; -60,100], style(color=74, rgbcolor={0,0,127}));
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Line(points={{-90,-10},{-60,-10}}, color={0,0,255}),
+          Line(points={{-90,10},{-60,10}}, color={0,0,255}),
+          Text(
+            extent={{-60,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "syn")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end SM_el;
 
   model SM_ctrl "Synchronous machine, current-control"
@@ -261,27 +252,45 @@ Documentation(info="<html>
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase_ctrl(heat_adapt(final m={2,inverter.heat.m}));
     replaceable ACabc.Inverters.InverterAverage inverter
-      extends ACabc.Inverters.Partials.AC_DC_base
-      "inverter (average or modulated)"           annotation (extent=[-80,-10; -60,10], choices(
+      constrainedby ACabc.Inverters.Partials.AC_DC_base
+      "inverter (average or modulated)"           annotation (                          choices(
       choice(redeclare Spot.ACabc.Inverters.InverterAverage inverter
             "inverter time-average"),
       choice(redeclare Spot.ACabc.Inverters.Inverter inverter
-            "inverter with modulator")));
+            "inverter with modulator")), Placement(transformation(extent={{-80,
+              -10},{-60,10}}, rotation=0)));
     replaceable ACabc.Machines.Synchron3rd_ctrl motor(
       final w_el_ini=rpm_ini*Base.Types.rpm2w*motor.par.pp)
       "syn motor, current controlled"
-      annotation (extent=[-40,-10; -20,10],choices(
+      annotation (                         choices(
       choice(redeclare Spot.ACabc.Machines.Synchron3rd_ctrl motor
             "synchron 3rd order"),
       choice(redeclare Spot.ACabc.Machines.Synchron_ctrl motor
-            "synchron general")));
+            "synchron general")), Placement(transformation(extent={{-40,-10},{
+              -20,10}}, rotation=0)));
 
+
+  equation
+    connect(motor.airgap, rotor.rotor)
+      annotation (Line(points={{-30,6},{10,6}}, color={0,0,0}));
+    connect(term, inverter.DC)
+      annotation (Line(points={{-100,0},{-80,0}}, color={0,0,255}));
+    connect(inverter.AC, motor.term)
+      annotation (Line(points={{-60,0},{-40,0}}, color={0,130,175}));
+    connect(motor.heat, heat_adapt.port_a) annotation (Line(points={{-30,10},{
+            -30,54},{4,54},{4,64}}, color={176,0,0}));
+    connect(inverter.heat, heat_adapt.port_b) annotation (Line(points={{-70,10},
+            {-70,64},{-4,64}}, color={176,0,0}));
+    connect(motor.phiRotor, inverter.theta)   annotation (Line(points={{-20,10},
+            {-16,10},{-16,20},{-84,20},{-84,10},{-76,10}}, color={0,0,127}));
+    connect(motor.uPhasor, inverter.uPhasor)
+      annotation (Line(points={{-40,10},{-64,10}}, color={0,0,127}));
+    connect(motor.i_meas, i_meas)       annotation (Line(points={{-36,10},{-36,
+            40},{-60,40},{-60,100}}, color={0,0,127}));
+    connect(i_act, motor.i_act)       annotation (Line(points={{60,100},{60,40},
+            {-24,40},{-24,10}}, color={0,0,127}));
     annotation (
       defaultComponentName="sm_ctrl",
-  Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
   Window(
       x=0.45,
       y=0.01,
@@ -292,113 +301,106 @@ Documentation(info="<html>
 <p>Complete SM drive with inverter and motor for field oriented current control.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
-  Icon(
-    Rectangle(extent=[-60,30; 80,26],   style(
-        color=42,
-        rgbcolor={176,0,0},
-        fillColor=42,
-        rgbfillColor={176,0,0},
-        fillPattern=1)),
-    Rectangle(extent=[-60,-26; 80,-30], style(
-        color=42,
-        rgbcolor={176,0,0},
-        fillColor=42,
-        rgbfillColor={176,0,0},
-        fillPattern=1)),
-  Text(
-    extent=[-60,20; 80,-20],
-    style(color=10),
-          string="syn")),
-  Diagram);
-
-  equation
-    connect(motor.airgap, rotor.rotor)
-      annotation (points=[-30,6; 10,6], style(color=0, rgbcolor={0,0,0}));
-    connect(term, inverter.DC)
-      annotation (points=[-100,0; -80,0], style(color=3, rgbcolor={0,0,255}));
-    connect(inverter.AC, motor.term)
-      annotation (points=[-60,0; -40,0], style(color=70, rgbcolor={0,130,175}));
-    connect(motor.heat, heat_adapt.port_a) annotation (points=[-30,10; -30,54;
-          4,54; 4,64],
-               style(color=42, rgbcolor={176,0,0}));
-    connect(inverter.heat, heat_adapt.port_b) annotation (points=[-70,10; -70,
-          64; -4,64],  style(color=42, rgbcolor={176,0,0}));
-    connect(motor.phiRotor, inverter.theta)   annotation (points=[-20,10; -16,10;
-          -16,20; -84,20; -84,10; -76,10], style(color=74, rgbcolor={0,0,127}));
-    connect(motor.uPhasor, inverter.uPhasor)
-      annotation (points=[-40,10; -64,10], style(color=74, rgbcolor={0,0,127}));
-    connect(motor.i_meas, i_meas)       annotation (points=[-36,10; -36,40; -60,
-          40; -60,100], style(color=74, rgbcolor={0,0,127}));
-    connect(i_act, motor.i_act)       annotation (points=[60,100; 60,40; -24,40;
-          -24,10], style(color=74, rgbcolor={0,0,127}));
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-60,30},{80,26}},
+            lineColor={176,0,0},
+            fillColor={176,0,0},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-60,-26},{80,-30}},
+            lineColor={176,0,0},
+            fillColor={176,0,0},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-60,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "syn")}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end SM_ctrl;
 
   package Partials "Partial models"
   partial model DriveBase0 "AC drives base mechanical"
 
     Spot.Base.Interfaces.Rotation_n flange "mechanical flange"
-      annotation (extent=[90, -10; 110, 10]);
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+              =0)));
     replaceable Spot.Mechanics.Rotation.ElectricRotor rotor "machine rotor"
-                      annotation (extent=[0,-10; 20,10]);
+                      annotation (Placement(transformation(extent={{0,-10},{20,
+                10}}, rotation=0)));
     replaceable Spot.Mechanics.Rotation.NoGear gear "type of gear"
-      annotation (extent=[40,-10; 60,10],                                                                                    choices(
+      annotation (                                                                                                    choices(
         choice(redeclare Spot.Mechanics.Rotation.Joint gear "no gear"),
         choice(redeclare Spot.Mechanics.Rotation.GearNoMass gear
               "massless gear"),
-        choice(redeclare Spot.Mechanics.Rotation.Gear gear "massive gear")));
+        choice(redeclare Spot.Mechanics.Rotation.Gear gear "massive gear")),
+          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
     Spot.Base.Interfaces.ThermalV_n heat(m=2)
         "heat source port {stator, rotor}"
-      annotation (extent=[-10,90; 10,110], rotation=90);
+      annotation (Placement(transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=90)));
     protected
     outer Spot.System system;
+
+  equation
+    connect(rotor.flange_n, gear.flange_p)
+        annotation (Line(points={{20,0},{40,0}}, color={0,0,0}));
+    connect(gear.flange_n, flange)
+        annotation (Line(points={{60,0},{100,0}}, color={0,0,0}));
     annotation (
-  Coordsys(
-    extent=
-   [-100, -100; 100, 100],
-    grid=[2,2],
-    component=[40,40]),
-  Icon(
-    Rectangle(extent=[-90,80; 90,-80], style(
-        color=10,
-        rgbcolor={95,95,95},
-        fillColor=56,
-        rgbfillColor={184,189,116})),
-    Rectangle(
-      extent=[80,10; 100,-10],style(
-        color=0,
-        rgbcolor={0,0,0},
-        gradient=2,
-        fillColor=30,
-        rgbfillColor={235,235,235})),
-    Rectangle(extent=[-60,60; 80,40], style(
-        color=9,
-        rgbcolor={175,175,175},
-        fillColor=9,
-        rgbfillColor={175,175,175})),
-        Rectangle(extent=[-60,30; 80,-30], style(
-        color=0,
-        rgbcolor={0,0,0},
-        gradient=2,
-        fillColor=30,
-        rgbfillColor={215,215,215})),
-    Rectangle(extent=[-60,-40; 80,-60], style(
-        color=9,
-        rgbcolor={175,175,175},
-        fillColor=9,
-        rgbfillColor={175,175,175})),
-       Text(
-      extent=[-100,-90; 100,-130],
-      style(color=0),
-            string="%name"),          Rectangle(extent=[-60,40; 80,30], style(
-          color=47,
-          rgbcolor={255,170,85},
-          fillColor=47,
-          rgbfillColor={255,170,85})),Rectangle(extent=[-60,-30; 80,-40],
-          style(
-          color=47,
-          rgbcolor={255,170,85},
-          fillColor=47,
-          rgbfillColor={255,170,85}))),
+  Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Rectangle(
+              extent={{-90,80},{90,-80}},
+              lineColor={95,95,95},
+              fillColor={184,189,116},
+              fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{80,10},{100,-10}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={235,235,235}),
+            Rectangle(
+              extent={{-60,60},{80,40}},
+              lineColor={175,175,175},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{-60,30},{80,-30}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={215,215,215}),
+            Rectangle(
+              extent={{-60,-40},{80,-60}},
+              lineColor={175,175,175},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-100,-90},{100,-130}},
+              lineColor={0,0,0},
+              textString=
+                   "%name"),
+            Rectangle(
+              extent={{-60,40},{80,30}},
+              lineColor={255,170,85},
+              fillColor={255,170,85},
+              fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{-60,-30},{80,-40}},
+              lineColor={255,170,85},
+              fillColor={255,170,85},
+              fillPattern=FillPattern.Solid)}),
   Window(
     x=0.41,
         y=0.01,
@@ -406,93 +408,74 @@ Documentation(info="<html>
   0.6,
     height=
    0.6),
-  Diagram(Text(
-      extent=[-100,-60; 100,-80],
-      string=
-          "stator reaction torque- and friction-models may be added here",
-      style(
-        color=9,
-        rgbcolor={175,175,175},
-        fillColor=9,
-        rgbfillColor={175,175,175},
-        fillPattern=1))),
+  Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-100,-60},{100,-80}},
+              lineColor={175,175,175},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid,
+              textString=
+          "stator reaction torque- and friction-models may be added here")}),
   Documentation(info="<html>
 </html>"));
-
-  equation
-    connect(rotor.flange_n, gear.flange_p)
-        annotation (points=[20,0; 40,0], style(color=0, rgbcolor={0,0,0}));
-    connect(gear.flange_n, flange)
-        annotation (points=[60,0; 100,0], style(color=0, rgbcolor={0,0,0}));
   end DriveBase0;
     extends Base.Icons.Partials;
 
-    annotation (
-          Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]), Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
 
   partial model DriveBase "AC drives base"
     extends DriveBase0;
 
     Spot.Base.Interfaces.ACabc_p term "electric terminal"
-                            annotation (extent=[-110, -10; -90, 10]);
+                            annotation (Placement(transformation(extent={{-110,
+                -10},{-90,10}}, rotation=0)));
 
     annotation (
-  Coordsys(
-    extent=
-   [-100, -100; 100, 100],
-    grid=[2,2],
-    component=[40,40]),
-  Icon(
-    Rectangle(extent=[-90,80; 90,-80], style(
-        color=10,
-        rgbcolor={95,95,95},
-        fillColor=56,
-        rgbfillColor={184,189,116})),
-    Rectangle(
-      extent=[80,10; 100,-10],style(
-        color=0,
-        rgbcolor={0,0,0},
-        gradient=2,
-        fillColor=30,
-        rgbfillColor={235,235,235})),
-    Rectangle(extent=[-60,60; 80,40], style(
-        color=9,
-        rgbcolor={175,175,175},
-        fillColor=9,
-        rgbfillColor={175,175,175})),
-        Rectangle(extent=[-60,30; 80,-30], style(
-        color=0,
-        rgbcolor={0,0,0},
-        gradient=2,
-        fillColor=30,
-        rgbfillColor={215,215,215})),
-    Rectangle(extent=[-60,-40; 80,-60], style(
-        color=9,
-        rgbcolor={175,175,175},
-        fillColor=9,
-        rgbfillColor={175,175,175})),
-       Text(
-      extent=[-100,-90; 100,-130],
-      style(color=0),
-            string="%name"),          Rectangle(extent=[-60,40; 80,30], style(
-          color=47,
-          rgbcolor={255,170,85},
-          fillColor=47,
-          rgbfillColor={255,170,85})),Rectangle(extent=[-60,-30; 80,-40],
-          style(
-          color=47,
-          rgbcolor={255,170,85},
-          fillColor=47,
-          rgbfillColor={255,170,85}))),
+  Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Rectangle(
+              extent={{-90,80},{90,-80}},
+              lineColor={95,95,95},
+              fillColor={184,189,116},
+              fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{80,10},{100,-10}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={235,235,235}),
+            Rectangle(
+              extent={{-60,60},{80,40}},
+              lineColor={175,175,175},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{-60,30},{80,-30}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={215,215,215}),
+            Rectangle(
+              extent={{-60,-40},{80,-60}},
+              lineColor={175,175,175},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-100,-90},{100,-130}},
+              lineColor={0,0,0},
+              textString=
+                   "%name"),
+            Rectangle(
+              extent={{-60,40},{80,30}},
+              lineColor={255,170,85},
+              fillColor={255,170,85},
+              fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{-60,-30},{80,-40}},
+              lineColor={255,170,85},
+              fillColor={255,170,85},
+              fillPattern=FillPattern.Solid)}),
   Window(
     x=0.41,
         y=0.01,
@@ -500,16 +483,16 @@ Documentation(info="<html>
   0.6,
     height=
    0.6),
-  Diagram(Text(
-      extent=[-100,-60; 100,-80],
-      string=
-          "stator reaction torque- and friction-models may be added here",
-      style(
-        color=9,
-        rgbcolor={175,175,175},
-        fillColor=9,
-        rgbfillColor={175,175,175},
-        fillPattern=1))),
+  Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-100,-60},{100,-80}},
+              lineColor={175,175,175},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid,
+              textString=
+          "stator reaction torque- and friction-models may be added here")}),
   Documentation(info="<html>
 </html>"));
 
@@ -523,22 +506,26 @@ Documentation(info="<html>
         "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     Spot.Base.Interfaces.ElectricV_p term(final m=2) "electric terminal DC"
-                            annotation (extent=[-110, -10; -90, 10]);
-    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(redeclare type SignalType
-          =
-          SIpu.Current, final unit="pu") "measured current {i_d, i_q} pu"
-      annotation (extent=[-70,90; -50,110],  rotation=90);
-    Modelica.Blocks.Interfaces.RealInput[2] i_act(redeclare type SignalType =
-          SIpu.Current, final unit="pu") "actuated current {i_d, i_q} pu"
-      annotation (extent=[50,110; 70,90],    rotation=90);
+                            annotation (Placement(transformation(extent={{-110,
+                -10},{-90,10}}, rotation=0)));
+      Modelica.Blocks.Interfaces.RealOutput[2] i_meas(final unit="pu")
+        "measured current {i_d, i_q} pu" annotation (Placement(transformation(
+            origin={-60,100},
+            extent={{-10,-10},{10,10}},
+            rotation=90)));
+      Modelica.Blocks.Interfaces.RealInput[2] i_act(final unit="pu")
+        "actuated current {i_d, i_q} pu" annotation (Placement(transformation(
+            origin={60,100},
+            extent={{10,-10},{-10,10}},
+            rotation=90)));
     protected
-    Common.Thermal.HeatV_a_b_ab heat_adapt annotation (extent=[10,60; -10,80]);
+    Common.Thermal.HeatV_a_b_ab heat_adapt annotation (Placement(transformation(
+              extent={{10,60},{-10,80}}, rotation=0)));
 
+  equation
+    connect(heat_adapt.port_ab, heat)
+      annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
     Window(
         x=0.45,
         y=0.01,
@@ -547,16 +534,37 @@ Documentation(info="<html>
     Documentation(
             info="<html>
 </html>"),
-    Icon(
-        Rectangle(extent=[-90,112; 90,88], style(
-            color=74,
-            rgbcolor={0,0,127},
-            fillColor=68,
-            rgbfillColor={170,213,255}))),
-    Diagram);
-  equation
-    connect(heat_adapt.port_ab, heat)
-      annotation (points=[0,76; 0,100], style(color=42, rgbcolor={176,0,0}));
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-90,112},{90,88}},
+              lineColor={0,0,127},
+              fillColor={170,213,255},
+              fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
   end DriveBase_ctrl;
+    annotation (       Window(
+  x=0.05,
+  y=0.44,
+  width=0.31,
+  height=0.23,
+  library=1,
+  autolayout=1));
   end Partials;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Contains both electrical and mechanical parts of AC-drives, abc-representation.</p>
+<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
+</html>"));
 end DrivesACabc;

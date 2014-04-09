@@ -1,40 +1,19 @@
 within Spot.AC1_DC;
 
+
 package Faults "Line-faults "
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p> Contains faults (shorts) conductor to conductor and conductor to ground.</p>
-<p> Terminology:</p>
-<p><tt><b>Fault_*</b></tt>, example: <tt><b>Fault_Ab</b></tt>:</p>
-<p><tt>A B</tt> denote a conductor with (additional) fault to ground,<br>
-<tt>a b</tt> denote a conductor with no fault to ground</p>
-<p>(The notation <tt>_pp</tt> ('phase-to-phase'), <tt>_pg</tt> ('phase-to-ground') etc is chosen in analogy to three-phase faults.)</p>
-</html>
-"), Icon);
 
   model Short_ABC "a, b, c to ground short, 3-phase abc"
     extends Partials.FaultBase;
 
     Real[2] s;
+
+  equation
+    {v,i} = if on then {epsR*s,s} else {s,epsG*s};
     annotation (
       defaultComponentName="short_ABC",
-    Coordsys(
-  extent=[-100,-100; 100,100],
-  grid=[2,2],
-  component=[40,40]),
     Window(
   x=0.45,
   y=0.01,
@@ -46,42 +25,40 @@ Documentation(info="<html>
 <p>This all-phase short to ground acts directly on the non-transformed variables v and i.<br>
 The transformation to inertial abc is only needed to determine the correct phase-angle.</p>
 </html>
-"), Icon(
-  Ellipse(extent=[-30,60; -10,40], style(
-    color=0,
-    rgbcolor={0,0,0},
-    fillColor=1,
-    rgbfillColor={255,0,0})),
-  Ellipse(extent=[-30,20; -10,0], style(
-    color=0,
-    rgbcolor={0,0,0},
-    fillColor=1,
-    rgbfillColor={255,0,0})),
-  Ellipse(extent=[-30,-20; -10,-40], style(
-    color=0,
-    rgbcolor={0,0,0},
-    fillColor=1,
-    rgbfillColor={255,0,0})),
-    Rectangle(
-      extent=[-40,-70; 0,-80], style(
-        color=0,
-        rgbcolor={0,0,0},
-        fillColor=1,
-        rgbfillColor={255,0,0}))),
-    Diagram);
-
-  equation
-    {v,i} = if on then {epsR*s,s} else {s,epsG*s};
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Ellipse(
+            extent={{-30,60},{-10,40}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-30,20},{-10,0}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-30,-20},{-10,-40}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-40,-70},{0,-80}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Short_ABC;
 
   model Fault_ab "a to b fault, 1-phase"
     extends Partials.Fault_pp;
 
     annotation (defaultComponentName = "fault_ab",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -91,27 +68,24 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(
-  Ellipse(extent=[-30,50; -10,30],   style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0})),
-  Ellipse(extent=[-30,-10; -10,-30], style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0}))));
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Ellipse(
+            extent={{-30,50},{-10,30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid), Ellipse(
+            extent={{-30,-10},{-10,-30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}));
   end Fault_ab;
 
   model Fault_A "a to ground fault, 1-phase"
     extends Partials.Fault_pg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_A",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -121,28 +95,24 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(
-  Ellipse(extent=[-30,-10; -10,-30],
-                                   style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=61,
-            rgbfillColor={0,255,128})),
-  Ellipse(extent=[-30,50; -10,30],   style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0}))));
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Ellipse(
+            extent={{-30,-10},{-10,-30}},
+            lineColor={0,0,0},
+            fillColor={0,255,128},
+            fillPattern=FillPattern.Solid), Ellipse(
+            extent={{-30,50},{-10,30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}));
   end Fault_A;
 
   model Fault_B "b to ground fault, 1-phase"
     extends Partials.Fault_pg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_B",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -152,27 +122,24 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(
-  Ellipse(extent=[-30,50; -10,30], style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=61,
-            rgbfillColor={0,255,128})),
-  Ellipse(extent=[-30,-10; -10,-30], style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0}))));
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Ellipse(
+            extent={{-30,50},{-10,30}},
+            lineColor={0,0,0},
+            fillColor={0,255,128},
+            fillPattern=FillPattern.Solid), Ellipse(
+            extent={{-30,-10},{-10,-30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}));
   end Fault_B;
 
   model Fault_Ab "b to a to ground fault, 1-phase"
     extends Partials.Fault_ppg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_Ab",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -182,27 +149,24 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(
-  Ellipse(extent=[-30,-10; -10,-30], style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0})),
-  Ellipse(extent=[-30,50; -10,30],   style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0}))));
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Ellipse(
+            extent={{-30,-10},{-10,-30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid), Ellipse(
+            extent={{-30,50},{-10,30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}));
   end Fault_Ab;
 
   model Fault_aB "a to b to ground fault, 1-phase"
     extends Partials.Fault_ppg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_aB",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -212,17 +176,18 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(
-  Ellipse(extent=[-30,-10; -10,-30], style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0})),
-  Ellipse(extent=[-30,50; -10,30],   style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0}))));
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Ellipse(
+            extent={{-30,-10},{-10,-30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid), Ellipse(
+            extent={{-30,50},{-10,30}},
+            lineColor={0,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}));
   end Fault_aB;
 
   package Partials "Partial models"
@@ -245,14 +210,18 @@ The transformation to inertial abc is only needed to determine the correct phase
       discrete SI.Angle t_zero(start=Modelica.Constants.inf, fixed=true);
       Boolean v_pos(start=true, fixed=true);
       Boolean first(start=true, fixed=true);
+
+    equation
+      v = term.pin.v;
+      term.pin.i = i;
+
+      v_pos = v[1] - v[2] > 0;
+      when time > t_on and edge(v_pos) and pre(first) then
+        t_zero = time;
+        first = false;
+      end when;
+      on = time > pre(t_zero) + phi_on/(360*f);
       annotation (
-        Coordsys(
-          extent=
-         [-100, -100; 100, 100],
-          grid=
-       [2, 2],
-          component=
-            [20, 20]),
         Window(
           x=
     0.45, y=
@@ -267,30 +236,21 @@ The transformation to inertial abc is only needed to determine the correct phase
 - lower case p, n:     shorted conductor to conductor<br>
 - upper case P, N:     shorted conductor to ground</p>
 </html>"),
-        Diagram,
-        Icon(
-          Rectangle(
-            extent=[-40,80; 40,-80], style(
-              color=3,
-              rgbcolor={0,0,255},
-              gradient=0,
-              fillColor=9,
-              rgbfillColor={175,175,175},
-              fillPattern=1)),
-          Line(
-       points=[38,78; 2,-12; 38,12; 2,-78],    style(color=6, thickness=
-         2))));
-
-    equation
-      v = term.pin.v;
-      term.pin.i = i;
-
-      v_pos = v[1] - v[2] > 0;
-      when time > t_on and edge(v_pos) and pre(first) then
-        t_zero = time;
-        first = false;
-      end when;
-      on = time > pre(t_zero) + phi_on/(360*f);
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-40,80},{40,-80}},
+              lineColor={0,0,0},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid), Line(
+              points={{38,78},{2,-12},{38,12},{2,-78}},
+              color={255,255,0},
+              thickness=0.5)}));
     end FaultBase;
 
     partial model Fault_pp "Conductor to conductor fault, 1-phase"
@@ -301,20 +261,17 @@ The transformation to inertial abc is only needed to determine the correct phase
         final i=i[1],
         final on=on,
         final epsR=epsR,
-        final epsG=epsG) "fault model" annotation (extent=[-20,-20; 20,20], choices(
+        final epsG=epsG) "fault model" annotation (                         choices(
            choice(redeclare Spot.Common.Switching.Short fault_pp
               "short with small resistance"),
            choice(redeclare Spot.Common.Switching.Fault fault_pp
-              "fault with arc-model")));
+              "fault with arc-model")), Placement(transformation(extent={{-20,
+                -20},{20,20}}, rotation=0)));
     //  extends Common.Switching.Partials.FaultBase
+
+    equation
+      sum(i) = epsG*sum(v);
       annotation (
-        Coordsys(
-          extent=
-         [-100, -100; 100, 100],
-          grid=
-       [2, 2],
-          component=
-            [40, 40]),
         Window(
           x=
     0.45, y=
@@ -325,16 +282,14 @@ The transformation to inertial abc is only needed to determine the correct phase
         Documentation(
               info="<html>
 </html>
-"),     Icon(
-     Rectangle(extent=[-40,-70; 0,-80], style(
-              color=0,
-              rgbcolor={0,0,0},
-              fillColor=61,
-              rgbfillColor={0,255,128},
-              fillPattern=1))));
-
-    equation
-      sum(i) = epsG*sum(v);
+"),     Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-40,-70},{0,-80}},
+              lineColor={0,0,0},
+              fillColor={0,255,128},
+              fillPattern=FillPattern.Solid)}));
     end Fault_pp;
 
     partial model Fault_pg "Conductor to ground fault, 1-phase"
@@ -348,24 +303,20 @@ The transformation to inertial abc is only needed to determine the correct phase
         final i=i[n_ph],
         final on=on,
         final epsR=epsR,
-        final epsG=epsG) "fault model" annotation (extent=[-20,-20; 20,20], choices(
+        final epsG=epsG) "fault model" annotation (                         choices(
            choice(redeclare Spot.Common.Switching.Short fault_pg
               "short with small resistance"),
            choice(redeclare Spot.Common.Switching.Fault fault_pg
-              "fault with arc-model")));
+              "fault with arc-model")), Placement(transformation(extent={{-20,
+                -20},{20,20}}, rotation=0)));
     //  extends Common.Switching.Partials.FaultBase
-           annotation (extent=[-20,-20; 20,20]);
 
     protected
       final parameter Integer m_ph=pair[n_ph];
-      annotation (
-        Coordsys(
-          extent=
-         [-100, -100; 100, 100],
-          grid=
-       [2, 2],
-          component=
-            [40, 40]),
+
+    equation
+      i[m_ph] = epsG*v[m_ph];
+           annotation (extent=[-20,-20; 20,20],
         Window(
           x=
     0.45, y=
@@ -376,29 +327,17 @@ The transformation to inertial abc is only needed to determine the correct phase
         Documentation(
               info="<html>
 </html>
-"),     Icon(
-     Rectangle(extent=[-40,-70; 0,-80], style(
-              color=0,
-              rgbcolor={0,0,0},
-              fillColor=1,
-              rgbfillColor={255,0,0},
-              fillPattern=1))));
-
-    equation
-      i[m_ph] = epsG*v[m_ph];
+"),     Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-40,-70},{0,-80}},
+              lineColor={0,0,0},
+              fillColor={255,0,0},
+              fillPattern=FillPattern.Solid)}),
+        Placement(transformation(extent={{-20,-20},{20,20}}, rotation=0)));
     end Fault_pg;
 
-    annotation (
-          Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]), Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
     partial model Fault_ppg "Conductor to conductor to ground fault, 1-phase"
       extends FaultBase;
 
@@ -410,33 +349,28 @@ The transformation to inertial abc is only needed to determine the correct phase
         final i=i[m_ph],
         final on=on,
         final epsR=epsR,
-        final epsG=epsG) "fault model" annotation (extent=[-60,-20; -20,20], choices(
+        final epsG=epsG) "fault model" annotation (                          choices(
            choice(redeclare Spot.Common.Switching.Short fault_pp
               "short with small resistance"),
            choice(redeclare Spot.Common.Switching.Fault fault_pp
-              "fault with arc-model")));
+              "fault with arc-model")), Placement(transformation(extent={{-60,
+                -20},{-20,20}}, rotation=0)));
     //  extends Common.Switching.Partials.FaultBase
       replaceable Common.Switching.Short fault_pg(
         final v=v[n_ph],
         final i=sum(i),
         final on=on,
         final epsR=epsR,
-        final epsG=epsG) "fault model" annotation (extent=[20,-20; 60,20], choices(
+        final epsG=epsG) "fault model" annotation (                        choices(
            choice(redeclare Spot.Common.Switching.Short fault_pg
               "short with small resistance"),
            choice(redeclare Spot.Common.Switching.Fault fault_pg
-              "fault with arc-model")));
+              "fault with arc-model")), Placement(transformation(extent={{20,
+                -20},{60,20}}, rotation=0)));
     //  extends Common.Switching.Partials.FaultBase
     protected
       final parameter Integer m_ph=pair[n_ph];
       annotation (
-        Coordsys(
-          extent=
-         [-100, -100; 100, 100],
-          grid=
-       [2, 2],
-          component=
-            [40, 40]),
         Window(
           x=
     0.45, y=
@@ -447,16 +381,44 @@ The transformation to inertial abc is only needed to determine the correct phase
         Documentation(
               info="<html>
 </html>
-"),     Icon(
-     Rectangle(extent=[-40,-70; 0,-80], style(
-              color=0,
-              rgbcolor={0,0,0},
-              fillColor=1,
-              rgbfillColor={255,0,0},
-              fillPattern=1))));
+"),     Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-40,-70},{0,-80}},
+              lineColor={0,0,0},
+              fillColor={255,0,0},
+              fillPattern=FillPattern.Solid)}));
 
     end Fault_ppg;
 
+    annotation (       Window(
+  x=0.05,
+  y=0.44,
+  width=0.31,
+  height=0.23,
+  library=1,
+  autolayout=1));
   end Partials;
 
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p> Contains faults (shorts) conductor to conductor and conductor to ground.</p>
+<p> Terminology:</p>
+<p><tt><b>Fault_*</b></tt>, example: <tt><b>Fault_Ab</b></tt>:</p>
+<p><tt>A B</tt> denote a conductor with (additional) fault to ground,<br>
+<tt>a b</tt> denote a conductor with no fault to ground</p>
+<p>(The notation <tt>_pp</tt> ('phase-to-phase'), <tt>_pg</tt> ('phase-to-ground') etc is chosen in analogy to three-phase faults.)</p>
+</html>
+"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Faults;

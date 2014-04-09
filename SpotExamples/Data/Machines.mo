@@ -2,10 +2,6 @@ within SpotExamples.Data;
 package Machines "Machine example data"
   extends Spot.Base.Icons.SpecialLibrary;
 
-  annotation (preferedView="info",
-Documentation(info="<html>
-<p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define voltage start values.</p>
-</html>"));
 
 record DCser1500V_1p5MVA "DC machine series excited, example"
   extends Spot.Base.Icons.Record;
@@ -833,4 +829,8 @@ record SynchronIso20kV_500MVA
 "), Icon,
     Diagram);
 end SynchronIso20kV_500MVA;
+  annotation (preferedView="info",
+Documentation(info="<html>
+<p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define voltage start values.</p>
+</html>"));
 end Machines;

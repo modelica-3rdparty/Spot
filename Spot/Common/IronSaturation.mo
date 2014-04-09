@@ -2,22 +2,6 @@ within Spot.Common;
 package IronSaturation "Iron saturation properties"
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Iron saturation function and table.</p>
-</html>
-"), Icon);
   function saturationAnalytic "Analytic iron saturation function"
     extends Base.Icons.Function;
 
@@ -25,11 +9,12 @@ Documentation(info="<html>
     input Real[3] c;
     output Real[size(psi0,1)] psi
       "n=0: saturated flux, n=1: derivative d_psi/d_psi0";
+
+  algorithm
+    for k in 1:size(psi0,1) loop
+    psi[k] := (c[1]/c[2])*tanh(c[2]*psi0[k]) + c[3]*psi0[k];
+    end for;
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -58,12 +43,10 @@ in the following way
   c[3] = xratio
 </pre></p>
 </html>
-"),   Icon);
-
-  algorithm
-    for k in 1:size(psi0,1) loop
-    psi[k] := (c[1]/c[2])*tanh(c[2]*psi0[k]) + c[3]*psi0[k];
-    end for;
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end saturationAnalytic;
 
   function der_saturationAnalytic
@@ -73,11 +56,12 @@ in the following way
     input Real[:] psi0 "unsaturated flux pu";
     input Real[3] c;
     output Real[size(psi0,1)] der_psi "derivative d_psi/d_psi0";
+
+  algorithm
+    for k in 1:size(psi0,1) loop
+    der_psi[k] := c[1]/(cosh(c[2]*psi0[k]))^2 + c[3];
+    end for;
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -107,12 +91,10 @@ in the following way
   c[3] = xratio
 </pre></p>
 </html>"),
-      Icon);
-
-  algorithm
-    for k in 1:size(psi0,1) loop
-    der_psi[k] := c[1]/(cosh(c[2]*psi0[k]))^2 + c[3];
-    end for;
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end der_saturationAnalytic;
 
   record SaturationTab "Saturating flux table"
@@ -228,10 +210,6 @@ in the following way
     5.0500000e+000,  1.5005000e+000,  6.0837891e-003];
 
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[40, 40]),
       Window(
   x=0.45,
   y=0.01,
@@ -247,6 +225,24 @@ in the following way
   der_psi = y[2]
 </pre></p>
 </html>
-"),   Icon);
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end SaturationTab;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Iron saturation function and table.</p>
+</html>
+"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end IronSaturation;

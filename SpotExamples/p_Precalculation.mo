@@ -1,42 +1,6 @@
 within SpotExamples;
 package p_Precalculation "Precalculation of machine matrices"
 extends Spot.Base.Icons.Examples;
-annotation (preferedView="info",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.42,
-library=1,
-autolayout=1),
-    Documentation(info="<html>
-<p>These examples illustrate the connection between different ways of specifying a machine.<br>
-In particular they show the calculation of
-<ul>
-<li>impedance matrix from transient data</li>
-<li>impedance matrix from equivalent circuit</li>
-<li>transient data from equivalent circuit</li>
-<li>equivalent circuit from transient data</li>
-</ul>
-for transient order n = 1 to 3.</p>
-<p>The parameter values are chosen in such a way, that the circuit-data<br>
-(see 'Diagram layer' of the examples)
-<pre>  r_r[1:n], r_s} and {xsig_r[1:n], xsig_s}</pre>
-remain the same for d- and q-axis. This facilitates checking.</p>
-<p>For machines <b>with</b> field-winding (synchronous), d- and q-axis differ, if n > 1
-<pre>
-  xm[2:n] > 0, coupling terms exist in d-axis
-  xm[2:n] = 0, no coupling terms in q-axis
-</pre>
-whereas for machines <b>without</b> field-winding (asynchronous), the q-axis diagram is valid for both axes d and q.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"),
-  Icon);
 
 model Z_matrixTrDat0 "z-matrix from transient data, n=1, 0"
 
@@ -3539,4 +3503,40 @@ algorithm
           string="xsig_rq1")));
 end EqCircFromTransDat;
 
+annotation (preferedView="info",
+    Coordsys(
+extent=[-100, -100; 100, 100],
+grid=[2, 2],
+component=[20, 20]),
+    Window(
+x=0.05,
+y=0.41,
+width=0.4,
+height=0.42,
+library=1,
+autolayout=1),
+    Documentation(info="<html>
+<p>These examples illustrate the connection between different ways of specifying a machine.<br>
+In particular they show the calculation of
+<ul>
+<li>impedance matrix from transient data</li>
+<li>impedance matrix from equivalent circuit</li>
+<li>transient data from equivalent circuit</li>
+<li>equivalent circuit from transient data</li>
+</ul>
+for transient order n = 1 to 3.</p>
+<p>The parameter values are chosen in such a way, that the circuit-data<br>
+(see 'Diagram layer' of the examples)
+<pre>  r_r[1:n], r_s} and {xsig_r[1:n], xsig_s}</pre>
+remain the same for d- and q-axis. This facilitates checking.</p>
+<p>For machines <b>with</b> field-winding (synchronous), d- and q-axis differ, if n > 1
+<pre>
+  xm[2:n] > 0, coupling terms exist in d-axis
+  xm[2:n] = 0, no coupling terms in q-axis
+</pre>
+whereas for machines <b>without</b> field-winding (asynchronous), the q-axis diagram is valid for both axes d and q.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+"),
+  Icon);
 end p_Precalculation;

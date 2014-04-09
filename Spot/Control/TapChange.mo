@@ -3,10 +3,6 @@ package TapChange "Tap changers"
   extends Base.Icons.Library;
 
   annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
 Window(
   x=0.05,
   y=0.41,
@@ -23,6 +19,9 @@ Documentation(info="<html>
 <p>the tap-change-under-load controllers from the ObjectStab library.<br>
 (See ObjetStab.Network.Controllers).</p>
 </html>"),
-    Icon);
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 
 end TapChange;

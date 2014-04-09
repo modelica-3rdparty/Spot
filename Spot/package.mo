@@ -1,4 +1,4 @@
-within;
+within ;
 package Spot "Power-systems SPOT"
   extends Base.Icons.Library;
   import SI = Modelica.SIunits;
@@ -8,39 +8,9 @@ package Spot "Power-systems SPOT"
   import Spot.Base.TableDir;
 
 
-annotation (preferedView="info",
-  Window(
-    x=0.02,
-    y=0.01,
-    width=0.2,
-    height=0.57,
-    library=1,
-    autolayout=1),
-  version="0.706.1",
-  versionDate="2014-04-09",
-  preferedView="text",
-  Settings(NewStateSelection=true),
-  Documentation(info="<html>
-<h3><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT</font></h3>
-<p>The library is a Modelica package providing components to model<br>
-<b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
-<p>The Users Guide to the library is <a href=\"Spot.UsersGuide\"><b>here</b></a>.</p>
-<p>Copyright &copy; 2004-2007, H.J. Wiesmann.</p>
-<p><i>The Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b>
-<a href=\"Modelica://Modelica.UsersGuide.ModelicaLicense\">here</a>.</i></p>
-</html>"),
-  uses(Modelica(version="2.2.2")));
-
 
 package UsersGuide "Users Guide"
 
-  annotation (DocumentationClass=true, Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Users Guide to the Modelica Power Systems Library SPOT</font></h3>
-<p>The library is a Modelica package providing components to model
-<br><b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
-<p>This package contains the <b>users guide</b> to the library.</p>
-<p><a href=\"Spot\">up</a></p>
-</html>"));
 
   package Introduction "Introduction"
     class Concept "Concept"
@@ -630,20 +600,6 @@ Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
 
   class ReleaseNotes "Release notes"
 
-    annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Release Notes</font></h3>
-<h3><font color=\"#008000\">Actual version 0.705 (2007 May 1)</font></h3>
-<p>Releases:</p>
-<ul>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_706_1\">Version 0.706.1</a> (2014 April 9)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_705\">Version 0.705</a> (2007 May 1)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_606\">Version 0.606</a> (2006 June 26)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_605\">Version 0.605</a> (2006 May 01)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_506\">Version 0.506</a> (2005 June 01)</li>
-</ul>
-<p><a href=\"Spot.UsersGuide\">up</a></p>
-</html>"));
-
 
   class Version_0_706_1 "Version 0.706.1"
 
@@ -659,7 +615,6 @@ This version still uses the <em>Modelica Standard Library 2.2.2</em>.
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_706_1;
-
 
   class Version_0_705 "Version 0.705"
 
@@ -720,6 +675,19 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_506;
+    annotation (Documentation(info="<html>
+<h3><font color=\"#008000\" size=5>Release Notes</font></h3>
+<h3><font color=\"#008000\">Actual version 0.705 (2007 May 1)</font></h3>
+<p>Releases:</p>
+<ul>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_706_1\">Version 0.706.1</a> (2014 April 9)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_705\">Version 0.705</a> (2007 May 1)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_606\">Version 0.606</a> (2006 June 26)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_605\">Version 0.605</a> (2006 May 01)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_506\">Version 0.506</a> (2005 June 01)</li>
+</ul>
+<p><a href=\"Spot.UsersGuide\">up</a></p>
+</html>"));
   end ReleaseNotes;
 
   class Contact "Contact"
@@ -758,6 +726,13 @@ that the conditions under (1) are met.</li>
 <p><a href=\"Spot.UsersGuide\">up</a></p>
 </html>"));
   end ModelicaLicense;
+  annotation (DocumentationClass=true, Documentation(info="<html>
+<h3><font color=\"#008000\" size=5>Users Guide to the Modelica Power Systems Library SPOT</font></h3>
+<p>The library is a Modelica package providing components to model
+<br><b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
+<p>This package contains the <b>users guide</b> to the library.</p>
+<p><a href=\"Spot\">up</a></p>
+</html>"));
 end UsersGuide;
 
 
@@ -809,58 +784,81 @@ end UsersGuide;
     SI.AngularFrequency omega(final start=2*pi*f);
     Modelica.Blocks.Interfaces.RealInput omega_inp(min=0)
     "system ang frequency (optional, fType=sig)"
-      annotation (extent=[90,-10; 110,10],    rotation=-180);
+      annotation (Placement(transformation(
+        origin={100,0},
+        extent={{-10,-10},{10,10}},
+        rotation=180)));
     Spot.Base.Interfaces.Frequency receiveFreq
     "receives weighted frequencies from generators"
-     annotation (extent=[-96,64; -64,96]);
+     annotation (Placement(transformation(extent={{-96,64},{-64,96}}, rotation=
+            0)));
+
+  equation
+    when initial() then
+      initime = time;
+    end when;
+    if fType == Spot.Base.Types.par then
+      omega = 2*pi*f;
+    elseif fType == Spot.Base.Types.sig then
+      omega = omega_inp;
+    elseif fType == Spot.Base.Types.ave then
+      omega = if initial() then 2*pi*f else receiveFreq.H_w/receiveFreq.H;
+      when (omega < 2*pi*f_lim[1]) or (omega > 2*pi*f_lim[2]) then
+        terminate("FREQUENCY EXCEEDS BOUNDS!");
+      end when;
+    end if;
+    der(theta) = omega;
     annotation (
     preferedView="info",
     defaultComponentName="system",
     defaultComponentPrefixes="inner",
     missingInnerMessage="No \"system\" component is defined.
     Drag Spot.ACbase.System into the top level of your model.",
-    Coordsys(
-      extent=[-100, -100; 100, 100],
-      grid=[2, 2],
-      component=[20, 20]),
     Window(
       x=0.13,
       y=0.1,
       width=0.81,
       height=0.83),
-    Icon(
-        Rectangle(extent=[-100,100; 100,-100], style(
-          color=74,
-          rgbcolor={0,0,127},
-          arrow=1,
-          fillColor=7,
-          rgbfillColor={255,255,255})),
-        Rectangle(extent=[-100,100; 100,60], style(
-            color=74,
-            rgbcolor={0,0,127},
-            fillColor=74,
-            rgbfillColor={0,0,127})),
-        Text(extent=[-60,100; 100,60], string="%name",
-          style(
-            color=30,
-            rgbcolor={215,215,215})),
-        Text(extent=[-100,50; 100,20], string="f_nom=%f_nom",
-          style(
-            color=74,
-            rgbcolor={0,0,127})),
-        Text(extent=[-100,-20; 100,10],
-          style(
-            color=74,
-            rgbcolor={0,0,127}),
-        string="f:%fType"),
-        Text(extent=[-100,-30; 100,-60],
-        style(color=62, rgbcolor={0,120,120}),
-        string="%ref"),
-        Text(extent=[-100,-70; 100,-100], string="ini:%ini  sim:%sim",
-          style(
-            color=42,
-            rgbcolor={176,0,0}))),
-    Diagram,
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,100},{100,60}},
+          lineColor={0,0,127},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-60,100},{100,60}},
+          lineColor={215,215,215},
+          textString =                        "%name"),
+        Text(
+          extent={{-100,50},{100,20}},
+          lineColor={0,0,127},
+          textString =                        "f_nom=%f_nom"),
+        Text(
+          extent={{-100,-20},{100,10}},
+          lineColor={0,0,127},
+          textString=
+               "f:%fType"),
+        Text(
+          extent={{-100,-30},{100,-60}},
+          lineColor={0,120,120},
+          textString=
+               "%ref"),
+        Text(
+          extent={{-100,-70},{100,-100}},
+          lineColor={176,0,0},
+          textString =                           "ini:%ini  sim:%sim")}),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics),
     Documentation(info="<html>
 <p>The model <b>System</b> represents a global reference for the following purposes:</p>
 <p>It allows the choice of </p>
@@ -901,21 +899,28 @@ end UsersGuide;
 <p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
 <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
 </html>"));
-
-  equation
-    when initial() then
-      initime = time;
-    end when;
-    if fType == Spot.Base.Types.par then
-      omega = 2*pi*f;
-    elseif fType == Spot.Base.Types.sig then
-      omega = omega_inp;
-    elseif fType == Spot.Base.Types.ave then
-      omega = if initial() then 2*pi*f else receiveFreq.H_w/receiveFreq.H;
-      when (omega < 2*pi*f_lim[1]) or (omega > 2*pi*f_lim[2]) then
-        terminate("FREQUENCY EXCEEDS BOUNDS!");
-      end when;
-    end if;
-    der(theta) = omega;
   end System;
+
+annotation (preferedView="info",
+  Window(
+    x=0.02,
+    y=0.01,
+    width=0.2,
+    height=0.57,
+    library=1,
+    autolayout=1),
+  version="0.706.1",
+  versionDate="2014-04-09",
+  preferedView="text",
+  Settings(NewStateSelection=true),
+  Documentation(info="<html>
+<h3><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT</font></h3>
+<p>The library is a Modelica package providing components to model<br>
+<b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
+<p>The Users Guide to the library is <a href=\"Spot.UsersGuide\"><b>here</b></a>.</p>
+<p>Copyright &copy; 2004-2007, H.J. Wiesmann.</p>
+<p><i>The Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b>
+<a href=\"Modelica://Modelica.UsersGuide.ModelicaLicense\">here</a>.</i></p>
+</html>"),
+  uses(Modelica(version="3.2.1")));
 end Spot;

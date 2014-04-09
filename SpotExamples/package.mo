@@ -1,4 +1,4 @@
-within;
+within ;
 package SpotExamples "Spot examples"
   extends Spot.Base.Icons.Examples;
   import SI = Modelica.SIunits;
@@ -6,6 +6,7 @@ package SpotExamples "Spot examples"
   import Modelica.Constants.pi;
   import Spot.Base.Types.d2r;
   import Spot.Base.TableDir;
+
 
 annotation (preferedView="info",
 Coordsys(

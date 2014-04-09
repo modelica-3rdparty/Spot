@@ -1,14 +1,9 @@
 within Spot;
-
 package AC1_DC "AC 1-phase and DC components"
   extends Base.Icons.Library;
 
 
 annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
 Window(
   x=0.05,
   y=0.03,

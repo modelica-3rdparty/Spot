@@ -1,38 +1,6 @@
 within Spot.ACabc;
 package Sensors "Sensors and meters 3-phase"
   extends Base.Icons.Library;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Sensors output terminal signals (voltage, current, power) in a defined reference system chosen by the user.</p>
-<p>Meters allow choosing base-units for output variables.</p>
-<p><i>Comment on the sign-definition of reactive power:</i></p>
-<p>From a mathematical point of view, it would be desirable to define power in the following way:
-<pre>
-  p_active = v*i
-  p_reactive = (J*v)*i
-</pre>
-<p>with</p>
-<pre>  J = [0,-1,1; 1,0,-1; -1,1,0]/sqrt(3)</pre>
-<p>the rotation of pi/2 in the positive sense.</p>
-<p>This definition keeps all coordinate systems positively oriented.
-The power-vector then can be interpreted as current-vector, normalised by voltage and transformed into a positively oriented coordinate system, whose first axis is given by the voltage vector <tt>v</tt>, and second axis by <tt>J*v</tt>.</p>
-<p>From a practical point of view it is more convenient to use the inverse sign for reactive power, in order to obtain positive reactive power in the standard-situation of power-transfer
-across an inductive line.
-We adapt the sign-definition to this practical convention:</p>
-<pre>  p_reactive = -(J*v)*i</pre>
-</html>
-"), Icon);
 
   model VnormSensor "Voltage-norm sensor, 3-phase abc"
     extends Partials.Sensor1Base(final signalTrsf=0);
@@ -42,18 +10,19 @@ We adapt the sign-definition to this practical convention:</p>
       max=3) = 2 "abc-o  or abc norm" annotation(choices(
       choice=2 "2: abc - zero-component",
       choice=3 "3: abc"));
-    Modelica.Blocks.Interfaces.RealOutput v(redeclare type SignalType = SI.Voltage)
-      "voltage norm abc, phase-to-ground"
-    annotation (
-          extent=[-10, 90; 10, 110], rotation=90);
+    Modelica.Blocks.Interfaces.RealOutput v "voltage norm abc, phase-to-ground"
+      annotation (Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+
+  equation
+    if n_eval == 3 then
+      v = sqrt(term.v*term.v);
+    else
+      v = sqrt(term.v*term.v - sum(term.v)*sum(term.v)/3);
+    end if;
   annotation (defaultComponentName = "Vsensor1",
-    Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
     Window(
         x=
   0.45, y=
@@ -64,20 +33,18 @@ We adapt the sign-definition to this practical convention:</p>
     Documentation(
             info="<html>
 </html>
-"), Icon(
-   Rectangle(extent=[-20,24; 20,20], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175}))),
-    Diagram);
-
-  equation
-    if n_eval == 3 then
-      v = sqrt(term.v*term.v);
-    else
-      v = sqrt(term.v*term.v - sum(term.v)*sum(term.v)/3);
-    end if;
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Rectangle(
+            extent={{-20,24},{20,20}},
+            lineColor={135,135,135},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end VnormSensor;
 
   model InormSensor "Current-norm sensor, 3-phase abc"
@@ -88,17 +55,19 @@ We adapt the sign-definition to this practical convention:</p>
       max=3) = 2 "abc-o  or abc norm" annotation(choices(
       choice=2 "2: abc - zero-component",
       choice=3 "3: abc"));
-    Modelica.Blocks.Interfaces.RealOutput i(redeclare type SignalType = SI.Current)
-      "current norm abc, term_p to term_n"                                              annotation (
-          extent=[-10, 90; 10, 110], rotation=90);
+    Modelica.Blocks.Interfaces.RealOutput i
+      "current norm abc, term_p to term_n" annotation (Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+
+  equation
+    if n_eval == 3 then
+      i = sqrt(term_p.i*term_p.i);
+    else
+      i = sqrt(term_p.i*term_p.i - sum(term_p.i)*sum(term_p.i)/3);
+    end if;
   annotation (defaultComponentName = "Isensor1",
-    Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
     Window(
         x=
   0.45, y=
@@ -109,32 +78,36 @@ We adapt the sign-definition to this practical convention:</p>
     Documentation(
             info="<html>
 </html>
-"), Icon,
-    Diagram);
-
-  equation
-    if n_eval == 3 then
-      i = sqrt(term_p.i*term_p.i);
-    else
-      i = sqrt(term_p.i*term_p.i - sum(term_p.i)*sum(term_p.i)/3);
-    end if;
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end InormSensor;
 
   model Vsensor "Voltage sensor, 3-phase abc"
     extends Partials.Sensor1Base;
 
-    Modelica.Blocks.Interfaces.RealOutput[3] v(redeclare type SignalType = SI.Voltage)
-      "voltage abc, phase-to-ground"
-    annotation (
-          extent=[-10, 90; 10, 110], rotation=90);
+    Modelica.Blocks.Interfaces.RealOutput[3] v "voltage abc, phase-to-ground"
+      annotation (Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+
+  equation
+    if signalTrsf == 0 then
+      v = term.v; // actual
+    elseif signalTrsf == 1 then
+      v = park(term.theta[1])*term.v; // dqo
+    elseif signalTrsf == 2 then
+      v = transpose(park(term.theta[2]))*term.v; // alpha-beta_o
+    elseif signalTrsf == 3 then
+      v = rot_abc(term.theta[2])*term.v; // abc
+    end if;
   annotation (defaultComponentName = "Vsensor1",
-    Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
     Window(
         x=
   0.45, y=
@@ -152,61 +125,44 @@ We adapt the sign-definition to this practical convention:</p>
   signalTrsf=3     voltage in abc inertial frame
 </pre>
 </html>"),
-    Icon(
-   Rectangle(extent=[-20,24; 20,20], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-20,60; 20,80],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-20,50; 20,70],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-20,40; 20,60],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175}))),
-    Diagram);
-
-  equation
-    if signalTrsf == 0 then
-      v = term.v; // actual
-    elseif signalTrsf == 1 then
-      v = park(term.theta[1])*term.v; // dqo
-    elseif signalTrsf == 2 then
-      v = transpose(park(term.theta[2]))*term.v; // alpha-beta_o
-    elseif signalTrsf == 3 then
-      v = rot_abc(term.theta[2])*term.v; // abc
-    end if;
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-20,24},{20,20}},
+            lineColor={135,135,135},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-20,60},{20,80}}, color={135,135,135}),
+          Line(points={{-20,50},{20,70}}, color={135,135,135}),
+          Line(points={{-20,40},{20,60}}, color={135,135,135})}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Vsensor;
 
   model Isensor "Current sensor, 3-phase abc"
     extends Partials.Sensor2Base;
 
-    Modelica.Blocks.Interfaces.RealOutput[3] i(redeclare type SignalType = SI.Current)
-      "current abc, term_p to term_n"                                                   annotation (
-          extent=[-10, 90; 10, 110], rotation=90);
+    Modelica.Blocks.Interfaces.RealOutput[3] i "current abc, term_p to term_n"
+      annotation (Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+
+  equation
+     if signalTrsf == 0 then
+      i = term_p.i; // actual
+    elseif signalTrsf == 1 then
+      i = park(term_p.theta[1])*term_p.i; // dqo
+    elseif signalTrsf == 2 then
+      i = transpose(park(term_p.theta[2]))*term_p.i; // alpha-beta_o
+    elseif signalTrsf == 3 then
+      i = rot_abc(term_p.theta[2])*term_p.i; // abc
+    end if;
   annotation (defaultComponentName = "Isensor1",
-    Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
     Window(
         x=
   0.45, y=
@@ -224,59 +180,35 @@ We adapt the sign-definition to this practical convention:</p>
   signalTrsf=3     current in abc inertial frame
 </pre>
 </html>"),
-    Icon(
-      Line(
-   points=[-20,60; 20,80],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-20,50; 20,70],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-20,40; 20,60],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175}))),
-    Diagram);
-
-  equation
-     if signalTrsf == 0 then
-      i = term_p.i; // actual
-    elseif signalTrsf == 1 then
-      i = park(term_p.theta[1])*term_p.i; // dqo
-    elseif signalTrsf == 2 then
-      i = transpose(park(term_p.theta[2]))*term_p.i; // alpha-beta_o
-    elseif signalTrsf == 3 then
-      i = rot_abc(term_p.theta[2])*term_p.i; // abc
-    end if;
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Line(points={{-20,60},{20,80}}, color={135,135,135}),
+          Line(points={{-20,50},{20,70}}, color={135,135,135}),
+          Line(points={{-20,40},{20,60}}, color={135,135,135})}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Isensor;
 
   model Psensor "Power sensor, 3-phase abc"
     extends Partials.Sensor2Base(final signalTrsf=0);
 
-    Modelica.Blocks.Interfaces.RealOutput[3] p(redeclare type SignalType =
-          SI.Power) "{active, reactive, DC} power, term_p to term_n"
-    annotation (
-          extent=[-10, 90; 10, 110], rotation=90);
+    Modelica.Blocks.Interfaces.RealOutput[3] p
+      "{active, reactive, DC} power, term_p to term_n" annotation (Placement(
+          transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
   protected
     SIpu.Power pDC;
+
+  equation
+    pDC = sum(term_p.v)*sum(term_p.i)/3;
+    p = {term_p.v*term_p.i - pDC, -j_abc(term_p.v)*term_p.i, pDC};
   annotation (defaultComponentName = "Psensor1",
-    Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
     Window(
         x=
   0.45, y=
@@ -288,21 +220,21 @@ We adapt the sign-definition to this practical convention:</p>
             info="<html>
 <p><i>Comment on the sign-definition of reactive power see</i> ACabc.Sensors.</p>
 </html>"),
-    Icon(
-   Ellipse(extent=[-20,20; 20,-20], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-  Line(points=[0,0; 20,0], style(
-            color=70,
-            rgbcolor={0,130,175},
-            thickness=2))),
-    Diagram);
-
-  equation
-    pDC = sum(term_p.v)*sum(term_p.i)/3;
-    p = {term_p.v*term_p.i - pDC, -j_abc(term_p.v)*term_p.i, pDC};
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Ellipse(
+            extent={{-20,20},{20,-20}},
+            lineColor={135,135,135},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid), Line(
+            points={{0,0},{20,0}},
+            color={0,130,175},
+            thickness=0.5)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Psensor;
 
   model Vmeter "Voltage meter, 3-phase abc"
@@ -319,43 +251,28 @@ We adapt the sign-definition to this practical convention:</p>
     output SI.Angle alpha_v(stateSelect=StateSelect.never)=atan2(Park[2,:]*v, Park[1,:]*v) if phasor;
   protected
     final parameter SI.Voltage V_base=Base.Precalculation.baseV(units, V_nom);
+
+  equation
+    v = term.v/V_base;
+    vpp={v[2],v[3],v[1]} - {v[3],v[1],v[2]};
     annotation (defaultComponentName = "Vmeter1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[40, 40]),
       Window(
   x=0.45,
   y=0.01,
   width=0.44,
   height=0.65),
-      Icon(
-     Rectangle(extent=[-20, 24; 20, 20], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-15,50; 15,64],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-15,40; 15,54],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-15,30; 15,44],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175}))),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-20,24},{20,20}},
+            lineColor={135,135,135},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-15,50},{15,64}}, color={135,135,135}),
+          Line(points={{-15,40},{15,54}}, color={135,135,135}),
+          Line(points={{-15,30},{15,44}}, color={135,135,135})}),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals in alternative representations, both in SI-units or in 'pu'.<br>
@@ -373,11 +290,10 @@ As they use time-dependent coordinate transforms, use them only when and where n
   alpha_v   phase(v)
 </pre>
 </html>
-"),   Diagram);
-
-  equation
-    v = term.v/V_base;
-    vpp={v[2],v[3],v[1]} - {v[3],v[1],v[2]};
+"),   Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Vmeter;
 
   model Imeter "Current meter, 3-phase abc"
@@ -391,11 +307,10 @@ As they use time-dependent coordinate transforms, use them only when and where n
     output SI.Angle alpha_i(stateSelect=StateSelect.never)=atan2(Park[2,:]*i, Park[1,:]*i) if phasor;
   protected
     final parameter SI.Current I_base=Base.Precalculation.baseI(units, V_nom, S_nom);
+
+  equation
+    i = term_p.i/I_base;
     annotation (defaultComponentName = "Imeter1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -414,32 +329,14 @@ As they use time-dependent coordinate transforms, use them only when and where n
   alpha_i    phase(i)
 </pre>
 </html>
-"),   Icon(
-      Line(
-   points=[-15,50; 15,64],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-15,40; 15,54],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-15,30; 15,44],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175}))),
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Line(points={{-15,50},{15,64}}, color={135,135,135}),
+          Line(points={{-15,40},{15,54}}, color={135,135,135}),
+          Line(points={{-15,30},{15,44}}, color={135,135,135})}),
       DymolaStoredErrors);
-
-  equation
-    i = term_p.i/I_base;
   end Imeter;
 
   model Pmeter "Power meter, 3-phase abc"
@@ -456,38 +353,6 @@ As they use time-dependent coordinate transforms, use them only when and where n
     final parameter SI.ApparentPower S_base=Base.Precalculation.baseS(units, S_nom);
     SIpu.Power[3] pav;
     SIpu.Power pDC;
-    annotation (defaultComponentName = "Pmeter1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon(
-  Ellipse(extent=[-20,20; 20,-20], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-  Line(points=[0,0; 20,0], style(
-            color=70,
-            rgbcolor={0,130,175},
-            thickness=2)),
-           Ellipse(extent=[-70,70; 70,-70], style(color=10, rgbcolor={135,135,135}))),
-      Documentation(
-              info="<html>
-<p>'Meters' are intended as diagnostic instruments. They allow displaying signals in alternative representations, both in SI-units or in 'pu'.<br>
-Use them only when and where needed. Otherwise use 'Sensors'.</p>
-<p>Output variables:</p>
-<pre>  p         {AC active, AC reactive, DC} power term_p to term_n</pre>
-<p>Optional output variables:</p>
-<pre>  p_av       power term_p to term_n, time tau average of p</pre>
-<p><i>Comment on the sign-definition of reactive power see</i> ACdqo.Sensors.</p>
-</html>
-"),   Diagram);
 
   initial equation
     if av then
@@ -502,6 +367,40 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     else
       pav = zeros(3);
     end if;
+    annotation (defaultComponentName = "Pmeter1",
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Ellipse(
+            extent={{-20,20},{20,-20}},
+            lineColor={135,135,135},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{0,0},{20,0}},
+            color={0,130,175},
+            thickness=0.5),
+          Ellipse(extent={{-70,70},{70,-70}}, lineColor={135,135,135})}),
+      Documentation(
+              info="<html>
+<p>'Meters' are intended as diagnostic instruments. They allow displaying signals in alternative representations, both in SI-units or in 'pu'.<br>
+Use them only when and where needed. Otherwise use 'Sensors'.</p>
+<p>Output variables:</p>
+<pre>  p         {AC active, AC reactive, DC} power term_p to term_n</pre>
+<p>Optional output variables:</p>
+<pre>  p_av       power term_p to term_n, time tau average of p</pre>
+<p><i>Comment on the sign-definition of reactive power see</i> ACdqo.Sensors.</p>
+</html>
+"),   Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Pmeter;
 
   model PVImeter "Power-voltage-current meter, 3-phase abc"
@@ -533,52 +432,50 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     final parameter SI.Current I_base=Base.Precalculation.baseI(units, V_nom, S_nom);
     SIpu.Power[3] pav;
     SIpu.Power pDC;
+
+  initial equation
+    if av then
+      pav = p;
+    end if;
+
+  equation
+    v = term_p.v/V_base;
+    vpp = {v[2],v[3],v[1]} - {v[3],v[1],v[2]};
+    i = term_p.i/I_base;
+    pDC = sum(v)*sum(i)/3;
+    p = {v*i - pDC, -j_abc(v)*i, pDC};
+    if av then
+      der(pav) = (p - pav)/tcst;
+    else
+      pav = zeros(3);
+    end if;
     annotation (defaultComponentName = "PVImeter1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
   width=0.44,
   height=0.65),
-      Icon(
-  Rectangle(extent=[-20, 24; 20, 20], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-  Ellipse(extent=[-8,8; 8,-8],   style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-  Line(points=[0,0; 20,0], style(
-            color=70,
-            rgbcolor={0,130,175},
-            thickness=2)),
-      Line(
-   points=[-15,50; 15,64],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-15,40; 15,54],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-      Line(
-   points=[-15,30; 15,44],
-                        style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=9,
-            rgbfillColor={175,175,175}))),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-20,24},{20,20}},
+            lineColor={135,135,135},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-8,8},{8,-8}},
+            lineColor={135,135,135},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{0,0},{20,0}},
+            color={0,130,175},
+            thickness=0.5),
+          Line(points={{-15,50},{15,64}}, color={135,135,135}),
+          Line(points={{-15,40},{15,54}}, color={135,135,135}),
+          Line(points={{-15,30},{15,44}}, color={135,135,135})}),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals in alternative representations, both in SI-units or in 'pu'.<br>
@@ -604,31 +501,20 @@ As they use time-dependent coordinate transforms, use them only when and where n
 </pre>
 <p><i>Comment on the sign-definition of reactive power see</i> ACdqo.Sensors.</p>
 </html>
-"),   Diagram);
-
-  initial equation
-    if av then
-      pav = p;
-    end if;
-
-  equation
-    v = term_p.v/V_base;
-    vpp = {v[2],v[3],v[1]} - {v[3],v[1],v[2]};
-    i = term_p.i/I_base;
-    pDC = sum(v)*sum(i)/3;
-    p = {v*i - pDC, -j_abc(v)*i, pDC};
-    if av then
-      der(pav) = (p - pav)/tcst;
-    else
-      pav = zeros(3);
-    end if;
+"),   Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end PVImeter;
 
   model Efficiency "Power sensor, 3-phase dqo"
     extends Partials.Sensor2Base(final signalTrsf=0);
 
     Base.Interfaces.ThermalV_p heat(m=m) "vector heat port"
-      annotation(extent=[10,110; -10,90],   rotation=90);
+      annotation (Placement(transformation(
+          origin={0,100},
+          extent={{10,-10},{-10,10}},
+          rotation=90)));
     parameter Boolean dir_in=true "direction" annotation(evaluate=true, choices(
       choice=true "points into the component",
       choice=false "point out of the component"));
@@ -643,46 +529,6 @@ As they use time-dependent coordinate transforms, use them only when and where n
     SI.HeatFlowRate q "total heat flow 'in'";
     SI.Power pav;
     SI.HeatFlowRate qav;
-    annotation (
-      defaultComponentName="efficiency",
-  Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-  Window(
-      x=0.45,
-        y=0.01,
-        width=
-    0.44,
-      height=
-     0.65),
-  Documentation(
-          info="<html>
-<p>Measures the electric power <tt>p</tt> flowing from 'term_p' to 'term_n' and the total heat inflow <tt>q</tt> at term 'heat'. The efficiency eta in % is then defined by
-<pre>
-  eta = 100*(p - q)/p     if arrow points into the measured component and q &lt  abs(p)
-  eta = 100*p/(p + q)     if arrow points out of the measured component and q &lt  abs(p)
-  eta = 0                 else
-</pre>
-Positive values of eta indicate powerflow in direction of arrow,
-negative values of eta indicate powerflow against direction of arrow.</p>
-<p>Note: Take care about the above definitions if approximations are used in measured components.<br>
-In problematic cases use power sensors electrical and mechanical.</p>
-</html>
-"),
-  Icon(Ellipse(extent=[-20,20; 20,-20], style(
-          color=42,
-          rgbcolor={176,0,0},
-          fillColor=42,
-          rgbfillColor={176,0,0})), Line(points=[0,0; 20,0], style(
-            color=70,
-            rgbcolor={0,130,175},
-            thickness=2))),
-  Diagram,
-      DymolaStoredErrors);
 
   initial equation
     if av then
@@ -712,6 +558,45 @@ In problematic cases use power sensors electrical and mechanical.</p>
     else
       eta = 0;
     end if;
+    annotation (
+      defaultComponentName="efficiency",
+  Window(
+      x=0.45,
+        y=0.01,
+        width=
+    0.44,
+      height=
+     0.65),
+  Documentation(
+          info="<html>
+<p>Measures the electric power <tt>p</tt> flowing from 'term_p' to 'term_n' and the total heat inflow <tt>q</tt> at term 'heat'. The efficiency eta in % is then defined by
+<pre>
+  eta = 100*(p - q)/p     if arrow points into the measured component and q &lt  abs(p)
+  eta = 100*p/(p + q)     if arrow points out of the measured component and q &lt  abs(p)
+  eta = 0                 else
+</pre>
+Positive values of eta indicate powerflow in direction of arrow,
+negative values of eta indicate powerflow against direction of arrow.</p>
+<p>Note: Take care about the above definitions if approximations are used in measured components.<br>
+In problematic cases use power sensors electrical and mechanical.</p>
+</html>
+"),
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Ellipse(
+            extent={{-20,20},{20,-20}},
+            lineColor={176,0,0},
+            fillColor={176,0,0},
+            fillPattern=FillPattern.Solid), Line(
+            points={{0,0},{20,0}},
+            color={0,130,175},
+            thickness=0.5)}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+      DymolaStoredErrors);
   end Efficiency;
 
   model Phasor "Visualiser of voltage and current phasor, 3-phase abc"
@@ -720,9 +605,11 @@ In problematic cases use power sensors electrical and mechanical.</p>
     Base.Types.Color color_p;
     Base.Types.Color color_n;
     Base.Visualise.Bar activePower(color={0,127,127}, x=x_norm*abs(p[1]))
-    annotation (layer="icon", extent=[-104,-100; -94,100]);
+    annotation (layer="icon", Placement(transformation(extent={{-104,-100},{-94,
+              100}}, rotation=0)));
     Base.Visualise.Bar reactivePower(color={127,0,127}, x=x_norm*abs(p[2]))
-    annotation (layer="icon", extent=[94,-100; 104,100]);
+    annotation (layer="icon", Placement(transformation(extent={{94,-100},{104,
+              100}}, rotation=0)));
     Base.Visualise.DoubleNeedle voltage_current(
       color1={255,0,0},
       color2={0,0,255},
@@ -730,28 +617,30 @@ In problematic cases use power sensors electrical and mechanical.</p>
       y1=r_norm*v_dq[2],
       x2=r_norm*i_dq[1],
       y2=r_norm*i_dq[2])
-    annotation (layer="icon", extent=[-100,-100; 100,100]);
+    annotation (layer="icon", Placement(transformation(extent={{-100,-100},{100,
+              100}}, rotation=0)));
+
+  equation
+    color_p = if p[1]>0 then {0,127,127} else {215,215,215};
+    color_n = if p[1]<0 then {0,127,127} else {215,215,215};
   annotation (
     defaultComponentName="phasor",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
       width=0.44,
       height=0.65),
-      Icon(Line(points=[4,100; 84,100; 54,88],   style(
-          color=10,
-          rgbcolor=DynamicState({95,95,95}, color_p))),
-      Line(points=[-4,100; -84,100; -54,88],    style(
-          color=10,
-          rgbcolor=DynamicState({95,95,95}, color_n))),
-       Text(
-      extent=[-100,-90; 100,-130],
-      string="%name",
-      style(color=0))),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Line(points={{4,100},{84,100},{54,88}}, color={128,128,128}),
+          Line(points={{-4,100},{-84,100},{-54,88}}, color={128,128,128}),
+          Text(
+            extent={{-100,-90},{100,-130}},
+            lineColor={0,0,0},
+            textString=
+             "%name")}),
       Documentation(
         info="<html>
 <p>Phase representation of voltage and current in 3-phase networks:</p>
@@ -770,27 +659,15 @@ In problematic cases use power sensors electrical and mechanical.</p>
 <p><i>Select 'Diagram' in the Simulation layer, when simulating with this component.</i></p>
 </html>
 "),   Icon,
-      Diagram);
-
-  equation
-    color_p = if p[1]>0 then {0,127,127} else {215,215,215};
-    color_n = if p[1]<0 then {0,127,127} else {215,215,215};
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Phasor;
 
   package Partials "Partial models"
     extends Base.Icons.Partials;
 
-    annotation (
-          Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]), Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
     partial model Sensor1Base "Sensor 1 terminal base, 3-phase abc"
       extends Ports.Port_p;
 
@@ -803,14 +680,10 @@ In problematic cases use power sensors electrical and mechanical.</p>
     protected
       function rot_abc = Base.Transforms.rotation_abc;
       function park = Base.Transforms.park;
+
+    equation
+      term.i = zeros(3);
     annotation (
-      Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
       Window(
         x=0.45,
         y=0.01,
@@ -821,28 +694,24 @@ In problematic cases use power sensors electrical and mechanical.</p>
       Documentation(
             info="<html>
 </html>"),
-      Icon(
-          Ellipse(
-          extent=[-70,70; 70,-70], style(
-              color=7,
-              rgbcolor={255,255,255},
-              fillColor=7,
-              rgbfillColor={255,255,255})),
-        Line(
-     points=[-90,0; 40,0], style(
-              color=70,
-              rgbcolor={0,130,175},
-              thickness=2)),
-        Line(
-     points=[0,20; 0,90], style(
-              color=10,
-              rgbcolor={135,135,135},
-              fillColor=9,
-              rgbfillColor={175,175,175}))),
-        Diagram);
-
-    equation
-      term.i = zeros(3);
+      Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Ellipse(
+              extent={{-70,70},{70,-70}},
+              lineColor={255,255,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(
+              points={{-90,0},{40,0}},
+              color={0,130,175},
+              thickness=0.5),
+            Line(points={{0,20},{0,90}}, color={135,135,135})}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end Sensor1Base;
 
     partial model Sensor2Base "Sensor 2 terminal base, 3-phase abc"
@@ -857,14 +726,10 @@ In problematic cases use power sensors electrical and mechanical.</p>
     protected
       function rot_abc = Base.Transforms.rotation_abc;
       function park = Base.Transforms.park;
+
+    equation
+      term_p.v = term_n.v;
     annotation (
-      Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
       Window(
         x=0.45,
         y=0.01,
@@ -875,39 +740,33 @@ In problematic cases use power sensors electrical and mechanical.</p>
       Documentation(
             info="<html>
 </html>"),
-      Icon(
-          Ellipse(
-          extent=[-70,70; 70,-70], style(
-              color=7,
-              rgbcolor={255,255,255},
-              fillColor=7,
-              rgbfillColor={255,255,255})),
-        Line(
-     points=[0,20; 0,90], style(
-              color=10,
-              rgbcolor={135,135,135},
-              fillColor=9,
-              rgbfillColor={175,175,175})),
-        Line(
-     points=[-90,0; -20,0], style(
-              color=70,
-              rgbcolor={0,130,175},
-              thickness=2)),
-        Line(
-     points=[0,0; 90,0], style(
-              color=70,
-              rgbcolor={0,130,175},
-              thickness=2)),
-        Line(
-     points=[30,20; 70,0; 30,-20], style(
-              color=70,
-              rgbcolor={0,130,175},
-              thickness=2)),
-       Ellipse(extent=[-20,20; 20,-20],   style(color=10, rgbcolor={135,135,135}))),
-        Diagram);
-
-    equation
-      term_p.v = term_n.v;
+      Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Ellipse(
+              extent={{-70,70},{70,-70}},
+              lineColor={255,255,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{0,20},{0,90}}, color={135,135,135}),
+            Line(
+              points={{-90,0},{-20,0}},
+              color={0,130,175},
+              thickness=0.5),
+            Line(
+              points={{0,0},{90,0}},
+              color={0,130,175},
+              thickness=0.5),
+            Line(
+              points={{30,20},{70,0},{30,-20}},
+              color={0,130,175},
+              thickness=0.5),
+            Ellipse(extent={{-20,20},{20,-20}}, lineColor={135,135,135})}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end Sensor2Base;
 
     partial model Meter1Base "Meter 1 terminal base, 3-phase abc"
@@ -922,13 +781,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
       Real[3,3] Park = park(term.theta[1]) if phasor;
       function atan2 = Modelica.Math.atan2;
       annotation (
-        Coordsys(
-          extent=
-         [-100, -100; 100, 100],
-          grid=
-       [2, 2],
-          component=
-            [40, 40]),
         Window(
           x=
     0.45, y=
@@ -939,9 +791,15 @@ In problematic cases use power sensors electrical and mechanical.</p>
         Documentation(
               info="<html>
 </html>"),
-        Icon(Ellipse(extent=[-70,70; 70,-70], style(color=10, rgbcolor={135,135,
-                  135}))),
-        Diagram);
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Ellipse(extent={{-70,70},{70,-70}},
+                lineColor={135,135,135})}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end Meter1Base;
 
     partial model Meter2Base "Meter 2 terminal base, 3-phase abc"
@@ -956,13 +814,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
       Real[3,3] Park = park(term_p.theta[1]) if phasor;
       function atan2 = Modelica.Math.atan2;
       annotation (
-        Coordsys(
-          extent=
-         [-100, -100; 100, 100],
-          grid=
-       [2, 2],
-          component=
-            [40, 40]),
         Window(
           x=
     0.45, y=
@@ -973,9 +824,15 @@ In problematic cases use power sensors electrical and mechanical.</p>
         Documentation(
               info="<html>
 </html>"),
-        Icon(Ellipse(extent=[-70,70; 70,-70], style(color=10, rgbcolor={135,135,
-                  135}))),
-        Diagram);
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Ellipse(extent={{-70,70},{70,-70}},
+                lineColor={135,135,135})}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end Meter2Base;
 
     partial model PhasorBase "Phasor base, 3-phase abc"
@@ -992,12 +849,13 @@ In problematic cases use power sensors electrical and mechanical.</p>
       final parameter SI.Voltage V_base=Base.Precalculation.baseV(units, V_nom);
       final parameter SI.Current I_base=Base.Precalculation.baseI(units, V_nom, S_nom);
       Real[3,3] Park=Base.Transforms.park(term_p.theta[1]);
+
+    equation
+      term_p.v = term_n.v;
+      v_dq = Park[1:2,:]*term_p.v/V_base;
+      i_dq = Park[1:2,:]*term_p.i/I_base;
+      p = {v_dq*i_dq, -{-v_dq[2],v_dq[1]}*i_dq};
       annotation (
-        Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=
-      [20, 20]),
         Window(
     x=0.45,
           y=0.01,
@@ -1006,72 +864,97 @@ In problematic cases use power sensors electrical and mechanical.</p>
         Documentation(
         info="<html>
 </html>"),
-        Icon(
-          Rectangle(extent=[-100,100; 100,-100], style(
-              color=30,
-              rgbcolor={215,215,215},
-              fillColor=30,
-              rgbfillColor={215,215,215})),
-          Ellipse(extent=[-90,90; 90,-90], style(
-              pattern=0,
-              fillColor=7,
-              rgbfillColor={255,255,255},
-              fillPattern=1)),
-          Ellipse(extent=[-80,80; 80,-80], style(
-              color=0,
-              rgbcolor={0,0,0},
-              fillColor=7,
-              rgbfillColor={255,255,255},
-              fillPattern=1)),
-          Ellipse(extent=[-2,2; 2,-2], style(
-              color=10,
-              rgbcolor={95,95,95},
-              fillColor=10,
-              rgbfillColor={95,95,95},
-              fillPattern=1)),
-          Line(points=[-90,0; 90,0], style(
-              color=10,
-              rgbcolor={135,135,135},
-              pattern=3,
-              fillColor=10,
-              rgbfillColor={95,95,95},
-              fillPattern=1)),
-          Line(points=[-64,-64; 64,64], style(
-              color=10,
-              rgbcolor={135,135,135},
-              pattern=3,
-              fillColor=10,
-              rgbfillColor={95,95,95},
-              fillPattern=1)),
-          Line(points=[0,-90; 0,90], style(
-              color=10,
-              rgbcolor={135,135,135},
-              pattern=3,
-              fillColor=10,
-              rgbfillColor={95,95,95},
-              fillPattern=1)),
-          Line(points=[-64,64; 64,-64], style(
-              color=10,
-              rgbcolor={135,135,135},
-              pattern=3,
-              fillColor=10,
-              rgbfillColor={95,95,95},
-              fillPattern=1)),
-        Line(points=[-94,60; -84,60],  style(
-              color=0,
-              rgbcolor={0,0,0},
-              thickness=2)),
-        Line(points=[84,60; 94,60],    style(
-              color=0,
-              rgbcolor={0,0,0},
-              thickness=2))),
-        Diagram);
-
-    equation
-      term_p.v = term_n.v;
-      v_dq = Park[1:2,:]*term_p.v/V_base;
-      i_dq = Park[1:2,:]*term_p.i/I_base;
-      p = {v_dq*i_dq, -{-v_dq[2],v_dq[1]}*i_dq};
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={215,215,215},
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-90,90},{90,-90}},
+              lineColor={0,0,255},
+              pattern=LinePattern.None,
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-80,80},{80,-80}},
+              lineColor={0,0,0},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-2,2},{2,-2}},
+              lineColor={95,95,95},
+              fillColor={95,95,95},
+              fillPattern=FillPattern.Solid),
+            Line(
+              points={{-90,0},{90,0}},
+              color={135,135,135},
+              pattern=LinePattern.Dot),
+            Line(
+              points={{-64,-64},{64,64}},
+              color={135,135,135},
+              pattern=LinePattern.Dot),
+            Line(
+              points={{0,-90},{0,90}},
+              color={135,135,135},
+              pattern=LinePattern.Dot),
+            Line(
+              points={{-64,64},{64,-64}},
+              color={135,135,135},
+              pattern=LinePattern.Dot),
+            Line(
+              points={{-94,60},{-84,60}},
+              color={0,0,0},
+              thickness=0.5),
+            Line(
+              points={{84,60},{94,60}},
+              color={0,0,0},
+              thickness=0.5)}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end PhasorBase;
+    annotation (       Window(
+  x=0.05,
+  y=0.44,
+  width=0.31,
+  height=0.23,
+  library=1,
+  autolayout=1));
   end Partials;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Sensors output terminal signals (voltage, current, power) in a defined reference system chosen by the user.</p>
+<p>Meters allow choosing base-units for output variables.</p>
+<p><i>Comment on the sign-definition of reactive power:</i></p>
+<p>From a mathematical point of view, it would be desirable to define power in the following way:
+<pre>
+  p_active = v*i
+  p_reactive = (J*v)*i
+</pre>
+<p>with</p>
+<pre>  J = [0,-1,1; 1,0,-1; -1,1,0]/sqrt(3)</pre>
+<p>the rotation of pi/2 in the positive sense.</p>
+<p>This definition keeps all coordinate systems positively oriented.
+The power-vector then can be interpreted as current-vector, normalised by voltage and transformed into a positively oriented coordinate system, whose first axis is given by the voltage vector <tt>v</tt>, and second axis by <tt>J*v</tt>.</p>
+<p>From a practical point of view it is more convenient to use the inverse sign for reactive power, in order to obtain positive reactive power in the standard-situation of power-transfer
+across an inductive line.
+We adapt the sign-definition to this practical convention:</p>
+<pre>  p_reactive = -(J*v)*i</pre>
+</html>
+"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Sensors;

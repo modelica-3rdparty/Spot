@@ -2,22 +2,6 @@ within Spot.Base;
 package Types "Additional types for power systems"
   extends Icons.Base;
 
- annotation (preferedView="info",
-  Coordsys(
-    extent=[-100, -100; 100, 100],
-    grid=[2, 2],
-    component=[20, 20]),
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65,
-    library=1,
-    autolayout=1),
-  Invisible=true,
-  Documentation(info="<html>
-</html>
-"));
 
   constant Real d2r = pi/180 "conversion degree to radian";
   constant Real rpm2w = pi/30 "conversion rev per minute to radian/s";
@@ -235,4 +219,16 @@ the equation finally becomes
   type Charge_Ah = Real (final quantity="ElectricCharge", final unit="Ah");
 
   type Percent = Real(final quantity="Percent",final unit="%");
+ annotation (preferedView="info",
+  Window(
+    x=0.45,
+    y=0.01,
+    width=0.44,
+    height=0.65,
+    library=1,
+    autolayout=1),
+  Invisible=true,
+  Documentation(info="<html>
+</html>
+"));
 end Types;

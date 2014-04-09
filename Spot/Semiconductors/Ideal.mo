@@ -2,23 +2,6 @@ within Spot.Semiconductors;
 package Ideal "Custom models"
   extends Base.Icons.Library;
 
-annotation (preferedView="info",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
-    Documentation(info="<html>
-<p>Ideal semiconductor models (default choice).</p>
-</html>
-"),
-  Icon);
 
 record SCparameter "Ideal semiconductor parameters"
   extends Base.Units.NominalDataVI;
@@ -33,13 +16,6 @@ record SCparameter "Ideal semiconductor parameters"
   parameter SI.Temp_K T0_loss=300 "reference T for cT_loss expansion"
     annotation(Dialog(enable=size(cT_loss,1)>0), Evaluate=true);
   annotation (
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
     Window(
       x=
 0.45, y=
@@ -63,15 +39,21 @@ where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty,  no
 where <tt>q</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'.<br>
 A generalisation to powers of i and v is straightforward.</p>
 </html>"),
-    Diagram,
-    Icon);
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end SCparameter;
 
 partial model IdealCharacteristic "Ideal diode characteristic"
   extends Partials.ComponentBase;
 
   parameter Ideal.SCparameter par "ideal with forward Vf"
- annotation (extent=[-80,-80; -60,-60]);
+ annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
   protected
   Boolean on;
   Real s "auxiliary variable";
@@ -79,14 +61,11 @@ partial model IdealCharacteristic "Ideal diode characteristic"
   SI.Current i_sc = i*par.V_nom/par.I_nom "current scaled to voltage";
   function loss = Spot.Base.Math.taylor "spec loss function of temperature";
 
+
+equation
+  V = if size(par.cT_loss,1)==0 then par.Vf else par.Vf*loss(T - par.T0_loss, par.cT_loss);
+  {v,i_sc} = if on then {par.eps[1]*s + (1 - par.eps[1])*V,s - (1 - par.eps[2])*V} else {s,par.eps[2]*s};
 annotation (
-  Coordsys(
-    extent=
-   [-100, -100; 100, 100],
-    grid=
- [2, 2],
-    component=
-      [20, 20]),
   Window(
     x=0.45,
       y=0.01,
@@ -98,22 +77,22 @@ annotation (
         info="<html>
 </html>
 "),
-  Diagram,
-  Icon);
-
-equation
-  V = if size(par.cT_loss,1)==0 then par.Vf else par.Vf*loss(T - par.T0_loss, par.cT_loss);
-  {v,i_sc} = if on then {par.eps[1]*s + (1 - par.eps[1])*V,s - (1 - par.eps[2])*V} else {s,par.eps[2]*s};
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end IdealCharacteristic;
 
 model Diode "Diode"
   extends IdealCharacteristic;
 
+equation
+  on = s > V;
   annotation (defaultComponentName = "diode1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
@@ -123,35 +102,36 @@ height=0.65),
             info="<html>
 <p>Ideal Diode with forward threshold voltage <tt>Vf_d</tt>.</p>
 </html>"),
-    Icon(
-Polygon(points=[40,0; -40,40; -40,-40; 40,0],     style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-Line(points=[-90,0; -40,0],   style(color=3, rgbcolor={0,0,255})),
-Line(points=[40,0; 90,0], style(color=3, rgbcolor={0,0,255})),
-Line(points=[40,40; 40,-40],   style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255}))),
-    Diagram);
-equation
-  on = s > V;
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Polygon(
+            points={{40,0},{-40,40},{-40,-40},{40,0}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-90,0},{-40,0}}, color={0,0,255}),
+          Line(points={{40,0},{90,0}}, color={0,0,255}),
+          Line(points={{40,40},{40,-40}}, color={0,0,255})}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Diode;
 
 model Thyristor "Thyristor"
   extends IdealCharacteristic;
 
   Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
-    annotation (
-          extent=[50,90; 70,110],   rotation=-90);
+    annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+
+equation
+  on = s > V and (pre(on) or gate);
   annotation (defaultComponentName = "thyristor1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
@@ -160,40 +140,40 @@ height=0.65),
     Documentation(
             info="<html>
 </html>
-"), Icon(
-Polygon(points=[20, 0; -60, 40; -60, -40; 20, 0], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-Line(points=[-90, 0; -60, 0], style(color=3, rgbcolor={0,0,255})),
-Line(points=[20, 0; 90, 0], style(color=3, rgbcolor={0,0,255})),
-Line(points=[20, 40; 20, -40], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-        Line(points=[20,0; 60,40; 60,90], style(
-              color=5,
-              rgbcolor={255,0,255},
-              pattern=3))),
-      Diagram);
-
-equation
-  on = s > V and (pre(on) or gate);
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Polygon(
+            points={{20,0},{-60,40},{-60,-40},{20,0}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-90,0},{-60,0}}, color={0,0,255}),
+          Line(points={{20,0},{90,0}}, color={0,0,255}),
+          Line(points={{20,40},{20,-40}}, color={0,0,255}),
+          Line(
+            points={{20,0},{60,40},{60,90}},
+            color={255,0,255},
+            pattern=LinePattern.Dot)}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Thyristor;
 
 model SCswitch "Semiconductor switch"
   extends IdealCharacteristic;
 
   Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
-    annotation (
-          extent=[50,90; 70,110],   rotation=-90);
+    annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+
+equation
+  on = s > V and gate;
   annotation (defaultComponentName = "GTO1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
@@ -204,79 +184,42 @@ height=0.65),
 <p>Ideal semiconductor switch with forward threshold voltage <tt>Vf_s</tt>.<br>
 (Equivalent to ideal GTO or IGBT).</p>
 </html>"),
-    Icon(
-Polygon(points=[20, 0; -60, 40; -60, -40; 20, 0], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-Line(points=[-90, 0; -60, 0], style(color=3, rgbcolor={0,0,255})),
-Line(points=[20, 0; 90, 0], style(color=3, rgbcolor={0,0,255})),
-Line(points=[20, 40; 20, -40], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-        Line(points=[20,0; 60,40; 60,90], style(color=5, rgbcolor={255,0,255}))),
-      Diagram);
-
-equation
-  on = s > V and gate;
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Polygon(
+            points={{20,0},{-60,40},{-60,-40},{20,0}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-90,0},{-60,0}}, color={0,0,255}),
+          Line(points={{20,0},{90,0}}, color={0,0,255}),
+          Line(points={{20,40},{20,-40}}, color={0,0,255}),
+          Line(points={{20,0},{60,40},{60,90}}, color={255,0,255})}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end SCswitch;
 
 model SCswitch_Diode "Semiconductor switch with reverse Diode"
   extends Partials.ComponentBase;
 
   parameter SCparameter par "ideal with forward Vf"
-                                        annotation (extent=[-80,-80; -60,-60]);
+                                        annotation (Placement(transformation(
+            extent={{-80,-80},{-60,-60}}, rotation=0)));
   Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
-    annotation (
-          extent=[50,90; 70,110],   rotation=-90);
+    annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   protected
   Real s "auxiliary variable";
   SI.Voltage V "forward threshold voltage";
   SI.Current i_sc = i*par.V_nom/par.I_nom "current scaled to voltage";
   function loss = Spot.Base.Math.taylor "spec loss function of temperature";
 
-  annotation (defaultComponentName = "GTO_D1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Documentation(
-            info="<html>
-<p>Ideal semiconductor switch with forward threshold voltage <tt>Vf_s</tt> and reverse Diode with forward threshold voltage <tt>Vf_d</tt>.<br>
-(Equivalent to ideal GTO or IGBT with reverse Diode).</p>
-</html>"),
-    Icon(
-Polygon(points=[30, 40; -40, 70; -40, 10; 30, 40], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-Line(points=[-90, 0; -60, 0], style(color=3, rgbcolor={0,0,255})),
-Line(points=[60, 0; 90, 0], style(color=3, rgbcolor={0,0,255})),
-Line(points=[30, 70; 30, 10], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-Polygon(points=[-30, -40; 40, -10; 40, -70; -30, -40], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-Line(points=[30, 40; 60, 40; 60, -40; 40, -40], style(color=3, rgbcolor={0,0,
-                255})),
-Line(points=[-40, 40; -60, 40; -60, -40; -30, -40], style(color=3, rgbcolor={0,
-                0,255})),
-        Line(points=[30,40; 60,70; 60,90], style(color=5, rgbcolor={255,0,255}))),
-      Diagram);
 
 equation
   V = if size(par.cT_loss,1)>0 then par.Vf*loss(T -par.T0_loss, par.cT_loss) else par.Vf;
@@ -291,6 +234,58 @@ equation
   else
     {v, i_sc} = if s < - V then {par.eps[1]*s - (1 - par.eps[1])*V, s + (1 - par.eps[2])*V} else {s,par.eps[2]*s};
   end if;
+  annotation (defaultComponentName = "GTO_D1",
+    Window(
+x=0.45,
+y=0.01,
+width=0.44,
+height=0.65),
+    Documentation(
+            info="<html>
+<p>Ideal semiconductor switch with forward threshold voltage <tt>Vf_s</tt> and reverse Diode with forward threshold voltage <tt>Vf_d</tt>.<br>
+(Equivalent to ideal GTO or IGBT with reverse Diode).</p>
+</html>"),
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Polygon(
+            points={{30,40},{-40,70},{-40,10},{30,40}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-90,0},{-60,0}}, color={0,0,255}),
+          Line(points={{60,0},{90,0}}, color={0,0,255}),
+          Line(points={{30,70},{30,10}}, color={0,0,255}),
+          Polygon(
+            points={{-30,-40},{40,-10},{40,-70},{-30,-40}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{30,40},{60,40},{60,-40},{40,-40}}, color={0,0,255}),
+          Line(points={{-40,40},{-60,40},{-60,-40},{-30,-40}}, color={0,0,255}),
+
+          Line(points={{30,40},{60,70},{60,90}}, color={255,0,255})}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end SCswitch_Diode;
 
+annotation (preferedView="info",
+    Window(
+x=0.05,
+y=0.41,
+width=0.4,
+height=0.32,
+library=1,
+autolayout=1),
+    Documentation(info="<html>
+<p>Ideal semiconductor models (default choice).</p>
+</html>
+"),
+  Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Ideal;

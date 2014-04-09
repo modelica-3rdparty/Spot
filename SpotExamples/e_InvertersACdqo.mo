@@ -1,49 +1,9 @@
 within SpotExamples;
 package e_InvertersACdqo "Inverters dqo"
   extends Spot.Base.Icons.Examples;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Comparison of different three-phase rectifier and inverter models.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Icon);
 
   model Rectifier "Rectifier"
 
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-<p>3-phase rectifier. Compare 'equation' and 'modular' version.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"),   experiment(
-        StopTime=0.2,
-        NumberOfIntervals=1000,
-        Tolerance=1e-005,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
     inner Spot.System system(ini="tr", ref="inertial")
                         annotation (extent=[-100,80; -80,100]);
     Spot.Blocks.Signals.TransientPhasor transPh(
@@ -109,10 +69,6 @@ Documentation(info="<html>
       annotation (points=[90,10; 90,10], style(color=3, rgbcolor={0,0,255}));
     connect(rectifier.heat, bdCond.heat)
       annotation (points=[20,20; 20,20], style(color=42, rgbcolor={176,0,0}));
-  end Rectifier;
-
-  model InverterToLoad "Inverter to load"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -127,7 +83,7 @@ Documentation(info="<html>
       Diagram,
       Documentation(
               info="<html>
-<p>3-phase inverter, feeding load at constant 100Hz with increasing amplitude.</p>
+<p>3-phase rectifier. Compare 'equation' and 'modular' version.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),   experiment(
@@ -136,6 +92,10 @@ Documentation(info="<html>
         Tolerance=1e-005,
         Algorithm="Lsodar"),
       experimentSetupOutput);
+  end Rectifier;
+
+  model InverterToLoad "Inverter to load"
+
     inner Spot.System system(ini="tr", ref="inertial")
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Nodes.GroundOne grd
@@ -201,10 +161,6 @@ Documentation(info="<html>
                                            style(color=3, rgbcolor={0,0,255}));
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-10,0; -10,0], style(color=42, rgbcolor={176,0,0}));
-  end InverterToLoad;
-
-  model InverterToGrid "Inverter to grid"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -219,15 +175,19 @@ Documentation(info="<html>
       Diagram,
       Documentation(
               info="<html>
-<p>3-phase inverter, feeding into grid with increasing phase. Compare 'switch', 'equation' and 'modular' version.</p>
+<p>3-phase inverter, feeding load at constant 100Hz with increasing amplitude.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-      experiment(
+</html>
+"),   experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
         Tolerance=1e-005,
         Algorithm="Lsodar"),
       experimentSetupOutput);
+  end InverterToLoad;
+
+  model InverterToGrid "Inverter to grid"
+
     inner Spot.System system(ini="tr", ref="synchron")
                         annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Sources.DCvoltage vDC(pol=0,
@@ -300,10 +260,6 @@ Documentation(info="<html>
                                          style(color=3, rgbcolor={0,0,255}));
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-20,0; -20,0], style(color=42, rgbcolor={176,0,0}));
-  end InverterToGrid;
-
-  model InverterAvToGrid "Inverter to grid"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -318,14 +274,19 @@ Documentation(info="<html>
       Diagram,
       Documentation(
               info="<html>
-<p>3-phase inverter based on AVERAGED switch-equation, feeding into grid with increasing phase.</p>
+<p>3-phase inverter, feeding into grid with increasing phase. Compare 'switch', 'equation' and 'modular' version.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
       experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
-        Algorithm="Dassl"),
+        Tolerance=1e-005,
+        Algorithm="Lsodar"),
       experimentSetupOutput);
+  end InverterToGrid;
+
+  model InverterAvToGrid "Inverter to grid"
+
     inner Spot.System system(ini="tr")
                         annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Sources.DCvoltage vDC(pol=0,
@@ -396,6 +357,45 @@ Documentation(info="<html>
                                          style(color=3, rgbcolor={0,0,255}));
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-20,0; -20,0], style(color=42, rgbcolor={176,0,0}));
+    annotation (
+      Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Icon,
+      Diagram,
+      Documentation(
+              info="<html>
+<p>3-phase inverter based on AVERAGED switch-equation, feeding into grid with increasing phase.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+      experiment(
+        StopTime=0.2,
+        NumberOfIntervals=1000,
+        Algorithm="Dassl"),
+      experimentSetupOutput);
   end InverterAvToGrid;
 
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Comparison of different three-phase rectifier and inverter models.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+"), Icon);
 end e_InvertersACdqo;

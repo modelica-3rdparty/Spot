@@ -2,12 +2,6 @@ within SpotExamples.Data;
 package Lines "Line example data"
   extends Spot.Base.Icons.SpecialLibrary;
 
-  annotation (preferedView="info",
-Documentation(info="<html>
-<p>Some examples of standard-types.<br>
-Exact data for specific cases still have to be determined.</p>
-<p>Note: correct values for V_nom and S_nom are only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units the values are not used. Nevertheless they must be defined.</p>
-</html>"));
 
   record OHline15kV1ph "Overhead RX-line 15kV 1-phase rail, example"
     extends Spot.Base.Icons.Record;
@@ -419,4 +413,10 @@ end OHline_132kV1ph;
       width=0.44,
       height=0.65));
   end Cable_400kV;
+  annotation (preferedView="info",
+Documentation(info="<html>
+<p>Some examples of standard-types.<br>
+Exact data for specific cases still have to be determined.</p>
+<p>Note: correct values for V_nom and S_nom are only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units the values are not used. Nevertheless they must be defined.</p>
+</html>"));
 end Lines;

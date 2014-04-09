@@ -2,29 +2,6 @@ within Spot.Base;
 package Precalculation "Precalculation functions"
   extends Icons.Base;
 
-  annotation (preferedView="info",
-        Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]), Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.23,
-library=1,
-autolayout=1),
-    Documentation(info="<html>
-<p>Functions needed for the determination of coefficient-matrices from a set of phenomenological input parameters.</p>
-<p><a href=\"Spot.UsersGuide.Introduction.Precalculation\">up users guide</a></p>
-<p>The second part of this package has been written in honour of <b>I. M. Canay</b>, one of the important electrical engeneers of the 20th century. He understood, what he wrote, and his results were exact. The package is based on his ideas and formulated in full mathematical generality.</p>
-<p>Literature:
-<ul>
-<li>Canay, I. M.: Modelling of Alternating-Current Machines Having Multiple Rotor Circuits.<br>
-IEEE Transactions on Energy Conversion, Vol. 8, No. 2, June 1993.</li>
-<li>Canay, I. M.: Determination of the Model Parameters of Machines from the Reactance Operators x_d(p), x_q(p).<br>
-IEEE Transactions on Energy Conversion, Vol. 8, No. 2, June 1993.</li>
-</ul></p>
-</html>"));
 
 function baseV "Base voltage"
   extends Icons.Function;
@@ -32,6 +9,13 @@ function baseV "Base voltage"
   input Base.Types.Units units "SI or pu";
   input SI.Voltage V_nom "nom voltage";
   output SI.Voltage V_base "base voltage";
+
+algorithm
+  if units == Base.Types.pu then
+    V_base := V_nom;
+  elseif units == Base.Types.SI then
+    V_base := 1;
+  end if;
 annotation(Documentation(info="<html>
 <p>Calculates base-voltage depending on the choice of units.</p>
 <p>\"pu\":
@@ -44,13 +28,6 @@ annotation(Documentation(info="<html>
 </pre></p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    V_base := V_nom;
-  elseif units == Base.Types.SI then
-    V_base := 1;
-  end if;
 end baseV;
 
 function baseI "Base current"
@@ -60,6 +37,13 @@ function baseI "Base current"
   input SI.Voltage V_nom "nom voltage";
   input SI.ApparentPower S_nom "apparent power";
   output SI.Current I_base "base current";
+
+algorithm
+  if units == Base.Types.pu then
+    I_base := S_nom/V_nom;
+  elseif units == Base.Types.SI then
+    I_base := 1;
+  end if;
 annotation(Documentation(info="<html>
 <p>Calculates base-current depending on the choice of units.</p>
 <p>\"pu\":
@@ -72,13 +56,6 @@ annotation(Documentation(info="<html>
 </pre></p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    I_base := S_nom/V_nom;
-  elseif units == Base.Types.SI then
-    I_base := 1;
-  end if;
 end baseI;
 
 function baseS "Base power"
@@ -87,6 +64,13 @@ function baseS "Base power"
   input Base.Types.Units units "SI or pu";
   input SI.ApparentPower S_nom "apparent power";
   output SI.ApparentPower S_base "base power";
+
+algorithm
+  if units == Base.Types.pu then
+    S_base := S_nom;
+  elseif units == Base.Types.SI then
+    S_base := 1;
+  end if;
 annotation(Documentation(info="<html>
 <p>Calculates base-power depending on the choice of units.</p>
 <p>\"pu\":
@@ -99,13 +83,6 @@ annotation(Documentation(info="<html>
 </pre></p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    S_base := S_nom;
-  elseif units == Base.Types.SI then
-    S_base := 1;
-  end if;
 end baseS;
 
 function baseR "Base resistance"
@@ -116,6 +93,13 @@ function baseR "Base resistance"
   input SI.ApparentPower S_nom "apparent power";
   input Integer scale=1 "scaling factor topology (Y:1, Delta:3)";
   output SI.Resistance R_base "base resistance";
+
+algorithm
+  if units == Base.Types.pu then
+    R_base := scale*V_nom*V_nom/S_nom;
+  elseif units == Base.Types.SI then
+    R_base := scale;
+  end if;
 annotation (Documentation(info="<html>
 <p>Calculates base-resistance depending on the choice of units.</p>
 <p>\"pu\":
@@ -128,13 +112,6 @@ annotation (Documentation(info="<html>
 </pre></p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    R_base := scale*V_nom*V_nom/S_nom;
-  elseif units == Base.Types.SI then
-    R_base := scale;
-  end if;
 end baseR;
 
 function baseL "Base inductance"
@@ -145,6 +122,13 @@ function baseL "Base inductance"
   input SI.ApparentPower S_nom "apparent power";
   input SI.AngularFrequency omega_nom "angular frequency";
   output SI.Inductance L_base "base inductance";
+
+algorithm
+  if units == Base.Types.pu then
+    L_base := V_nom*V_nom/(S_nom*omega_nom);
+  elseif units == Base.Types.SI then
+    L_base := 1;
+  end if;
 annotation (Documentation(info="<html>
 <p>Calculates base-inductance depending on the choice of units.</p>
 <p>\"pu\":
@@ -159,13 +143,6 @@ Note: in contrast to 'baseRL' and 'baseGC' there is NO conversion of reactance X
 Therefore the SI-value is 1 and not 1/omega_nom. The function is needed for DC-machines which use L as input instead of X.</p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    L_base := V_nom*V_nom/(S_nom*omega_nom);
-  elseif units == Base.Types.SI then
-    L_base := 1;
-  end if;
 end baseL;
 
 function baseRL "Base resistance and inductance"
@@ -177,6 +154,13 @@ function baseRL "Base resistance and inductance"
   input SI.AngularFrequency omega_nom "angular frequency";
   input Integer scale=1 "scaling factor topology (Y:1, Delta:3)";
   output Real[2] RL_base "base {resistance, inductance}";
+
+algorithm
+  if units == Base.Types.pu then
+    RL_base := scale*(V_nom*V_nom/S_nom)*{1, 1/omega_nom};
+  elseif units == Base.Types.SI then
+    RL_base := scale*({1, 1/omega_nom});
+  end if;
 annotation (Documentation(info="<html>
 <p>Calculates base-resistance and -inductance depending on the choice of units (fist component is R, second is L).</p>
 <p>\"pu\":
@@ -189,13 +173,6 @@ annotation (Documentation(info="<html>
 </pre></p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    RL_base := scale*(V_nom*V_nom/S_nom)*{1, 1/omega_nom};
-  elseif units == Base.Types.SI then
-    RL_base := scale*({1, 1/omega_nom});
-  end if;
 end baseRL;
 
 function baseGC "Base conductance and capacitance"
@@ -207,6 +184,13 @@ function baseGC "Base conductance and capacitance"
   input SI.AngularFrequency omega_nom "angular frequency";
   input Integer scale=1 "scaling factor topology (Y:1, Delta:3)";
   output Real[2] GC_base "base {conductance, capacitance}";
+
+algorithm
+  if units == Base.Types.pu then
+    GC_base := (S_nom/(V_nom*V_nom))*{1, 1/omega_nom}/scale;
+  elseif units == Base.Types.SI then
+    GC_base := {1, 1/omega_nom}/scale;
+  end if;
 annotation (Documentation(info="<html>
 <p>Calculates base-conductance and -capacitance depending on the choice of units (fist component is G, second is C).</p>
 <p>\"pu\":
@@ -219,13 +203,6 @@ annotation (Documentation(info="<html>
 </pre></p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    GC_base := (S_nom/(V_nom*V_nom))*{1, 1/omega_nom}/scale;
-  elseif units == Base.Types.SI then
-    GC_base := {1, 1/omega_nom}/scale;
-  end if;
 end baseGC;
 
 function baseTrafoV "Base voltage transformers"
@@ -235,6 +212,13 @@ function baseTrafoV "Base voltage transformers"
   input SI.Voltage[:] V_nom "nom voltage {prim, sec} or {prim, sec1, sec2}";
   output SI.Voltage[size(V_nom,1)] V_base
       "base voltage {prim,sec} or {prim, sec1, sec2}";
+
+algorithm
+  if units == Base.Types.pu then
+    V_base := V_nom;
+  elseif units == Base.Types.SI then
+    V_base := ones(size(V_nom,1));
+  end if;
 annotation(Documentation(info="<html>
 <p>Calculates transformer base-voltage depending on the choice of units.</p>
 <p>\"pu\":
@@ -247,13 +231,6 @@ annotation(Documentation(info="<html>
 </pre></p>
 </html>
 "));
-
-algorithm
-  if units == Base.Types.pu then
-    V_base := V_nom;
-  elseif units == Base.Types.SI then
-    V_base := ones(size(V_nom,1));
-  end if;
 end baseTrafoV;
 
 function baseTrafoRL "Base resistance and inductance transformers"
@@ -265,6 +242,13 @@ function baseTrafoRL "Base resistance and inductance transformers"
   input SI.AngularFrequency omega_nom "angular frequency";
   output Real[size(V_nom,1), 2] RL_base "base [prim res, prim ind; sec res, sec ind] or
    [prim res, prim ind; sec1 res, sec1 ind; sec2 res, sec2 ind]";
+
+algorithm
+  if units == Base.Types.pu then
+    RL_base := fill(V_nom[1]^2/S_nom, size(V_nom,1), 1)*[1, 1/omega_nom];
+  elseif units == Base.Types.SI then
+    RL_base := [(fill(V_nom[1],size(V_nom,1))./ V_nom).^2]*[1, 1/omega_nom];
+  end if;
 annotation (Documentation(info="<html>
 <p>Calculates transformer base-resistance and -inductance depending on the choice of units (first index: primary, secondary, second index: R, L).<br>
 The secondary side is winding-reduced to the primary, as the equations are written in reduced form.</p>
@@ -281,13 +265,6 @@ The secondary side is winding-reduced to the primary, as the equations are writt
 <p>The winding ratio <tt>W_nom</tt> is given by the nominal voltages:
 <pre>  W_nom = V_nom[2]/V_nom[1]</pre></p>
 </html>"));
-
-algorithm
-  if units == Base.Types.pu then
-    RL_base := fill(V_nom[1]^2/S_nom, size(V_nom,1), 1)*[1, 1/omega_nom];
-  elseif units == Base.Types.SI then
-    RL_base := [(fill(V_nom[1],size(V_nom,1))./ V_nom).^2]*[1, 1/omega_nom];
-  end if;
 end baseTrafoRL;
 
 function machineDCser "Calculates coefficients of DC-machine series excited"
@@ -301,14 +278,14 @@ function machineDCser "Calculates coefficients of DC-machine series excited"
       "base resistance";
   final parameter SI.Inductance L_base=baseL(p.units, p.V_nom, p.S_nom, w_el_nom)
       "base resistance";
-annotation(Documentation(info="<html>
-</html>
-"));
 
 algorithm
   c.L := (p.l_fd + p.l_q)*L_base;
   c.R := {p.r_fd, p.r_q}*R_base;
   c.L_md := (p.V_nom^2/p.S_nom - sum(c.R))/w_el_nom;
+annotation(Documentation(info="<html>
+</html>
+"));
 end machineDCser;
 
 function machineDCpar "Calculates coefficients of DC-machine parallel excited"
@@ -324,15 +301,15 @@ function machineDCpar "Calculates coefficients of DC-machine parallel excited"
   final parameter SI.Inductance L_base=baseL(p.units, p.V_nom, p.S_nom, w_el_nom)
       "base resistance";
   SI.AngularFrequency w_el_lim;
-annotation(Documentation(info="<html>
-</html>
-"));
 
 algorithm
   c.L := {p.l_fd, p.l_q}*L_base;
   c.R := {p.r_fd, p.r_q}*R_base;
   w_el_lim := w_el_nom/(1 - c.R[2]*p.S_nom/p.V_nom^2);
   c.L_md := (c.R[1]/w_el_lim)*(p.V_nom/p.Vf_nom);
+annotation(Documentation(info="<html>
+</html>
+"));
 end machineDCpar;
 
 function machineDCpm "Calculates coefficients of DC-machine permanent magnet"
@@ -346,14 +323,14 @@ function machineDCpm "Calculates coefficients of DC-machine permanent magnet"
       "base resistance";
   final parameter SI.Inductance L_base=baseL(p.units, p.V_nom, p.S_nom, w_el_nom)
       "base resistance";
-annotation(Documentation(info="<html>
-</html>
-"));
 
 algorithm
   c.L := p.l_aq*L_base;
   c.R := p.r_aq*R_base;
   c.Psi_pm := (p.V_nom - c.R*p.S_nom/p.V_nom)/w_el_nom;
+annotation(Documentation(info="<html>
+</html>
+"));
 end machineDCpm;
 
 function machineAsyn "Calculates coefficient matrices of asynchronous machine"
@@ -374,11 +351,6 @@ function machineAsyn "Calculates coefficient matrices of asynchronous machine"
   SI.Resistance[n_r+1] zr;
   SI.Reactance[n_r+1,n_r+1] zx;
 
-annotation(Documentation(info="<html>
-See also equivalent circuit on 'Diagram layer' of
-<a href=\"Data.Parameters.Asynchron\">Data.Parameters.Asynchron</a> !</p>
-</html>
-"));
 
 algorithm
   if p.transDat then
@@ -406,6 +378,11 @@ algorithm
   else
     c.R_m := diagonal(c.R_r)*Modelica.Math.Matrices.inv(c.L_r)*c.L_m;
   end if;
+annotation(Documentation(info="<html>
+See also equivalent circuit on 'Diagram layer' of
+<a href=\"Data.Parameters.Asynchron\">Data.Parameters.Asynchron</a> !</p>
+</html>
+"));
 end machineAsyn;
 
 function machineSyn3rd
@@ -421,10 +398,6 @@ function machineSyn3rd
   protected
   final parameter Real[2] RL_base=baseRL(p.units, p.V_nom, p.S_nom, omega_nom, scale)
       "base resistance inductance";
-annotation (Documentation(info="<html>
-See also equivalent circuit on 'Diagram layer' of
-<a href=\"Data.Parameters.Synchron3rd\">Data.Parameters.Synchron3rd</a> !</p>
-</html>"));
 
 algorithm
   c.L_s := {p.x_d, p.x_q, p.x_o}*RL_base[2];
@@ -432,6 +405,10 @@ algorithm
   c.R_n := p.r_n*RL_base[1];
   c.Psi_pm := p.psi_pm*(p.V_nom/omega_nom);
   c.omega_nom := omega_nom;
+annotation (Documentation(info="<html>
+See also equivalent circuit on 'Diagram layer' of
+<a href=\"Data.Parameters.Synchron3rd\">Data.Parameters.Synchron3rd</a> !</p>
+</html>"));
 end machineSyn3rd;
 
 function machineSyn "Calculates coefficient matrices of synchronous machine"
@@ -461,10 +438,6 @@ function machineSyn "Calculates coefficient matrices of synchronous machine"
   SI.Resistance[n_q+1] zr_q;
   SI.Reactance[n_d+1,n_d+1] zx_d;
   SI.Reactance[n_q+1,n_q+1] zx_q;
-annotation (Documentation(info="<html>
-See also equivalent circuit on 'Diagram layer' of
-<a href=\"Data.Parameters.Synchron\">Data.Parameters.Synchron</a> !</p>
-</html>"));
 
 algorithm
   c.Psi_pm := p.psi_pm*(p.V_nom/omega_nom);
@@ -508,6 +481,10 @@ algorithm
   c.wf := omega_nom*c.L_md[1]*p.If_nom/p.V_nom;
   c.Vf_nom := if p.excite==1 then (c.R_rd[1]/(c.wf*c.wf))*p.If_nom else 0;
   c.omega_nom := omega_nom;
+annotation (Documentation(info="<html>
+See also equivalent circuit on 'Diagram layer' of
+<a href=\"Data.Parameters.Synchron\">Data.Parameters.Synchron</a> !</p>
+</html>"));
 end machineSyn;
 
 function polyCoef "Calculates polynome coefficients from time constants"
@@ -517,6 +494,12 @@ function polyCoef "Calculates polynome coefficients from time constants"
   protected
   parameter Integer n=size(T,1);
 
+
+algorithm
+  a := fill(0, n);
+  for k in 1:n loop
+    a[1:k] := cat(1, {a[1] + T[k]}, a[2:k] + a[1:k-1]*T[k]);
+  end for;
 annotation (Documentation(info="<html>
 <p>This function is related to <a href=\"Spot.Base.Math.polyCoefReal\">Math.polyCoefReal</a>, but modified for polynomes of the form
 <pre>  product(1 + p*T[k]), k in 1:n</pre>
@@ -524,12 +507,6 @@ with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients o
 <pre>  a[k] for k in 1:n</pre>i.e. the constant factor 1 is omitted.</p>
 <p>See also <a href=\"Spot.Base.Precalculation.polyTime\">polyTime</a></p>
 </html>"));
-
-algorithm
-  a := fill(0, n);
-  for k in 1:n loop
-    a[1:k] := cat(1, {a[1] + T[k]}, a[2:k] + a[1:k-1]*T[k]);
-  end for;
 end polyCoef;
 
 function polyTime "Calculates time constants from polynome coefficients"
@@ -547,14 +524,6 @@ function polyTime "Calculates time constants from polynome coefficients"
   function eigenValues = Modelica.Math.Matrices.eigenValues;
   function sortDown = Base.Math.sortDown;
 
-annotation(Documentation(info="<html>
-<p>This function is related to <a href=\"Spot.Base.Math.polyRoots\">Math.polyRoots</a>, but modified for polynomes of the form
-<pre>  product(1 + p*T[k]), k in 1:n</pre>
-It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and herefrom <tt>T</tt>. The time constants are sorted in descending order.</p>
-<p>A boolean variable <tt>Tisreal</tt> indicates whether all time constants are real or not.</p>
-<p>See also <a href=\"Spot.Base.Precalculation.polyCoef\">polyCoef</a></p>
-</html>
-"));
 
 algorithm
   A[1, 1:n] := -cat(1, a[n-1:-1:1], {1})/a[n];
@@ -564,6 +533,14 @@ algorithm
   Tisreal := max(abs(lam[:, 2])) < eps;
   T := -ones(n)./lam[n:-1:1,1];
   T := sortDown(T);
+annotation(Documentation(info="<html>
+<p>This function is related to <a href=\"Spot.Base.Math.polyRoots\">Math.polyRoots</a>, but modified for polynomes of the form
+<pre>  product(1 + p*T[k]), k in 1:n</pre>
+It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and herefrom <tt>T</tt>. The time constants are sorted in descending order.</p>
+<p>A boolean variable <tt>Tisreal</tt> indicates whether all time constants are real or not.</p>
+<p>See also <a href=\"Spot.Base.Precalculation.polyCoef\">polyCoef</a></p>
+</html>
+"));
 end polyTime;
 
 function x_transient
@@ -579,8 +556,6 @@ function x_transient
   Real[n] y;
   Real[n-1] Tc_p;
 
-annotation (Documentation(info="<html>
-</html>"));
 
 algorithm
   if n==0 then
@@ -598,6 +573,8 @@ algorithm
   for j in 2:n loop
     xtr[j] := x*xtr[j - 1]/(x + xtr[j - 1]*y[j]);
   end for;
+annotation (Documentation(info="<html>
+</html>"));
 end x_transient;
 
 function T_closed
@@ -614,12 +591,12 @@ function T_closed
   Real[n] ac;
   Real[n-1,n] A;
 
-annotation(Documentation(info="<html>
-<p>Algorithm not implemented</p>
-</html>"));
 
 algorithm
   // not implemented
+annotation(Documentation(info="<html>
+<p>Algorithm not implemented</p>
+</html>"));
 end T_closed;
 
 function T_open
@@ -636,8 +613,6 @@ function T_open
   Real[n] ac;
   Real[n-1,n] A;
   Boolean Treal;
-annotation (Documentation(info="<html>
-</html>"));
 
 algorithm
   if n ==0 then
@@ -651,6 +626,8 @@ algorithm
   end for;
   (To, Treal) := polyTime(ac*x/xtr[n] - cat(1, A*y, {0}));
   end if;
+annotation (Documentation(info="<html>
+</html>"));
 end T_open;
 
 function i_field "Calculates complex field current"
@@ -684,16 +661,6 @@ function i_field "Calculates complex field current"
   Types.Complex[n] Qo;
   Types.Complex[n] Qc;
   Types.Complex dif;
-annotation(Documentation(info="<html>
-<p>Calculates the complex field-current i_f, and outputs dif2 which is defined as follows:
-<pre>
-  i_f   complex field-current for actual impedance-parameters
-  i_f0  desired (measured) field-current at nominal voltage /_ 0deg.
-  di_f = i_f - i_f0            (complex difference)
-  dif2 = di_f*conjugate(di_f)  (square of absolute value of difference)
-</pre>
-<p>The difference dif2 is used in order to determine the coupling terms xm[2:n] by a minimum-principle.</p>
-</html>"));
 
 algorithm
   qs :=xsig_s/(xm_s);
@@ -710,6 +677,16 @@ algorithm
          Complex.invC(xsig[1]*(qs*Complex.prodC(Qo) + (1 + qs)*im*Tsig_s*Complex.prodC(Qc))) -
          (re*i_f0[1] + im*i_f0[2]);
   dif2 := Complex.detC(dif);
+annotation(Documentation(info="<html>
+<p>Calculates the complex field-current i_f, and outputs dif2 which is defined as follows:
+<pre>
+  i_f   complex field-current for actual impedance-parameters
+  i_f0  desired (measured) field-current at nominal voltage /_ 0deg.
+  di_f = i_f - i_f0            (complex difference)
+  dif2 = di_f*conjugate(di_f)  (square of absolute value of difference)
+</pre>
+<p>The difference dif2 is used in order to determine the coupling terms xm[2:n] by a minimum-principle.</p>
+</html>"));
 end i_field;
 
 function Tsig_xsig "Calculates Tsig and xsig"
@@ -745,11 +722,6 @@ function Tsig_xsig "Calculates Tsig and xsig"
   Real dgsig;
   function inv = Modelica.Math.Matrices.inv;
 
-annotation (Documentation(info="<html>
-<p>Calculates rotor leakage reactance xsig and corresponding time constants Tsig.</p>
-<p>If transient order n &gt  3, the coefficients xm[2:n-2] are assumed to be 0.<br>
-A different choice is not meaningful, as long as we only have 2 parameters (complex field-current) to fit.</p>
-</html>"));
 
 algorithm
   iter := 0;
@@ -807,6 +779,11 @@ algorithm
     end if;
   end if;
   xsig := ones(n)./gsig;
+annotation (Documentation(info="<html>
+<p>Calculates rotor leakage reactance xsig and corresponding time constants Tsig.</p>
+<p>If transient order n &gt  3, the coefficients xm[2:n-2] are assumed to be 0.<br>
+A different choice is not meaningful, as long as we only have 2 parameters (complex field-current) to fit.</p>
+</html>"));
 end Tsig_xsig;
 
 function z_fromTransDat "Calculates impedance matrix z from transient data"
@@ -834,9 +811,6 @@ function z_fromTransDat "Calculates impedance matrix z from transient data"
   Boolean result;
   function fminSearch = Base.Math.fminSearch;
 
-annotation(Documentation(info="<html>
-<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
-</html>"));
 
 algorithm
   if n==0 then
@@ -868,6 +842,9 @@ algorithm
       zx[1:k,1:k] := zx[1:k,1:k] + fill(xm[k], k, k);
     end for;
   end if;
+annotation(Documentation(info="<html>
+<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
+</html>"));
 end z_fromTransDat;
 
 function z_fromEqCirc "Calculates impedance matrix z from equivalent circuit"
@@ -883,9 +860,6 @@ function z_fromEqCirc "Calculates impedance matrix z from equivalent circuit"
   output SIpu.Resistance[n+1] zr(unit="pu") "impedance matrix resistive";
   output SIpu.Reactance[n+1,n+1] zx(unit="pu") "impedance matrix reactive";
 
-annotation (Documentation(info="<html>
-<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
-</html>"));
 
 algorithm
   zr := cat(1, r_r, {r_s});
@@ -894,6 +868,9 @@ algorithm
       zx[1:k,1:k] := zx[1:k,1:k] + fill(xm2_n[k-1], k, k);
     end for;
   zx := zx + fill(x - xsig_s, n+1, n+1);
+annotation (Documentation(info="<html>
+<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
+</html>"));
 end z_fromEqCirc;
 
 function equiCircuit "Calculates equivalent circuit from transient data"
@@ -921,10 +898,6 @@ function equiCircuit "Calculates equivalent circuit from transient data"
   Boolean result;
   function fminSearch = Base.Math.fminSearch;
 
-annotation (Documentation(info="<html>
-<p>This function is added for completeness. It is not used in the machine models.</p>
-<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
-</html>"));
 
 algorithm
   xm := cat(1, zeros(n), {x - xsig_s});
@@ -953,6 +926,10 @@ algorithm
       r_r[k] := xsig_r[k]/Tsig[k];
     end for;
   end if;
+annotation (Documentation(info="<html>
+<p>This function is added for completeness. It is not used in the machine models.</p>
+<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
+</html>"));
 end equiCircuit;
 
 function transientData "Calculates transient data from equivalent circuit"
@@ -979,10 +956,6 @@ function transientData "Calculates transient data from equivalent circuit"
   function eigenValues = Modelica.Math.Matrices.eigenValues;
   function sortDown = Base.Math.sortDown;
 
-annotation (Documentation(info="<html>
-<p>This function is added for completeness. It is not used in the machine models.</p>
-<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
-</html>"));
 
 algorithm
   xm := cat(1, {0}, xm2_n, {x - xsig_s});
@@ -1008,5 +981,29 @@ algorithm
   assert(max(abs(lam[:,2])) < eps, "spectrum open-loop is not real!");
   assert(max(abs(lam[:,2])) < eps,  "spectrum closed-loop is not real!");
   xtr := x_transient(x, Tc, To);
+annotation (Documentation(info="<html>
+<p>This function is added for completeness. It is not used in the machine models.</p>
+<p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
+</html>"));
 end transientData;
+  annotation (preferedView="info",
+                     Window(
+x=0.05,
+y=0.44,
+width=0.31,
+height=0.23,
+library=1,
+autolayout=1),
+    Documentation(info="<html>
+<p>Functions needed for the determination of coefficient-matrices from a set of phenomenological input parameters.</p>
+<p><a href=\"Spot.UsersGuide.Introduction.Precalculation\">up users guide</a></p>
+<p>The second part of this package has been written in honour of <b>I. M. Canay</b>, one of the important electrical engeneers of the 20th century. He understood, what he wrote, and his results were exact. The package is based on his ideas and formulated in full mathematical generality.</p>
+<p>Literature:
+<ul>
+<li>Canay, I. M.: Modelling of Alternating-Current Machines Having Multiple Rotor Circuits.<br>
+IEEE Transactions on Energy Conversion, Vol. 8, No. 2, June 1993.</li>
+<li>Canay, I. M.: Determination of the Model Parameters of Machines from the Reactance Operators x_d(p), x_q(p).<br>
+IEEE Transactions on Energy Conversion, Vol. 8, No. 2, June 1993.</li>
+</ul></p>
+</html>"));
 end Precalculation;

@@ -1,44 +1,10 @@
 within SpotExamples;
 package d_DrivesACdqo "AC drives, dqo"
   extends Spot.Base.Icons.Examples;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>AC drives (motors electrical and mechanical). Electric motor terminal in dqo-representation.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Icon);
 
   model ASMcharacteristic
     "AC asynchronous machine: torque - slip characteristic"
 
-  annotation (Diagram,
-      experiment(Algorithm="Dassl"),
-      experimentSetupOutput,
-      Documentation(info="<html>
-<p>Steady-state simulation to produce motor characteristic 'torque vs slip'.<br>
-<pre>
-  asm.torque         motor mechanical torque
-  asm.motor.slip     slip (negative: motor, positive: generator mode)
-
-       slip &lt  -1    motor breake mode
-  -1 &lt  slip &lt  0     motor drive mode
-       slip &gt  0     generator mode
-</pre></p>
-<p>Plot torque vs slip:<br>
-plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent variable': 'asm.motor.slip'.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"));
 
     inner Spot.System system(sim="st")
     annotation (extent=[-100,80; -80,100]);
@@ -76,38 +42,27 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
         color=62, rgbcolor={0,120,120}));
     connect(speedSignal.y, speed.w)
     annotation (points=[58,-10; 40,-10], style(color=74, rgbcolor={0,0,127}));
+  annotation (Diagram,
+      experiment(Algorithm="Dassl"),
+      experimentSetupOutput,
+      Documentation(info="<html>
+<p>Steady-state simulation to produce motor characteristic 'torque vs slip'.<br>
+<pre>
+  asm.torque         motor mechanical torque
+  asm.motor.slip     slip (negative: motor, positive: generator mode)
+
+       slip &lt  -1    motor breake mode
+  -1 &lt  slip &lt  0     motor drive mode
+       slip &gt  0     generator mode
+</pre></p>
+<p>Plot torque vs slip:<br>
+plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent variable': 'asm.motor.slip'.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"));
   end ASMcharacteristic;
 
   model ASM_Y_D "AC asynchronous machine Y-Delta switcheable"
 
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Documentation(
-              info="<html>
-<p>Asynchron machine, Y-Delta switcheable, start-up.</p>
-<p><i>See for example:</i>
-<pre>
-  power.p
-  asm_Y_D.motor.slip
-  loadInertia.flange_p.tau
-  frictTorq.flange.tau
-  frictTorq.w
-</pre>
-Compare 'transient' and 'steady-state' mode.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"),   Diagram,
-      Icon,
-      experiment(StopTime=3),
-      experimentSetupOutput);
     inner Spot.System system(ini="tr")
       annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Nodes.GroundOne grd annotation (extent=[-80,-20; -100,0]);
@@ -152,11 +107,6 @@ Compare 'transient' and 'steady-state' mode.</p>
         fillColor=84,
         rgbfillColor={213,170,255},
         fillPattern=1));
-  end ASM_Y_D;
-
-  model ASMav
-    "AC asynchronous machine, voltage controlled with average inverter"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -169,24 +119,27 @@ Compare 'transient' and 'steady-state' mode.</p>
   height=0.65),
       Documentation(
               info="<html>
-<p>Asynchron machine with load (drive along height-profile), on-load steady-state start.<br>
-The model uses a time-average inverter. With the actual parameter values the 'inverter' corresponds exactly to an AC voltage source of 3kV.</p>
+<p>Asynchron machine, Y-Delta switcheable, start-up.</p>
 <p><i>See for example:</i>
 <pre>
   power.p
-  asm.motor.slip
-  tabLoad.vVehicle
+  asm_Y_D.motor.slip
+  loadInertia.flange_p.tau
+  frictTorq.flange.tau
+  frictTorq.w
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),   Diagram,
       Icon,
-      experiment(
-        StopTime=60,
-        NumberOfIntervals=1357,
-        Tolerance=1e-006),
+      experiment(StopTime=3),
       experimentSetupOutput);
+  end ASM_Y_D;
+
+  model ASMav
+    "AC asynchronous machine, voltage controlled with average inverter"
+
     inner Spot.System system(ref="synchron")
       annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-80,-20; -100,0]);
@@ -259,11 +212,6 @@ Compare 'transient' and 'steady-state' mode.</p>
         fillColor=84,
         rgbfillColor={213,170,255},
         fillPattern=1));
-  end ASMav;
-
-  model ASMav_icontrol
-    "AC asynchronous machine, current controlled with average inverter"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -276,11 +224,12 @@ Compare 'transient' and 'steady-state' mode.</p>
   height=0.65),
       Documentation(
               info="<html>
-<p>Current (torque) controlled asynchron machine with load (drive along height-profile), steady-state start, torque-increase after start.<br>
-The model uses a time-average inverter. For comparison with the previous example 'ASMav'.</p>
+<p>Asynchron machine with load (drive along height-profile), on-load steady-state start.<br>
+The model uses a time-average inverter. With the actual parameter values the 'inverter' corresponds exactly to an AC voltage source of 3kV.</p>
 <p><i>See for example:</i>
 <pre>
-  asm.motor.tau_el
+  power.p
+  asm.motor.slip
   tabLoad.vVehicle
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
@@ -293,6 +242,11 @@ Compare 'transient' and 'steady-state' mode.</p>
         NumberOfIntervals=1357,
         Tolerance=1e-006),
       experimentSetupOutput);
+  end ASMav;
+
+  model ASMav_icontrol
+    "AC asynchronous machine, current controlled with average inverter"
+
     inner Spot.System system(ref="synchron")
       annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-40,-40; -60,-20]);
@@ -357,10 +311,6 @@ Compare 'transient' and 'steady-state' mode.</p>
     connect(asm_ctrl.heat, bdCond.heat)
       annotation (points=[10,-20; 10,-20],
                                        style(color=42, rgbcolor={176,0,0}));
-  end ASMav_icontrol;
-
-  model ASM "AC asynchronous machine, voltage controlled"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -373,23 +323,27 @@ Compare 'transient' and 'steady-state' mode.</p>
   height=0.65),
       Documentation(
               info="<html>
-<p>Asynchron machine with load (drive along height-profile), on-load transient start.<br>
-The machine defines the reference-system independent of the system choice (as needed for example in hardware-in-the-loop simulation). This model uses a switched inverter.</p>
+<p>Current (torque) controlled asynchron machine with load (drive along height-profile), steady-state start, torque-increase after start.<br>
+The model uses a time-average inverter. For comparison with the previous example 'ASMav'.</p>
 <p><i>See for example:</i>
 <pre>
-  power.p_av        time-average power
-  time_av.y         time-average pu stator currents
-  asm.motor.tau_el  electric torque
-</pre></p>
+  asm.motor.tau_el
+  tabLoad.vVehicle
+</pre>
+Compare 'transient' and 'steady-state' mode.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-      Diagram,
+</html>
+"),   Diagram,
       Icon,
-      experiment(Tolerance=1e-005, Algorithm="Lsodar"),
-      experimentSetupOutput(
-        derivatives=false,
-        auxiliaries=false,
-        events=false));
+      experiment(
+        StopTime=60,
+        NumberOfIntervals=1357,
+        Tolerance=1e-006),
+      experimentSetupOutput);
+  end ASMav_icontrol;
+
+  model ASM "AC asynchronous machine, voltage controlled"
+
     inner Spot.System system(ini="tr", ref="inertial")
       annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-80,-20; -100,0]);
@@ -463,39 +417,40 @@ The machine defines the reference-system independent of the system choice (as ne
         fillColor=84,
         rgbfillColor={213,170,255},
         fillPattern=1));
+    annotation (
+      Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Documentation(
+              info="<html>
+<p>Asynchron machine with load (drive along height-profile), on-load transient start.<br>
+The machine defines the reference-system independent of the system choice (as needed for example in hardware-in-the-loop simulation). This model uses a switched inverter.</p>
+<p><i>See for example:</i>
+<pre>
+  power.p_av        time-average power
+  time_av.y         time-average pu stator currents
+  asm.motor.tau_el  electric torque
+</pre></p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+      Diagram,
+      Icon,
+      experiment(Tolerance=1e-005, Algorithm="Lsodar"),
+      experimentSetupOutput(
+        derivatives=false,
+        auxiliaries=false,
+        events=false));
   end ASM;
 
   model SM_ctrlAv
     "AC synchronous pm machine, current controlled with average inverter"
 
-  annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-    Documentation(
-            info="<html>
-<p>Field oriented control of pm synchronous machine with time-average inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
-For pm machine (psi_pm &gt  0, x_d = x_q) i_d can be set to zero. For reluctance machines (psi_pm = 0, x_d &gt  x_q) i_d must have a positive value.</p>
-On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
-<p><i>See for example:</i>
-<pre>
-  sm_ctrl.motor.tau_el
-  loadInertia.flange_p.tau
-  sm_ctrl.motor.w_el
-  loadInertia.w
-</pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
-    Icon,
-    experiment(StopTime=10),
-    experimentSetupOutput);
     inner Spot.System system
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-40,-40; -60,-20]);
@@ -561,10 +516,6 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
           20; 16,-20.5], style(color=74, rgbcolor={0,0,127}));
     connect(i_d.y, sm_ctrl.i_act[1])        annotation (points=[-60,50; 16,50;
           16,-19.5], style(color=74, rgbcolor={0,0,127}));
-  end SM_ctrlAv;
-
-  model SM_ctrl "AC synchronous pm machine, current controlled"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -577,9 +528,9 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
         height=0.65),
     Documentation(
             info="<html>
-<p>Field oriented control of pm synchronous machine with modulated inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
+<p>Field oriented control of pm synchronous machine with time-average inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
 For pm machine (psi_pm &gt  0, x_d = x_q) i_d can be set to zero. For reluctance machines (psi_pm = 0, x_d &gt  x_q) i_d must have a positive value.</p>
-Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
+On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
 <p><i>See for example:</i>
 <pre>
   sm_ctrl.motor.tau_el
@@ -591,14 +542,12 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
 </html>"),
     Diagram,
     Icon,
-    experiment(
-        StopTime=3,
-        Tolerance=1e-005,
-        Algorithm="Lsodar"),
-    experimentSetupOutput(
-        derivatives=false,
-        inputs=false,
-        events=false));
+    experiment(StopTime=10),
+    experimentSetupOutput);
+  end SM_ctrlAv;
+
+  model SM_ctrl "AC synchronous pm machine, current controlled"
+
     inner Spot.System system
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-40,-40; -60,-20]);
@@ -670,11 +619,6 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
           20; 16,-20.5], style(color=74, rgbcolor={0,0,127}));
     connect(i_d.y, sm_ctrl.i_act[1])        annotation (points=[-60,50; 16,50;
           16,-19.5], style(color=74, rgbcolor={0,0,127}));
-  end SM_ctrl;
-
-  model ASM_ctrlAv
-    "AC asynchronous machine, current controlled with average inverter"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -687,25 +631,33 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
         height=0.65),
     Documentation(
             info="<html>
-<p>Field oriented control of asynchronous machine with time-average inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.</p>
-On-load steady-state start with torque-increase at 3 s, load-step 6 s and field-increase at 8 s.</p>
+<p>Field oriented control of pm synchronous machine with modulated inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
+For pm machine (psi_pm &gt  0, x_d = x_q) i_d can be set to zero. For reluctance machines (psi_pm = 0, x_d &gt  x_q) i_d must have a positive value.</p>
+Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
 <p><i>See for example:</i>
 <pre>
-  asm_ctrl.motor.tau_el
-  asm_ctrl.motor.w_el
-  asm_ctrl.motor.uPhasor
-  asm_ctrl.motor.slip
+  sm_ctrl.motor.tau_el
+  loadInertia.flange_p.tau
+  sm_ctrl.motor.w_el
+  loadInertia.w
 </pre></p>
-Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage proportional to uPhasor[1] even if uPhasor[1] &gt  1. For a time-resolved converter this corresponds to overmodulation.
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
     Diagram,
     Icon,
     experiment(
-        StopTime=10,
-        fixedstepsize=0.001,
-        Algorithm="Dassl"),
-    experimentSetupOutput);
+        StopTime=3,
+        Tolerance=1e-005,
+        Algorithm="Lsodar"),
+    experimentSetupOutput(
+        derivatives=false,
+        inputs=false,
+        events=false));
+  end SM_ctrl;
+
+  model ASM_ctrlAv
+    "AC asynchronous machine, current controlled with average inverter"
+
     inner Spot.System system
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-40,-40; -60,-20]);
@@ -774,10 +726,6 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
           20; 16,-20.5], style(color=74, rgbcolor={0,0,127}));
     connect(i_d.y, asm_ctrl.i_act[1])       annotation (points=[-60,50; 16,50;
           16,-19.5], style(color=74, rgbcolor={0,0,127}));
-  end ASM_ctrlAv;
-
-  model ASM_ctrl "AC asynchronous machine, current controlled"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -790,8 +738,8 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
         height=0.65),
     Documentation(
             info="<html>
-<p>Field oriented control of asynchronous machine with modulated inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.</p>
-Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase at 2.5 s.</p>
+<p>Field oriented control of asynchronous machine with time-average inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.</p>
+On-load steady-state start with torque-increase at 3 s, load-step 6 s and field-increase at 8 s.</p>
 <p><i>See for example:</i>
 <pre>
   asm_ctrl.motor.tau_el
@@ -799,18 +747,20 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
   asm_ctrl.motor.uPhasor
   asm_ctrl.motor.slip
 </pre></p>
+Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage proportional to uPhasor[1] even if uPhasor[1] &gt  1. For a time-resolved converter this corresponds to overmodulation.
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
     Diagram,
     Icon,
     experiment(
-        StopTime=3,
-        Tolerance=1e-005,
-        Algorithm="Lsodar"),
-    experimentSetupOutput(
-        derivatives=false,
-        inputs=false,
-        events=false));
+        StopTime=10,
+        fixedstepsize=0.001,
+        Algorithm="Dassl"),
+    experimentSetupOutput);
+  end ASM_ctrlAv;
+
+  model ASM_ctrl "AC asynchronous machine, current controlled"
+
     inner Spot.System system(ini="tr", ref="inertial")
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-40,-40; -60,-20]);
@@ -883,6 +833,56 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
           20; 16,-20.5], style(color=74, rgbcolor={0,0,127}));
     connect(i_d.y, asm_ctrl.i_act[1])       annotation (points=[-60,50; 16,50;
           16,-19.5], style(color=74, rgbcolor={0,0,127}));
+  annotation (
+    Coordsys(
+        extent=[-100,-100; 100,100],
+        grid=[2,2],
+        component=[20,20]),
+    Window(
+        x=0.45,
+        y=0.01,
+        width=0.44,
+        height=0.65),
+    Documentation(
+            info="<html>
+<p>Field oriented control of asynchronous machine with modulated inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.</p>
+Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase at 2.5 s.</p>
+<p><i>See for example:</i>
+<pre>
+  asm_ctrl.motor.tau_el
+  asm_ctrl.motor.w_el
+  asm_ctrl.motor.uPhasor
+  asm_ctrl.motor.slip
+</pre></p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+    Diagram,
+    Icon,
+    experiment(
+        StopTime=3,
+        Tolerance=1e-005,
+        Algorithm="Lsodar"),
+    experimentSetupOutput(
+        derivatives=false,
+        inputs=false,
+        events=false));
   end ASM_ctrl;
 
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>AC drives (motors electrical and mechanical). Electric motor terminal in dqo-representation.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+"), Icon);
 end d_DrivesACdqo;

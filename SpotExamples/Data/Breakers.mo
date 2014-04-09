@@ -2,9 +2,6 @@ within SpotExamples.Data;
 package Breakers "Breaker example data"
   extends Spot.Base.Icons.SpecialLibrary;
 
-  annotation (preferedView="info",
-Documentation(info="<html>
-</html>"));
 
   record BreakerArc "Breaker, 3-phase, example"
     extends Spot.Base.Icons.Record;
@@ -29,4 +26,7 @@ Documentation(info="<html>
 "),   Icon,
       Diagram);
   end BreakerArc;
+  annotation (preferedView="info",
+Documentation(info="<html>
+</html>"));
 end Breakers;

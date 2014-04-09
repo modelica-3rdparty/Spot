@@ -2,9 +2,6 @@ within SpotExamples.Data;
 package Semiconductors "Breaker example data"
   extends Spot.Base.Icons.SpecialLibrary;
 
-  annotation (preferedView="info",
-Documentation(info="<html>
-</html>"));
 
   record IdealSC100V_10A "Ideal semiconductor parameters, example"
     extends Spot.Base.Icons.Record;
@@ -120,4 +117,7 @@ Documentation(info="<html>
       Icon);
   end IdealSC3kV_500A;
 
+  annotation (preferedView="info",
+Documentation(info="<html>
+</html>"));
 end Semiconductors;

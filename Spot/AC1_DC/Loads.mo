@@ -1,15 +1,15 @@
 within Spot.AC1_DC;
 
+
 package Loads "Loads"
   model Rload "Resistance load, 1-phase"
     extends Partials.ResLoadBase;
 
+
+  equation
+    R = V2_nom/p0;
   annotation (
     defaultComponentName="rLoad",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -19,50 +19,32 @@ package Loads "Loads"
         info="<html>
 <p>Resistive load AC or DC with impedance characteristic.<br>
 Consumes the desired power at <b>nominal</b> voltage.</p>
-</html>"),   Icon(
-  Text(
-    extent=[-80,28; 0,-32],
-          string="R",
-          style(
-            color=42,
-            rgbcolor={176,0,0},
-            fillColor=10,
-            rgbfillColor={128,128,128}))),
-      Diagram);
-
-  equation
-    R = V2_nom/p0;
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-80,28},{0,-32}},
+            lineColor={176,0,0},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "R")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Rload;
   extends Base.Icons.Library;
 
-annotation (preferedView="info",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.44,
-library=1,
-autolayout=1),
-    Documentation(info="<html>
-<p>Different load models with an optional input:</p>
-<pre>  p_set:     active or {active, reactive} power</pre>
-<p>If p_set is <b>not</b> connected to a corresponding signal, parameter-values are relevant.</p>
-</html>"),
-  Icon);
 
   model ZloadAC "Impedance load AC, 1-phase"
     extends Partials.IndLoadBaseAC;
 
+
+  equation
+    Z = (p0/(p0*p0))*V2_nom;
   annotation (
     defaultComponentName="zLoadAC",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -72,38 +54,36 @@ autolayout=1),
         info="<html>
 <p>Inductive load AC with impedance characteristic.<br>
 Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
-</html>"),   Icon(
-  Text(
-    extent=[-98,28; -18,-32],
-    string="Z",
-          style(
-            color=42,
-            rgbcolor={176,0,0},
-            fillColor=10,
-            rgbfillColor={128,128,128})),
-  Text(
-    extent=[-28,29; 52,-31],
-          style(
-            color=7,
-            rgbcolor={255,255,255},
-            fillColor=10,
-            rgbfillColor={128,128,128}),
-          string="~")),
-      Diagram);
-
-  equation
-    Z = (p0/(p0*p0))*V2_nom;
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-98,28},{-18,-32}},
+            lineColor={176,0,0},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+           "Z"), Text(
+            extent={{-28,29},{52,-31}},
+            lineColor={255,255,255},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "~")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end ZloadAC;
 
   model YloadAC "Admittance load AC, 1-phase"
     extends Partials.CapLoadBaseAC;
 
+
+  equation
+    Y = (p0/(p0*p0))*I2_nom;
   annotation (
     defaultComponentName="yLoadAC",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -114,38 +94,37 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
 <p>Capacitive load AC with admittance characteristic.<br>
 Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
 </html>"),
-      Icon(
-  Text(
-    extent=[-100,28; -20,-32],
-        string="Y",
-          style(
-            color=42,
-            rgbcolor={176,0,0},
-            fillColor=10,
-            rgbfillColor={128,128,128})),
-  Text(
-    extent=[-28,29; 52,-31],
-          string="~",
-          style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=10,
-            rgbfillColor={128,128,128}))),
-      Diagram);
-
-  equation
-    Y = (p0/(p0*p0))*I2_nom;
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-100,28},{-20,-32}},
+            lineColor={176,0,0},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+               "Y"), Text(
+            extent={{-28,29},{52,-31}},
+            lineColor={0,0,255},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "~")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end YloadAC;
 
   model ZloadDC "Impedance load DC"
     extends Partials.IndLoadBaseDC;
 
+
+  equation
+    R = V2_nom/p0;
+    L = t_RL*R;
   annotation (
     defaultComponentName="zLoadDC",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -155,28 +134,26 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
         info="<html>
 <p>Resistive-inductive load DC with impedance characteristic.<br>
 Consumes the desired power at <b>nominal</b> voltage.</p>
-</html>"),   Icon(
-  Text(
-    extent=[-98,28; -18,-32],
-    string="Z",
-          style(
-            color=42,
-            rgbcolor={176,0,0},
-            fillColor=10,
-            rgbfillColor={128,128,128})),
-  Text(
-    extent=[-28,29; 52,-31],
-          string="=",
-          style(
-            color=7,
-            rgbcolor={255,255,255},
-            fillColor=10,
-            rgbfillColor={128,128,128}))),
-      Diagram);
-
-  equation
-    R = V2_nom/p0;
-    L = t_RL*R;
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-98,28},{-18,-32}},
+            lineColor={176,0,0},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+           "Z"), Text(
+            extent={{-28,29},{52,-31}},
+            lineColor={255,255,255},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "=")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end ZloadDC;
 
   model PindLoadDC "Inductive load DC"
@@ -186,12 +163,16 @@ Consumes the desired power at <b>nominal</b> voltage.</p>
     parameter SI.Time tcst=0.01 "time constant R";
   protected
     Real v2 = v*v;
+
+  initial equation
+    der(R) = 0;
+
+  equation
+  //  der(R) = (v2/p0 - R)/tcst;
+    der(R) = ((v2/p0)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
+    L = t_RL*R;
   annotation (
     defaultComponentName="pLoadDC",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -202,32 +183,26 @@ Consumes the desired power at <b>nominal</b> voltage.</p>
 <p>Resistive-inductive load DC with constant characteristic.<br>
 Consumes the desired power independent of voltage.</p>
 </html>"),
-      Icon(
-  Text(
-    extent=[-98,36; -18,-24],
-          string="p",
-          style(
-            color=42,
-            rgbcolor={176,0,0},
-            fillColor=10,
-            rgbfillColor={128,128,128})),
-  Text(
-    extent=[-28,29; 52,-31],
-          string="=",
-          style(
-            color=7,
-            rgbcolor={255,255,255},
-            fillColor=10,
-            rgbfillColor={128,128,128}))),
-      Diagram);
-
-  initial equation
-    der(R) = 0;
-
-  equation
-  //  der(R) = (v2/p0 - R)/tcst;
-    der(R) = ((v2/p0)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
-    L = t_RL*R;
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-98,36},{-18,-24}},
+            lineColor={176,0,0},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "p"), Text(
+            extent={{-28,29},{52,-31}},
+            lineColor={255,255,255},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "=")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end PindLoadDC;
 
   model PresLoadDC "P resistive load"
@@ -237,12 +212,15 @@ Consumes the desired power independent of voltage.</p>
     parameter SI.Time tcst=0.01 "time constant R";
   protected
     Real v2 = v*v;
+
+  initial equation
+    der(R) = 0;
+
+  equation
+  //  der(R) = (v2/p0 - R)/tcst;
+    der(R) = ((v2/p0)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
   annotation (
     defaultComponentName="pLoadDC",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -253,47 +231,31 @@ Consumes the desired power independent of voltage.</p>
 <p>Resistive load DC with constant characteristic.<br>
 Consumes the desired power independent of voltage.</p>
 </html>"),
-      Icon(
-  Text(
-    extent=[-80,36; 0,-24],
-          string="p",
-          style(
-            color=42,
-            rgbcolor={176,0,0},
-            fillColor=10,
-            rgbfillColor={128,128,128})),
-  Text(
-    extent=[-28,29; 52,-31],
-          string="=",
-          style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=10,
-            rgbfillColor={128,128,128}))),
-      Diagram);
-
-  initial equation
-    der(R) = 0;
-
-  equation
-  //  der(R) = (v2/p0 - R)/tcst;
-    der(R) = ((v2/p0)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-80,36},{0,-24}},
+            lineColor={176,0,0},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "p"), Text(
+            extent={{-28,29},{52,-31}},
+            lineColor={0,0,255},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "=")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end PresLoadDC;
 
   package Partials "Partial models"
     extends Base.Icons.Partials;
 
-    annotation (
-      Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]), Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
 
     partial model LoadBase "Load base, 1-phase"
       extends Base.Units.Nominal;
@@ -304,12 +266,12 @@ Consumes the desired power independent of voltage.</p>
     protected
       outer System system;
       final parameter SI.ApparentPower S_base=Base.Precalculation.baseS(units, S_nom);
+
+    equation
+      term.pin[1].i + term.pin[2].i = 0;
+      v = term.pin[1].v - term.pin[2].v;
+      i = term.pin[1].i;
       annotation (
-        Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=
-    [20, 20]),
         Window(
           x=0.45,
           y=0.01,
@@ -318,18 +280,18 @@ Consumes the desired power independent of voltage.</p>
         Documentation(
       info="<html>
 </html>"),
-        Diagram,
-        Icon(
-          Polygon(points=[-80,-60; -80,60; 80,0; -80,-60], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=7,
-              rgbfillColor={255,255,255}))));
-
-    equation
-      term.pin[1].i + term.pin[2].i = 0;
-      v = term.pin[1].v - term.pin[2].v;
-      i = term.pin[1].i;
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Polygon(
+              points={{-80,-60},{-80,60},{80,0},{-80,-60}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}));
     end LoadBase;
 
     partial model ResLoadBase "Resistive load base, 1-phase"
@@ -340,29 +302,16 @@ Consumes the desired power independent of voltage.</p>
         annotation(Evaluate=true);
       parameter SIpu.Power p0_set(min=0)=1 "power, (start val if signal inp)" annotation(Dialog(enable=scType==Base.Types.par));
       Modelica.Blocks.Interfaces.RealInput p_set(min=0) "desired power"
-                                                           annotation(extent=[-10,
-            90; 10,110], rotation=-90);
+                                                           annotation (Placement(
+            transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
     protected
       final parameter SI.Voltage V2_nom=V_nom*V_nom;
       final parameter Real Rstart=V2_nom/(p0_set*S_base);
       SI.Power p0;
       SI.Resistance R(start=Rstart);
-      annotation (
-        Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=
-    [20, 20]),
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-        Documentation(
-      info="<html>
-</html>"),
-        Diagram,
-        Icon);
 
     equation
       if scType == Base.Types.par then
@@ -371,6 +320,23 @@ Consumes the desired power independent of voltage.</p>
         p0 = p_set*S_base;
       end if;
       R*i = v;
+      annotation (
+        Window(
+          x=0.45,
+          y=0.01,
+          width=0.44,
+          height=0.65),
+        Documentation(
+      info="<html>
+</html>"),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end ResLoadBase;
 
     partial model LoadBaseAC "Load base AC, 1-phase"
@@ -384,17 +350,21 @@ Consumes the desired power independent of voltage.</p>
       parameter SIpu.Power[2] p0_set(min=0)={1,1}/sqrt(2)
         "{active, reactive} power, (start val if signal inp)" annotation(Dialog(enable=scType==Base.Types.par));
       Modelica.Blocks.Interfaces.RealInput[2] p_set(min=0)
-        "desired {active, reactive} power" annotation(extent=[-10,
-            90; 10,110], rotation=-90);
+        "desired {active, reactive} power" annotation (Placement(transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
     protected
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       SI.Power[2] p0;
+
+    equation
+      if scType == Base.Types.par then
+        p0 =  p0_set*S_base;
+      elseif scType == Base.Types.sig then
+        p0 = p_set*S_base;
+      end if;
       annotation (
-        Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=
-    [20, 20]),
         Window(
           x=0.45,
           y=0.01,
@@ -403,15 +373,14 @@ Consumes the desired power independent of voltage.</p>
         Documentation(
       info="<html>
 </html>"),
-        Diagram,
-        Icon);
-
-    equation
-      if scType == Base.Types.par then
-        p0 =  p0_set*S_base;
-      elseif scType == Base.Types.sig then
-        p0 = p_set*S_base;
-      end if;
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end LoadBaseAC;
 
                  partial model IndLoadBaseAC "Inductive load base AC, 1-phase"
@@ -426,25 +395,6 @@ Consumes the desired power independent of voltage.</p>
                    final parameter SI.Current istart=cos(system.alpha0-atan(Zstart[2]/Zstart[1]))*V_nom/sqrt(Zstart*Zstart);
                    SI.Impedance[2] Z(start=Zstart);
                    function atan=Modelica.Math.atan;
-      annotation (
-        Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-        Documentation(info=
-                     "<html>
-</html>"),
-        Icon(Polygon(points=[-40,-45; -40,45; 80,0; -40,-45], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255}))),
-        Diagram);
 
                  initial equation
                    if steadyIni_t then
@@ -458,6 +408,27 @@ Consumes the desired power independent of voltage.</p>
                    else
                      Z[1]*i = v;
                    end if;
+      annotation (
+        Window(
+          x=0.45,
+          y=0.01,
+          width=0.44,
+          height=0.65),
+        Documentation(info=
+                     "<html>
+</html>"),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Polygon(
+              points={{-40,-45},{-40,45},{80,0},{-40,-45}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid)}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
                  end IndLoadBaseAC;
 
                  partial model CapLoadBaseAC "Capacitive load base AC, 1-phase"
@@ -472,34 +443,6 @@ Consumes the desired power independent of voltage.</p>
                    final parameter SI.Current istart=cos(system.alpha0+atan(Ystart[2]/Ystart[1]))*V_nom*sqrt(Ystart*Ystart);
                    SI.Admittance[2] Y(start=Ystart);
                    function atan=Modelica.Math.atan;
-                   annotation (
-                     Coordsys(
-                       extent=[-100,-100; 100,100],
-                       grid=[2,2],
-                       component=[20,20]),
-                     Window(
-                       x=0.45,
-                       y=0.01,
-                       width=0.44,
-                       height=0.65),
-                     Documentation(info=
-                     "<html>
-</html>"),                  Icon(
-                       Polygon(points=[-40,44; -40,-44; -20,-36; -20,36; -40,44], style(
-                           pattern=0,
-                           fillColor=30,
-                           rgbfillColor={215,215,215})),
-                       Polygon(points=[-50,48; -50,-48; -40,-44; -40,44; -50,48], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255})),
-                       Polygon(points=[-20,36; -20,-36; -10,-33; -10,33; -20,36], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255}))),
-                     Diagram);
 
                  initial equation
                    if steadyIni_t then
@@ -513,6 +456,38 @@ Consumes the desired power independent of voltage.</p>
                    else
                      Y[1]*v = i;
                    end if;
+                   annotation (
+                     Window(
+                       x=0.45,
+                       y=0.01,
+                       width=0.44,
+                       height=0.65),
+                     Documentation(info=
+                     "<html>
+</html>"),                  Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Polygon(
+              points={{-40,44},{-40,-44},{-20,-36},{-20,36},{-40,44}},
+              lineColor={0,0,255},
+              pattern=LinePattern.None,
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid),
+            Polygon(
+              points={{-50,48},{-50,-48},{-40,-44},{-40,44},{-50,48}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Polygon(
+              points={{-20,36},{-20,-36},{-10,-33},{-10,33},{-20,36}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid)}),
+                     Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
                  end CapLoadBaseAC;
 
     partial model LoadBaseDC "Inductive load base DC"
@@ -525,17 +500,22 @@ Consumes the desired power independent of voltage.</p>
         annotation(Evaluate=true);
       parameter SIpu.Power p0_set(min=0)=1 "power, (start val if signal inp)" annotation(Dialog(enable=scType==Base.Types.par));
       Modelica.Blocks.Interfaces.RealInput p_set(min=0) "desired power"
-                                                           annotation(extent=[-10,
-            90; 10,110], rotation=-90);
+                                                           annotation (Placement(
+            transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
     protected
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       SI.Power p0;
+
+    equation
+      if scType == Base.Types.par then
+        p0 =  p0_set*S_base;
+      elseif scType == Base.Types.sig then
+        p0 = p_set*S_base;
+      end if;
       annotation (
-        Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=
-    [20, 20]),
         Window(
           x=0.45,
           y=0.01,
@@ -544,19 +524,18 @@ Consumes the desired power independent of voltage.</p>
         Documentation(
       info="<html>
 </html>"),
-        Diagram,
-        Icon(Polygon(points=[-40,-45; -40,45; 80,0; -40,-45], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255}))));
-
-    equation
-      if scType == Base.Types.par then
-        p0 =  p0_set*S_base;
-      elseif scType == Base.Types.sig then
-        p0 = p_set*S_base;
-      end if;
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Polygon(
+              points={{-40,-45},{-40,45},{80,0},{-40,-45}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid)}));
     end LoadBaseDC;
 
     partial model IndLoadBaseDC "Inductive load base DC"
@@ -568,26 +547,6 @@ Consumes the desired power independent of voltage.</p>
       final parameter Real Rstart=V2_nom/(p0_set*S_base);
       SI.Resistance R(start=Rstart);
       SI.Inductance L(start=t_RL*Rstart);
-      annotation (
-        Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=
-    [20, 20]),
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-        Documentation(
-      info="<html>
-</html>"),
-        Diagram,
-        Icon(Polygon(points=[-40,-45; -40,45; 80,0; -40,-45], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255}))));
 
     initial equation
       if steadyIni_t then
@@ -596,6 +555,51 @@ Consumes the desired power independent of voltage.</p>
 
     equation
       der(L*i) + R*i = v;
+      annotation (
+        Window(
+          x=0.45,
+          y=0.01,
+          width=0.44,
+          height=0.65),
+        Documentation(
+      info="<html>
+</html>"),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Polygon(
+              points={{-40,-45},{-40,45},{80,0},{-40,-45}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid)}));
     end IndLoadBaseDC;
+    annotation (            Window(
+        x=0.05,
+        y=0.44,
+        width=0.31,
+        height=0.23,
+        library=1,
+        autolayout=1));
   end Partials;
+annotation (preferedView="info",
+    Window(
+x=0.05,
+y=0.41,
+width=0.4,
+height=0.44,
+library=1,
+autolayout=1),
+    Documentation(info="<html>
+<p>Different load models with an optional input:</p>
+<pre>  p_set:     active or {active, reactive} power</pre>
+<p>If p_set is <b>not</b> connected to a corresponding signal, parameter-values are relevant.</p>
+</html>"),
+  Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Loads;

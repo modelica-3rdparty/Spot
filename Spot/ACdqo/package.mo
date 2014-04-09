@@ -5,10 +5,6 @@ import Spot.Base.Transforms.j_dqo;
 
 
 annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
 Window(
   x=0.05,
   y=0.03,

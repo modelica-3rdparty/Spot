@@ -2,21 +2,6 @@ within Spot.Base;
 package Math "Mathematical functions"
   extends Icons.Base;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-</html>
-"), Icon);
 
   function atanVarCut "arc-tangens with variable cut"
     extends Icons.Function;
@@ -29,6 +14,11 @@ Documentation(info="<html>
     Real s;
     function atan2=Modelica.Math.atan2;
 
+
+  algorithm
+    c := cos(-alpha);
+    s := sin(-alpha);
+    phi := atan2({s, c}*x, {c, -s}*x) + alpha;
   annotation (smoothOrder=2,
   Documentation(info="<html>
 <p>Genralised atan2 with range
@@ -36,11 +26,6 @@ Documentation(info="<html>
 i. e. cut at angle <pre>  alpha + pi</pre>
 for arbitrary (time-dependent) input argument alpha.</p>
 </html>"));
-
-  algorithm
-    c := cos(-alpha);
-    s := sin(-alpha);
-    phi := atan2({s, c}*x, {c, -s}*x) + alpha;
   end atanVarCut;
 
   function angVelocity "Angular velocity of 2dim vector"
@@ -51,6 +36,9 @@ for arbitrary (time-dependent) input argument alpha.</p>
     output Real omega "angular velocity of x";
   protected
     constant Real eps =  Modelica.Constants.eps;
+
+  algorithm
+    omega :=(x[1]*x_dot[2] - x_dot[1]*x[2])/(x*x + eps);
   annotation (smoothOrder=2,
   Documentation(info="<html>
 <p>Angular velocity omega of 2-dimensional vector x from
@@ -61,9 +49,6 @@ for arbitrary (time-dependent) input argument alpha.</p>
   datan(y) = d atan(y)/dy
 </pre><p>
 </html>"));
-
-  algorithm
-    omega :=(x[1]*x_dot[2] - x_dot[1]*x[2])/(x*x + eps);
   end angVelocity;
 
   function mod2sign "Modulo-two sign"
@@ -72,13 +57,6 @@ for arbitrary (time-dependent) input argument alpha.</p>
     input Integer[:] n "integer vector";
     output Integer[size(n, 1)] sign_n "(-1)^n_k, k=1:size(n)";
 
-  annotation(Documentation(info="<html>
-<p>Calculates the modulo_2 sign of the integer input vector n, with the following definition:
-<pre>
-    sign[k] = +1 if n[k] is even
-    sign[k] = -1 if n[k] is odd
-</pre></p>
-</html>"));
 
   algorithm
     for k in 1:size(n, 1) loop
@@ -88,6 +66,13 @@ for arbitrary (time-dependent) input argument alpha.</p>
         sign_n[k] := -1;
       end if;
     end for;
+  annotation(Documentation(info="<html>
+<p>Calculates the modulo_2 sign of the integer input vector n, with the following definition:
+<pre>
+    sign[k] = +1 if n[k] is even
+    sign[k] = -1 if n[k] is odd
+</pre></p>
+</html>"));
   end mod2sign;
 
   function interpolateTable
@@ -105,17 +90,17 @@ for arbitrary (time-dependent) input argument alpha.</p>
     Real x_rel;
     Integer nx;
     Integer n;
-  annotation (Documentation(info="<html>
-<p>Interpolation of tables with one <b>equidistant</b> argument.<br>
-The table contains the argument-vector as first column xy_tab[1,:].</p>
-<p><tt>y(x)</tt> for <tt>x</tt>-values exceeding the table-range are linearly extrapolated.</p>
-</html>"));
 
   algorithm
     x_rel := (x - x0)/del_x;
     nx := max(min(integer(x_rel), N1 - 2), 0);
     n := nx + 1;
     y := xy_tab[n, 2:N2] + (x_rel - nx)*(xy_tab[n + 1, 2:N2] - xy_tab[n, 2:N2]);
+  annotation (Documentation(info="<html>
+<p>Interpolation of tables with one <b>equidistant</b> argument.<br>
+The table contains the argument-vector as first column xy_tab[1,:].</p>
+<p><tt>y(x)</tt> for <tt>x</tt>-values exceeding the table-range are linearly extrapolated.</p>
+</html>"));
   end interpolateTable;
 
   function polyCoefReal "Coefficients of a polynomial from real roots"
@@ -125,6 +110,12 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
     output Real[size(r,1)+1] c "coefficient vector";
   protected
     parameter Integer n=size(r,1);
+
+  algorithm
+    c := cat(1, zeros(n), {1});
+    for k in n:-1:1 loop
+    c[n:-1:k] := c[n:-1:k] - r[k]*c[n+1:-1:k+1];
+    end for;
   annotation (Documentation(info="<html>
 <p>The function determines the coefficients <tt>c</tt> of a polynomial of degree n from its <b>real</b> root vector <tt>r</tt>.</p>
 <pre>  c_0 + c_1*x + c_2*x^2 + ... + c_n*x^n.</pre>
@@ -145,12 +136,6 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
 <a href=\"Spot.Base.Math.polyCoef\">polyCoef</a>, <a href=\"Spot.Base.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
-
-  algorithm
-    c := cat(1, zeros(n), {1});
-    for k in n:-1:1 loop
-    c[n:-1:k] := c[n:-1:k] - r[k]*c[n+1:-1:k+1];
-    end for;
   end polyCoefReal;
 
   function polyCoef "Coefficients of a polynomial from roots"
@@ -161,6 +146,13 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
       "coefficient vector, 2nd index=1:2, real and imaginary part";
   protected
     parameter Integer n=size(r,1);
+
+  algorithm
+    c := zeros(n+1,2);
+    c[n+1,1] := 1;
+    for k in n:-1:1 loop
+    c[n:-1:k,:] := c[n:-1:k,:] - cat(2, r[k,1]*c[n+1:-1:k+1,1:1] - r[k,2]*c[n+1:-1:k+1,2:2], r[k,1]*c[n+1:-1:k+1,2:2] + r[k,2]*c[n+1:-1:k+1,1:1]);
+    end for;
   annotation (Documentation(info="<html>
 <p>The function determines the coefficients c of a polynomial of degree n from its root vector r.</p>
 <pre>  c_0 + c_1*x + c_2*x^2 + ... + c_n*x^n.</pre>
@@ -185,13 +177,6 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
 <a href=\"Spot.Base.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"Spot.Base.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
-
-  algorithm
-    c := zeros(n+1,2);
-    c[n+1,1] := 1;
-    for k in n:-1:1 loop
-    c[n:-1:k,:] := c[n:-1:k,:] - cat(2, r[k,1]*c[n+1:-1:k+1,1:1] - r[k,2]*c[n+1:-1:k+1,2:2], r[k,1]*c[n+1:-1:k+1,2:2] + r[k,2]*c[n+1:-1:k+1,1:1]);
-    end for;
   end polyCoef;
 
   function polyRoots "Roots of a polynomial"
@@ -209,6 +194,30 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
     Real[N, N] A;
     Real[N+1] C;
     function eigenval = Modelica.Math.Matrices.eigenValues;
+
+  algorithm
+    N0 := N "determine true degree of polymomial";
+  //  while c[N0+1] == 0 and N0 > 0 loop
+    while abs(c[N0+1])/max(abs(c)) < Modelica.Constants.eps and N0 > 0 loop
+      N0 := N0 - 1;
+    end while;
+    if N0 == 0 then
+      r := zeros(N,2);
+    else
+      n0 := 0;
+      while c[n0+1] == 0 loop
+        n0 := n0 + 1;
+      end while;
+      n := N0-n0;
+      for k in 1:n+1 loop
+        C[k] := c[n0+k];
+      end for;
+      A[1, 1:n] := -C[n:-1:1]/C[n+1];
+      A[2:n,1:n-1] := diagonal(ones(n-1));
+      A[2:n,n] := zeros(n-1);
+      r[1:n0,:] := zeros(n0,2);
+      r[n0+1:n0+n,:] := eigenval(A[1:n, 1:n]);
+    end if;
   annotation (Documentation(info="<html>
 <p>The function determines the root vector r of a polynomial of degree N with coefficient vector c.</p>
 <pre>  c_0 + c_1*x + c_2*x^2 + ... + c_N*x^N</pre>
@@ -234,30 +243,6 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
 <a href=\"Spot.Base.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"Spot.Base.Math.polyCoef\">polyCoef</a>, <a href=\"Modelica:Modelica.Math.Matrices.eigenValues\">eigenValues</a></p>
 </html>
 "));
-
-  algorithm
-    N0 := N "determine true degree of polymomial";
-  //  while c[N0+1] == 0 and N0 > 0 loop
-    while abs(c[N0+1])/max(abs(c)) < Modelica.Constants.eps and N0 > 0 loop
-      N0 := N0 - 1;
-    end while;
-    if N0 == 0 then
-      r := zeros(N,2);
-    else
-      n0 := 0;
-      while c[n0+1] == 0 loop
-        n0 := n0 + 1;
-      end while;
-      n := N0-n0;
-      for k in 1:n+1 loop
-        C[k] := c[n0+k];
-      end for;
-      A[1, 1:n] := -C[n:-1:1]/C[n+1];
-      A[2:n,1:n-1] := diagonal(ones(n-1));
-      A[2:n,n] := zeros(n-1);
-      r[1:n0,:] := zeros(n0,2);
-      r[n0+1:n0+n,:] := eigenval(A[1:n, 1:n]);
-    end if;
   end polyRoots;
 
   function fminSearch
@@ -299,17 +284,6 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
     Real fxcc;
     Boolean shrink;
     String msg;
-  annotation (Documentation(info="<html>
-<p>see Matlab 'fminsearch':<br>
-<pre>
- FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
-    X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer
-    X of the function FUN. FUN accepts input X and returns a scalar function
-    value F evaluated at X. X0 can be a scalar, vector or matrix.
-</pre></p>
-<p>Actually only used for precalculation of generator data (fixed function-argument),<br>
-Should be modified (domains with boundaries).</p>
-</html>"));
 
   algorithm
   // Set up a simplex near the initial guess.
@@ -411,6 +385,17 @@ Should be modified (domains with boundaries).</p>
     else
       msg := "fminSearch: terminated successfully";
     end if;
+  annotation (Documentation(info="<html>
+<p>see Matlab 'fminsearch':<br>
+<pre>
+ FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
+    X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer
+    X of the function FUN. FUN accepts input X and returns a scalar function
+    value F evaluated at X. X0 can be a scalar, vector or matrix.
+</pre></p>
+<p>Actually only used for precalculation of generator data (fixed function-argument),<br>
+Should be modified (domains with boundaries).</p>
+</html>"));
   end fminSearch;
 
   function sortUp "Sorts components of x in increasing order"
@@ -423,8 +408,6 @@ Should be modified (domains with boundaries).</p>
     Integer n=size(x,1);
     Integer itemp;
     Real ytemp;
-  annotation (Documentation(info="<html>
-</html>"));
 
   algorithm
     y := x;
@@ -441,6 +424,8 @@ Should be modified (domains with boundaries).</p>
         end if;
       end for;
     end for;
+  annotation (Documentation(info="<html>
+</html>"));
   end sortUp;
 
   function sortDown "Sorts components of x in decreasing order"
@@ -453,8 +438,6 @@ Should be modified (domains with boundaries).</p>
     Integer n=size(x,1);
     Integer itemp;
     Real ytemp;
-  annotation (Documentation(info="<html>
-</html>"));
 
   algorithm
     y := x;
@@ -471,6 +454,8 @@ Should be modified (domains with boundaries).</p>
         end if;
       end for;
     end for;
+  annotation (Documentation(info="<html>
+</html>"));
   end sortDown;
 
   function relaxation "Exponential relaxation function"
@@ -483,6 +468,10 @@ Should be modified (domains with boundaries).</p>
   protected
     final parameter Real gamma=exp(-0.5);
     Real dt=1-t/t_char;
+
+  algorithm
+    y[2] := if t < 0 then 1 else if t < t_char then (exp(-0.5*dt^beta) - gamma)/(1 - gamma) else 1;
+    y[1] := 1 - y[2];
   annotation (smoothOrder=0,
   Documentation(info="<html>
 <p>The function has two components, y[1] decreasing and y[2] increasing.</p>
@@ -498,10 +487,6 @@ For
 </pre>
 i.e. for negative t y takes its asymptotic values.</p>
 </html>"));
-
-  algorithm
-    y[2] := if t < 0 then 1 else if t < t_char then (exp(-0.5*dt^beta) - gamma)/(1 - gamma) else 1;
-    y[1] := 1 - y[2];
   end relaxation;
 
   function taylor "Taylor series"
@@ -512,10 +497,6 @@ i.e. for negative t y takes its asymptotic values.</p>
     output Real y "sum(c[n]*x^n)";
   protected
     Real x_k;
-  annotation(Documentation(info="<html>
-<p>Calculates the Taylor series
-<pre>  y = 1 + sum(c[k]*x^k)</pre></p>
-</html>"));
 
   algorithm
     y :=1;
@@ -524,6 +505,10 @@ i.e. for negative t y takes its asymptotic values.</p>
       x_k := x*x_k;
       y := y + c[k]*x_k;
     end for;
+  annotation(Documentation(info="<html>
+<p>Calculates the Taylor series
+<pre>  y = 1 + sum(c[k]*x^k)</pre></p>
+</html>"));
   end taylor;
 
   function sign_gtlt "Charcteristic function abs(x)>b"
@@ -532,6 +517,11 @@ i.e. for negative t y takes its asymptotic values.</p>
     input Real[:] x "argument";
     input Real b(min=0) "threshold value";
     output Real[size(x,1)] y "characteristic function of abs(x) > b";
+
+  algorithm
+    for k in 1:size(x,1) loop
+      y[k] := if x[k] > b then 1 else if x[k] < -b then -1 else 0;
+    end for;
   annotation(Documentation(info="<html>
 <p>Calculates the \"sign\" function
 <pre>
@@ -539,11 +529,6 @@ i.e. for negative t y takes its asymptotic values.</p>
   sig = -1 if x[k] &lt  -b else 0,
 </pre>component-wise.</p>
 </html>"));
-
-  algorithm
-    for k in 1:size(x,1) loop
-      y[k] := if x[k] > b then 1 else if x[k] < -b then -1 else 0;
-    end for;
   end sign_gtlt;
 
   function sign_gt "Sign function x>b"
@@ -552,15 +537,15 @@ i.e. for negative t y takes its asymptotic values.</p>
     input Real[:] x "argument";
     input Real b(min=0) "threshold value";
     output Real[size(x,1)] y "characteristic function of x > b";
-  annotation(Documentation(info="<html>
-<p>Calculates the \"sign\" function
-<pre>  sig = 1 if x[k] &gt  b else 0</pre>component-wise.</p>
-</html>"));
 
   algorithm
     for k in 1:size(x,1) loop
       y[k] := if x[k] > b then 1 else 0;
     end for;
+  annotation(Documentation(info="<html>
+<p>Calculates the \"sign\" function
+<pre>  sig = 1 if x[k] &gt  b else 0</pre>component-wise.</p>
+</html>"));
   end sign_gt;
 
   function sign_lt "Sign function x<b"
@@ -569,14 +554,28 @@ i.e. for negative t y takes its asymptotic values.</p>
     input Real[:] x "argument";
     input Real b(min=0) "threshold value";
     output Real[size(x,1)] y "characteristic function of x < b";
-  annotation(Documentation(info="<html>
-<p>Calculates the \"sign\" function
-<pre>  sig = -1 if x[k] &lt  b else 0</pre>component-wise.</p>
-</html>"));
 
   algorithm
     for k in 1:size(x,1) loop
       y[k] := if x[k] < b then -1 else 0;
     end for;
+  annotation(Documentation(info="<html>
+<p>Calculates the \"sign\" function
+<pre>  sig = -1 if x[k] &lt  b else 0</pre>component-wise.</p>
+</html>"));
   end sign_lt;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.38,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+</html>
+"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Math;

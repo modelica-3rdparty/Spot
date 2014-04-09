@@ -2,9 +2,6 @@ within SpotExamples.Data;
 package Turbines "Turbine example data"
   extends Spot.Base.Icons.SpecialLibrary;
 
-   annotation (preferedView="info",
- Documentation(info="<html>
-</html>"));
 
    record SteamTurboGroup1200MW "Steam turbo-group, example"
      extends Spot.Base.Icons.Record;
@@ -163,4 +160,7 @@ height=0.65),
     Diagram,
     DymolaStoredErrors);
 end WindTurbineGear;
+   annotation (preferedView="info",
+ Documentation(info="<html>
+</html>"));
 end Turbines;

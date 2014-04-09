@@ -1,50 +1,9 @@
 within SpotExamples;
 package d_DrivesDC "DC drives"
   extends Spot.Base.Icons.Examples;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>DC drives (motors electrical and mechanical).</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon);
 
   model DCmotor_ser "DC motor series excited"
 
-  annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-    Documentation(
-            info="<html>
-<p>DC machine (series-connected) with load (drive along height-profile).</p>
-<p><i>See for example:</i>
-<pre>
-  power.p
-  tabLoad.vVehicle
-</pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Diagram,
-    Icon,
-    experiment(StopTime=60),
-    experimentSetupOutput);
     inner Spot.System system(ref="inertial")
     annotation (extent=[-100,80; -80,100]);
     Spot.Blocks.Signals.Transient ramp(
@@ -93,10 +52,6 @@ Documentation(info="<html>
         fillPattern=1));
     connect(ramp.y, voltage.vDC) annotation (points=[-60,20; -44,20; -44,0],
         style(color=74, rgbcolor={0,0,127}));
-  end DCmotor_ser;
-
-  model DCmotor_par "DC motor parallel excited"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -109,18 +64,22 @@ Documentation(info="<html>
         height=0.65),
     Documentation(
             info="<html>
-<p>DC machine (parallel-connected) with load (drive along height-profile).</p>
+<p>DC machine (series-connected) with load (drive along height-profile).</p>
 <p><i>See for example:</i>
 <pre>
   power.p
   tabLoad.vVehicle
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
+</html>
+"), Diagram,
     Icon,
     experiment(StopTime=60),
     experimentSetupOutput);
+  end DCmotor_ser;
+
+  model DCmotor_par "DC motor parallel excited"
+
     inner Spot.System system(ref="inertial")
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-60,-20; -80,0]);
@@ -168,10 +127,6 @@ Documentation(info="<html>
         fillColor=84,
         rgbfillColor={213,170,255},
         fillPattern=1));
-  end DCmotor_par;
-
-  model DCmotor_pm "DC motor permanent magnet excited"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -184,21 +139,22 @@ Documentation(info="<html>
         height=0.65),
     Documentation(
             info="<html>
-<p>DC machine (permanent magnet) start-up and step-load.</p>
+<p>DC machine (parallel-connected) with load (drive along height-profile).</p>
 <p><i>See for example:</i>
 <pre>
-  power.p                      dc power
-  loadInertia.w                angular velocity load
-  loadInertia.flange_p.tau     torque on load
-  efficiency.eta               efficiency
+  power.p
+  tabLoad.vVehicle
 </pre></p>
-<p>See also example DCcharSpeed.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Diagram,
+</html>"),
+    Diagram,
     Icon,
-    experiment(StopTime=3),
+    experiment(StopTime=60),
     experimentSetupOutput);
+  end DCmotor_par;
+
+  model DCmotor_pm "DC motor permanent magnet excited"
+
     inner Spot.System system(ref="inertial", ini="tr")
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-80,-20; -100,0]);
@@ -237,10 +193,6 @@ Documentation(info="<html>
           64,-10; 64,30; 70,30], style(color=0, rgbcolor={0,0,0}));
     connect(dcm_pm.heat, efficiency.heat) annotation (points=[20,0; 20,10; -10,
           10; -10,0], style(color=42, rgbcolor={176,0,0}));
-  end DCmotor_pm;
-
-  model BLDC "Brushless DC motor"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -253,24 +205,25 @@ Documentation(info="<html>
         height=0.65),
     Documentation(
             info="<html>
-<p>Brushless DC machine (permanent magnet synchronous machine) start-up and step-load.</p>
+<p>DC machine (permanent magnet) start-up and step-load.</p>
 <p><i>See for example:</i>
 <pre>
   power.p                      dc power
   loadInertia.w                angular velocity load
   loadInertia.flange_p.tau     torque on load
-  efficiency.eta               efficiency including semiconductor losses
+  efficiency.eta               efficiency
 </pre></p>
-<p>See also example BLDCcharSpeed.</p>
+<p>See also example DCcharSpeed.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "), Diagram,
     Icon,
-    experiment(
-        StopTime=3,
-        Tolerance=1e-005,
-        Algorithm="Dassl"),
-    experimentSetupOutput(events=false));
+    experiment(StopTime=3),
+    experimentSetupOutput);
+  end DCmotor_pm;
+
+  model BLDC "Brushless DC motor"
+
     inner Spot.System system(f_nom=60,
       ini="tr",
       ref="inertial")
@@ -320,10 +273,6 @@ Documentation(info="<html>
       annotation (points=[60,-10; 70,-10], style(color=0, rgbcolor={0,0,0}));
     connect(loadInertia.flange_n, torqueStep.flange) annotation (points=[60,-10;
           64,-10; 64,30; 70,30], style(color=0, rgbcolor={0,0,0}));
-  end BLDC;
-
-  model DCcharSpeed "DC pm: torque - speed characteristic"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -336,21 +285,28 @@ Documentation(info="<html>
         height=0.65),
     Documentation(
             info="<html>
-<p>DC machine (permanent magnet) torque-speed characteristic.</p>
-<p></p>
-<p><i>See for example as a function of phase:</i>
+<p>Brushless DC machine (permanent magnet synchronous machine) start-up and step-load.</p>
+<p><i>See for example:</i>
 <pre>
-  efficiency.eta          efficiency
-  machine.motor.w_el       angular velocity (el)
-  machine.motor.tau_el     torque (el)
-</pre>
-(right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
+  power.p                      dc power
+  loadInertia.w                angular velocity load
+  loadInertia.flange_p.tau     torque on load
+  efficiency.eta               efficiency including semiconductor losses
+</pre></p>
+<p>See also example BLDCcharSpeed.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
+</html>
+"), Diagram,
     Icon,
-    experiment(Tolerance=1e-005, Algorithm="Dassl"),
+    experiment(
+        StopTime=3,
+        Tolerance=1e-005,
+        Algorithm="Dassl"),
     experimentSetupOutput(events=false));
+  end BLDC;
+
+  model DCcharSpeed "DC pm: torque - speed characteristic"
+
     inner Spot.System system(f_nom=60, sim="st")
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-80,-20; -100,0]);
@@ -385,10 +341,6 @@ Documentation(info="<html>
       annotation (points=[20,-10; 40,-10], style(color=0, rgbcolor={0,0,0}));
     connect(machine.heat, efficiency.heat) annotation (points=[10,0; 10,10; -30,
           10; -30,0], style(color=42, rgbcolor={176,0,0}));
-  end DCcharSpeed;
-
-  model BLDCcharSpeed "BLDC: torque - speed characteristic"
-
   annotation (
     Coordsys(
         extent=[-100,-100; 100,100],
@@ -401,8 +353,8 @@ Documentation(info="<html>
         height=0.65),
     Documentation(
             info="<html>
-<p>Brushless DC machine (permanent magnet synchronous machine) torque-speed characteristic.</p>
-<p>This example uses rectangular modulation with constant voltage amplitude and width=2/3, corresponding to 2 phases on, 1 phase off (no additional PWM).</p>
+<p>DC machine (permanent magnet) torque-speed characteristic.</p>
+<p></p>
 <p><i>See for example as a function of phase:</i>
 <pre>
   efficiency.eta          efficiency
@@ -416,6 +368,10 @@ Documentation(info="<html>
     Icon,
     experiment(Tolerance=1e-005, Algorithm="Dassl"),
     experimentSetupOutput(events=false));
+  end DCcharSpeed;
+
+  model BLDCcharSpeed "BLDC: torque - speed characteristic"
+
     inner Spot.System system(f_nom=60, sim="st")
     annotation (extent=[-100,80; -80,100]);
     Spot.AC1_DC.Nodes.GroundOne grd annotation (extent=[-80,-20; -100,0]);
@@ -454,6 +410,50 @@ Documentation(info="<html>
       annotation (points=[20,-10; 40,-10], style(color=0, rgbcolor={0,0,0}));
     connect(speedSignal.y, speed.w) annotation (points=[80,-10; 60,-10], style(
           color=74, rgbcolor={0,0,127}));
+  annotation (
+    Coordsys(
+        extent=[-100,-100; 100,100],
+        grid=[2,2],
+        component=[20,20]),
+    Window(
+        x=0.45,
+        y=0.01,
+        width=0.44,
+        height=0.65),
+    Documentation(
+            info="<html>
+<p>Brushless DC machine (permanent magnet synchronous machine) torque-speed characteristic.</p>
+<p>This example uses rectangular modulation with constant voltage amplitude and width=2/3, corresponding to 2 phases on, 1 phase off (no additional PWM).</p>
+<p><i>See for example as a function of phase:</i>
+<pre>
+  efficiency.eta          efficiency
+  machine.motor.w_el       angular velocity (el)
+  machine.motor.tau_el     torque (el)
+</pre>
+(right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+    Diagram,
+    Icon,
+    experiment(Tolerance=1e-005, Algorithm="Dassl"),
+    experimentSetupOutput(events=false));
   end BLDCcharSpeed;
 
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>DC drives (motors electrical and mechanical).</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+    Icon);
 end d_DrivesDC;

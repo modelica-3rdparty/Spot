@@ -2,22 +2,17 @@ within Spot.Common;
 package Switching "Common switching components"
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-    Documentation(info="<html>
-<p>Structurally incomplete kernel models.</p>
-</html>"));
 
 model Switch "Switch kernel, no terminals"
   extends Partials.SwitchBase;
 
+
+equation
+  when {open and i < 0, open and i > 0, closed} then
+    arc = edge(open);
+  end when;
+  {v,i} = if closed or arc then {epsR*s,s} else {s,epsG*s};
   annotation (structurallyIncomplete, defaultComponentName = "switch_",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [40, 40]),
     Window(
       x=
 0.45, y=
@@ -33,25 +28,20 @@ Cleared at first current-zero after opening.</p>
 When open and <tt>i</tt> crosses zero: <tt>arc</tt> becomes false (<tt>open</tt> does not change).<br>
 When closing: <tt>arc</tt> becomes false (<tt>open</tt> changes from true to false).</p>
 </html>
-"), Icon(
-Line(points=[-40,0; 40,0], style(
-              color=10,
-              rgbcolor={95,95,95},
-              pattern=3))),
-    Diagram(
-      Line(points=[-28,0; 32,0], style(
-              color=10,
-              rgbcolor={95,95,95},
-              pattern=3,
-              fillColor=3,
-              rgbfillColor={0,0,255},
-              fillPattern=1))));
-
-equation
-  when {open and i < 0, open and i > 0, closed} then
-    arc = edge(open);
-  end when;
-  {v,i} = if closed or arc then {epsR*s,s} else {s,epsG*s};
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Line(
+            points={{-40,0},{40,0}},
+            color={95,95,95},
+            pattern=LinePattern.Dot)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Line(
+            points={{-28,0},{32,0}},
+            color={95,95,95},
+            pattern=LinePattern.Dot)}));
 end Switch;
 
 model Breaker "Breaker kernel, no terminals"
@@ -62,7 +52,7 @@ model Breaker "Breaker kernel, no terminals"
   parameter SI.ElectricFieldStrength Earc=50e3 "electric field arc";
   parameter SI.Resistance R0=1 "small signal resistance arc";
   replaceable Plasma.ArcBreaker arcBreaker(E=Earc, r=R0/(D*Earc), d=d, v=v_arc, i=i_arc)
-    annotation (extent=[-30,-20; 30,20]);
+    annotation (Placement(transformation(extent={{-30,-20},{30,20}}, rotation=0)));
   protected
   SI.Voltage v_arc;
   SI.Current i_arc;
@@ -70,14 +60,20 @@ model Breaker "Breaker kernel, no terminals"
   SI.Distance d "contact distance";
   Boolean opening(start=false, fixed=true);
 
+
+equation
+  when {open and i < 0, open and i > 0, closed} then
+    arc = edge(open) or opening;
+  end when;
+  when pre(arc) then
+    t0 = time;
+  end when;
+  opening = t0 < time and time < t0 + t_opening;
+  d = if opening then ((time - t0)/t_opening)^2*D else D
+      "d not needed if closed (d=0)";
+  i_arc = if arc then s else 0;
+  {v,i} = if closed then {epsR*s,s} else if arc then {v_arc,i_arc} else {s,epsG*s};
   annotation (structurallyIncomplete, defaultComponentName = "breaker_",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [40, 40]),
     Window(
       x=
 0.45, y=
@@ -94,26 +90,18 @@ Contains replaceable model of plasma-arc.</p>
 When fully open and <tt>i</tt> crosses zero: <tt>arc</tt> becomes false (<tt>open</tt> does not change).<br>
 When closing: <tt>arc</tt> becomes false (<tt>open</tt> changes from true to false).</p>
 </html>"),
-    Icon(
-   Line(points=[-40,0; -30,-4; -24,0; -14,-2; -4,4; 2,0; 10,-2; 18,2; 26,-2; 30,
-                -2; 34,2; 40,0], style(
-              color=6,
-              rgbcolor={255,255,0},
-              thickness=2))),
-    Diagram);
-
-equation
-  when {open and i < 0, open and i > 0, closed} then
-    arc = edge(open) or opening;
-  end when;
-  when pre(arc) then
-    t0 = time;
-  end when;
-  opening = t0 < time and time < t0 + t_opening;
-  d = if opening then ((time - t0)/t_opening)^2*D else D
-      "d not needed if closed (d=0)";
-  i_arc = if arc then s else 0;
-  {v,i} = if closed then {epsR*s,s} else if arc then {v_arc,i_arc} else {s,epsG*s};
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Line(
+            points={{-40,0},{-30,-4},{-24,0},{-14,-2},{-4,4},{2,0},{10,-2},{18,
+                2},{26,-2},{30,-2},{34,2},{40,0}},
+            color={255,255,0},
+            thickness=0.5)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Breaker;
 
 model Short "Short kernel optionally with exponential relaxation, no terminals"
@@ -125,15 +113,21 @@ model Short "Short kernel optionally with exponential relaxation, no terminals"
   SI.Time t0(start=-Modelica.Constants.inf, fixed=true);
   Real[2] r;
   function relaxation=Base.Math.relaxation;
+
+equation
+  when edge(on) then
+    t0 = time;
+  end when;
+  if relax then
+    r = relaxation(time - t0, t_c, beta);
+    {v,i} = if on then {(r[1] + r[2]*epsR)*s,s} else {s,(r[1]*epsG + r[2])*s};
+  else
+    r = {0,0};
+    {v,i} = if on then {epsR*s,s} else {s,epsG*s};
+  end if;
       annotation (
         structurallyIncomplete,
         defaultComponentName="fault_",
-Coordsys(
-  extent=
- [-100, -100; 100, 100],
-  grid=[2,2],
-  component=
-    [20, 20]),
 Window(
   x=0.45,
     y=0.01,
@@ -153,29 +147,22 @@ with
   p           power of exponent
 </pre></p>
 </html>"),
-Diagram,
-Icon(
-  Line(points=[18,78; -18,-12; 18,12; -18,-78], style(
-            color=6,
-            rgbcolor={255,255,0},
-            pattern=2,
-            thickness=2)),
- Text(
-extent=[-100,140; 100,100],
-string="%name",
-style(color=0))));
-
-equation
-  when edge(on) then
-    t0 = time;
-  end when;
-  if relax then
-    r = relaxation(time - t0, t_c, beta);
-    {v,i} = if on then {(r[1] + r[2]*epsR)*s,s} else {s,(r[1]*epsG + r[2])*s};
-  else
-    r = {0,0};
-    {v,i} = if on then {epsR*s,s} else {s,epsG*s};
-  end if;
+Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Line(
+            points={{18,78},{-18,-12},{18,12},{-18,-78}},
+            color={255,255,0},
+            pattern=LinePattern.Dash,
+            thickness=0.5), Text(
+            extent={{-100,140},{100,100}},
+            lineColor={0,0,0},
+            textString=
+       "%name")}));
 end Short;
 
 model Fault "Line fault kernel, no terminals"
@@ -199,38 +186,9 @@ model Fault "Line fault kernel, no terminals"
     r=R0/Varc,
     v=v_arc,
     i=i_arc)
-     annotation (extent=[-20,-20; 20,20]);
+     annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=
+              0)));
 
-annotation (structurallyIncomplete, defaultComponentName = "fault_",
-  Coordsys(
-    extent=
-   [-100, -100; 100, 100],
-    grid=
- [2, 2],
-    component=
-      [20, 20]),
-  Window(
-    x=0.45,
-      y=0.01,
-      width=
-  0.44,
-    height=
-   0.65),
-  Documentation(
-        info="<html>
-<p><b>Structurally incomplete model</b>. Use only as component within complete Fault model.<br>
-Clearing criterion: balance heating-cooling.</p>
-<p>Contains replaceable model of plasma-arc.</p>
-</html>"),
-  Diagram,
-  Icon(
-    Line(
- points=[18,78; -18,-12; 18,12; -18,-78],style(color=6, thickness=
-   2)),
-   Text(
-  extent=[-100,140; 100,100],
-  string="%name",
-  style(color=0))));
 
 equation
   when edge(on) then
@@ -249,28 +207,40 @@ equation
     der(Q) = 0;
   end if;
   cleared = Q < Qclear;
+annotation (structurallyIncomplete, defaultComponentName = "fault_",
+  Window(
+    x=0.45,
+      y=0.01,
+      width=
+  0.44,
+    height=
+   0.65),
+  Documentation(
+        info="<html>
+<p><b>Structurally incomplete model</b>. Use only as component within complete Fault model.<br>
+Clearing criterion: balance heating-cooling.</p>
+<p>Contains replaceable model of plasma-arc.</p>
+</html>"),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Line(
+            points={{18,78},{-18,-12},{18,12},{-18,-78}},
+            color={255,255,0},
+            thickness=0.5), Text(
+            extent={{-100,140},{100,100}},
+            lineColor={0,0,0},
+            textString=
+         "%name")}));
 end Fault;
 
 package Partials "Partial models"
   extends Base.Icons.Partials;
 
-  annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Icon,
-    Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1),
-    Documentation(
-            info="<html>
-</html>
-"));
 
 partial model SwitchBase "Switch base kernel, no terminals"
 
@@ -282,19 +252,14 @@ partial model SwitchBase "Switch base kernel, no terminals"
   Boolean open(start=true)=not closed;
   Modelica.Blocks.Interfaces.BooleanInput closed(start=false)
         "true:closed, false:open"
-    annotation (preferedView="info",
-        extent=[-10,90; 10,110],   rotation=-90);
+    annotation (preferedView="info", Placement(transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
     protected
   Real s;
 
   annotation (
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [40, 40]),
     Window(
       x=
 0.45, y=
@@ -305,55 +270,46 @@ partial model SwitchBase "Switch base kernel, no terminals"
     Documentation(
           info="<html>
 </html>
-"), Icon(
-      Rectangle(extent=[-80,60; 80,-40], style(
-          color=7,
-          rgbcolor={255,255,255},
-          fillColor=7,
-          rgbfillColor={255,255,255},
-          fillPattern=1)),
-Line(points=[40,0; 80,0], style(
-              color=10,
-              rgbcolor={95,95,95},
-              thickness=2)),
-     Text(
-    extent=[-100,-40; 100,-80],
-    string="%name",
-    style(color=0)),
-      Line(
-   points=[-80,0; -40,0; 30,40], style(
-              color=10,
-              rgbcolor={95,95,95},
-              thickness=2)),
-          Line(points=[0,90; 0,22], style(
-              color=5,
-              rgbcolor={255,0,255},
-              pattern=3))),
-    Diagram(
-      Line(points=[-80,0; -60,0], style(
-              color=10,
-              rgbcolor={95,95,95},
-              fillColor=69,
-              rgbfillColor={0,128,255},
-              fillPattern=1)),
-Line(points=[-60,0; -30,0; 30,20], style(
-              color=10,
-              rgbcolor={95,95,95},
-              thickness=2,
-              fillColor=69,
-              rgbfillColor={0,128,255})),
-Line(points=[30,0; 80,0], style(
-              color=10,
-              rgbcolor={95,95,95},
-              fillColor=69,
-              rgbfillColor={0,128,255})),
-      Line(points=[0,90; 0,10], style(
-              color=5,
-              rgbcolor={255,0,255},
-              pattern=3,
-              fillColor=3,
-              rgbfillColor={0,0,255},
-              fillPattern=1))));
+"), Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Rectangle(
+              extent={{-80,60},{80,-40}},
+              lineColor={255,255,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(
+              points={{40,0},{80,0}},
+              color={95,95,95},
+              thickness=0.5),
+            Text(
+              extent={{-100,-40},{100,-80}},
+              lineColor={0,0,0},
+              textString=
+           "%name"),
+            Line(
+              points={{-80,0},{-40,0},{30,40}},
+              color={95,95,95},
+              thickness=0.5),
+            Line(
+              points={{0,90},{0,22}},
+              color={255,0,255},
+              pattern=LinePattern.Dot)}),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Line(points={{-80,0},{-60,0}}, color={95,95,95}),
+            Line(
+              points={{-60,0},{-30,0},{30,20}},
+              color={95,95,95},
+              thickness=0.5),
+            Line(points={{30,0},{80,0}}, color={95,95,95}),
+            Line(
+              points={{0,90},{0,10}},
+              color={255,0,255},
+              pattern=LinePattern.Dot)}));
 
 end SwitchBase;
 
@@ -369,12 +325,6 @@ partial model FaultBase "Fault kernel base"
       annotation (
         structurallyIncomplete,
         defaultComponentName="fault_",
-Coordsys(
-  extent=
- [-100, -100; 100, 100],
-  grid=[2,2],
-  component=
-    [20, 20]),
 Window(
   x=0.45,
     y=0.01,
@@ -385,21 +335,43 @@ Window(
 Documentation(
       info="<html>
 </html>"),
-Diagram,
-Icon(
-  Rectangle(
-    extent=[-40,80; 40,-80], style(
-      color=10,
-      rgbcolor={95,95,95},
-      gradient=0,
-      fillColor=9,
-      rgbfillColor={175,175,175},
-      fillPattern=1)),
- Text(
-extent=[-100,140; 100,100],
-string="%name",
-style(color=0))));
+Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-40,80},{40,-80}},
+              lineColor={0,0,0},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid), Text(
+              extent={{-100,140},{100,100}},
+              lineColor={0,0,0},
+              textString=
+       "%name")}));
 
 end FaultBase;
+  annotation (
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+    Window(
+x=0.05,
+y=0.44,
+width=0.31,
+height=0.26,
+library=1,
+autolayout=1),
+    Documentation(
+            info="<html>
+</html>
+"));
 end Partials;
+  annotation (preferedView="info",
+    Documentation(info="<html>
+<p>Structurally incomplete kernel models.</p>
+</html>"));
 end Switching;

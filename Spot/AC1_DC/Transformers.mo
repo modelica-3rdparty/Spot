@@ -1,33 +1,18 @@
 within Spot.AC1_DC;
 
+
 package Transformers "Transformers 1-phase "
   extends Base.Icons.Library;
-annotation (preferedView="info",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
-    Documentation(info="<html>
-<p>One-phase transformer models in different abstraction levels.</p>
-</html>"),
-  Icon);
 
   model TrafoIdeal "Ideal transformer, 1-phase"
     extends Partials.TrafoIdealBase;
 
+
+  equation
+    i1 + i2 = 0;
+    v1 = v2;
   annotation (
     defaultComponentName="trafo",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -36,23 +21,25 @@ autolayout=1),
       Documentation(
         info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
-</html>"),   Icon,
-      Diagram);
-
-  equation
-    i1 + i2 = 0;
-    v1 = v2;
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end TrafoIdeal;
 
   model TrafoStray "Ideal magnetic coupling transformer, 1-phase"
     extends Partials.TrafoStrayBase;
 
+
+  equation
+    i1 + i2 = 0;
+    sum(L)*der(i1) + sum(R)*i1 = v1 - v2;
   annotation (
     defaultComponentName="trafo",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -73,16 +60,18 @@ autolayout=1),
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),   Icon(Rectangle(extent=[-10,62; 10,-62], style(
-      color=30,
-      rgbcolor={215,215,215},
-      fillColor=30,
-      rgbfillColor={215,215,215}))),
-      Diagram);
-
-  equation
-    i1 + i2 = 0;
-    sum(L)*der(i1) + sum(R)*i1 = v1 - v2;
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Rectangle(
+            extent={{-10,62},{10,-62}},
+            lineColor={215,215,215},
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid)}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end TrafoStray;
 
   model TrafoMag "Magnetic coupling transformer, 1-phase"
@@ -92,12 +81,16 @@ autolayout=1),
     SI.Current imag;
     SI.Current iedc;
   Real psi0 "unsaturated flux";
+
+  equation
+    i1 + i2 = imag + iedc;
+    Redc*iedc = v0;
+  psi0 = Lm*imag;
+    L[1]*der(i1) + R[1]*i1 = v1 - v0;
+    L[2]*der(i2) + R[2]*i2 = v2 - v0;
+    Lm*der(imag) = v0;
   annotation (
     defaultComponentName="trafo",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -123,45 +116,37 @@ and eddy current losses.</p>
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),   Icon(
-  Rectangle(extent=[-10,62; 10,-62], style(
-      color=30,
-      rgbcolor={215,215,215},
-      fillColor=30,
-      rgbfillColor={215,215,215})),
-  Line(points=[-20,62; -20,-62], style(
-            color=69,
-            rgbcolor={0,128,255},
-            pattern=3,
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-  Line(points=[20,62; 20,-62], style(
-            color=69,
-            rgbcolor={0,128,255},
-            pattern=3,
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-  Ellipse(extent=[-22,62; -18,58], style(
-            color=69,
-            rgbcolor={0,128,255},
-            fillColor=69,
-            rgbfillColor={0,128,255})),
-  Ellipse(extent=[18,-58; 22,-62], style(
-            color=69,
-            rgbcolor={0,128,255},
-            fillColor=69,
-            rgbfillColor={0,128,255}))),
-      Diagram);
-
-  equation
-    i1 + i2 = imag + iedc;
-    Redc*iedc = v0;
-  psi0 = Lm*imag;
-    L[1]*der(i1) + R[1]*i1 = v1 - v0;
-    L[2]*der(i2) + R[2]*i2 = v2 - v0;
-    Lm*der(imag) = v0;
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-10,62},{10,-62}},
+            lineColor={215,215,215},
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{-20,62},{-20,-62}},
+            color={0,128,255},
+            pattern=LinePattern.Dot),
+          Line(
+            points={{20,62},{20,-62}},
+            color={0,128,255},
+            pattern=LinePattern.Dot),
+          Ellipse(
+            extent={{-22,62},{-18,58}},
+            lineColor={0,128,255},
+            fillColor={0,128,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{18,-58},{22,-62}},
+            lineColor={0,128,255},
+            fillColor={0,128,255},
+            fillPattern=FillPattern.Solid)}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end TrafoMag;
 
   model TrafoSat "Saturation transformer, 1-phase"
@@ -174,12 +159,18 @@ and eddy current losses.</p>
     Real psi0 "unsaturated flux";
     Real g;
     function der_sat = Common.IronSaturation.der_saturationAnalytic;
+
+  equation
+    i1 + i2 = imag + iedc;
+    Redc*iedc = v0;
+    psi0 = Lm*imag;
+    g = scalar(der_sat({psi0}/psi_nom, c_sat));
+
+    L[1]*der(i1) + R[1]*i1 = v1 - v0;
+    L[2]*der(i2) + R[2]*i2 = v2 - v0;
+    g*der(psi0) = v0;
   annotation (
     defaultComponentName="trafo",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -208,79 +199,62 @@ and eddy current losses.</p>
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),   Icon(
-  Rectangle(extent=[-10,62; 10,-62], style(
-      color=30,
-      rgbcolor={215,215,215},
-      fillColor=30,
-      rgbfillColor={215,215,215})),
-  Line(points=[-20,62; -20,-62], style(
-            color=69,
-            rgbcolor={0,128,255},
-            pattern=3,
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-  Line(points=[20,62; 20,-62], style(
-            color=69,
-            rgbcolor={0,128,255},
-            pattern=3,
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-  Ellipse(extent=[-22,62; -18,58], style(
-            color=69,
-            rgbcolor={0,128,255},
-            fillColor=69,
-            rgbfillColor={0,128,255})),
-  Ellipse(extent=[18,-58; 22,-62], style(
-            color=69,
-            rgbcolor={0,128,255},
-            fillColor=69,
-            rgbfillColor={0,128,255})),
-  Line(points=[-15,-40; -11,-10; -7,10; -5,20; -1,30; 5,36; 15,40], style(
-      color=0,
-      rgbcolor={0,0,0},
-      thickness=2,
-      fillColor=30,
-      rgbfillColor={215,215,215},
-      fillPattern=1))),
-      Diagram(
-  Line(points=[-15,-30; -11,0; -7,20; -5,30; -1,40; 5,46; 15,50],   style(
-      color=0,
-      rgbcolor={0,0,0},
-      thickness=2,
-      fillColor=30,
-      rgbfillColor={215,215,215},
-      fillPattern=1)),
-  Line(points=[-15,-50; -11,-20; -7,0; -5,10; -1,20; 5,26; 15,30],  style(
-      color=0,
-      rgbcolor={0,0,0},
-      thickness=2,
-      fillColor=30,
-      rgbfillColor={215,215,215},
-      fillPattern=1))));
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-10,62},{10,-62}},
+            lineColor={215,215,215},
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{-20,62},{-20,-62}},
+            color={0,128,255},
+            pattern=LinePattern.Dot),
+          Line(
+            points={{20,62},{20,-62}},
+            color={0,128,255},
+            pattern=LinePattern.Dot),
+          Ellipse(
+            extent={{-22,62},{-18,58}},
+            lineColor={0,128,255},
+            fillColor={0,128,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{18,-58},{22,-62}},
+            lineColor={0,128,255},
+            fillColor={0,128,255},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{-15,-40},{-11,-10},{-7,10},{-5,20},{-1,30},{5,36},{15,40}},
 
-  equation
-    i1 + i2 = imag + iedc;
-    Redc*iedc = v0;
-    psi0 = Lm*imag;
-    g = scalar(der_sat({psi0}/psi_nom, c_sat));
+            color={0,0,0},
+            thickness=0.5)}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Line(
+            points={{-15,-30},{-11,0},{-7,20},{-5,30},{-1,40},{5,46},{15,50}},
+            color={0,0,0},
+            thickness=0.5), Line(
+            points={{-15,-50},{-11,-20},{-7,0},{-5,10},{-1,20},{5,26},{15,30}},
 
-    L[1]*der(i1) + R[1]*i1 = v1 - v0;
-    L[2]*der(i2) + R[2]*i2 = v2 - v0;
-    g*der(psi0) = v0;
+            color={0,0,0},
+            thickness=0.5)}));
   end TrafoSat;
 
   model Trafo3Stray "Ideal magnetic coupling transformer, 1-phase"
     extends Partials.Trafo3StrayBase;
 
+
+  equation
+    i1 + i2a + i2b = 0;
+    L[1]*der(i1) + R[1]*i1 = v1 - v0;
+    L[2]*der(i2a) + R[2]*i2a = v2a - v0;
+    L[3]*der(i2b) + R[3]*i2b = v2b - v0;
   annotation (
     defaultComponentName="trafo",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Window(
       x=0.45,
       y=0.01,
@@ -301,46 +275,41 @@ and eddy current losses.</p>
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),   Icon(Rectangle(extent=[-10,62; 10,-62], style(
-      color=30,
-      rgbcolor={215,215,215},
-      fillColor=30,
-      rgbfillColor={215,215,215}))),
-      Diagram);
-
-  equation
-    i1 + i2a + i2b = 0;
-    L[1]*der(i1) + R[1]*i1 = v1 - v0;
-    L[2]*der(i2a) + R[2]*i2a = v2a - v0;
-    L[3]*der(i2b) + R[3]*i2b = v2b - v0;
+</html>"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Rectangle(
+            extent={{-10,62},{10,-62}},
+            lineColor={215,215,215},
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid)}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Trafo3Stray;
 
   package Partials "Partial models"
     extends Base.Icons.Partials;
-    annotation (
-      Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]), Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.32,
-        library=1,
-        autolayout=1));
 
     partial model TrafoIdealBase "Base for ideal transformer, 1-phase"
       extends Ports.PortTrafo_p_n(w1(start=w1_set), w2(start=w2_set));
 
       Modelica.Blocks.Interfaces.IntegerInput tap_p "1: index of voltage level"
-        annotation (
-      extent=[-50,90; -30,110],   rotation=-90);
+        annotation (Placement(transformation(
+            origin={-40,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
       Modelica.Blocks.Interfaces.IntegerInput tap_n "2: index of voltage level"
-        annotation (extent=[30,90; 50,110], rotation=-90);
+        annotation (Placement(transformation(
+            origin={40,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
       parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(evaluate=true);
 
       replaceable parameter Parameters.TrafoIdeal1ph par "trafo parameter"
-                                annotation (extent=[-80,60; -60,80]);
+                                annotation (Placement(transformation(extent={{
+                -80,60},{-60,80}}, rotation=0)));
     protected
       outer System system;
       constant Real tc=0.01 "time constant tap-chg switching";
@@ -354,49 +323,71 @@ and eddy current losses.</p>
         "1: set voltage ratio to nominal primary";
       Real w2_set=if cardinality(tap_n)==0 then W2[1] else W2[1 + tap_n]
         "2: set voltage ratio to nominal primary";
+
+    initial equation
+      if dynTC then
+        w1 = w1_set;
+        w2 = w2_set;
+      end if;
+
+    equation
+      if dynTC then
+        der(w1) + (w1 - w1_set)/tc = 0;
+        der(w2) + (w2 - w2_set)/tc = 0;
+      else
+        w1 = w1_set;
+        w2 = w2_set;
+      end if;
       annotation (
-        Coordsys(
-    extent=[-100, -100; 100, 100],
-    grid=[2, 2],
-    component=[20, 20]),
         Window(
           x=0.45,
           y=0.01,
           width=0.44,
           height=0.65),
-        Icon(
-    Ellipse(
-    extent=[-80,60; 40,-60], style(
-        color=3,
-        rgbcolor={44,0,255},
-        fillColor=7,
-        rgbfillColor={255,255,255})),
-    Ellipse(
-    extent=[-40,60; 80,-60], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=7,
-              rgbfillColor={255,255,255})),
-    Ellipse(extent=[-80,60; 40,-60], style(color=3, rgbcolor={0,0,255})),
-    Text(
-      extent=[-120,80; -80,40],
-      string="1",
-      style(color=0,rgbcolor={0,0,0},fillPattern=1)),
-    Text(
-      extent=[80,80; 120,40],string="2",style(color=0,rgbcolor={0,0,0},
-          fillPattern =                                                            1)),
-                                 Line(points=[-80,0; -40,0], style(
-        color=42,
-        rgbcolor={176,0,0},
-        thickness=2)), Line(points=[40,0; 80,0], style(
-        color=42,
-        rgbcolor={176,0,0},
-        thickness=2))),
-        Diagram(
-    Rectangle(extent=[-20,60; -14,-60], style(color=10,fillColor=10,
-          fillPattern =                                                         1)),
-    Rectangle(extent=[14,60; 20,-60], style(color=10,fillColor=10,
-          fillPattern =                                                         1))),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Ellipse(
+              extent={{-80,60},{40,-60}},
+              lineColor={44,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-40,60},{80,-60}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(extent={{-80,60},{40,-60}}, lineColor={0,0,255}),
+            Text(
+              extent={{-120,80},{-80,40}},
+              lineColor={0,0,0},
+              textString=
+             "1"),
+            Text(
+              extent={{80,80},{120,40}},
+              lineColor={0,0,0},
+              textString =          "2"),
+            Line(
+              points={{-80,0},{-40,0}},
+              color={176,0,0},
+              thickness=0.5),
+            Line(
+              points={{40,0},{80,0}},
+              color={176,0,0},
+              thickness=0.5)}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-20,60},{-14,-60}},
+              lineColor={128,128,128},
+              fillColor={128,128,128},
+              fillPattern=FillPattern.Solid), Rectangle(
+              extent={{14,60},{20,-60}},
+              lineColor={128,128,128},
+              fillColor={128,128,128},
+              fillPattern=FillPattern.Solid)}),
         Documentation(
         info="<html>
 <p>Terminology (formal, the models are symmetric).<br>
@@ -414,37 +405,18 @@ For variable transformer ratio tap changer input needed.</p>
 <pre>  tap     index of tap voltage levels, v_tc[tap]</pre>
 <p>Set <tt>dynTC = true</tt> if tap-index changes during simulation.</p>
 </html>"),     DymolaStoredErrors);
-
-    initial equation
-      if dynTC then
-        w1 = w1_set;
-        w2 = w2_set;
-      end if;
-
-    equation
-      if dynTC then
-        der(w1) + (w1 - w1_set)/tc = 0;
-        der(w2) + (w2 - w2_set)/tc = 0;
-      else
-        w1 = w1_set;
-        w2 = w2_set;
-      end if;
     end TrafoIdealBase;
 
     partial model TrafoStrayBase
       "Base for ideal magnetic coupling transformer, 1-phase"
       extends TrafoIdealBase(redeclare replaceable parameter
           Spot.AC1_DC.Transformers.Parameters.TrafoStray1ph par)
-        annotation (extent=[-80,60; -60,80]);
+        annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
+                -80,60},{-60,80}}, rotation=0)));
     protected
       final parameter SI.Resistance[2] R=par.r.*RL_base[:, 1];
       final parameter SI.Inductance[2] L=par.x.*RL_base[:, 2];
       annotation (
-        Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=
-      [20, 20]),
         Window(
     x=0.45,
           y=0.01,
@@ -454,35 +426,35 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling transformer</p>
 </html>"),
-        Icon,
-        Diagram(
-       Rectangle(extent=[-26,60; -20,-60],style(
-        color=30,
-        rgbcolor={215,215,215},
-        fillColor=30,
-        rgbfillColor={215,215,215})),
-       Rectangle(extent=[20,60; 26,-60],  style(
-        color=30,
-        rgbcolor={215,215,215},
-        fillColor=30,
-        rgbfillColor={215,215,215}))));
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-26,60},{-20,-60}},
+              lineColor={215,215,215},
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid), Rectangle(
+              extent={{20,60},{26,-60}},
+              lineColor={215,215,215},
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid)}));
     end TrafoStrayBase;
 
     partial model TrafoMagBase
       "Base for magnetic coupling transformer, 1-phase"
       extends TrafoStrayBase(redeclare replaceable parameter
           Spot.AC1_DC.Transformers.Parameters.TrafoMag1ph par)
-        annotation (extent=[-80,60; -60,80]);
+        annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
+                -80,60},{-60,80}}, rotation=0)));
     protected
       final parameter SI.Resistance[2] RL12_base = sqrt((RL_base[1,:].*RL_base[2,:]));
       final parameter SI.Resistance Redc=par.redc*RL12_base[1];
       final parameter SI.Inductance Lm=par.xm*RL12_base[2];
       annotation (
-        Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=
-      [20, 20]),
         Window(
     x=0.45,
           y=0.01,
@@ -492,39 +464,33 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for magnetic coupling trafo transformer</p>
 </html>"),
-        Icon,
-        Diagram(
-    Line(points=[-30,60; -30,-60], style(
-        color=3,
-        rgbcolor={0,0,255},
-        pattern=3,
-        fillColor=7,
-        rgbfillColor={255,255,255},
-        fillPattern=1)),
-    Line(points=[30,60; 30,-60], style(
-        color=3,
-        rgbcolor={0,0,255},
-        pattern=3,
-        fillColor=7,
-        rgbfillColor={255,255,255},
-        fillPattern=1))));
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Line(
+              points={{-30,60},{-30,-60}},
+              color={0,0,255},
+              pattern=LinePattern.Dot), Line(
+              points={{30,60},{30,-60}},
+              color={0,0,255},
+              pattern=LinePattern.Dot)}));
     end TrafoMagBase;
 
     partial model TrafoSatBase "Base for saturation transformer, 1-phase"
       extends TrafoMagBase(redeclare replaceable parameter
           Spot.AC1_DC.Transformers.Parameters.TrafoSat1ph par)
-        annotation (extent=[-80,60; -60,80]);
+        annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
+                -80,60},{-60,80}}, rotation=0)));
     protected
      final parameter Real xratio=par.xm_sat/par.xm;
       final parameter Real[3] c_sat={1-xratio,(1-xratio)/(par.psi_sat-xratio),xratio};
       final parameter SI.MagneticFlux psi_nom=sqrt(2)*par.V_nom[1]/(2*pi*par.f_nom)
         "amplitude!";
       annotation (
-        Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=
-      [20, 20]),
         Window(
     x=0.45,
           y=0.01,
@@ -534,15 +500,18 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for saturation transformer</p>
 </html>"),
-        Icon,
-        Diagram(
-    Line(points=[-15,-40; -11,-10; -7,10; -5,20; -1,30; 5,36; 15,40], style(
-        color=0,
-        rgbcolor={0,0,0},
-        thickness=2,
-        fillColor=30,
-        rgbfillColor={215,215,215},
-        fillPattern=1))));
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Line(
+              points={{-15,-40},{-11,-10},{-7,10},{-5,20},{-1,30},{5,36},{15,40}},
+
+              color={0,0,0},
+              thickness=0.5)}));
     end TrafoSatBase;
 
     partial model Trafo3IdealBase "Base for ideal transformer, 1-phase"
@@ -553,14 +522,20 @@ For variable transformer ratio tap changer input needed.</p>
 
       parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(evaluate=true);
       Modelica.Blocks.Interfaces.IntegerInput tap_p "1: index of voltage level"
-        annotation (
-      extent=[-50,90; -30,110],   rotation=-90);
+        annotation (Placement(transformation(
+            origin={-40,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
       Modelica.Blocks.Interfaces.IntegerInput[2] tap_n
         "2: indices of voltage levels"
-        annotation (extent=[30,90; 50,110], rotation=-90);
+        annotation (Placement(transformation(
+            origin={40,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
 
       replaceable parameter Parameters.Trafo3Ideal1ph par "trafo parameter"
-                                annotation (extent=[-80,60; -60,80]);
+                                annotation (Placement(transformation(extent={{
+                -80,60},{-60,80}}, rotation=0)));
     protected
       outer System system;
       constant Real tc=0.01 "time constant tap-chg switching";
@@ -580,76 +555,6 @@ For variable transformer ratio tap changer input needed.</p>
         "2a: set voltage ratio to nominal primary";
       Real w2b_set=if cardinality(tap_n[2])==0 then W2b[1] else W2b[1 + tap_n[2]]
         "2b: set voltage ratio to nominal primary";
-      annotation (
-        Coordsys(
-    extent=[-100, -100; 100, 100],
-    grid=[2, 2],
-    component=[20, 20]),
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-        Icon(
-    Ellipse(
-    extent=[-80,60; 40,-60], style(
-        color=3,
-        rgbcolor={44,0,255},
-        fillColor=7,
-        rgbfillColor={255,255,255})),
-    Ellipse(
-    extent=[-40,60; 80,-60], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=7,
-              rgbfillColor={255,255,255})),
-    Ellipse(extent=[-80,60; 40,-60], style(color=3, rgbcolor={0,0,255})),
-    Text(
-      extent=[-120,80; -80,40],
-      string="1",
-      style(color=0,rgbcolor={0,0,0},fillPattern=1)),
-    Text(
-      extent=[80,20; 120,-20],
-                             string="2",style(color=0,rgbcolor={0,0,0},
-          fillPattern =                                                            1)),
-                                 Line(points=[-80,0; -40,0], style(
-        color=42,
-        rgbcolor={176,0,0},
-        thickness=2)), Line(points=[40,0; 80,0], style(
-        color=42,
-        rgbcolor={176,0,0},
-        thickness=2)),
-    Text(
-      extent=[80,100; 120,60],
-      style(color=0,rgbcolor={0,0,0},fillPattern=1),
-            string="a"),
-    Text(
-      extent=[80,-60; 120,-100],
-      style(color=0,rgbcolor={0,0,0},fillPattern=1),
-            string="b")),
-        Diagram(
-    Rectangle(extent=[-20,60; -14,-60], style(color=10,fillColor=10,
-          fillPattern =                                                         1)),
-    Rectangle(extent=[14,60; 20,-60], style(color=10,fillColor=10,
-          fillPattern =                                                         1))),
-        Documentation(
-        info="<html>
-<p>Terminology (formal).<br>
-&nbsp; - index 1 (term_p)     \"primary\"<br>
-&nbsp; - index 2a (term_na)     \"secondary a\"<br>
-&nbsp; - index 2b (term_nb)     \"secondary b\"</p>
-<p>Transformer ratio.<br>
-The winding ratio is determined indirectly by the choice of nominal voltages.<br>
-It may be &gt  or &lt  1.</p>
-<p>Tap changers.<br>
-For constant transformer ratio no tap changer input needed.<br>
-For variable transformer ratio tap changer input needed.</p>
-<p>The sequence of the parameters</p>
-<pre>  v_tc     tc voltage levels v_tc[1], v_tc[2], v_tc[3], ...</pre>
-<p>must be defined in accordance with the input-signals of </p>
-<pre>  tap     index of tap voltage levels, v_tc[tap]</pre>
-<p>Set <tt>dynTC = true</tt> if tap-index changes during simulation.</p>
-</html>"),     DymolaStoredErrors);
 
     initial equation
       if dynTC then
@@ -668,22 +573,96 @@ For variable transformer ratio tap changer input needed.</p>
         w2a = w2a_set;
         w2b = w2b_set;
       end if;
+      annotation (
+        Window(
+          x=0.45,
+          y=0.01,
+          width=0.44,
+          height=0.65),
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Ellipse(
+              extent={{-80,60},{40,-60}},
+              lineColor={44,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-40,60},{80,-60}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(extent={{-80,60},{40,-60}}, lineColor={0,0,255}),
+            Text(
+              extent={{-120,80},{-80,40}},
+              lineColor={0,0,0},
+              textString=
+             "1"),
+            Text(
+              extent={{80,20},{120,-20}},
+              lineColor={0,0,0},
+              textString =          "2"),
+            Line(
+              points={{-80,0},{-40,0}},
+              color={176,0,0},
+              thickness=0.5),
+            Line(
+              points={{40,0},{80,0}},
+              color={176,0,0},
+              thickness=0.5),
+            Text(
+              extent={{80,100},{120,60}},
+              lineColor={0,0,0},
+              textString=
+                   "a"),
+            Text(
+              extent={{80,-60},{120,-100}},
+              lineColor={0,0,0},
+              textString=
+                   "b")}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-20,60},{-14,-60}},
+              lineColor={128,128,128},
+              fillColor={128,128,128},
+              fillPattern=FillPattern.Solid), Rectangle(
+              extent={{14,60},{20,-60}},
+              lineColor={128,128,128},
+              fillColor={128,128,128},
+              fillPattern=FillPattern.Solid)}),
+        Documentation(
+        info="<html>
+<p>Terminology (formal).<br>
+&nbsp; - index 1 (term_p)     \"primary\"<br>
+&nbsp; - index 2a (term_na)     \"secondary a\"<br>
+&nbsp; - index 2b (term_nb)     \"secondary b\"</p>
+<p>Transformer ratio.<br>
+The winding ratio is determined indirectly by the choice of nominal voltages.<br>
+It may be &gt  or &lt  1.</p>
+<p>Tap changers.<br>
+For constant transformer ratio no tap changer input needed.<br>
+For variable transformer ratio tap changer input needed.</p>
+<p>The sequence of the parameters</p>
+<pre>  v_tc     tc voltage levels v_tc[1], v_tc[2], v_tc[3], ...</pre>
+<p>must be defined in accordance with the input-signals of </p>
+<pre>  tap     index of tap voltage levels, v_tc[tap]</pre>
+<p>Set <tt>dynTC = true</tt> if tap-index changes during simulation.</p>
+</html>"),     DymolaStoredErrors);
     end Trafo3IdealBase;
 
     partial model Trafo3StrayBase
       "Base for ideal magnetic coupling transformer, 1-phase"
       extends Trafo3IdealBase(redeclare replaceable parameter
           Spot.AC1_DC.Transformers.Parameters.Trafo3Stray1ph par)
-        annotation (extent=[-80,60; -60,80]);
+        annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
+                -80,60},{-60,80}}, rotation=0)));
     protected
       final parameter SI.Resistance[3] R=par.r.*RL_base[:, 1];
       final parameter SI.Inductance[3] L=par.x.*RL_base[:, 2];
       annotation (
-        Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=
-      [20, 20]),
         Window(
     x=0.45,
           y=0.01,
@@ -693,40 +672,35 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling 3-winding transformer</p>
 </html>"),
-        Icon,
-        Diagram(
-       Rectangle(extent=[-26,60; -20,-60],style(
-        color=30,
-        rgbcolor={215,215,215},
-        fillColor=30,
-        rgbfillColor={215,215,215})),
-       Rectangle(extent=[20,60; 26,-60],  style(
-        color=30,
-        rgbcolor={215,215,215},
-        fillColor=30,
-        rgbfillColor={215,215,215}))));
+        Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Rectangle(
+              extent={{-26,60},{-20,-60}},
+              lineColor={215,215,215},
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid), Rectangle(
+              extent={{20,60},{26,-60}},
+              lineColor={215,215,215},
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid)}));
     end Trafo3StrayBase;
+    annotation (            Window(
+        x=0.05,
+        y=0.44,
+        width=0.31,
+        height=0.32,
+        library=1,
+        autolayout=1));
   end Partials;
 
 package Parameters "Parameter data for interactive use"
   extends Base.Icons.Base;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon);
 
 record TrafoIdeal1ph "Parameters for ideal transformer, 1-phase"
   parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
@@ -735,11 +709,6 @@ record TrafoIdeal1ph "Parameters for ideal transformer, 1-phase"
                               annotation(Dialog(group="Options"));
   extends Base.Units.NominalDataTrafo;
   annotation (defaultComponentName="data",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
     Window(
 x=0.45,
       y=0.01,
@@ -748,8 +717,14 @@ height=0.65),
     Documentation(
     info="<html>
 </html>"),
-    Icon,
-    Diagram);
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end TrafoIdeal1ph;
 
 record TrafoStray1ph
@@ -759,11 +734,6 @@ record TrafoStray1ph
   parameter SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
 
   annotation (defaultComponentName="data",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
     Window(
 x=0.45,
       y=0.01,
@@ -772,8 +742,14 @@ height=0.65),
     Documentation(
     info="<html>
 </html>"),
-    Icon,
-    Diagram);
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end TrafoStray1ph;
 
 record TrafoMag1ph "Parameters for magnetic coupling transformer, 1-phase"
@@ -782,11 +758,6 @@ record TrafoMag1ph "Parameters for magnetic coupling transformer, 1-phase"
   parameter SIpu.Reactance xm=500 "mutual reactance";
 
   annotation (defaultComponentName="data",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
     Window(
 x=0.45,
       y=0.01,
@@ -795,8 +766,14 @@ height=0.65),
     Documentation(
     info="<html>
 </html>"),
-    Icon,
-    Diagram);
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end TrafoMag1ph;
 
 record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
@@ -805,11 +782,6 @@ record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
   parameter SIpu.Reactance xm_sat=1 "mutual reactance saturated";
 
   annotation (defaultComponentName="data",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
     Window(
 x=0.45,
       y=0.01,
@@ -818,8 +790,14 @@ height=0.65),
     Documentation(
     info="<html>
 </html>"),
-    Icon,
-    Diagram);
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end TrafoSat1ph;
 
 record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
@@ -832,11 +810,6 @@ record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
   extends Base.Units.NominalDataTrafo(V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
   annotation (defaultComponentName="data",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
     Window(
 x=0.45,
       y=0.01,
@@ -845,8 +818,14 @@ height=0.65),
     Documentation(
     info="<html>
 </html>"),
-    Icon,
-    Diagram);
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end Trafo3Ideal1ph;
 
 record Trafo3Stray1ph
@@ -856,11 +835,6 @@ record Trafo3Stray1ph
   parameter SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
 
   annotation (defaultComponentName="data",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
     Window(
 x=0.45,
       y=0.01,
@@ -869,9 +843,45 @@ height=0.65),
     Documentation(
     info="<html>
 </html>"),
-    Icon,
-    Diagram);
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end Trafo3Stray1ph;
 
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.38,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Records containing parameters of the corresponding components.</p>
+</html>"),
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Parameters;
+annotation (preferedView="info",
+    Window(
+x=0.05,
+y=0.41,
+width=0.4,
+height=0.32,
+library=1,
+autolayout=1),
+    Documentation(info="<html>
+<p>One-phase transformer models in different abstraction levels.</p>
+</html>"),
+  Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Transformers;

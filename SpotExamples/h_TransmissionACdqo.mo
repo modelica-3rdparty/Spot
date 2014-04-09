@@ -1,51 +1,9 @@
 within SpotExamples;
 package h_TransmissionACdqo "AC transmission, dqo"
   extends Spot.Base.Icons.Examples;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Transmission line models and faults.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon);
 
 model PowerTransfer "Power transfer between two nodes"
 
-  annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Documentation(
-            info="<html>
-<p>Shows the influence of phase-difference on power flow.<br>
-Alternatively one can look at a variation of amplitude ratios.</p>
-<p><i>See for example:</i>
-<pre>
-  sensor1.p[1]     active power
-  sensor1.p[2]     reactive power.
-</pre>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Diagram,
-    Icon,
-      experiment(StopTime=60),
-      experimentSetupOutput);
   inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
   Spot.Blocks.Signals.TransientPhasor transPh(
@@ -86,10 +44,6 @@ equation
       annotation (points=[-60,10; -60,10], style(color=3, rgbcolor={0,0,255}));
     connect(grd2.term, infBus2.neutral)
       annotation (points=[80,10; 80,10], style(color=3, rgbcolor={0,0,255}));
-end PowerTransfer;
-
-model VoltageStability "Voltage stability"
-
   annotation (
     Coordsys(
 extent=[-100, -100; 100, 100],
@@ -102,22 +56,23 @@ width=0.44,
 height=0.65),
     Documentation(
             info="<html>
-<p>Power flow between source and infinite bus. The bus-voltage decreases from 1 to 0.
-<pre>
-  stable:     voltage above extremal point (maximum p[1])
-  instable:   voltage below extremal point (maximum p[1])
-</pre></p>
+<p>Shows the influence of phase-difference on power flow.<br>
+Alternatively one can look at a variation of amplitude ratios.</p>
 <p><i>See for example:</i>
 <pre>
-  meter1/2/3.v_norm and plot it against
-  meter1/2/3.p[1] as independent variable.
-</pre></p>
+  sensor1.p[1]     active power
+  sensor1.p[2]     reactive power.
+</pre>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
+</html>
+"), Diagram,
     Icon,
-      experiment(StopTime=180, NumberOfIntervals=1000),
+      experiment(StopTime=60),
       experimentSetupOutput);
+end PowerTransfer;
+
+model VoltageStability "Voltage stability"
+
   inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
   Spot.ACdqo.Sources.InfBus Vsource0(V_nom=400e3, alpha0=0)
@@ -195,33 +150,39 @@ equation
         style(color=3, rgbcolor={0,0,255}));
   connect(infBus.neutral, grd4.term)
       annotation (points=[60,10; 60,10], style(color=3, rgbcolor={0,0,255}));
+  annotation (
+    Coordsys(
+extent=[-100, -100; 100, 100],
+grid=[2, 2],
+component=[20, 20]),
+    Window(
+x=0.45,
+y=0.01,
+width=0.44,
+height=0.65),
+    Documentation(
+            info="<html>
+<p>Power flow between source and infinite bus. The bus-voltage decreases from 1 to 0.
+<pre>
+  stable:     voltage above extremal point (maximum p[1])
+  instable:   voltage below extremal point (maximum p[1])
+</pre></p>
+<p><i>See for example:</i>
+<pre>
+  meter1/2/3.v_norm and plot it against
+  meter1/2/3.p[1] as independent variable.
+</pre></p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+    Diagram,
+    Icon,
+      experiment(StopTime=180, NumberOfIntervals=1000),
+      experimentSetupOutput);
 end VoltageStability;
 
   model RXline "Single lumped line"
     import Spot;
 
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Documentation(
-              info="<html>
-<p>Short-time line switched off.<br>
-Compare with PIline.</p>
-<p><i>See for example:</i>
-<pre>  meter.p[1:2]     active and reactive power</pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"),   Diagram,
-      Icon,
-      experiment,
-      experimentSetupOutput);
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Sources.InfBus infBus1(V_nom=400e3,
@@ -275,10 +236,6 @@ Compare with PIline.</p>
         style(color=3, rgbcolor={0,0,255}));
     connect(infBus2.neutral, grd2.term)
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
-  end RXline;
-
-  model PIline "Single PI-line"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -289,21 +246,22 @@ Compare with PIline.</p>
   y=0.01,
   width=0.44,
   height=0.65),
-      Diagram,
       Documentation(
               info="<html>
 <p>Short-time line switched off.<br>
-Compare with RXline.</p>
+Compare with PIline.</p>
 <p><i>See for example:</i>
-<pre>
-  meter.p[1:2]     active and reactive power
-  line.v           line voltage, oscillations due to switching
-</pre></p>
+<pre>  meter.p[1:2]     active and reactive power</pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Icon,
-      experiment(NumberOfIntervals=34567),
+"),   Diagram,
+      Icon,
+      experiment,
       experimentSetupOutput);
+  end RXline;
+
+  model PIline "Single PI-line"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Sources.InfBus infBus1(V_nom=400e3,
@@ -358,11 +316,6 @@ Compare with RXline.</p>
         style(color=3, rgbcolor={0,0,255}));
     connect(infBus2.neutral, grd2.term)
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
-  end PIline;
-
-  model FaultRXline "Faulted lumped line"
-    import Spot;
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -373,21 +326,26 @@ Compare with RXline.</p>
   y=0.01,
   width=0.44,
   height=0.65),
+      Diagram,
       Documentation(
               info="<html>
-<p>Fault clearance by short-time line switched off.<br>
-Compare with FaultPIline.</p>
+<p>Short-time line switched off.<br>
+Compare with RXline.</p>
 <p><i>See for example:</i>
 <pre>
   meter.p[1:2]     active and reactive power
-  abc.i_abc        fault currents
+  line.v           line voltage, oscillations due to switching
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram,
-      Icon,
-      experiment,
+"),   Icon,
+      experiment(NumberOfIntervals=34567),
       experimentSetupOutput);
+  end PIline;
+
+  model FaultRXline "Faulted lumped line"
+    import Spot;
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Sources.InfBus infBus1(V_nom=400e3,
@@ -445,10 +403,6 @@ Compare with FaultPIline.</p>
         style(color=3, rgbcolor={0,0,255}));
     connect(infBus2.neutral, grd2.term)
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
-  end FaultRXline;
-
-  model FaultPIline "Faulted PI-line"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -459,22 +413,25 @@ Compare with FaultPIline.</p>
   y=0.01,
   width=0.44,
   height=0.65),
-      Diagram,
       Documentation(
               info="<html>
 <p>Fault clearance by short-time line switched off.<br>
-Compare with FaultRXline.</p>
+Compare with FaultPIline.</p>
 <p><i>See for example:</i>
 <pre>
   meter.p[1:2]     active and reactive power
-  line.v           line voltage, oscillations due to switching
   abc.i_abc        fault currents
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Icon,
-      experiment(NumberOfIntervals=34567),
+"),   Diagram,
+      Icon,
+      experiment,
       experimentSetupOutput);
+  end FaultRXline;
+
+  model FaultPIline "Faulted PI-line"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Sources.InfBus infBus1(V_nom=400e3,
@@ -533,10 +490,6 @@ Compare with FaultRXline.</p>
         style(color=3, rgbcolor={0,0,255}));
     connect(infBus2.neutral, grd2.term)
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
-  end FaultPIline;
-
-  model DoubleRXline "Parallel lumped lines, one faulted"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -547,21 +500,26 @@ Compare with FaultRXline.</p>
   y=0.01,
   width=0.44,
   height=0.65),
+      Diagram,
       Documentation(
               info="<html>
 <p>Fault clearance by short-time line switched off.<br>
-Compare with DoublePIline.</p>
+Compare with FaultRXline.</p>
 <p><i>See for example:</i>
 <pre>
   meter.p[1:2]     active and reactive power
+  line.v           line voltage, oscillations due to switching
   abc.i_abc        fault currents
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram,
-      Icon,
-      experiment(StopTime=0.5, NumberOfIntervals=20000),
+"),   Icon,
+      experiment(NumberOfIntervals=34567),
       experimentSetupOutput);
+  end FaultPIline;
+
+  model DoubleRXline "Parallel lumped lines, one faulted"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Sources.InfBus infBus1(V_nom=20e3, alpha0=30*d2r)
@@ -638,10 +596,6 @@ Compare with DoublePIline.</p>
         style(color=3, rgbcolor={0,0,255}));
     connect(InfBus2.neutral, grd2.term)
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
-  end DoubleRXline;
-
-  model DoublePIline "Parallel PI-lines, one faulted"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -659,16 +613,18 @@ Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
   meter.p[1:2]     active and reactive power
-  line.v           line voltage, oscillations due to switching
-  lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-      Diagram,
+</html>
+"),   Diagram,
       Icon,
       experiment(StopTime=0.5, NumberOfIntervals=20000),
       experimentSetupOutput);
+  end DoubleRXline;
+
+  model DoublePIline "Parallel PI-lines, one faulted"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACdqo.Sources.InfBus infBus1(V_nom=20e3, alpha0=30*d2r)
@@ -745,11 +701,6 @@ Compare with DoublePIline.</p>
         style(color=3, rgbcolor={0,0,255}));
     connect(grd2.term, InfBus2.neutral)
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
-  end DoublePIline;
-
-  model DoubleRXlineTG
-    "Parallel lumped lines with turbo generator, one line faulted"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -767,14 +718,21 @@ Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
   meter.p[1:2]     active and reactive power
+  line.v           line voltage, oscillations due to switching
+  lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"),   Diagram,
+</html>"),
+      Diagram,
       Icon,
-      experiment(StopTime=0.5),
+      experiment(StopTime=0.5, NumberOfIntervals=20000),
       experimentSetupOutput);
+  end DoublePIline;
+
+  model DoubleRXlineTG
+    "Parallel lumped lines with turbo generator, one line faulted"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.GenerationACdqo.TurboGenerator turbGen(
@@ -861,11 +819,6 @@ Compare with DoublePIline.</p>
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
     connect(turbGen.heat, boundary.heat)
       annotation (points=[-80,0; -80,0], style(color=42, rgbcolor={176,0,0}));
-  end DoubleRXlineTG;
-
-  model DoublePIlineTG
-    "Parallel PI-lines with turbo generator, one line faulted"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -883,16 +836,19 @@ Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
   meter.p[1:2]     active and reactive power
-  line.v           line voltage, oscillations due to switching
-  lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-      Diagram,
+</html>
+"),   Diagram,
       Icon,
-      experiment(StopTime=0.5, NumberOfIntervals=3400),
+      experiment(StopTime=0.5),
       experimentSetupOutput);
+  end DoubleRXlineTG;
+
+  model DoublePIlineTG
+    "Parallel PI-lines with turbo generator, one line faulted"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.GenerationACdqo.TurboGenerator turbGen(
@@ -978,5 +934,49 @@ Compare with DoublePIline.</p>
       annotation (points=[90,-10; 90,-10], style(color=3, rgbcolor={0,0,255}));
     connect(turbGen.heat, boundary.heat)
       annotation (points=[-80,0; -80,0], style(color=42, rgbcolor={176,0,0}));
+    annotation (
+      Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Documentation(
+              info="<html>
+<p>Fault clearance by short-time line switched off.<br>
+Compare with DoublePIline.</p>
+<p><i>See for example:</i>
+<pre>
+  meter.p[1:2]     active and reactive power
+  line.v           line voltage, oscillations due to switching
+  lineF.v          fault line voltage
+  abc.i_abc        fault currents
+</pre></p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+      Diagram,
+      Icon,
+      experiment(StopTime=0.5, NumberOfIntervals=3400),
+      experimentSetupOutput);
   end DoublePIlineTG;
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Transmission line models and faults.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+    Icon);
 end h_TransmissionACdqo;

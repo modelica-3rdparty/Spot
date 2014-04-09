@@ -1,30 +1,9 @@
 within SpotExamples;
 package c_ACabc "AC 3-phase components abc"
   extends Spot.Base.Icons.Examples;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>This package contains small models for testing single components from ACabc.
-The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon);
 
   model Breaker "Breaker"
 
-    annotation (Icon, Diagram,
-      experiment(StopTime=0.2, NumberOfIntervals=2345),
-      experimentSetupOutput);
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.ACabc.Nodes.Ground grd2     annotation (extent=[90,-10; 110,10]);
@@ -62,27 +41,13 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[60,0; 90,0], style(color=3, rgbcolor={0,0,255}));
     connect(grd1.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
+    annotation (Icon, Diagram,
+      experiment(StopTime=0.2, NumberOfIntervals=2345),
+      experimentSetupOutput);
   end Breaker;
 
   model Fault "Fault"
 
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>
-"),   experiment(StopTime=0.2, NumberOfIntervals=2345),
-      experimentSetupOutput);
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.ACabc.Sources.Voltage voltage1(
@@ -132,27 +97,27 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[88,-30; 88,-30], style(color=3, rgbcolor={0,0,255}));
     connect(grd1.term, voltage1.neutral) annotation (points=[-90,-30; -90,-30],
         style(color=3, rgbcolor={0,0,255}));
-  end Fault;
-
-  model Impedance "Impedance"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
   grid=[2, 2],
   component=[20, 20]),
-      Diagram,
       Window(
   x=0.45,
   y=0.01,
   width=0.44,
   height=0.65),
+      Icon,
+      Diagram,
       Documentation(
               info="<html>
 </html>
-"),   Icon,
-      experiment(StopTime=0.2),
+"),   experiment(StopTime=0.2, NumberOfIntervals=2345),
       experimentSetupOutput);
+  end Fault;
+
+  model Impedance "Impedance"
+
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh
@@ -177,10 +142,6 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[40,0; 80,0], style(color=3, rgbcolor={0,0,255}));
     connect(grd1.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
-  end Impedance;
-
-  model ImpedanceYD "Impedance Y-Delta"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -198,6 +159,10 @@ The replaceable component can be replaced by a user defined component of similar
 "),   Icon,
       experiment(StopTime=0.2),
       experimentSetupOutput);
+  end Impedance;
+
+  model ImpedanceYD "Impedance Y-Delta"
+
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh
@@ -219,10 +184,6 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[-20,0; 30,0], style(color=3, rgbcolor={0,0,255}));
     connect(grd.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
-  end ImpedanceYD;
-
-  model Line "Line"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -238,8 +199,12 @@ The replaceable component can be replaced by a user defined component of similar
               info="<html>
 </html>
 "),   Icon,
-      experiment,
+      experiment(StopTime=0.2),
       experimentSetupOutput);
+  end ImpedanceYD;
+
+  model Line "Line"
+
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh(              ph_fin=5*d2r)
@@ -273,32 +238,27 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
     connect(grd2.term, voltage2.neutral)
       annotation (points=[90,0; 90,0], style(color=3, rgbcolor={0,0,255}));
+    annotation (
+      Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+      Diagram,
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Documentation(
+              info="<html>
+</html>
+"),   Icon,
+      experiment,
+      experimentSetupOutput);
   end Line;
 
   model Load "Load"
 
-  annotation (
-    Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
-    Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
-    Icon,
-    Diagram,
-    Documentation(
-            info="<html>
-</html>"),
-    experiment,
-    experimentSetupOutput);
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh
@@ -324,11 +284,32 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[40,50; 40,10], style(color=74, rgbcolor={0,0,127}));
     connect(grd.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
+  annotation (
+    Coordsys(
+        extent=
+       [-100, -100; 100, 100],
+        grid=
+     [2, 2],
+        component=
+          [20, 20]),
+    Window(
+        x=
+  0.45, y=
+  0.01, width=
+      0.44,
+        height=
+       0.65),
+    Icon,
+    Diagram,
+    Documentation(
+            info="<html>
+</html>"),
+    experiment,
+    experimentSetupOutput);
   end Load;
 
   model Machines "Machines"
 
-    annotation(Icon,                                                    Diagram);
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh
@@ -369,13 +350,11 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[0,10; 0,10], style(color=42, rgbcolor={176,0,0}));
     connect(trsSignal.y, torq.tau)
       annotation (points=[80,0; 80,0], style(color=74, rgbcolor={0,0,127}));
+    annotation(Icon,                                                    Diagram);
   end Machines;
 
   model Sensor "Sensor and meter"
 
-    annotation(Icon,                                                    Diagram,
-      experiment(StopTime=0.2),
-      experimentSetupOutput);
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.ACabc.Sources.Vspectrum voltage
@@ -397,11 +376,13 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[20,0; 80,0], style(color=3, rgbcolor={0,0,255}));
     connect(grd.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
+    annotation(Icon,                                                    Diagram,
+      experiment(StopTime=0.2),
+      experimentSetupOutput);
   end Sensor;
 
   model Source "Source"
 
-    annotation(Icon, Diagram);
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.ACabc.ImpedancesYD.Inductor ind(r=0.1)
@@ -418,27 +399,11 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[60,0; 70,0], style(color=3, rgbcolor={0,0,255}));
     connect(grd.term, voltage.neutral)
       annotation (points=[-40,0; -40,0], style(color=3, rgbcolor={0,0,255}));
+    annotation(Icon, Diagram);
   end Source;
 
   model Transformer "Transformer"
 
-    annotation (
-      Coordsys(
-  extent=[-100,-100; 100,100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Documentation(
-              info="<html>
-</html>
-"),   Diagram,
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      experiment(StopTime=3),
-      experimentSetupOutput);
     inner Spot.System system
       annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh
@@ -487,27 +452,27 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[6,50; 6,10], style(color=45, rgbcolor={255,127,0}));
     connect(TapChanger.tap_n, trafo.tap_n) annotation (points=[14,50; 14,10],
         style(color=45, rgbcolor={255,127,0}));
-  end Transformer;
-
-  model Rectifier "Rectifier"
-
     annotation (
       Coordsys(
-  extent=[-100, -100; 100, 100],
+  extent=[-100,-100; 100,100],
   grid=[2, 2],
   component=[20, 20]),
+      Documentation(
+              info="<html>
+</html>
+"),   Diagram,
       Window(
   x=0.45,
   y=0.01,
   width=0.44,
   height=0.65),
       Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>
-"),   experiment(StopTime=0.2, NumberOfIntervals=1000),
+      experiment(StopTime=3),
       experimentSetupOutput);
+  end Transformer;
+
+  model Rectifier "Rectifier"
+
     inner Spot.System system(ref="inertial")
                         annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh
@@ -554,29 +519,6 @@ The replaceable component can be replaced by a user defined component of similar
       annotation (points=[90,0; 90,0], style(color=3, rgbcolor={0,0,255}));
     connect(rectifier.heat, boundary.heat)
       annotation (points=[20,10; 20,10], style(color=42, rgbcolor={176,0,0}));
-  end Rectifier;
-
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<pre>
-Models for testing components from Spot.Electronics.
-</pre>
-</html>
-"), Icon);
-
-  model Inverter "Inverter, controlled rectifier"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -592,11 +534,13 @@ Models for testing components from Spot.Electronics.
       Documentation(
               info="<html>
 </html>
-"),   experiment(
-        StopTime=0.2,
-        NumberOfIntervals=1000,
-        Algorithm="Lsodar"),
+"),   experiment(StopTime=0.2, NumberOfIntervals=1000),
       experimentSetupOutput);
+  end Rectifier;
+
+
+  model Inverter "Inverter, controlled rectifier"
+
     inner Spot.System system(ref="inertial")
                         annotation (extent=[-80,60; -60,80]);
     Spot.Blocks.Signals.TransientPhasor transPh
@@ -648,6 +592,61 @@ Models for testing components from Spot.Electronics.
       annotation (points=[90,0; 90,0], style(color=3, rgbcolor={0,0,255}));
     connect(ac_dc.heat, boundary.heat)
       annotation (points=[20,10; 20,10], style(color=42, rgbcolor={176,0,0}));
+    annotation (
+      Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Icon,
+      Diagram,
+      Documentation(
+              info="<html>
+</html>
+"),   experiment(
+        StopTime=0.2,
+        NumberOfIntervals=1000,
+        Algorithm="Lsodar"),
+      experimentSetupOutput);
   end Inverter;
 
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>This package contains small models for testing single components from ACabc.
+The replaceable component can be replaced by a user defined component of similar type.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+    Icon,     preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<pre>
+Models for testing components from Spot.Electronics.
+</pre>
+</html>
+"), Icon);
 end c_ACabc;

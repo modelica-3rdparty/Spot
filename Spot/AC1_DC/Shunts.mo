@@ -1,12 +1,9 @@
 within Spot.AC1_DC;
 
+
 package Shunts
   extends Base.Icons.Library;
 
-  annotation (preferedView="info", Documentation(info="<html>
-<p>Info see package AC1_DC.Impedances.</p>
-</html>
-"));
 model ReactiveShunt "Shunt reactor with parallel conductor, 1-phase"
   extends Partials.ShuntBase;
 
@@ -21,11 +18,11 @@ model ReactiveShunt "Shunt reactor with parallel conductor, 1-phase"
   final parameter SI.Inductance[2,2] L=[x_s,x_m;x_m,x_s]*RL_base[2];
   SI.Current[2] i_x;
 
+
+equation
+  i_x = i - G*v;
+  L*der(i_x) + R*i_x = v;
 annotation (defaultComponentName = "xShunt",
-  Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
   Window(
         x=0.45,
         y=0.01,
@@ -35,79 +32,62 @@ annotation (defaultComponentName = "xShunt",
           info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
 </html>"),
-  Icon( Rectangle(extent=[72,20; 80,-20], style(
-        color=10,
-        rgbcolor={135,135,135},
-        fillColor=10,
-        rgbfillColor={135,135,135})),
-        Rectangle(extent=[-80,20; -40,-20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-        Rectangle(extent=[-40,20; 72,-20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255}))),
-  Diagram(
-        Rectangle(extent=[-60,32; 60,22], style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2,
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-    Rectangle(extent=[-60,18; 60,8],  style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2,
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-    Rectangle(extent=[-60,4; 60,-4],  style(
-        color=9,
-        rgbcolor={175,175,175},
-        fillColor=9,
-        rgbfillColor={175,175,175})),
-        Rectangle(extent=[-60,-8; 60,-18],  style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2,
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-    Rectangle(extent=[-60,-22; 60,-32], style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2,
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-        Line(points=[-60,8; -60,32], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=1)),
-        Line(points=[-60,-32; -60,-8], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=1)),
-        Line(points=[60,8; 60,32], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=1)),
-        Line(points=[60,-32; 60,-8], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=1))));
-
-equation
-  i_x = i - G*v;
-  L*der(i_x) + R*i_x = v;
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{72,20},{80,-20}},
+            lineColor={135,135,135},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-80,20},{-40,-20}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-40,20},{72,-20}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid)}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-60,32},{60,22}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-60,18},{60,8}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-60,4},{60,-4}},
+            lineColor={175,175,175},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-60,-8},{60,-18}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-60,-22},{60,-32}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-60,8},{-60,32}}, color={0,0,255}),
+          Line(points={{-60,-32},{-60,-8}}, color={0,0,255}),
+          Line(points={{60,8},{60,32}}, color={0,0,255}),
+          Line(points={{60,-32},{60,-8}}, color={0,0,255})}));
 end ReactiveShunt;
 
 model CapacitiveShunt "Shunt capacitor with parallel conductor, 1-phase, pp pg"
@@ -122,11 +102,10 @@ model CapacitiveShunt "Shunt capacitor with parallel conductor, 1-phase, pp pg"
   final parameter SI.Conductance[2,2] G=[g_pg+g_pp,-g_pp;-g_pp,g_pg+g_pp]*GC_base[1];
   final parameter SI.Capacitance[2,2] C=[b_pg+b_pp,-b_pp;-b_pp,b_pg+b_pp]*GC_base[2];
 
+
+equation
+  C*der(v) + G*v = i;
 annotation (defaultComponentName = "cShunt",
-  Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
   Window(
         x=0.45,
         y=0.01,
@@ -139,178 +118,112 @@ annotation (defaultComponentName = "cShunt",
 &nbsp;  _pp denotes phase-to-phase</p>
 <p>Info see package AC1_DC.Impedances.</p>
 </html>"),
-  Icon( Rectangle(extent=[-12,60; 12,-60], style(
-            color=30,
-            rgbcolor={215,215,215},
-            fillColor=30,
-            rgbfillColor={215,215,215})),
-        Line(points=[-90,0; -20,0], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=69,
-            rgbfillColor={0,128,255})),
-        Rectangle(extent=[-20,60; -12,-60], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-        Rectangle(extent=[12,60; 20,-60], style(
-          color=10,
-          rgbcolor={135,135,135},
-          fillColor=10,
-          rgbfillColor={135,135,135}))),
-  Diagram(
-        Rectangle(extent=[36,40; 38,20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-        Rectangle(extent=[42,40; 44,20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-        Rectangle(extent=[36,0; 38,-20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-        Rectangle(extent=[42,0; 44,-20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-    Rectangle(extent=[30,14; 50,6], style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2,
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Rectangle(extent=[30,-26; 50,-34], style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2,
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[36,30; 20,30; 20,10; 30,10], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[36,-10; 20,-10; 20,-30; 30,-30], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[44,30; 60,30; 60,10; 50,10], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[44,-10; 60,-10; 60,-30; 50,-30], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Rectangle(extent=[-60,4; -40,2], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-    Rectangle(extent=[-60,-2; -40,-4], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=3,
-            rgbfillColor={0,0,255})),
-    Rectangle(extent=[-34,10; -26,-10], style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2,
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[-50,4; -50,16; -30,16; -30,10], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[-50,-4; -50,-16; -30,-16; -30,-10], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[-60,20; 20,20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[-60,-20; 20,-20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[-40,20; -40,16], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-    Line(points=[-40,-20; -40,-16], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-        Text(
-          extent=[0,-40; 80,-50],
-          string="b_pg",
-          style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2)),
-        Text(
-          extent=[0,-50; 80,-60],
-          string="g_pg",
-          style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2)),
-        Text(
-          extent=[-80,-30; 0,-40],
-          string="b_pp, g_pp",
-          style(
-            color=3,
-            rgbcolor={0,0,255},
-            thickness=2))));
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-12,60},{12,-60}},
+            lineColor={215,215,215},
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-90,0},{-20,0}}, color={0,0,255}),
+          Rectangle(
+            extent={{-20,60},{-12,-60}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{12,60},{20,-60}},
+            lineColor={135,135,135},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid)}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{36,40},{38,20}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{42,40},{44,20}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{36,0},{38,-20}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{42,0},{44,-20}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{30,14},{50,6}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{30,-26},{50,-34}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{36,30},{20,30},{20,10},{30,10}}, color={0,0,255}),
+          Line(points={{36,-10},{20,-10},{20,-30},{30,-30}}, color={0,0,255}),
+          Line(points={{44,30},{60,30},{60,10},{50,10}}, color={0,0,255}),
+          Line(points={{44,-10},{60,-10},{60,-30},{50,-30}}, color={0,0,255}),
+          Rectangle(
+            extent={{-60,4},{-40,2}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-60,-2},{-40,-4}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-34,10},{-26,-10}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-50,4},{-50,16},{-30,16},{-30,10}}, color={0,0,255}),
+          Line(points={{-50,-4},{-50,-16},{-30,-16},{-30,-10}}, color={0,0,255}),
 
-equation
-  C*der(v) + G*v = i;
+          Line(points={{-60,20},{20,20}}, color={0,0,255}),
+          Line(points={{-60,-20},{20,-20}}, color={0,0,255}),
+          Line(points={{-40,20},{-40,16}}, color={0,0,255}),
+          Line(points={{-40,-20},{-40,-16}}, color={0,0,255}),
+          Text(
+            extent={{0,-40},{80,-50}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            textString=
+                 "b_pg"),
+          Text(
+            extent={{0,-50},{80,-60}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            textString=
+                 "g_pg"),
+          Text(
+            extent={{-80,-30},{0,-40}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            textString=
+                 "b_pp, g_pp")}));
 end CapacitiveShunt;
 
 package Partials "Partial models"
   extends Base.Icons.Partials;
 
-  annotation (
-    Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]), Window(
-      x=0.05,
-      y=0.44,
-      width=0.31,
-      height=0.23,
-      library=1,
-      autolayout=1));
 
   partial model ShuntBase "Load base, 1-phase"
     extends Ports.Port_p;
@@ -319,11 +232,11 @@ package Partials "Partial models"
     SI.Voltage[2] v "voltage";
     SI.Current[2] i "current";
 
+
+  equation
+    v = term.pin.v;
+    i = term.pin.i;
   annotation (
-    Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
     Window(
       x=0.45,
       y=0.01,
@@ -332,45 +245,40 @@ package Partials "Partial models"
     Documentation(
   info="<html>
 </html>
-"), Diagram(
-      Line(points=[60,20; 80,20], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255},
-              fillPattern=1)),
-          Rectangle(extent=[80,30; 84,10], style(
-    color=10,
-    fillColor=10,
-    fillPattern=1)),
-      Line(points=[60,-20; 80,-20], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255},
-              fillPattern=1)),
-          Rectangle(extent=[80,-10; 84,-30], style(
-    color=10,
-    fillColor=10,
-    fillPattern=1)),
-      Line(points=[-80,20; -60,20], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255},
-              fillPattern=1)),
-      Line(points=[-80,-20; -60,-20], style(
-              color=3,
-              rgbcolor={0,0,255},
-              fillColor=3,
-              rgbfillColor={0,0,255},
-              fillPattern=1))),
-    Icon,
+"), Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Line(points={{60,20},{80,20}}, color={0,0,255}),
+            Rectangle(
+              extent={{80,30},{84,10}},
+              lineColor={128,128,128},
+              fillColor={128,128,128},
+              fillPattern=FillPattern.Solid),
+            Line(points={{60,-20},{80,-20}}, color={0,0,255}),
+            Rectangle(
+              extent={{80,-10},{84,-30}},
+              lineColor={128,128,128},
+              fillColor={128,128,128},
+              fillPattern=FillPattern.Solid),
+            Line(points={{-80,20},{-60,20}}, color={0,0,255}),
+            Line(points={{-80,-20},{-60,-20}}, color={0,0,255})}),
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
       DymolaStoredErrors);
-
-  equation
-    v = term.pin.v;
-    i = term.pin.i;
   end ShuntBase;
+  annotation (            Window(
+      x=0.05,
+      y=0.44,
+      width=0.31,
+      height=0.23,
+      library=1,
+      autolayout=1));
 end Partials;
+  annotation (preferedView="info", Documentation(info="<html>
+<p>Info see package AC1_DC.Impedances.</p>
+</html>
+"));
 end Shunts;

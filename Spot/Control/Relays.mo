@@ -2,21 +2,6 @@ within Spot.Control;
 package Relays "Relays"
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-</html>"),
-    Icon);
   block SwitchRelay "Relay for sequential switching "
     extends Base.Icons.Block0;
 
@@ -27,15 +12,19 @@ Documentation(info="<html>
     parameter SI.Time t_switch[:]={1} "switching time vector";
     Modelica.Blocks.Interfaces.BooleanOutput[n] y(start=fill(ini_state, n), fixed=true)
       "boolean state of switch (closed:true, open:false)"
-      annotation (
-            extent=[90, -10; 110, 10]);
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+            =0)));
   protected
     Integer cnt(start=1,fixed=true);
+
+  algorithm
+    when time > t_switch[cnt] then
+      cnt := min(cnt + 1, size(t_switch, 1));
+      for k in switched loop
+        y[k] := not y[k];
+      end for;
+    end when;
     annotation (defaultComponentName = "relay1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.01,
   y=0.01,
@@ -50,20 +39,18 @@ Documentation(info="<html>
   open - closed - open - ...
 </pre></p>
 </html>"),
-      Icon(
-     Text(
-    extent=[-80,20; 80,-20],
-    style(color=10),
-          string="switch")),
-      Diagram);
-
-  algorithm
-    when time > t_switch[cnt] then
-      cnt := min(cnt + 1, size(t_switch, 1));
-      for k in switched loop
-        y[k] := not y[k];
-      end for;
-    end when;
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-80,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "switch")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end SwitchRelay;
 
   block TapChangerRelay "Relay for setting tap-changer "
@@ -77,20 +64,26 @@ Documentation(info="<html>
     parameter SI.Time t_switch_2[:]={1} "2:switching times";
     Modelica.Blocks.Interfaces.IntegerOutput tap_p
       "index of voltage level of tap changer 1"
-      annotation (
-            extent=[90,-50; 110,-30]);
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
+            rotation=0)));
     Modelica.Blocks.Interfaces.IntegerOutput tap_n
       "index of voltage level of tap changer 2"
-      annotation (
-            extent=[90,30; 110,50]);
+      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
+              0)));
   protected
     Integer cnt_1(start=1,fixed=true);
     Integer cnt_2(start=1,fixed=true);
+
+  algorithm
+    when time > t_switch_1[min(cnt_1, size(t_switch_1, 1))] then
+      cnt_1 := cnt_1 + 1;
+      tap_p := preset_1[min(cnt_1, size(preset_1, 1))];
+    end when;
+    when time > t_switch_2[min(cnt_2, size(t_switch_2, 1))] then
+      cnt_2 := cnt_2 + 1;
+      tap_n := preset_2[min(cnt_2, size(preset_2, 1))];
+    end when;
     annotation (defaultComponentName = "tapRelay1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.01,
   y=0.01,
@@ -102,30 +95,29 @@ Documentation(info="<html>
 of the transformer model. Level 0 is nominal voltage.</p>
 <p>The switching times can be chosen arbitrarily.</p>
 </html>
-"),   Icon(
-        Text(
-          extent=[50,50; 70,30],
-          style(color=45, rgbcolor={255,128,0}),
-          string="2"),
-        Text(
-          extent=[50,-30; 70,-50],
-          string="1",
-          style(color=45, rgbcolor={255,128,0})),
-     Text(
-    extent=[-80,20; 80,-20],
-    style(color=10),
-          string="tap")),
-      Diagram);
-
-  algorithm
-    when time > t_switch_1[min(cnt_1, size(t_switch_1, 1))] then
-      cnt_1 := cnt_1 + 1;
-      tap_p := preset_1[min(cnt_1, size(preset_1, 1))];
-    end when;
-    when time > t_switch_2[min(cnt_2, size(t_switch_2, 1))] then
-      cnt_2 := cnt_2 + 1;
-      tap_n := preset_2[min(cnt_2, size(preset_2, 1))];
-    end when;
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{50,50},{70,30}},
+            lineColor={255,128,0},
+            textString=
+                 "2"),
+          Text(
+            extent={{50,-30},{70,-50}},
+            lineColor={255,128,0},
+            textString=
+                 "1"),
+          Text(
+            extent={{-80,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "tap")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end TapChangerRelay;
 
   block TapChanger3Relay "Relay for setting tap-changer 3-winding transformer"
@@ -142,46 +134,16 @@ of the transformer model. Level 0 is nominal voltage.</p>
     parameter SI.Time t_switch_2b[:]={1} "2b: switching times";
     Modelica.Blocks.Interfaces.IntegerOutput tap_p
       "1: index of voltage level of tap changer"
-      annotation (
-            extent=[90,-50; 110,-30]);
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
+            rotation=0)));
     Modelica.Blocks.Interfaces.IntegerOutput[2] tap_n
       "2: indices of voltage level of tap changers {2a,2b}"
-      annotation (
-            extent=[90,30; 110,50]);
+      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
+              0)));
   protected
     Integer cnt_1(start=1,fixed=true);
     Integer cnt_2a(start=1,fixed=true);
     Integer cnt_2b(start=1,fixed=true);
-    annotation (defaultComponentName = "tapRelay1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.01,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Documentation(
-              info="<html>
-<p>The voltage level indices are pre-selected. They correspond to the index of the tap voltage levels
-of the transformer model. Level 0 is nominal voltage.</p>
-<p>The switching times can be chosen arbitrarily.</p>
-</html>
-"),   Icon(
-        Text(
-          extent=[50,50; 70,30],
-          style(color=45, rgbcolor={255,128,0}),
-          string="2"),
-        Text(
-          extent=[50,-30; 70,-50],
-          string="1",
-          style(color=45, rgbcolor={255,128,0})),
-     Text(
-    extent=[-80,20; 80,-20],
-    style(color=10),
-          string="tap")),
-      Diagram);
 
   algorithm
     when time > t_switch_1[min(cnt_1, size(t_switch_1, 1))] then
@@ -196,6 +158,41 @@ of the transformer model. Level 0 is nominal voltage.</p>
       cnt_2b := cnt_2b + 1;
       tap_n[2] := preset_2b[min(cnt_2b, size(preset_2b, 1))];
     end when;
+    annotation (defaultComponentName = "tapRelay1",
+      Window(
+  x=0.01,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Documentation(
+              info="<html>
+<p>The voltage level indices are pre-selected. They correspond to the index of the tap voltage levels
+of the transformer model. Level 0 is nominal voltage.</p>
+<p>The switching times can be chosen arbitrarily.</p>
+</html>
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{50,50},{70,30}},
+            lineColor={255,128,0},
+            textString=
+                 "2"),
+          Text(
+            extent={{50,-30},{70,-50}},
+            lineColor={255,128,0},
+            textString=
+                 "1"),
+          Text(
+            extent={{-80,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "tap")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end TapChanger3Relay;
 
   block Y_DeltaControl "Relay for Y-Delta topology switching "
@@ -206,15 +203,17 @@ of the transformer model. Level 0 is nominal voltage.</p>
     parameter SI.Time t_switch[:]={1} "switching time vector";
     Modelica.Blocks.Interfaces.BooleanOutput y(start=ini_state, fixed=true)
       "boolean state (Y-top: true, Delta-top: false)"
-      annotation (
-            extent=[90, -10; 110, 10]);
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+            =0)));
   protected
     Integer cnt(start=1,fixed=true);
+
+  algorithm
+    when time > t_switch[cnt] then
+      cnt := min(cnt + 1, size(t_switch, 1));
+      y := not y;
+    end when;
     annotation (defaultComponentName = "relay1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.01,
   y=0.01,
@@ -229,17 +228,31 @@ of the transformer model. Level 0 is nominal voltage.</p>
   Delta - Y - Delta - ...
 </pre></p>
 </html>"),
-      Icon(
-     Text(
-    extent=[-80,20; 80,-20],
-    style(color=10),
-          string="Y - D")),
-      Diagram);
-
-  algorithm
-    when time > t_switch[cnt] then
-      cnt := min(cnt + 1, size(t_switch, 1));
-      y := not y;
-    end when;
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-80,20},{80,-20}},
+            lineColor={128,128,128},
+            textString=
+                 "Y - D")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Y_DeltaControl;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.38,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+</html>"),
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Relays;

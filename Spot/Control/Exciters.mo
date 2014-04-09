@@ -2,21 +2,6 @@ within Spot.Control;
 package Exciters "Generator Exciters "
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.24,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-</html>
-"), Icon);
 
   block ExciterSimple "Simple exciter for constant field voltage"
 
@@ -24,21 +9,20 @@ Documentation(info="<html>
       choices(choice=true "parameter", choice=false "initialised"));
     parameter SIpu.Voltage v_f(unit="pu", fixed=par)=1 "exciter voltage"
                                                               annotation(Dialog(enable=par));
-    Modelica.Blocks.Interfaces.RealInput termVoltage[3](redeclare type
-        SignalType =
-          SIpu.Voltage, final unit="pu") "terminal voltage pu"
-      annotation (
-            extent=[-70,-110; -50,-90],   rotation=90);
-    Modelica.Blocks.Interfaces.RealOutput fieldVoltage(redeclare type
-        SignalType =
-          SIpu.Voltage, final unit="pu") "field voltage pu"
-      annotation (
-            extent=[50,-110; 70,-90],   rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput termVoltage[3](final unit="pu")
+      "terminal voltage pu" annotation (Placement(transformation(
+          origin={-60,-100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+    Modelica.Blocks.Interfaces.RealOutput fieldVoltage(final unit="pu")
+      "field voltage pu" annotation (Placement(transformation(
+          origin={60,-100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+
+  equation
+    fieldVoltage = v_f;
     annotation (defaultComponentName = "exciter",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -49,49 +33,49 @@ Documentation(info="<html>
 <p>Constant excitation-voltage.</p>
 <p><tt>fieldVoltage=1</tt> corresponds to <tt>norm(v)=1 pu</tt> at open generator terminals.</p>
 </html>
-"),   Icon(
-       Rectangle(extent=[-80,60; 80,-60],   style(
-            color=74,
-            rgbcolor={0,0,127},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-     Text(
-    extent=[-52,32; 48,-28],
-    string="simp",
-    style(color=10, thickness=2)),
-       Text(
-      extent=[-100,140; 100,100],
-      string="%name",
-      style(color=0))),
-      Diagram(
-  Rectangle(extent=[0,20; 20,0],   style(color=10, rgbcolor={95,95,95})),
-  Line(points=[20,10; 60,10; 60,10; 60,-100],
-                                         style(
-            color=10,
-            rgbcolor={95,95,95},
-            fillColor=77,
-            rgbfillColor={127,0,255})),
-  Text(
-    extent=[0,20; 20,0],
-          string="v_f_set",
-          style(
-            color=10,
-            rgbcolor={95,95,95},
-            fillColor=77,
-            rgbfillColor={127,0,255}))));
-
-  equation
-    fieldVoltage = v_f;
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-80,60},{80,-60}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-52,32},{48,-28}},
+            lineColor={128,128,128},
+            lineThickness=0.5,
+            textString=
+           "simp"),
+          Text(
+            extent={{-100,140},{100,100}},
+            lineColor={0,0,0},
+            textString=
+             "%name")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(extent={{0,20},{20,0}}, lineColor={95,95,95}),
+          Line(points={{20,10},{60,10},{60,10},{60,-100}}, color={95,95,95}),
+          Text(
+            extent={{0,20},{20,0}},
+            lineColor={95,95,95},
+            fillColor={127,0,255},
+            fillPattern=FillPattern.Solid,
+            textString=
+                 "v_f_set")}));
   end ExciterSimple;
 
   block ExciterConst "Exciter for constant field voltage"
     extends Partials.ExciterBase;
 
+
+  equation
+    connect(setptVoltage, limiter.u)
+      annotation (Line(points={{-100,0},{48,0}}, color={0,0,127}));
     annotation (defaultComponentName = "exciter",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -102,16 +86,18 @@ Documentation(info="<html>
 <p>Constant excitation-voltage (setpoint value).</p>
 <p><tt>fieldVoltage=1</tt> corresponds to <tt>norm(v)=1 pu</tt> at open generator terminals.</p>
 </html>
-"),   Icon(
-     Text(
-    extent=[-60,34; 60,-26],
-    style(color=10),
-          string="const")),
-      Diagram);
-
-  equation
-    connect(setptVoltage, limiter.u)
-      annotation (points=[-100,0; 48,0], style(color=74, rgbcolor={0,0,127}));
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-60,34},{60,-26}},
+            lineColor={128,128,128},
+            textString=
+                 "const")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end ExciterConst;
 
   block Exciter1st "Exciter first order"
@@ -125,20 +111,31 @@ Documentation(info="<html>
            Modelica.Blocks.Types.Init.SteadyState else
            Modelica.Blocks.Types.Init.NoInit;
     Blocks.Math.Norm norm(final n=3, n_eval=3)
-      annotation (
-            extent=[-70,-80; -50,-60], rotation=90);
+      annotation (Placement(transformation(
+          origin={-60,-70},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
     Modelica.Blocks.Math.Add delta_voltage(k1=+1, k2=-1)
-      annotation (
-            extent=[-70,-10; -50,10]);
-    Modelica.Blocks.Continuous.TransferFunction voltageReg(b={k}, a={t,1},
-      initType=initType)
-      annotation (
-            extent=[-30,-10; -10,10]);
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
+            rotation=0)));
+    Modelica.Blocks.Continuous.TransferFunction voltageReg(
+      initType=initType,
+      a={t,1},
+      b={k}) annotation (Placement(transformation(extent={{-30,-10},{-10,10}},
+            rotation=0)));
+
+  equation
+    connect(setptVoltage, delta_voltage.u1)  annotation (Line(points={{-100,0},
+            {-80,0},{-80,6},{-72,6}}, color={0,0,127}));
+    connect(termVoltage, norm.u) annotation (Line(points={{-60,-100},{-60,-80}},
+          color={0,0,127}));
+    connect(norm.y, delta_voltage.u2) annotation (Line(points={{-60,-60},{-60,
+            -40},{-80,-40},{-80,-6},{-72,-6}}, color={0,0,127}));
+    connect(delta_voltage.y, voltageReg.u)
+      annotation (Line(points={{-49,0},{-32,0}}, color={0,0,127}));
+    connect(voltageReg.y, limiter.u)
+      annotation (Line(points={{-9,0},{48,0}}, color={0,0,127}));
     annotation (defaultComponentName = "exciter",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -149,31 +146,23 @@ Documentation(info="<html>
 <p>First order control of excitation-voltage.</p>
 <p><tt>fieldVoltage=1</tt> corresponds to <tt>norm(v)=1 pu</tt> at open generator terminals.</p>
 </html>
-"),   Icon(
-     Text(
-    extent=[-60, 34; 60, -26],
-    string="1st",
-    style(color=10))),
-      Diagram);
-
-  equation
-    connect(setptVoltage, delta_voltage.u1)  annotation (points=[-100,0; -80,0;
-          -80,6; -72,6], style(color=74, rgbcolor={0,0,127}));
-    connect(termVoltage, norm.u) annotation (points=[-60,-100; -60,-80], style(
-          color=74, rgbcolor={0,0,127}));
-    connect(norm.y, delta_voltage.u2) annotation (points=[-60,-60; -60,-40; -80,
-          -40; -80,-6; -72,-6], style(color=74, rgbcolor={0,0,127}));
-    connect(delta_voltage.y, voltageReg.u)
-      annotation (points=[-49,0; -32,0], style(color=74, rgbcolor={0,0,127}));
-    connect(voltageReg.y, limiter.u)
-      annotation (points=[-9,0; 48,0], style(color=74, rgbcolor={0,0,127}));
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-60,34},{60,-26}},
+            lineColor={128,128,128},
+            textString=
+           "1st")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Exciter1st;
 
   package Partials "Partial models"
     extends Base.Icons.Partials;
 
-    annotation (Documentation(info="<html>
-</html>"));
 
   partial block ExciterBase "Exciter base"
     extends Base.Icons.Block1;
@@ -183,29 +172,27 @@ Documentation(info="<html>
     protected
     outer System system;
     public
-    Modelica.Blocks.Interfaces.RealInput setptVoltage(redeclare type SignalType
-          =
-          SIpu.Voltage, final unit="pu") "setpoint norm of terminal voltage pu"
-      annotation (
-            extent=[-110,-10; -90,10],    rotation=0);
-    Modelica.Blocks.Interfaces.RealInput termVoltage[3](redeclare type
-          SignalType =
-          SIpu.Voltage, final unit="pu") "terminal voltage pu"
-      annotation (
-            extent=[-70,-110; -50,-90],   rotation=90);
-    Modelica.Blocks.Interfaces.RealOutput fieldVoltage(redeclare type
-          SignalType =
-          SIpu.Voltage, final unit="pu") "field voltage pu"
-      annotation (
-            extent=[50,-110; 70,-90],   rotation=-90);
+      Modelica.Blocks.Interfaces.RealInput setptVoltage(final unit="pu")
+        "setpoint norm of terminal voltage pu" annotation (Placement(
+            transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+      Modelica.Blocks.Interfaces.RealInput termVoltage[3](final unit="pu")
+        "terminal voltage pu" annotation (Placement(transformation(
+            origin={-60,-100},
+            extent={{-10,-10},{10,10}},
+            rotation=90)));
+      Modelica.Blocks.Interfaces.RealOutput fieldVoltage(final unit="pu")
+        "field voltage pu" annotation (Placement(transformation(
+            origin={60,-100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
     Modelica.Blocks.Nonlinear.Limiter limiter(uMin=v_f_minmax[1],uMax=v_f_minmax[2])
-      annotation (
-            extent=[50,-10; 70,10]);
+      annotation (Placement(transformation(extent={{50,-10},{70,10}}, rotation=
+                0)));
+
+  equation
+    connect(limiter.y, fieldVoltage) annotation (Line(points={{71,0},{80,0},{80,
+              -80},{60,-80},{60,-100}}, color={0,0,127}));
     annotation (defaultComponentName = "exciter",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -214,12 +201,30 @@ Documentation(info="<html>
       Documentation(
               info="<html>
 </html>"),
-      Icon,
-      Diagram);
-
-  equation
-    connect(limiter.y, fieldVoltage) annotation (points=[71,0; 80,0; 80,-80; 60,
-            -80; 60,-100], style(color=74, rgbcolor={0,0,127}));
+      Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+      Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
   end ExciterBase;
+    annotation (Documentation(info="<html>
+</html>"));
   end Partials;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.44,
+  width=0.31,
+  height=0.24,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+</html>
+"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Exciters;

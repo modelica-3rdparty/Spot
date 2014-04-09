@@ -2,21 +2,6 @@ within Spot.Base;
 package Units "Units and nominal"
   extends Icons.Base;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-</html>
-"), Icon);
 
 partial model Nominal "Units and nominal values"
 
@@ -27,10 +12,6 @@ partial model Nominal "Units and nominal values"
   parameter SI.ApparentPower S_nom(final min=0)=1 "nom Power (= base if pu)"
     annotation(Evaluate=true, Dialog(group="Nominal", enable=units==Types.pu));
   annotation (
-    Coordsys(
-      extent=[-100, -100; 100, 100],
-      grid=[2, 2],
-      component=[20, 20]),
     Window(
       x=0.45,
       y=0.01,
@@ -57,7 +38,10 @@ The default setting is 'pu'.</p>
 <p>Note that the choice between SI and pu does <b>not</b> affect state- and connector variables.
 These remain <b>always</b> in SI-units. It only affects input of parameter values and output variables.</p>
 </html>
-"),        Icon);
+"),        Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Nominal;
 
 partial model NominalAC "Units and nominal values AC"
@@ -68,10 +52,6 @@ partial model NominalAC "Units and nominal values AC"
   protected
   outer System system;
   annotation (
-    Coordsys(
-      extent=[-100, -100; 100, 100],
-      grid=[2, 2],
-      component=[20, 20]),
     Window(
       x=0.45,
       y=0.01,
@@ -80,7 +60,10 @@ partial model NominalAC "Units and nominal values AC"
     Documentation(info="<html>
 <p>Same as 'Nominal', but with additional parameter 'nominal frequency'.</p>
 </html>
-"),        Icon);
+"),        Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end NominalAC;
 
 partial model NominalDC "Units and nominal values DC"
@@ -95,10 +78,6 @@ partial model NominalDC "Units and nominal values DC"
   protected
   outer System system;
   annotation (
-    Coordsys(
-      extent=[-100, -100; 100, 100],
-      grid=[2, 2],
-      component=[20, 20]),
     Window(
       x=0.45,
       y=0.01,
@@ -107,7 +86,10 @@ partial model NominalDC "Units and nominal values DC"
     Documentation(info="<html>
 <p>Same as 'Nominal', but with additional parameter 'nominal rpm'.</p>
 </html>
-"),        Icon);
+"),        Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end NominalDC;
 
 partial model NominalVI "Nominal values"
@@ -118,10 +100,6 @@ partial model NominalVI "Nominal values"
     annotation(Evaluate=true, Dialog(group="Nominal"));
 
   annotation (
-    Coordsys(
-      extent=[-100, -100; 100, 100],
-      grid=[2, 2],
-      component=[20, 20]),
     Window(
       x=0.45,
       y=0.01,
@@ -130,7 +108,10 @@ partial model NominalVI "Nominal values"
     Documentation(info="<html>
 <p>Nominal values without units choice (see also 'Nominal').</p>
 </html>
-"),        Icon);
+"),        Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end NominalVI;
 
 record NominalData "Units and nominal data"
@@ -153,10 +134,6 @@ record NominalDataTrafo "Units and nominal data transformer"
   protected
   outer System system;
   annotation (
-    Coordsys(
-      extent=[-100, -100; 100, 100],
-      grid=[2, 2],
-      component=[20, 20]),
     Window(
       x=0.45,
       y=0.01,
@@ -164,7 +141,10 @@ record NominalDataTrafo "Units and nominal data transformer"
       height=0.65),
     Documentation(info="<html>
 <p>'Nominal' values for transformers. Same as 'NominalAC, but with two components for voltage: {primary, secondary}. The winding ratio is indirectly defined through the voltage ratio.</p>
-</html>"), Icon);
+</html>"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end NominalDataTrafo;
 
 record NominalDataAC "Units and nominal data AC"
@@ -187,4 +167,18 @@ record NominalDataVI "Units and nominal data"
   extends Base.Icons.Record;
   extends NominalVI;
 end NominalDataVI;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.38,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+</html>
+"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Units;

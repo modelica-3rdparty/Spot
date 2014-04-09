@@ -1,60 +1,9 @@
 within SpotExamples;
 package f_TransformationACabc "Transformation abc"
   extends Spot.Base.Icons.Examples;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Transformers three-phase and tap changer control.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon);
 
   model PhaseShifts "Phase shift primary-secondary"
 
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Documentation(
-              info="<html>
-<p>Primary and secondary signals show a topology dependent phase shift.</p>
-<p>
-Y-Y and Delta-Delta configuration:<br>
-&nbsp; &nbsp;  no phase shift.</p>
-<p>
-Y-Delta configuration:<br>
-&nbsp; &nbsp; shift secondary vs primary voltage is -30deg.</p>
-<p>
-Delta_Y configuration:<br>
-&nbsp; &nbsp; shift secondary vs primary voltage is +30deg.</p>
-<p>
-<i>Compare:</i>
-<pre>
-  meter12.alpha_v     voltage phase secondary Y-Y topology
-  meter22.alpha_v     voltage phase secondary Y_Delta topology
-</pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"),   Diagram,
-      Icon,
-      experiment,
-      experimentSetupOutput);
     inner Spot.System system
       annotation (extent=[-100.5,80; -80.5,100]);
     Spot.ACabc.Sources.Voltage voltage
@@ -144,10 +93,6 @@ Delta_Y configuration:<br>
         fillPattern=1));
     connect(grd.term, voltage.neutral)
       annotation (points=[-90,0; -90,0], style(color=3, rgbcolor={0,0,255}));
-  end PhaseShifts;
-
-  model TapChanger "Tap changing primary and secondary"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -158,27 +103,34 @@ Delta_Y configuration:<br>
   y=0.01,
   width=0.44,
   height=0.65),
-      Diagram,
       Documentation(
               info="<html>
-<p>The transformers change either primary or secondary voltage level at times (1,2,3).
-<pre>
-  trafo1   primary voltage levels (1, 0.9, 1, 1.1)*V_nom_prim
-  trafo2 secondary voltage levels (1, 0.9, 1, 1.1)*V_nom_prim
-</pre>
-Note that the primary voltage source is fixed.</p>
+<p>Primary and secondary signals show a topology dependent phase shift.</p>
 <p>
-<i>See for example:</i>
-<pre>  meter 12.v_norm     voltage norm secondary</pre>
-if primary side is changed at fixed source.
-<pre>  meter 22.v_norm     voltage norm secondary</pre>
-</pre>
-if secondary side is changed at fixed source.</p>
+Y-Y and Delta-Delta configuration:<br>
+&nbsp; &nbsp;  no phase shift.</p>
+<p>
+Y-Delta configuration:<br>
+&nbsp; &nbsp; shift secondary vs primary voltage is -30deg.</p>
+<p>
+Delta_Y configuration:<br>
+&nbsp; &nbsp; shift secondary vs primary voltage is +30deg.</p>
+<p>
+<i>Compare:</i>
+<pre>
+  meter12.alpha_v     voltage phase secondary Y-Y topology
+  meter22.alpha_v     voltage phase secondary Y_Delta topology
+</pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Icon,
-      experiment(StopTime=4),
+"),   Diagram,
+      Icon,
+      experiment,
       experimentSetupOutput);
+  end PhaseShifts;
+
+  model TapChanger "Tap changing primary and secondary"
+
     inner Spot.System system
       annotation (extent=[-100.5,80; -80.5,100]);
     Spot.ACabc.Sources.Voltage voltage
@@ -287,44 +239,41 @@ if secondary side is changed at fixed source.</p>
         style(color=45, rgbcolor={255,127,0}));
     connect(TapRelay2.tap_n, trafo2.tap_n) annotation (points=[14,-60; 14,-40],
         style(color=45, rgbcolor={255,127,0}));
+    annotation (
+      Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Diagram,
+      Documentation(
+              info="<html>
+<p>The transformers change either primary or secondary voltage level at times (1,2,3).
+<pre>
+  trafo1   primary voltage levels (1, 0.9, 1, 1.1)*V_nom_prim
+  trafo2 secondary voltage levels (1, 0.9, 1, 1.1)*V_nom_prim
+</pre>
+Note that the primary voltage source is fixed.</p>
+<p>
+<i>See for example:</i>
+<pre>  meter 12.v_norm     voltage norm secondary</pre>
+if primary side is changed at fixed source.
+<pre>  meter 22.v_norm     voltage norm secondary</pre>
+</pre>
+if secondary side is changed at fixed source.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+"),   Icon,
+      experiment(StopTime=4),
+      experimentSetupOutput);
   end TapChanger;
 
 model TreeWinding "Tree winding transformer"
 
-  annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Documentation(
-            info="<html>
-<p>Primary and secondary signals show a topology dependent phase shift.</p>
-<p>
-Y-Y and Delta-Delta configuration:<br>
-&nbsp; &nbsp;  no phase shift.</p>
-<p>
-Y-Delta configuration:<br>
-&nbsp; &nbsp; shift secondary vs primary voltage is -30deg.</p>
-<p>
-Delta_Y configuration:<br>
-&nbsp; &nbsp; shift secondary vs primary voltage is +30deg.</p>
-<p>
-<i>Compare:</i>
-<pre>
-  meter12.alpha_v     voltage phase secondary Y-Y topology
-  meter22.alpha_v     voltage phase secondary Y_Delta topology
-</pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Diagram,
-    Icon,
-    experiment,
-    experimentSetupOutput);
   inner Spot.System system
     annotation (extent=[-100.5,80; -80.5,100]);
 
@@ -367,5 +316,56 @@ equation
         -4; 30,-30; 40,-30], style(color=62, rgbcolor={0,120,120}));
   connect(grd.term, voltage.neutral)
     annotation (points=[-90,0; -90,0], style(color=3, rgbcolor={0,0,255}));
+  annotation (
+    Coordsys(
+extent=[-100, -100; 100, 100],
+grid=[2, 2],
+component=[20, 20]),
+    Window(
+x=0.45,
+y=0.01,
+width=0.44,
+height=0.65),
+    Documentation(
+            info="<html>
+<p>Primary and secondary signals show a topology dependent phase shift.</p>
+<p>
+Y-Y and Delta-Delta configuration:<br>
+&nbsp; &nbsp;  no phase shift.</p>
+<p>
+Y-Delta configuration:<br>
+&nbsp; &nbsp; shift secondary vs primary voltage is -30deg.</p>
+<p>
+Delta_Y configuration:<br>
+&nbsp; &nbsp; shift secondary vs primary voltage is +30deg.</p>
+<p>
+<i>Compare:</i>
+<pre>
+  meter12.alpha_v     voltage phase secondary Y-Y topology
+  meter22.alpha_v     voltage phase secondary Y_Delta topology
+</pre></p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+"), Diagram,
+    Icon,
+    experiment,
+    experimentSetupOutput);
 end TreeWinding;
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Transformers three-phase and tap changer control.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+    Icon);
 end f_TransformationACabc;

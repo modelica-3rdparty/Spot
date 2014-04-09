@@ -2,32 +2,94 @@ within Spot.Mechanics;
 package Translation "Translating parts "
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-</html>
-"), Icon);
 
   package Ports
     "One- and two-flange base for translating mechanical components."
   extends Base.Icons.Base;
 
+
+  partial model Flange_p "One coupling, 'positive'"
+
+    Base.Interfaces.Translation_p flange "positive flange"
+                                     annotation (Placement(transformation(
+              extent={{-110,-10},{-90,10}}, rotation=0)));
+    annotation (
+  Icon(graphics={Text(
+              extent={{-100,-100},{100,-140}},
+              lineColor={0,0,0},
+              textString=
+             "%name")}),
+  Diagram(graphics),
+  Documentation(info="<html>
+</html>"));
+  end Flange_p;
+
+  partial model Flange_n "One coupling, 'negative'"
+
+    Base.Interfaces.Translation_n flange "negative flange"
+                                     annotation (Placement(transformation(
+              extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (
+  Icon(graphics={Text(
+              extent={{-100,-100},{100,-140}},
+              lineColor={0,0,0},
+              textString=
+             "%name")}),
+  Diagram(graphics),
+  Documentation(info="<html>
+</html>"));
+  end Flange_n;
+
+  partial model Flange_p_n "Two coupling"
+
+    Base.Interfaces.Translation_p flange_p "positive flange"
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+    Base.Interfaces.Translation_n flange_n "negative flange"
+  annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (
+  Icon(graphics={Text(
+              extent={{-100,-100},{100,-140}},
+              lineColor={0,0,0},
+              textString=
+             "%name")}),
+  Diagram(graphics),
+  Documentation(info="<html>
+</html>"));
+  end Flange_p_n;
+
+  partial model Rigid "Rigid two-flange"
+    extends Flange_p_n;
+
+    parameter SI.Length d=0 "signed distance (flange_n.s - flange_p.s)";
+
+  equation
+    flange_n.s - flange_p.s = d;
+    annotation (
+  Icon(graphics),
+  Diagram(graphics),
+  Documentation(info="<html>
+</html>"));
+  end Rigid;
+
+  partial model Compliant "Compliant two-flange"
+    extends Flange_p_n;
+
+    parameter SI.Length d=1 "signed distance (coupl_n.s - coupl_p.s)";
+    SI.Distance d_s "difference length (elongation)";
+    SI.Force d_f "elongation force";
+
+  equation
+    flange_n.s - flange_p.s = d + d_s;
+    flange_n.f - flange_p.f = 2*d_f;
+    annotation (
+  Icon(graphics),
+  Diagram(graphics),
+  Documentation(info="<html>
+</html>"));
+  end Compliant;
+
     annotation (
       preferedView="info",
-  Coordsys(
-    extent=[-100, -100; 100, 100],
-    grid=[2, 2],
-    component=[20, 20]),
   Window(
     x=0.05,
     y=0.03,
@@ -38,83 +100,10 @@ Documentation(info="<html>
   Documentation(info="<html>
 <p>Contains mechanical one and two-ports with translational connectors.</p>
 </html>"),
-    Icon);
-
-  partial model Flange_p "One coupling, 'positive'"
-
-    Base.Interfaces.Translation_p flange "positive flange"
-                                     annotation (extent=[-110,-10; -90,10]);
-    annotation (
-  Icon(Text(
-      extent=[-100,-100; 100,-140],
-      string="%name",
-      style(color=0))),
-  Diagram,
-  Documentation(info="<html>
-</html>"));
-  end Flange_p;
-
-  partial model Flange_n "One coupling, 'negative'"
-
-    Base.Interfaces.Translation_n flange "negative flange"
-                                     annotation (extent=[90,-10; 110,10]);
-    annotation (
-  Icon(Text(
-      extent=[-100,-100; 100,-140],
-      string="%name",
-      style(color=0))),
-  Diagram,
-  Documentation(info="<html>
-</html>"));
-  end Flange_n;
-
-  partial model Flange_p_n "Two coupling"
-
-    Base.Interfaces.Translation_p flange_p "positive flange"
-  annotation (extent=[-110,-10; -90,10]);
-    Base.Interfaces.Translation_n flange_n "negative flange"
-  annotation (extent=[90,-10; 110,10]);
-    annotation (
-  Icon(Text(
-      extent=[-100,-100; 100,-140],
-      string="%name",
-      style(color=0))),
-  Diagram,
-  Documentation(info="<html>
-</html>"));
-  end Flange_p_n;
-
-  partial model Rigid "Rigid two-flange"
-    extends Flange_p_n;
-
-    parameter SI.Length d=0 "signed distance (flange_n.s - flange_p.s)";
-    annotation (
-  Icon,
-  Diagram,
-  Documentation(info="<html>
-</html>"));
-
-  equation
-    flange_n.s - flange_p.s = d;
-  end Rigid;
-
-  partial model Compliant "Compliant two-flange"
-    extends Flange_p_n;
-
-    parameter SI.Length d=1 "signed distance (coupl_n.s - coupl_p.s)";
-    SI.Distance d_s "difference length (elongation)";
-    SI.Force d_f "elongation force";
-    annotation (
-  Icon,
-  Diagram,
-  Documentation(info="<html>
-</html>"));
-
-  equation
-    flange_n.s - flange_p.s = d + d_s;
-    flange_n.f - flange_p.f = 2*d_f;
-  end Compliant;
-
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Ports;
 
   model Speed "Translation with given velocity"
@@ -126,23 +115,24 @@ Documentation(info="<html>
      annotation(Evaluate=true);
     parameter SI.Velocity v0=1 "velocity"
      annotation(Dialog(enable=scType==Base.Types.par));
-    Modelica.Blocks.Interfaces.RealInput v(redeclare type SignalType =
-          SI.Velocity) "(signal velocity)"
-    annotation (extent=[-110,-10; -90,10]);
+    Modelica.Blocks.Interfaces.RealInput v "(signal velocity)" annotation (
+        Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
   protected
     SI.Angle s_dot(start=v0);
+
+  equation
+    der(flange.s) = s_dot;
+    der(s_dot) = if scType == Base.Types.par then (v0 - s_dot)/tcst else (v - s_dot)/tcst;
     annotation (defaultComponentName = "speed1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Icon(
-     Polygon(points=[-90,10; 20,10; 20,41; 90,0; 20,-41; 20,-10; -90,-10; -90,
-              10],    style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=9,
-          rgbfillColor={175,175,175}))),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Polygon(
+            points={{-90,10},{20,10},{20,41},{90,0},{20,-41},{20,-10},{-90,-10},
+                {-90,10}},
+            lineColor={0,0,0},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid)}),
       Window(
   x=0.45,
   y=0.01,
@@ -154,23 +144,26 @@ Documentation(info="<html>
 This is a \"soft\" speed, using a differential equation.<br>
 The start value is always given by <tt>v0</tt>.</p>
 </html>
-"), Diagram(Text(
-        extent=[-50,10; 50,-10],
-        style(color=74, rgbcolor={0,0,127}),
-          string="signal-speed v"),
-            Text(
-        extent=[-70,70; 70,50],
-        style(color=74, rgbcolor={0,0,127}),
-          string="parameter-speed v0"),
-      Line(points=[-90,0; -60,0],     style(color=74, rgbcolor={0,0,127})),
-            Text(
-        extent=[-20,40; 20,20],
-        style(color=74, rgbcolor={0,0,127}),
-        string="or")));
-
-  equation
-    der(flange.s) = s_dot;
-    der(s_dot) = if scType == Base.Types.par then (v0 - s_dot)/tcst else (v - s_dot)/tcst;
+"), Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{-50,10},{50,-10}},
+            lineColor={0,0,127},
+            textString=
+                 "signal-speed v"),
+          Text(
+            extent={{-70,70},{70,50}},
+            lineColor={0,0,127},
+            textString=
+                 "parameter-speed v0"),
+          Line(points={{-90,0},{-60,0}}, color={0,0,127}),
+          Text(
+            extent={{-20,40},{20,20}},
+            lineColor={0,0,127},
+            textString=
+               "or")}));
   end Speed;
 
   model Force "Driving force"
@@ -181,21 +174,21 @@ The start value is always given by <tt>v0</tt>.</p>
      annotation(Evaluate=true);
     parameter SI.Force f0=1 "force"
      annotation(Dialog(enable=scType==Base.Types.par));
-    Modelica.Blocks.Interfaces.RealInput f(redeclare type SignalType = SI.Force)
-      "(signal force)"
-    annotation (extent=[-110,-10; -90,10]);
+    Modelica.Blocks.Interfaces.RealInput f "(signal force)" annotation (
+        Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+
+  equation
+    flange.f = if scType == Base.Types.par then -f0 else -f;
     annotation (defaultComponentName = "force1",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Icon(
-     Polygon(points=[-90,10; 20,10; 20,41; 90,0; 20,-41; 20,-10; -90,-10; -90,
-              10],    style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=9,
-          rgbfillColor={175,175,175}))),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Polygon(
+            points={{-90,10},{20,10},{20,41},{90,0},{20,-41},{20,-10},{-90,-10},
+                {-90,10}},
+            lineColor={0,0,0},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid)}),
       Window(
   x=0.45,
   y=0.01,
@@ -205,22 +198,26 @@ The start value is always given by <tt>v0</tt>.</p>
               info="<html>
 <p>Force <tt>f</tt> acts in positive direction on the connected component if <tt>f > 0</tt>.</p>
 </html>
-"), Diagram(Text(
-        extent=[-50,10; 50,-10],
-        style(color=74, rgbcolor={0,0,127}),
-        string="signal force f"),
-            Text(
-        extent=[-70,70; 70,50],
-        style(color=74, rgbcolor={0,0,127}),
-        string="parameter force f0"),
-      Line(points=[-90,0; -60,0],     style(color=74, rgbcolor={0,0,127})),
-            Text(
-        extent=[-20,40; 20,20],
-        style(color=74, rgbcolor={0,0,127}),
-        string="or")));
-
-  equation
-    flange.f = if scType == Base.Types.par then -f0 else -f;
+"), Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{-50,10},{50,-10}},
+            lineColor={0,0,127},
+            textString=
+               "signal force f"),
+          Text(
+            extent={{-70,70},{70,50}},
+            lineColor={0,0,127},
+            textString=
+               "parameter force f0"),
+          Line(points={{-90,0},{-60,0}}, color={0,0,127}),
+          Text(
+            extent={{-20,40},{20,20}},
+            lineColor={0,0,127},
+            textString=
+               "or")}));
   end Force;
 
 model TabTimeForce "Force using table (time... force)"
@@ -244,11 +241,22 @@ model TabTimeForce "Force using table (time... force)"
   final parameter Real t_factor=if scale then T/abs(t_bd[2]-t_bd[1]) else t_unit;
   final parameter Real f_factor=if scale then drive_load*0.01*f_perc*f_unit else drive_load*f_unit;
 
+
+equation
+  if direction == 1 then
+    t = t_factor*t_bd[1] + time;
+  elseif direction == -1 then
+    t = t_factor*t_bd[2] - time;
+  else
+    t = 0;
+  end if;
+  table.u = t/t_factor;
+  f = f_factor*table.y[1];
+
+  when t > t_factor*t_bd[2] or t < t_factor*t_bd[1] then
+    terminate("BOUNDARY TIME REACHED!");
+  end when;
   annotation (defaultComponentName = "tabForce1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
@@ -269,23 +277,14 @@ negative direction, if f_table &gt  0 and drive_load = -1 or f_table &lt  0 and 
 </pre></p>
 <p>Note: start integration at time = 0</p>
 </html>
-"), Icon,
-    Diagram);
-
-equation
-  if direction == 1 then
-    t = t_factor*t_bd[1] + time;
-  elseif direction == -1 then
-    t = t_factor*t_bd[2] - time;
-  else
-    t = 0;
-  end if;
-  table.u = t/t_factor;
-  f = f_factor*table.y[1];
-
-  when t > t_factor*t_bd[2] or t < t_factor*t_bd[1] then
-    terminate("BOUNDARY TIME REACHED!");
-  end when;
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end TabTimeForce;
 
 model TabPosSlopeForce "Force using table (position... slope)"
@@ -316,11 +315,22 @@ model TabPosSlopeForce "Force using table (position... slope)"
   final parameter Integer sig=dirTrack*dirVeh;
   Real slope;
   Real sin_gam;
+
+initial equation
+  s = if dirTrack == 1 then s_factor*s_bd[1] else s_factor*s_bd[2];
+
+equation
+  s = flange_p.s;
+  vVeh = sig*der(s);
+  table.u = s/s_factor;
+  slope = slope_factor*table.y[1];
+  sin_gam = slope/sqrt(1 + slope*slope); // = sin(atan(slope))
+  mass*der(vVeh) = -(f + sig*mass*g_n*sin_gam + (cFrict[1] + cFrict[2]*abs(vVeh))*vVeh);
+
+  when s > s_factor*s_bd[2] or s < s_factor*s_bd[1] then
+    terminate("BOUNDARY POSITION REACHED!");
+  end when;
   annotation (defaultComponentName = "tabForce1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
@@ -338,44 +348,30 @@ The force load as a function of position <tt>s</tt> corresponds to a mass moving
 <p>Note: If the height h is also needed, it has to be scaled with the factor (slope_perc/100)*D.<br>
 Start integration at time = 0.</p>
 </html>
-"), Icon(
-      Polygon(points=[-38,-10; -38,-10],
-                                       style(
-          color=10,
-          rgbcolor={255,250,110})),
-      Polygon(points=[-40,90; -60,70; 60,90; 40,103; -40,90],
-                                                           style(
-            color=10,
-            rgbcolor={95,95,95},
-            fillColor=10,
-            rgbfillColor={135,135,135})),
-      Polygon(points=[-60,60; -80,40; 40,60; 60,80; -60,60],   style(
-          color=10,
-          rgbcolor={95,95,95},
-          fillColor=10,
-          rgbfillColor={95,95,95},
-          fillPattern=1)),
-        Polygon(points=[-60,70; -60,60; 60,80; 60,90; -60,70],   style(
-            color=1,
-            rgbcolor={255,0,0},
-            fillColor=1,
-            rgbfillColor={255,0,0}))),
-    Diagram);
-
-initial equation
-  s = if dirTrack == 1 then s_factor*s_bd[1] else s_factor*s_bd[2];
-
-equation
-  s = flange_p.s;
-  vVeh = sig*der(s);
-  table.u = s/s_factor;
-  slope = slope_factor*table.y[1];
-  sin_gam = slope/sqrt(1 + slope*slope); // = sin(atan(slope))
-  mass*der(vVeh) = -(f + sig*mass*g_n*sin_gam + (cFrict[1] + cFrict[2]*abs(vVeh))*vVeh);
-
-  when s > s_factor*s_bd[2] or s < s_factor*s_bd[1] then
-    terminate("BOUNDARY POSITION REACHED!");
-  end when;
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Polygon(points={{-38,-10},{-38,-10}}, lineColor={255,250,110}),
+          Polygon(
+            points={{-40,90},{-60,70},{60,90},{40,103},{-40,90}},
+            lineColor={95,95,95},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-60,60},{-80,40},{40,60},{60,80},{-60,60}},
+            lineColor={95,95,95},
+            fillColor={95,95,95},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-60,70},{-60,60},{60,80},{60,90},{-60,70}},
+            lineColor={255,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end TabPosSlopeForce;
 
   model FrictionForce "Friction force"
@@ -385,11 +381,12 @@ end TabPosSlopeForce;
       "friction cst {lin, quadr}";
     SI.Angle s;
     SI.Velocity v;
+
+  equation
+    s = flange.s;
+    v = der(s);
+    flange.f = (cFrict[1] + cFrict[2]*abs(v))*v;
   annotation (defaultComponentName = "frictForce1",
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
     Window(
         x=0.45,
         y=0.01,
@@ -403,116 +400,110 @@ end TabPosSlopeForce;
   v   velocity
 </pre>
 </html>"),
-    Icon(
-      Polygon(points=[-38,20; -38,20], style(
-          color=10,
-          rgbcolor={255,250,110})),
-      Polygon(points=[-30,25; -50,5; 70,5; 90,25; -30,25],  style(
-          color=10,
-          rgbcolor={95,95,95},
-          fillColor=10,
-          rgbfillColor={135,135,135})),
-      Rectangle(extent=[-50,5; 60,-5], style(
-          color=1,
-          rgbcolor={255,0,0},
-          fillColor=1,
-          rgbfillColor={255,0,0},
-          fillPattern=1)),
-      Polygon(points=[-60,-5; -80,-25; 40,-25; 60,-5; -60,-5], style(
-          color=10,
-          rgbcolor={95,95,95},
-          fillColor=10,
-          rgbfillColor={95,95,95},
-          fillPattern=1)),
-      Line(points=[-80,0; -60,0; -60,14; -40,14],     style(color=10,
-            rgbcolor={95,95,95}))),
-    Diagram);
-
-  equation
-    s = flange.s;
-    v = der(s);
-    flange.f = (cFrict[1] + cFrict[2]*abs(v))*v;
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Polygon(points={{-38,20},{-38,20}}, lineColor={255,250,110}),
+          Polygon(
+            points={{-30,25},{-50,5},{70,5},{90,25},{-30,25}},
+            lineColor={95,95,95},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-50,5},{60,-5}},
+            lineColor={255,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-60,-5},{-80,-25},{40,-25},{60,-5},{-60,-5}},
+            lineColor={95,95,95},
+            fillColor={95,95,95},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-80,0},{-60,0},{-60,14},{-40,14}}, color={95,95,95})}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end FrictionForce;
 
 model FixedPosition "Flange at fixed linear position"
 
   parameter SI.Angle s0=0 "position";
   Base.Interfaces.Translation_p flange
-                                    annotation (extent=[-10,-10; 10,10]);
+                                    annotation (Placement(transformation(extent
+            ={{-10,-10},{10,10}}, rotation=0)));
+
+equation
+  flange.s = s0;
   annotation (defaultComponentName = "fixPos1",
-    Coordsys(
-      extent=[-100, -100; 100, 100],
-      grid=[2, 2],
-      component=[20, 20]),
     Window(
       x=0.27,
       y=0.02,
       width=0.63,
       height=0.73),
-    Icon(
-      Line(points=[-60,-60; 60,-60], style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=7,
-          rgbfillColor={255,255,255},
-          fillPattern=1)),
-      Polygon(points=[-10,-40; 0,-60; 10,-40; -10,-40], style(
-          color=10,
-          rgbcolor={95,95,95},
-          fillColor=44,
-          rgbfillColor={255,170,170},
-          fillPattern=1)),
-     Text(
-    extent=[-100,-100; 100,-140],
-    string="%name",
-    style(color=0))),
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Line(points={{-60,-60},{60,-60}}, color={0,0,0}),
+          Polygon(
+            points={{-10,-40},{0,-60},{10,-40},{-10,-40}},
+            lineColor={95,95,95},
+            fillColor={255,170,170},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-100,-100},{100,-140}},
+            lineColor={0,0,0},
+            textString=
+           "%name")}),
     Documentation(info="<html>
 <p>Fixes the position variable <tt>s</tt> of a connected flange to a parameter value <tt>s0</tt>.</p>
 </html>
-"), Diagram);
-
-equation
-  flange.s = s0;
+"), Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end FixedPosition;
 
 model Body "Rigid body, translating mass"
   extends Partials.RigidBodyBase;
 
   Base.Interfaces.Translation_n friction "access for friction model"
-annotation (extent=[-10,-50; 10,-70], rotation=-90);
+annotation (Placement(transformation(
+          origin={0,-60},
+          extent={{10,-10},{-10,10}},
+          rotation=270)));
+
+equation
+  friction.s = s;
+  m*a = flange_p.f + flange_n.f + friction.f;
   annotation (defaultComponentName = "body",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
 width=0.44,
 height=0.65),
-    Diagram(
-      Line(points=[-80,-60; 80,-60], style(
-          color=0,
-          rgbcolor={0,0,0},
-          thickness=2,
-          fillColor=30,
-          rgbfillColor={215,215,215},
-          fillPattern=8))),
-    Icon(Polygon(points=[-100,-20; -80,70; 80,70; 100,-20; -100,-20], style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=10,
-            rgbfillColor={135,135,135},
-            fillPattern=1))),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Line(
+            points={{-80,-60},{80,-60}},
+            color={0,0,0},
+            thickness=0.5)}),
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Polygon(
+            points={{-100,-20},{-80,70},{80,70},{100,-20},{-100,-20}},
+            lineColor={0,0,0},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid)}),
     Documentation(
             info="<html>
 <p>Translating rigid mass with access for friction-force on body.</p>
 </html>
 "));
-
-equation
-  friction.s = s;
-  m*a = flange_p.f + flange_n.f + friction.f;
 end Body;
 
   model TractionWheel "Traction wheel"
@@ -523,16 +514,25 @@ end Body;
     SI.AngularVelocity w;
     SI.AngularAcceleration a;
     Base.Interfaces.Rotation_p wheel "to torque source, (driving axle)"
-                                annotation (extent=[-110,-10; -90,10]);
+                                annotation (Placement(transformation(extent={{
+              -110,-10},{-90,10}}, rotation=0)));
     Base.Interfaces.Translation_n frame "to loc-body (delivers tractive force)"
-      annotation (extent=[90,-10; 110,10], rotation=0);
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+            =0)));
     Base.Interfaces.Translation_p rail "to rail-wheel friction model"
-      annotation (extent=[10,-80; 30,-60], rotation=180);
+      annotation (Placement(transformation(
+          origin={20,-70},
+          extent={{-10,-10},{10,10}},
+          rotation=180)));
+
+  equation
+    rail.f - frame.f = 0;
+    rail.s = r*wheel.phi - frame.s;
+    phi = wheel.phi;
+    w = der(phi);
+    a = der(w);
+    J*a = wheel.tau + r*rail.f;
     annotation (defaultComponentName = "wheel",
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Window(
   x=0.45,
   y=0.01,
@@ -551,157 +551,122 @@ with
 </pre>
 This choice avoids the introduction of a special connector with a velocity variable.</p>
 </html>
-"),   Icon(
-        Rectangle(extent=[-90,75; -84,-75], style(
-            color=10,
-            rgbcolor={95,95,95},
-            gradient=1,
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-        Polygon(points=[-84,60; -60,56; -60,-56; -84,-60; -84,60],
-                                                                 style(
-            color=10,
-            rgbcolor={95,95,95},
-            gradient=1,
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-        Ellipse(extent=[-54,74; 96,-74], style(
-            color=30,
-            rgbcolor={215,215,215},
-            pattern=0,
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-        Ellipse(extent=[-40,60; 82,-60], style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=10,
-            rgbfillColor={135,135,135})),
-        Rectangle(extent=[0,10; 90,-10], style(
-            color=10,
-            rgbcolor={95,95,95},
-            fillColor=10,
-            rgbfillColor={95,95,95})),
-        Rectangle(extent=[-96,-104; 96,-140],
-                                           style(
-            color=7,
-            rgbcolor={255,255,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-       Text(
-      extent=[-100,-100; 100,-140],
-      string="%name",
-      style(color=0))),
-      Diagram(
-        Line(points=[15,-80; 15,-90], style(
-            color=1,
-            rgbcolor={255,0,0},
-            gradient=2,
-            fillColor=1,
-            rgbfillColor={255,0,0})),
-        Polygon(points=[15,-110; 5,-90; 25,-90; 15,-110], style(
-            color=1,
-            rgbcolor={255,0,0},
-            gradient=2,
-            fillColor=1,
-            rgbfillColor={255,0,0})),
-        Polygon(points=[95,90; 85,70; 105,70; 95,90], style(
-            color=58,
-            rgbcolor={0,127,0},
-            gradient=2,
-            fillColor=58,
-            rgbfillColor={0,127,0})),
-        Polygon(points=[-90,0; -70,-10; -70,10; -90,0], style(
-            color=71,
-            rgbcolor={85,170,255},
-            gradient=2,
-            fillColor=71,
-            rgbfillColor={85,170,255})),
-        Line(points=[-70,0; -40,0], style(
-            color=71,
-            rgbcolor={85,170,255},
-            gradient=2,
-            fillColor=71,
-            rgbfillColor={85,170,255})),
-        Line(points=[95,10; 95,70], style(
-            color=58,
-            rgbcolor={0,127,0},
-            gradient=2,
-            fillColor=58,
-            rgbfillColor={0,127,0})),
-        Text(
-          extent=[-100,30; -40,20],
-          string="'axle'.flange",
-          style(
-            color=71,
-            rgbcolor={85,170,255},
-            gradient=2,
-            fillColor=71,
-            rgbfillColor={85,170,255})),
-        Text(
-          extent=[-100,90; -40,80],
-          string="connect to:",
-          style(
-            color=0,
-            rgbcolor={0,0,0},
-            gradient=2,
-            fillColor=71,
-            rgbfillColor={85,170,255})),
-        Rectangle(extent=[-30,5; 50,-5],   style(
-            color=10,
-            rgbcolor={95,95,95},
-            gradient=2,
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-        Rectangle(extent=[-6,80; 0,-80],    style(
-            color=10,
-            rgbcolor={95,95,95},
-            gradient=1,
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-        Polygon(points=[0,64; 34,61; 34,-60; 0,-64; 0,64],       style(
-            color=10,
-            rgbcolor={95,95,95},
-            gradient=1,
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-        Text(
-          extent=[35,60; 95,50],
-          string="'locBbody'.flange",
-          style(
-            color=58,
-            rgbcolor={0,127,0},
-            gradient=2,
-            fillColor=58,
-            rgbfillColor={0,127,0})),
-        Text(
-          extent=[39,-90; 99,-100],
-          string="'friction'.rail",
-          style(
-            color=1,
-            rgbcolor={255,0,0},
-            gradient=2,
-            fillColor=1,
-            rgbfillColor={255,0,0}))));
-
-  equation
-    rail.f - frame.f = 0;
-    rail.s = r*wheel.phi - frame.s;
-    phi = wheel.phi;
-    w = der(phi);
-    a = der(w);
-    J*a = wheel.tau + r*rail.f;
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-90,75},{-84,-75}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.VerticalCylinder,
+            fillColor={175,175,175}),
+          Polygon(
+            points={{-84,60},{-60,56},{-60,-56},{-84,-60},{-84,60}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.VerticalCylinder,
+            fillColor={175,175,175}),
+          Ellipse(
+            extent={{-54,74},{96,-74}},
+            lineColor={215,215,215},
+            pattern=LinePattern.None,
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-40,60},{82,-60}},
+            lineColor={0,0,0},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{0,10},{90,-10}},
+            lineColor={95,95,95},
+            fillColor={95,95,95},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-96,-104},{96,-140}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-100,-100},{100,-140}},
+            lineColor={0,0,0},
+            textString=
+             "%name")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Line(points={{15,-80},{15,-90}}, color={0,0,0}),
+          Polygon(
+            points={{15,-110},{5,-90},{25,-90},{15,-110}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={255,0,0}),
+          Polygon(
+            points={{95,90},{85,70},{105,70},{95,90}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={0,127,0}),
+          Polygon(
+            points={{-90,0},{-70,-10},{-70,10},{-90,0}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={85,170,255}),
+          Line(points={{-70,0},{-40,0}}, color={0,0,0}),
+          Line(points={{95,10},{95,70}}, color={0,0,0}),
+          Text(
+            extent={{-100,30},{-40,20}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={85,170,255},
+            textString=
+                 "'axle'.flange"),
+          Text(
+            extent={{-100,90},{-40,80}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={85,170,255},
+            textString=
+                 "connect to:"),
+          Rectangle(
+            extent={{-30,5},{50,-5}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={175,175,175}),
+          Rectangle(
+            extent={{-6,80},{0,-80}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.VerticalCylinder,
+            fillColor={175,175,175}),
+          Polygon(
+            points={{0,64},{34,61},{34,-60},{0,-64},{0,64}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.VerticalCylinder,
+            fillColor={175,175,175}),
+          Text(
+            extent={{35,60},{95,50}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={0,127,0},
+            textString=
+                 "'locBbody'.flange"),
+          Text(
+            extent={{39,-90},{99,-100}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={255,0,0},
+            textString=
+                 "'friction'.rail")}));
   end TractionWheel;
 
 model RodNoMass "Elastic massless rod"
   extends Ports.Compliant;
 
   parameter SIpu.Stiffness stiff=1e6 "stiffness";
+
+equation
+  flange_p.f + flange_n.f = 0;
+  d_f = stiff*d_s/d;
   annotation (defaultComponentName = "rod",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
@@ -712,18 +677,18 @@ height=0.65),
 <p>Translating elastic massless rod. It is equivalent to a massless spring.<br><br>
 The parameter <tt>stiffness</tt> is a length-independent specification, in contrast to a spring-constant.</p>
 </html>
-"), Icon(
-   Rectangle(extent=[-90,10; 90,-10],   style(
-          color=0,
-          rgbcolor={0,0,0},
-          gradient=2,
-          fillColor=7,
-          rgbfillColor={255,255,255}))),
-    Diagram);
-
-equation
-  flange_p.f + flange_n.f = 0;
-  d_f = stiff*d_s/d;
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Rectangle(
+            extent={{-90,10},{90,-10}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={255,255,255})}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end RodNoMass;
 
 model Rod "Elastic massive rod"
@@ -734,11 +699,14 @@ model Rod "Elastic massive rod"
   SI.Position s "position center";
   SI.Velocity v;
   SI.Acceleration a;
+
+equation
+  flange_p.s + flange_n.s = 2*s;
+  v = der(s);
+  a = der(v);
+  m*a = flange_p.f + flange_n.f;
+  d_f = stiff*d_s/d;
   annotation (defaultComponentName = "rod",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
     Window(
 x=0.45,
 y=0.01,
@@ -750,97 +718,39 @@ height=0.65),
 (Approximation for small strain / lowest mode to avoid wave-equation)<br><br>
 The parameter <tt>stiffness</tt> is a length-independent specification, in contrast to a spring-constant.</p>
 </html>"),
-    Icon(
-   Rectangle(extent=[-90,10; 90,-10],   style(
-          color=0,
-          rgbcolor={0,0,0},
-          gradient=2,
-          fillColor=9,
-          rgbfillColor={175,175,175}))),
-    Diagram);
-
-equation
-  flange_p.s + flange_n.s = 2*s;
-  v = der(s);
-  a = der(v);
-  m*a = flange_p.f + flange_n.f;
-  d_f = stiff*d_s/d;
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Rectangle(
+            extent={{-90,10},{90,-10}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={175,175,175})}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Rod;
 
   model PositionSensor "Position and velocity sensor (mechanical)"
     extends Ports.Flange_p;
 
-    Modelica.Blocks.Interfaces.RealOutput s(redeclare type SignalType =
-      SI.Position) "position"
-    annotation (
-          extent=[-50,90; -30,110],  rotation=90);
-    Modelica.Blocks.Interfaces.RealOutput v(redeclare type SignalType =
-          SI.Velocity) "velocity"
-    annotation (
-          extent=[30,90; 50,110],    rotation=90);
-  annotation (defaultComponentName = "positionSens1",
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-    Documentation(
-            info="<html>
-</html>
-"), Icon(
-        Text(
-  extent=[-100,-100; 100,-140],
-  string="%name",
-  style(color=0)),
-        Rectangle(extent=[-80,-60; 80,60], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-        Line(points=[0,60; 0,30], style(color=10)),
-        Line(points=[-60,60; -60,30], style(color=10)),
-        Line(points=[60,60; 60,30], style(color=10)),
-        Line(points=[30,60; 30,30], style(color=10)),
-        Line(points=[-30,60; -30,30], style(color=10)),
-        Polygon(points=[5,20; 25,20; 15,48; 5,20], style(
-    color=10,
-    fillColor=10,
-    fillPattern=1)),
-        Line(points=[-90,0; 80,0], style(color=10, rgbcolor={135,135,135})),
-        Line(points=[15,0; 15,20], style(color=10, rgbcolor={95,95,95})),
-        Rectangle(extent=[10,5; 20,-5], style(
-            color=10,
-            rgbcolor={95,95,95},
-            fillColor=10,
-            rgbfillColor={135,135,135}))),
-    Diagram);
+    Modelica.Blocks.Interfaces.RealOutput s "position" annotation (Placement(
+          transformation(
+          origin={-40,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+    Modelica.Blocks.Interfaces.RealOutput v "velocity" annotation (Placement(
+          transformation(
+          origin={40,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
 
   equation
     flange.f = 0;
     s = flange.s;
     v = der(flange.s);
-  end PositionSensor;
-
-  model PowerSensor "Power and torque sensor (mechanical)"
-    extends Ports.Rigid(final d=0);
-
-    Modelica.Blocks.Interfaces.RealOutput p(redeclare type SignalType =
-      SI.Power) "power, flange_p to flange_n"
-    annotation (
-          extent=[-50,90; -30,110],  rotation=90);
-    Modelica.Blocks.Interfaces.RealOutput f(redeclare type SignalType =
-          SI.Force) "force, flange_p to flange_n"
-    annotation (
-          extent=[30,90; 50,110],    rotation=90);
-  annotation (defaultComponentName = "powerSens1",
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
+  annotation (defaultComponentName = "positionSens1",
     Window(
         x=0.45,
         y=0.01,
@@ -849,50 +759,102 @@ end Rod;
     Documentation(
             info="<html>
 </html>
-"), Icon(
-        Text(
-  extent=[-100,-100; 100,-140],
-  string="%name",
-  style(color=0)),
-        Rectangle(extent=[-80,-60; 80,60], style(
-            color=10,
-            rgbcolor={135,135,135},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-        Line(points=[0,60; 0,40], style(color=10)),
-        Line(points=[-60,60; -60,40], style(color=10)),
-        Line(points=[60,60; 60,40], style(color=10)),
-        Line(points=[30,60; 30,40], style(color=10)),
-        Line(points=[-30,60; -30,40], style(color=10)),
-        Rectangle(extent=[-20,16; 20,-16], style(color=10, rgbcolor={95,95,95})),
-      Line(
-   points=[-90,0; -20,0], style(color=10, rgbcolor={95,95,95})),
-      Line(
-   points=[0,0; 90,0], style(color=10, rgbcolor={95,95,95})),
-      Line(
-   points=[30,20; 70,0; 30,-20], style(color=10, rgbcolor={95,95,95}))),
-    Diagram);
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{-100,-100},{100,-140}},
+            lineColor={0,0,0},
+            textString=
+         "%name"),
+          Rectangle(
+            extent={{-80,-60},{80,60}},
+            lineColor={135,135,135},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{0,60},{0,30}}, color={128,128,128}),
+          Line(points={{-60,60},{-60,30}}, color={128,128,128}),
+          Line(points={{60,60},{60,30}}, color={128,128,128}),
+          Line(points={{30,60},{30,30}}, color={128,128,128}),
+          Line(points={{-30,60},{-30,30}}, color={128,128,128}),
+          Polygon(
+            points={{5,20},{25,20},{15,48},{5,20}},
+            lineColor={128,128,128},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-90,0},{80,0}}, color={135,135,135}),
+          Line(points={{15,0},{15,20}}, color={95,95,95}),
+          Rectangle(
+            extent={{10,5},{20,-5}},
+            lineColor={95,95,95},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
+  end PositionSensor;
+
+  model PowerSensor "Power and torque sensor (mechanical)"
+    extends Ports.Rigid(final d=0);
+
+    Modelica.Blocks.Interfaces.RealOutput p "power, flange_p to flange_n"
+      annotation (Placement(transformation(
+          origin={-40,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
+    Modelica.Blocks.Interfaces.RealOutput f "force, flange_p to flange_n"
+      annotation (Placement(transformation(
+          origin={40,100},
+          extent={{-10,-10},{10,10}},
+          rotation=90)));
 
   equation
     flange_p.f + flange_n.f = 0;
     f = flange_p.f;
     p = der(flange_p.s)*flange_p.f;
+  annotation (defaultComponentName = "powerSens1",
+    Window(
+        x=0.45,
+        y=0.01,
+        width=0.44,
+        height=0.65),
+    Documentation(
+            info="<html>
+</html>
+"), Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{-100,-100},{100,-140}},
+            lineColor={0,0,0},
+            textString=
+         "%name"),
+          Rectangle(
+            extent={{-80,-60},{80,60}},
+            lineColor={135,135,135},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{0,60},{0,40}}, color={128,128,128}),
+          Line(points={{-60,60},{-60,40}}, color={128,128,128}),
+          Line(points={{60,60},{60,40}}, color={128,128,128}),
+          Line(points={{30,60},{30,40}}, color={128,128,128}),
+          Line(points={{-30,60},{-30,40}}, color={128,128,128}),
+          Rectangle(extent={{-20,16},{20,-16}}, lineColor={95,95,95}),
+          Line(points={{-90,0},{-20,0}}, color={95,95,95}),
+          Line(points={{0,0},{90,0}}, color={95,95,95}),
+          Line(points={{30,20},{70,0},{30,-20}}, color={95,95,95})}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end PowerSensor;
 
   package Partials "Partial models"
     extends Base.Icons.Partials;
 
-    annotation (
-          Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]), Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
 
     partial model TabForce "Table data to force"
       extends Ports.Flange_p_n;
@@ -907,12 +869,13 @@ end Rod;
         final fileName=fileName,
         final columns={colData},
         tableOnFile=true) "{time t .. force f ..}"
-        annotation (extent=[-20,-20; 20,20]);
+        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+              rotation=0)));
+
+    equation
+      flange_p.s = flange_n.s;
+      flange_p.f + flange_n.f + f = 0;
       annotation (defaultComponentName = "tabForce1",
-        Coordsys(
-    extent=[-100, -100; 100, 100],
-    grid=[2, 2],
-    component=[20, 20]),
         Window(
     x=0.45,
     y=0.01,
@@ -921,21 +884,23 @@ end Rod;
         Documentation(
                 info="<html>
 </html>
-"),     Icon(
-       Polygon(points=[-90,10; 20,10; 20,41; 90,0; 20,-41; 20,-10; -90,-10; -90,10],
-                        style(
-            color=0,
-            rgbcolor={0,0,0},
-            fillColor=9,
-            rgbfillColor={175,175,175})),
-    Rectangle(extent=[-40,-80; 40,-60], style(color=10)),
-    Line(points=[-40,-70; 40,-70], style(color=10)),
-    Line(points=[-20,-60; -20,-80], style(color=10))),
-        Diagram);
-
-    equation
-      flange_p.s = flange_n.s;
-      flange_p.f + flange_n.f + f = 0;
+"),     Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Polygon(
+              points={{-90,10},{20,10},{20,41},{90,0},{20,-41},{20,-10},{-90,
+                  -10},{-90,10}},
+              lineColor={0,0,0},
+              fillColor={175,175,175},
+              fillPattern=FillPattern.Solid),
+            Rectangle(extent={{-40,-80},{40,-60}}, lineColor={128,128,128}),
+            Line(points={{-40,-70},{40,-70}}, color={128,128,128}),
+            Line(points={{-20,-60},{-20,-80}}, color={128,128,128})}),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end TabForce;
 
     partial model RigidBodyBase "Rigid body base"
@@ -945,14 +910,12 @@ end Rod;
       SI.Position s "position center";
       SI.Velocity v;
       SI.Acceleration a;
+
+    equation
+      flange_p.s + flange_n.s = 2*s;
+      v = der(s);
+      a = der(v);
       annotation (
-        Coordsys(
-          extent=
-         [-100, -100; 100, 100],
-          grid=
-       [2, 2],
-          component=
-            [20, 20]),
         Window(
           x=
     0.45, y=
@@ -963,14 +926,36 @@ end Rod;
         Documentation(
               info="<html>
 </html>
-"),     Icon,
-        Diagram);
-
-    equation
-      flange_p.s + flange_n.s = 2*s;
-      v = der(s);
-      a = der(v);
+"),     Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
     end RigidBodyBase;
+    annotation (       Window(
+  x=0.05,
+  y=0.44,
+  width=0.31,
+  height=0.23,
+  library=1,
+  autolayout=1));
   end Partials;
 
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+</html>
+"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Translation;

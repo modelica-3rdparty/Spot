@@ -2,10 +2,6 @@ within SpotExamples.Data;
 package Transformers "Transformer example data"
   extends Spot.Base.Icons.SpecialLibrary;
 
-  annotation (preferedView="info",
-Documentation(info="<html>
-<p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define the winding ratio and voltage start values.</p>
-</html>"));
 
 record TrafoIdeal1ph "Ideal trafo, 1-phase, example"
   extends Spot.Base.Icons.Record;
@@ -330,4 +326,8 @@ height=0.65),
 "), Icon,
     Diagram);
 end TrafoSat;
+  annotation (preferedView="info",
+Documentation(info="<html>
+<p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define the winding ratio and voltage start values.</p>
+</html>"));
 end Transformers;

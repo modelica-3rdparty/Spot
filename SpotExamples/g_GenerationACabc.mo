@@ -1,50 +1,9 @@
 within SpotExamples;
 package g_GenerationACabc "AC power generation, abc"
   extends Spot.Base.Icons.Examples;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Power sources and generation, a set of examples mainly for understanding the synchronous machine.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Icon);
 
 model Vsource "Power transfer from voltage source to slack bus"
 
-  annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Documentation(
-            info="<html>
-<p>Amplitude and phase of voltage are given in both nodes.<br>
-The powerflow depends essentially on the phase difference between the nodes and also on the voltage amplitudes.</p>
-<p><i>See for example:</i>
-<pre>
- sensor.p[1:2]    active and reactive power
-</pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Diagram,
-    Icon,
-      experiment,
-      experimentSetupOutput);
   inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
   Spot.ACabc.Sources.VsourceRX Vsource(
@@ -97,10 +56,6 @@ equation
       annotation (points=[-70,10; -70,10], style(color=3, rgbcolor={0,0,255}));
   connect(infBus.neutral, grd2.term)
       annotation (points=[70,10; 70,10], style(color=3, rgbcolor={0,0,255}));
-end Vsource;
-
-model PVsource "Power transfer from power-voltage source to slack bus"
-
   annotation (
     Coordsys(
 extent=[-100, -100; 100, 100],
@@ -113,18 +68,22 @@ width=0.44,
 height=0.65),
     Documentation(
             info="<html>
-<p>Power and voltage-amplitude are given in the source node, whereas the slackBus is identical to the previous example.<br>
-The active powerflow is now directly determined through a parameter instead of indirectly depending on the voltage phase-angle.</p>
+<p>Amplitude and phase of voltage are given in both nodes.<br>
+The powerflow depends essentially on the phase difference between the nodes and also on the voltage amplitudes.</p>
 <p><i>See for example:</i>
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
+</html>
+"), Diagram,
     Icon,
       experiment,
       experimentSetupOutput);
+end Vsource;
+
+model PVsource "Power transfer from power-voltage source to slack bus"
+
   inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
   Spot.ACabc.Sources.PVsource PVsource(
@@ -174,10 +133,6 @@ equation
       annotation (points=[-70,10; -70,10], style(color=3, rgbcolor={0,0,255}));
   connect(infBus.neutral, grd2.term)
       annotation (points=[70,10; 70,10], style(color=3, rgbcolor={0,0,255}));
-end PVsource;
-
-model PQsource "Power transfer from power source to slack bus"
-
   annotation (
     Coordsys(
 extent=[-100, -100; 100, 100],
@@ -190,8 +145,8 @@ width=0.44,
 height=0.65),
     Documentation(
             info="<html>
-<p>Active and reactive power are given in the source node, whereas the slackBus is identical to the previous example.<br>
-Both active and reactive powerflow are now directly determined through a parameter.</p>
+<p>Power and voltage-amplitude are given in the source node, whereas the slackBus is identical to the previous example.<br>
+The active powerflow is now directly determined through a parameter instead of indirectly depending on the voltage phase-angle.</p>
 <p><i>See for example:</i>
 <pre>
  sensor.p[1:2]    active and reactive power
@@ -202,6 +157,10 @@ Both active and reactive powerflow are now directly determined through a paramet
     Icon,
       experiment,
       experimentSetupOutput);
+end PVsource;
+
+model PQsource "Power transfer from power source to slack bus"
+
   inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
   Spot.ACabc.Sources.PQsource PQsource(
@@ -250,40 +209,34 @@ equation
       annotation (points=[-70,10; -70,10], style(color=3, rgbcolor={0,0,255}));
   connect(infBus.neutral, grd2.term)
       annotation (points=[70,10; 70,10], style(color=3, rgbcolor={0,0,255}));
-end PQsource;
-
-  model PowerAngle "Generator at fixed power angle"
-
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Diagram,
-      Documentation(
-              info="<html>
-<p>This example is a first step on the way 'from voltage source to generator model'.</p>
-<p>Lower part of example (for comparison with and interpretation of upper part):<br>
-simplest generator description as a \"voltage behind reactance\".</p>
-<p>Upper part: 3-winding generator model, isotrope with x_d = x_q.<br>
-The power-angle is artificially fixed. The correspondence is:
-<pre>
-  V_gen1.alpha0 ~ powerAngle.delta
-  V_gen1.v0     ~ exciter.v_f
-</pre></p>
-<p>In both cases the terminal voltage is fixed by the bus voltage. The results should coincide.</p>
+  annotation (
+    Coordsys(
+extent=[-100, -100; 100, 100],
+grid=[2, 2],
+component=[20, 20]),
+    Window(
+x=0.45,
+y=0.01,
+width=0.44,
+height=0.65),
+    Documentation(
+            info="<html>
+<p>Active and reactive power are given in the source node, whereas the slackBus is identical to the previous example.<br>
+Both active and reactive powerflow are now directly determined through a parameter.</p>
 <p><i>See for example:</i>
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"),   Icon);
+</html>"),
+    Diagram,
+    Icon,
+      experiment,
+      experimentSetupOutput);
+end PQsource;
+
+  model PowerAngle "Generator at fixed power angle"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     Spot.ACabc.Machines.Control.PowerAngle powerAngle(delta=45*d2r)
@@ -401,10 +354,6 @@ The power-angle is artificially fixed. The correspondence is:
       annotation (points=[90,10; 90,10], style(color=3, rgbcolor={0,0,255}));
     connect(generator.heat, bdCond.heat)   annotation (points=[-40,20; -40,20],
         style(color=42, rgbcolor={176,0,0}));
-  end PowerAngle;
-
-  model TurbineGenerator "Turbine with generator"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -415,29 +364,30 @@ The power-angle is artificially fixed. The correspondence is:
   y=0.01,
   width=0.44,
   height=0.65),
+      Diagram,
       Documentation(
               info="<html>
-<p>Second example 'from voltage source to generator model' with additional turbine.</p>
+<p>This example is a first step on the way 'from voltage source to generator model'.</p>
 <p>Lower part of example (for comparison with and interpretation of upper part):<br>
 simplest generator description as a \"voltage behind reactance\".</p>
 <p>Upper part: 3-winding generator model, isotrope with x_d = x_q.<br>
-Instead of a fixed power-angle as in the previous example, a turbine delivers the appropriate power. The correspondence is still:
+The power-angle is artificially fixed. The correspondence is:
 <pre>
-  V_gen1.alpha0 ~ generator.powerAngle (mod 2pi)
+  V_gen1.alpha0 ~ powerAngle.delta
   V_gen1.v0     ~ exciter.v_f
 </pre></p>
 <p>In both cases the terminal voltage is fixed by the bus voltage. The results should coincide.</p>
-<p><i>See and compare for example:</i>
+<p><i>See for example:</i>
 <pre>
- sensor.p[1:2]      active and reactive power
- V_gen1.alpha0 with gen.powerAngle.
+ sensor.p[1:2]    active and reactive power
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram,
-      Icon,
-      experiment,
-      experimentSetupOutput);
+"),   Icon);
+  end PowerAngle;
+
+  model TurbineGenerator "Turbine with generator"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     parameter SIpu.AngularVelocity speed_ini(unit="pu")=1 "initial speed";
@@ -558,10 +508,6 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
       annotation (points=[90,10; 90,10], style(color=3, rgbcolor={0,0,255}));
     connect(generator.heat, bdCond.heat)   annotation (points=[-40,20; -40,20],
         style(color=42, rgbcolor={176,0,0}));
-  end TurbineGenerator;
-
-  model TurbineGeneratorLine "Turbine with generator and line"
-
     annotation (
       Coordsys(
   extent=[-100, -100; 100, 100],
@@ -574,16 +520,20 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
   height=0.65),
       Documentation(
               info="<html>
-<p>The third example is obtained from the previous by adding a line between generator and infinite bus.</p>
-<p>The terminal voltage depends on the line-properties. Now the correspondence is:
+<p>Second example 'from voltage source to generator model' with additional turbine.</p>
+<p>Lower part of example (for comparison with and interpretation of upper part):<br>
+simplest generator description as a \"voltage behind reactance\".</p>
+<p>Upper part: 3-winding generator model, isotrope with x_d = x_q.<br>
+Instead of a fixed power-angle as in the previous example, a turbine delivers the appropriate power. The correspondence is still:
 <pre>
-  V_gen1.alpha0 - bus1.alpha_v ~ generator.powerAngle
-  V_gen1.v0                    ~ exciter.v_f
+  V_gen1.alpha0 ~ generator.powerAngle (mod 2pi)
+  V_gen1.v0     ~ exciter.v_f
 </pre></p>
+<p>In both cases the terminal voltage is fixed by the bus voltage. The results should coincide.</p>
 <p><i>See and compare for example:</i>
 <pre>
  sensor.p[1:2]      active and reactive power
- V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
+ V_gen1.alpha0 with gen.powerAngle.
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
@@ -591,6 +541,10 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
       Icon,
       experiment,
       experimentSetupOutput);
+  end TurbineGenerator;
+
+  model TurbineGeneratorLine "Turbine with generator and line"
+
     inner Spot.System system
                         annotation (extent=[-100,80; -80,100]);
     parameter SIpu.AngularVelocity speed_ini(unit="pu")=1 "initial speed";
@@ -756,26 +710,22 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
       annotation (points=[90,10; 90,10], style(color=3, rgbcolor={0,0,255}));
     connect(generator.heat, bdCond.heat)   annotation (points=[-40,20; -40,20],
         style(color=42, rgbcolor={176,0,0}));
-  end TurbineGeneratorLine;
-
-  model TurboGeneratorLine "Turbo-generator with line to infinite bus"
-
-  annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-    Documentation(
-            info="<html>
-<p>This example is the last step on the way 'from voltage source to generator model'.</p>
-<p>Turbine and generator are packed into one single model. The terminal voltage depends on the line-properties. The correspondence is:
+    annotation (
+      Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+      Window(
+  x=0.45,
+  y=0.01,
+  width=0.44,
+  height=0.65),
+      Documentation(
+              info="<html>
+<p>The third example is obtained from the previous by adding a line between generator and infinite bus.</p>
+<p>The terminal voltage depends on the line-properties. Now the correspondence is:
 <pre>
-  V_gen1.alpha0 - bus1.alpha_v ~ turboGen.generator.powerAngle
+  V_gen1.alpha0 - bus1.alpha_v ~ generator.powerAngle
   V_gen1.v0                    ~ exciter.v_f
 </pre></p>
 <p><i>See and compare for example:</i>
@@ -785,10 +735,14 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    Icon,
+"),   Diagram,
+      Icon,
       experiment,
       experimentSetupOutput);
+  end TurbineGeneratorLine;
+
+  model TurboGeneratorLine "Turbo-generator with line to infinite bus"
+
     inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
     Spot.GenerationACabc.TurboGenerator turboGen(
@@ -926,37 +880,39 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
       annotation (points=[90,10; 90,10], style(color=3, rgbcolor={0,0,255}));
     connect(turboGen.heat, bdCond.heat)   annotation (points=[-50,20; -50,20],
         style(color=42, rgbcolor={176,0,0}));
+  annotation (
+    Coordsys(
+        extent=[-100,-100; 100,100],
+        grid=[2,2],
+        component=[20,20]),
+    Window(
+        x=0.45,
+        y=0.01,
+        width=0.44,
+        height=0.65),
+    Documentation(
+            info="<html>
+<p>This example is the last step on the way 'from voltage source to generator model'.</p>
+<p>Turbine and generator are packed into one single model. The terminal voltage depends on the line-properties. The correspondence is:
+<pre>
+  V_gen1.alpha0 - bus1.alpha_v ~ turboGen.generator.powerAngle
+  V_gen1.v0                    ~ exciter.v_f
+</pre></p>
+<p><i>See and compare for example:</i>
+<pre>
+ sensor.p[1:2]      active and reactive power
+ V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
+</pre></p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+"), Diagram,
+    Icon,
+      experiment,
+      experimentSetupOutput);
   end TurboGeneratorLine;
 
 model GenOrder3and7 "Generator-models of different order"
 
-  annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Documentation(
-            info="<html>
-<p>The example illustrates the difference in dynamic behaviour between low- and high-order generator models.<br>
-A common 3-phase short circuit occurs at 100 msec, cleared after 300 ms.</p>
-<p><i>Compare for example:</i>
-<pre>
-  .generator.i        current
-  .generator.tau      torque
-</pre>
-of <tt>turbGen1</tt> and <tt>turbGen2</tt>.<br>
-The high order model exhibits fast damping of torque-oscillations due to the damper windings. See also damper currents i_rd, i_rq (protected).</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
-    Icon,
-      experiment(StopTime=0.5, NumberOfIntervals=1000),
-      experimentSetupOutput(derivatives=false));
   inner Spot.System system(f_nom=60)
                       annotation (extent=[-100,80; -80,100]);
   Spot.GenerationACabc.TurboGenerator turboGen1(
@@ -1062,11 +1018,6 @@ equation
         style(color=42, rgbcolor={176,0,0}));
   connect(turboGen2.heat, bdCond2.heat)   annotation (points=[-70,-40; -70,-40],
         style(color=42, rgbcolor={176,0,0}));
-end GenOrder3and7;
-
-model TurboGroupGenerator
-    "Turbogroup with generator, electro-mechanical interaction"
-
   annotation (
     Coordsys(
 extent=[-100, -100; 100, 100],
@@ -1079,23 +1030,26 @@ width=0.44,
 height=0.65),
     Documentation(
             info="<html>
-<p>The example illustrates the influence of an electric shock on the mechanical behaviour of the turbogroup.<br>
-A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
-<p><i>See for example:</i>
+<p>The example illustrates the difference in dynamic behaviour between low- and high-order generator models.<br>
+A common 3-phase short circuit occurs at 100 msec, cleared after 300 ms.</p>
+<p><i>Compare for example:</i>
 <pre>
-  turboGrpGen.generator.tau      torque (electric frequency)
-  turboGrpGen.turboGroup.delta   relative angles between single turbines (frequencies typical 16 to 23 Hz)
-</pre></p>
+  .generator.i        current
+  .generator.tau      torque
+</pre>
+of <tt>turbGen1</tt> and <tt>turbGen2</tt>.<br>
+The high order model exhibits fast damping of torque-oscillations due to the damper windings. See also damper currents i_rd, i_rq (protected).</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>
-"), Diagram,
+</html>"),
+    Diagram,
     Icon,
-      experiment(
-        StopTime=0.5,
-        NumberOfIntervals=1000,
-        fixedstepsize=0.001,
-        Algorithm=""),
-      experimentSetupOutput(derivatives=false, inputs=false));
+      experiment(StopTime=0.5, NumberOfIntervals=1000),
+      experimentSetupOutput(derivatives=false));
+end GenOrder3and7;
+
+model TurboGroupGenerator
+    "Turbogroup with generator, electro-mechanical interaction"
+
   inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
   Spot.Control.Setpoints.Set_w_p_v setpts
@@ -1170,10 +1124,6 @@ equation
       annotation (points=[80,10; 80,10], style(color=3, rgbcolor={0,0,255}));
   connect(turboGrpGen.heat, bdCond.heat)   annotation (points=[-70,20; -70,20],
         style(color=42, rgbcolor={176,0,0}));
-end TurboGroupGenerator;
-
-model TieLine "Generators and power-oscillations"
-
   annotation (
     Coordsys(
 extent=[-100, -100; 100, 100],
@@ -1184,22 +1134,29 @@ x=0.45,
 y=0.01,
 width=0.44,
 height=0.65),
-    Diagram,
     Documentation(
             info="<html>
-<p>Tie line with three generators (third as infinite slack bus), feeding a variable load. The load changes abruptly at <tt>t=2</tt> and induces power oscillations between the nodes.<br>
-The oscillations are slowly damped (depending on control), but may also lead to system instability.<br>
-After the load decreases, system frequency starts to increase from 60 to 62 Hz with an intermediate maximum of 63 Hz. For narrow frequency-bounds 'system.f_lim', for example {58, 62} simulation stops when the limit is reached (after 5 sec).</p>
+<p>The example illustrates the influence of an electric shock on the mechanical behaviour of the turbogroup.<br>
+A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
 <p><i>See for example:</i>
 <pre>
- sensor's.p[1:2]    active and reactive power
- system.omega       system frequency
+  turboGrpGen.generator.tau      torque (electric frequency)
+  turboGrpGen.turboGroup.delta   relative angles between single turbines (frequencies typical 16 to 23 Hz)
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon,
-      experiment(StopTime=30),
-      experimentSetupOutput);
+"), Diagram,
+    Icon,
+      experiment(
+        StopTime=0.5,
+        NumberOfIntervals=1000,
+        fixedstepsize=0.001,
+        Algorithm=""),
+      experimentSetupOutput(derivatives=false, inputs=false));
+end TurboGroupGenerator;
+
+model TieLine "Generators and power-oscillations"
+
 
   inner Spot.System system(f_nom=60, fType="ave")
     annotation (extent=[-100,80; -80,100]);
@@ -1357,10 +1314,6 @@ equation
       annotation (points=[90,0; 90,0], style(color=42, rgbcolor={176,0,0}));
   connect(turboGen3.heat, bdCond3.heat)   annotation (points=[-10,70; -10,70],
         style(color=42, rgbcolor={176,0,0}));
-end TieLine;
-
-model WindGeneratorLine "Asynchronous generator"
-
   annotation (
     Coordsys(
 extent=[-100, -100; 100, 100],
@@ -1371,22 +1324,26 @@ x=0.45,
 y=0.01,
 width=0.44,
 height=0.65),
+    Diagram,
     Documentation(
             info="<html>
-<p>This example shows an asynchron generator directly coupled to the grid.<br>
-The wind-speed is increased from 5 to 15 m/s. The machine remains stable.</p>
+<p>Tie line with three generators (third as infinite slack bus), feeding a variable load. The load changes abruptly at <tt>t=2</tt> and induces power oscillations between the nodes.<br>
+The oscillations are slowly damped (depending on control), but may also lead to system instability.<br>
+After the load decreases, system frequency starts to increase from 60 to 62 Hz with an intermediate maximum of 63 Hz. For narrow frequency-bounds 'system.f_lim', for example {58, 62} simulation stops when the limit is reached (after 5 sec).</p>
 <p><i>See for example:</i>
 <pre>
-  sensor.p[1:2]    active and reactive power
-  windGen.generator.slip
+ sensor's.p[1:2]    active and reactive power
+ system.omega       system frequency
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-
-"), Diagram,
-    Icon,
-      experiment(StopTime=60, NumberOfIntervals=1000),
+"), Icon,
+      experiment(StopTime=30),
       experimentSetupOutput);
+end TieLine;
+
+model WindGeneratorLine "Asynchronous generator"
+
   inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
   Spot.GenerationACabc.WindGenerator windGen(
@@ -1453,6 +1410,32 @@ equation
         style(color=42, rgbcolor={176,0,0}));
   connect(trsSignal1.y, windGen.windSpeed)   annotation (points=[-80,10; -60,10],
         style(color=74, rgbcolor={0,0,127}));
+  annotation (
+    Coordsys(
+extent=[-100, -100; 100, 100],
+grid=[2, 2],
+component=[20, 20]),
+    Window(
+x=0.45,
+y=0.01,
+width=0.44,
+height=0.65),
+    Documentation(
+            info="<html>
+<p>This example shows an asynchron generator directly coupled to the grid.<br>
+The wind-speed is increased from 5 to 15 m/s. The machine remains stable.</p>
+<p><i>See for example:</i>
+<pre>
+  sensor.p[1:2]    active and reactive power
+  windGen.generator.slip
+</pre></p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+
+"), Diagram,
+    Icon,
+      experiment(StopTime=60, NumberOfIntervals=1000),
+      experimentSetupOutput);
 end WindGeneratorLine;
 
 protected
@@ -1471,33 +1454,6 @@ end Synchron3rd_el;
 public
 model Islanding "AC synchronous generator in islanding configuration"
 
-  annotation (
-Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=[20,20]),
-Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
-Documentation(
-        info="<html>
-<p>Permanent magnet excited synchron generator, rotor defines reference system.<br>
-The generator is directly coupled to a (passive) rectifier. If an average-version of the rectifier is tolerable, no transforms at all are necessary. The simulation (for linear generator models) is fast. This is of particular importance for high speed machines, because the high frequency drastically slows down
-integration in inertial abc-system.</p>
-<p><i>See for example:</i>
-<pre>
-  ACpower.p
-  DCpower.p
-  DCvoltage.v
-</pre>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-Diagram,
-Icon,
-experiment(StopTime=30),
-experimentSetupOutput);
   inner Spot.System system
 annotation (extent=[-100,80; -80,100]);
   parameter SI.Voltage vAC_nom=560 "AC nominal voltage";
@@ -1585,12 +1541,6 @@ equation
           -50], style(color=70, rgbcolor={0,130,175}));
   connect(turboGen.phiRotor, reference.theta)   annotation (points=[-60,-40;
           -50,-40], style(color=74, rgbcolor={0,0,127}));
-end Islanding;
-
-public
-model LocalGeneration
-    "AC torque controlled synchronous machine as local generator"
-
   annotation (
 Coordsys(
     extent=[-100,-100; 100,100],
@@ -1603,10 +1553,12 @@ Window(
     height=0.65),
 Documentation(
         info="<html>
-<p>Permanent magnet excited synchron generator.<br>
-The generator is coupled to an contolled rectifier. If an average-version of the rectifier is tolerable, no transforms at all are necessary.</p>
+<p>Permanent magnet excited synchron generator, rotor defines reference system.<br>
+The generator is directly coupled to a (passive) rectifier. If an average-version of the rectifier is tolerable, no transforms at all are necessary. The simulation (for linear generator models) is fast. This is of particular importance for high speed machines, because the high frequency drastically slows down
+integration in inertial abc-system.</p>
 <p><i>See for example:</i>
 <pre>
+  ACpower.p
   DCpower.p
   DCvoltage.v
 </pre>
@@ -1616,6 +1568,12 @@ Diagram,
 Icon,
 experiment(StopTime=30),
 experimentSetupOutput);
+end Islanding;
+
+public
+model LocalGeneration
+    "AC torque controlled synchronous machine as local generator"
+
   inner Spot.System system(f_nom=60)
 annotation (extent=[-100,80; -80,100]);
   parameter SI.Voltage vDC_nom=780 "DC nominal voltage";
@@ -1706,5 +1664,47 @@ equation
           color=74, rgbcolor={0,0,127}));
   connect(i_d.y, PMgen.i_act[1]) annotation (points=[-80,-10; -36,-10; -36,
           -39.5], style(color=74, rgbcolor={0,0,127}));
+  annotation (
+Coordsys(
+    extent=[-100,-100; 100,100],
+    grid=[2,2],
+    component=[20,20]),
+Window(
+    x=0.45,
+    y=0.01,
+    width=0.44,
+    height=0.65),
+Documentation(
+        info="<html>
+<p>Permanent magnet excited synchron generator.<br>
+The generator is coupled to an contolled rectifier. If an average-version of the rectifier is tolerable, no transforms at all are necessary.</p>
+<p><i>See for example:</i>
+<pre>
+  DCpower.p
+  DCvoltage.v
+</pre>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>"),
+Diagram,
+Icon,
+experiment(StopTime=30),
+experimentSetupOutput);
 end LocalGeneration;
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Power sources and generation, a set of examples mainly for understanding the synchronous machine.</p>
+<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+</html>
+"), Icon);
 end g_GenerationACabc;

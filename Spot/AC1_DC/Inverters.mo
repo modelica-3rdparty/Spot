@@ -1,40 +1,9 @@
 within Spot.AC1_DC;
 
+
 package Inverters "Rectifiers and Inverters"
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>The package contains passive rectifiers and switched/modulated inverters. Different implementations use:
-<ul>
-<li>Phase-modules (pairs of diodes or pairs of IGBT's with antiparallel diodes).</li>
-<li>The switch-equation for ideal components.</li>
-<li>The time-averaged switch-equation. As models based on single-switching are generally slow in simulation, alternative 'averaged' models are useful in cases, where details of current and voltage signals can be ignored.</li>
-</ul>
-<p>Thermal losses are proportional to the forward voltage drop V, which may depend on temperature.<br>
-The temperature dependence is given by
-<pre>  V(T) = Vf*(1 + cT[1]*(T - T0) + cT[2]*(T - T0)^2 + ...)</pre>
-where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty, no temperature dependence of losses is calculated.</p>
-<p>The switching losses are approximated by
-<pre>
-  h = Hsw_nom*v*i/(V_nom*I_nom)
-  use:
-  S_nom = V_nom*I_nom
-</pre>
-where <tt>Hsw_nom</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'. The same temperature dependence is assumed as for Vf. A generalisation to powers of i and v is straightforward.</p>
-<p>NOTE: actually the switching losses are only implemented for time-averaged components!</p>
-</html>"), Icon);
 
 block Select "Select frequency and voltage-phasor type"
   extends Base.Icons.Block;
@@ -52,51 +21,32 @@ block Select "Select frequency and voltage-phasor type"
   parameter SI.Angle alpha0=0 "phase angle" annotation(Dialog(enable=uType==Base.Types.par));
 
   Modelica.Blocks.Interfaces.RealInput[2] uPhasor "{abs(u), phase(u)}"
-    annotation(extent=[50,90; 70,110],    rotation=-90);
-  Modelica.Blocks.Interfaces.RealInput omega(redeclare type SignalType =
-        SI.AngularFrequency) "ang frequency"
-    annotation (extent=[-70,90; -50,110],rotation=-90);
+    annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+    Modelica.Blocks.Interfaces.RealInput omega "ang frequency" annotation (
+        Placement(transformation(
+          origin={-60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
 
   Modelica.Blocks.Interfaces.RealOutput[2] uPhasor_out
       "{abs(u), phase(u)} to inverter"
-    annotation(extent=[50,-110; 70,-90],  rotation=-90);
-  Modelica.Blocks.Interfaces.RealOutput theta_out(redeclare type SignalType =
-        SI.Angle) "abs angle to inverter, der(theta)=omega"
-    annotation(extent=[-70,-110; -50,-90],rotation=-90);
+    annotation (Placement(transformation(
+          origin={60,-100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+    Modelica.Blocks.Interfaces.RealOutput theta_out
+      "abs angle to inverter, der(theta)=omega" annotation (Placement(
+          transformation(
+          origin={-60,-100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   outer System system;
   protected
   SI.Angle theta;
 
-annotation (defaultComponentName="select1",
-  Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-  Window(
-        x=0,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-  Documentation(
-          info="<html>
-<p>This is an optional component. If combined with an inverter, a structure is obtained that is equivalent to a voltage source.<br>
-The component is not needed, if specific control components are available.</p>
-</html>"),
-  Icon(Text(
-          extent=[-100,20; 100,-20],
-          style(
-            color=74,
-            rgbcolor={0,0,127},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1),
-        string="%name"),
-      Rectangle(extent=[-80,-80; -40,-120], style(
-            color=84,
-            rgbcolor={213,170,255},
-            fillColor=84,
-            rgbfillColor={213,170,255}))),
-  Diagram);
 
 initial equation
   if fType == Base.Types.sig then
@@ -120,23 +70,57 @@ equation
     uPhasor_out[1] = uPhasor[1];
     uPhasor_out[2] = uPhasor[2];
   end if;
+annotation (defaultComponentName="select1",
+  Window(
+        x=0,
+        y=0.01,
+        width=0.44,
+        height=0.65),
+  Documentation(
+          info="<html>
+<p>This is an optional component. If combined with an inverter, a structure is obtained that is equivalent to a voltage source.<br>
+The component is not needed, if specific control components are available.</p>
+</html>"),
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-100,20},{100,-20}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid,
+            textString=
+               "%name"), Rectangle(
+            extent={{-80,-80},{-40,-120}},
+            lineColor={213,170,255},
+            fillColor={213,170,255},
+            fillPattern=FillPattern.Solid)}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Select;
 
 model Rectifier "Rectifier, 1-phase"
   extends Partials.AC_DC_base(heat(final m=2));
 
   replaceable Components.RectifierEquation rectifier "rectifier model"
-    annotation (extent=[-10,-10; 10,10], choices(
+    annotation (                         choices(
     choice(redeclare Spot.AC1_DC.Inverters.Components.RectifierEquation
             rectifier "equation, with losses"),
     choice(redeclare Spot.AC1_DC.Inverters.Components.RectifierModular
-            rectifier "modular, with losses")));
+            rectifier "modular, with losses")), Placement(transformation(extent
+            ={{-10,-10},{10,10}}, rotation=0)));
 
+
+equation
+  connect(AC, rectifier.AC)
+      annotation (Line(points={{100,0},{10,0}}, color={0,0,255}));
+  connect(rectifier.DC, DC)
+      annotation (Line(points={{-10,0},{-100,0}}, color={0,0,255}));
+  connect(rectifier.heat, heat)
+      annotation (Line(points={{0,10},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="rectifier",
-  Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
   Window(
       x=0.45,
       y=0.01,
@@ -146,54 +130,68 @@ annotation (defaultComponentName="rectifier",
           info="<html>
 <p>Passive rectifier, allows choosing between equation-based and modular version.</p>
 </html>"),
-  Icon,
-  Diagram);
-
-equation
-  connect(AC, rectifier.AC)
-      annotation (points=[100,0; 10,0],   style(color=3, rgbcolor={0,0,255}));
-  connect(rectifier.DC, DC)
-      annotation (points=[-10,0; -100,0],
-                                        style(color=3, rgbcolor={0,0,255}));
-  connect(rectifier.heat, heat)
-      annotation (points=[0,10; 0,100], style(color=42, rgbcolor={176,0,0}));
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Rectifier;
 
 model Inverter "Complete modulator and inverter, 1-phase"
   extends Partials.AC_DC_base(heat(final m=2));
 
-  Modelica.Blocks.Interfaces.RealInput theta(redeclare type SignalType =
-    SI.Angle) "abs angle, der(theta)=omega"
-    annotation (extent=[-70,90; -50,110],rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput theta "abs angle, der(theta)=omega"
+      annotation (Placement(transformation(
+          origin={-60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   Modelica.Blocks.Interfaces.RealInput[2] uPhasor "desired {abs(u), phase(u)}"
-    annotation(extent=[50,90; 70,110],    rotation=-90);
+    annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   replaceable Control.Modulation.PWMasyn1ph modulator
-    extends Control.Modulation.Partials.ModulatorBase "modulator type"
-    annotation (extent=[-10,40; 10,60], choices(
+    constrainedby Control.Modulation.Partials.ModulatorBase "modulator type"
+    annotation (                        choices(
     choice(redeclare Spot.Control.Modulation.PWMasyn1ph modulator
             "sine PWM asyn"),
     choice(redeclare Spot.Control.Modulation.PWMsyn1ph modulator "sine PWM syn"),
     choice(redeclare Spot.Control.Modulation.PWMtab1ph modulator
             "sine PWM syn tabulated"),
     choice(redeclare Spot.Control.Modulation.BlockM1ph modulator
-            "block modulation (no PWM)")));
+            "block modulation (no PWM)")), Placement(transformation(extent={{
+              -10,40},{10,60}}, rotation=0)));
 
   replaceable Components.InverterSwitch inverter "inverter model"
-    annotation (extent=[-10,-10; 10,10], choices(
+    annotation (                         choices(
     choice(redeclare Spot.AC1_DC.Inverters.Components.InverterSwitch inverter
             "switch, no diode, no losses"),
     choice(redeclare Spot.AC1_DC.Inverters.Components.InverterEquation inverter
             "equation, with losses"),
     choice(redeclare Spot.AC1_DC.Inverters.Components.InverterModular inverter
-            "modular, with losses")));
+            "modular, with losses")), Placement(transformation(extent={{-10,-10},
+              {10,10}}, rotation=0)));
   protected
   outer System system;
 
+
+equation
+  connect(theta, modulator.theta) annotation (Line(points={{-60,100},{-60,70},{
+            -6,70},{-6,60}}, color={0,0,127}));
+  connect(uPhasor, modulator.uPhasor) annotation (Line(points={{60,100},{60,70},
+            {6,70},{6,60}}, color={0,0,127}));
+  connect(AC, inverter.AC) annotation (Line(points={{100,0},{10,0}}, color={0,0,
+            255}));
+  connect(inverter.DC, DC)
+    annotation (Line(points={{-10,0},{-100,0}}, color={0,0,255}));
+  connect(modulator.gates, inverter.gates)
+    annotation (Line(points={{-6,40},{-6,10}}, color={255,0,255}));
+  connect(inverter.heat, heat) annotation (Line(points={{0,10},{0,20},{20,20},{
+            20,80},{0,80},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="inverter",
-  Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
   Window(
       x=0.45,
       y=0.01,
@@ -220,34 +218,26 @@ For block modulation:
   the relation between AC and DC voltage is independent of width
 </pre></p>
 </html>"),
-  Icon(                                   Rectangle(extent=[-80,120; -40,80], style(
-            color=84,
-            rgbcolor={213,170,255},
-            fillColor=84,
-            rgbfillColor={213,170,255}))),
-  Diagram);
-
-equation
-  connect(theta, modulator.theta) annotation (points=[-60,100; -60,70; -6,70;
-        -6,60],  style(color=74, rgbcolor={0,0,127}));
-  connect(uPhasor, modulator.uPhasor) annotation (points=[60,100; 60,70; 6,70;
-        6,60],  style(color=74, rgbcolor={0,0,127}));
-  connect(AC, inverter.AC) annotation (points=[100,0; 10,0],
-      style(color=3, rgbcolor={0,0,255}));
-  connect(inverter.DC, DC)
-    annotation (points=[-10,0; -100,0],
-                                      style(color=3, rgbcolor={0,0,255}));
-  connect(modulator.gates, inverter.gates)
-    annotation (points=[-6,40; -6,10], style(color=5, rgbcolor={255,0,255}));
-  connect(inverter.heat, heat) annotation (points=[0,10; 0,20; 20,20; 20,80; 0,
-        80; 0,100], style(color=42, rgbcolor={176,0,0}));
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Rectangle(
+            extent={{-80,120},{-40,80}},
+            lineColor={213,170,255},
+            fillColor={213,170,255},
+            fillPattern=FillPattern.Solid)}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Inverter;
 
 model InverterAverage "Inverter time-average, 1-phase"
   extends Partials.SwitchEquation(heat(final m=1));
 
   replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-    annotation (extent=[-80,-80;-60,-60]);
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation
+            =0)));
   parameter Integer modulation=1 "equivalent modulation :"
     annotation(Evaluate=true, choices(
     choice=1 "1: sine PWM",
@@ -262,11 +252,16 @@ model InverterAverage "Inverter time-average, 1-phase"
     annotation(Evaluate=true, Dialog(enable=not syn and modulation<3));
   parameter Real width0=2/3 "relative width, (0 - 1)"
     annotation(Dialog(enable=modulation==3));
-  Modelica.Blocks.Interfaces.RealInput theta(redeclare type SignalType =
-    SI.Angle) "abs angle, der(theta)=omega"
-    annotation (extent=[-70,90; -50,110],rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput theta "abs angle, der(theta)=omega"
+      annotation (Placement(transformation(
+          origin={-60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   Modelica.Blocks.Interfaces.RealInput[2] uPhasor "desired {abs(u), phase(u)}"
-    annotation(extent=[50,90; 70,110],    rotation=-90);
+    annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   protected
   outer Spot.System system;
   final parameter SI.Resistance R_nom=par.V_nom/par.I_nom;
@@ -278,14 +273,22 @@ model InverterAverage "Inverter time-average, 1-phase"
   SI.Voltage Vloss;
   Real cT;
   SI.Time hsw_nom;
+
+equation
+  Vloss = if par.Vf<1e-3 then 0 else tanh(10*iDC1/par.I_nom)*2*par.Vf;
+  cT = if size(par.cT_loss,1)>0 then loss(T[1]-par.T0_loss, par.cT_loss) else 1;
+  hsw_nom = if syn then (2*par.Hsw_nom*m_carr/(pi*par.V_nom*par.I_nom))*der(theta) else
+                 4*par.Hsw_nom*f_carr/(par.V_nom*par.I_nom);
+
+  phi = theta + uPhasor[2] + system.alpha0;
+  switch[1] = factor*uPhasor[1]*cos(phi);
+  switch[2] = -switch[1];
+  v = (vDC1 - cT*Vloss)*switch;
+// passive mode?
+
+  Q_flow = {par.eps[1]*R_nom*AC.pin.i*AC.pin.i +
+                       cT*(par.Vf + hsw_nom*abs(vDC1))*(abs(AC.pin[1].i)+abs(AC.pin[2].i))};
   annotation (defaultComponentName="inverter",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
     Window(
       x=
 0.45, y=
@@ -293,82 +296,58 @@ model InverterAverage "Inverter time-average, 1-phase"
     0.44,
       height=
      0.65),
-    Icon(
-        Text(
-          extent=[-100,-70; 100,-90],
-          style(color=42, rgbcolor={176,0,0}),
-          string="average"),              Rectangle(extent=[-80,120; -40,80], style(
-            color=84,
-            rgbcolor={213,170,255},
-            fillColor=84,
-            rgbfillColor={213,170,255}))),
-    Diagram(
-        Text(
-          extent=[-40,-60; 40,-80],
-          style(color=42, rgbcolor={176,0,0}),
-          string="time average equation"),
-      Line(
-   points=[30,-46; 30,46], style(color=3, rgbcolor={0,0,255})),
-      Line(
-   points=[20,-14; 40,-14], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[20,34; 40,34], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-Line(points=[-30,0; 60,0], style(color=3, rgbcolor={0,0,255})),
-      Polygon(
-      points=[20,14; 30,34; 40,14; 20,14], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Polygon(
-      points=[20,-34; 30,-14; 40,-34; 20,-34], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-30,-46; -30,46],
-                           style(color=3, rgbcolor={0,0,255})),
-      Polygon(
-      points=[-40,34; -30,14; -20,34; -40,34], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-40,14; -20,14], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[-30,14; -42,2], style(color=42, rgbcolor={176,0,0})),
-      Polygon(
-      points=[-40,-14; -30,-34; -20,-14; -40,-14], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-40,-34; -20,-34], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[-30,-34; -42,-46], style(color=42, rgbcolor={176,0,0})),
-        Line(points=[-70,10; -60,10; -60,46; 30,46], style(color=3, rgbcolor={0,
-                0,255})),
-        Line(points=[-70,-10; -60,-10; -60,-46; 30,-46], style(color=3,
-              rgbcolor={0,0,255}))),
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-100,-70},{100,-90}},
+            lineColor={176,0,0},
+            textString=
+                 "average"), Rectangle(
+            extent={{-80,120},{-40,80}},
+            lineColor={213,170,255},
+            fillColor={213,170,255},
+            fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{-40,-60},{40,-80}},
+            lineColor={176,0,0},
+            textString=
+                 "time average equation"),
+          Line(points={{30,-46},{30,46}}, color={0,0,255}),
+          Line(points={{20,-14},{40,-14}}, color={0,0,255}),
+          Line(points={{20,34},{40,34}}, color={0,0,255}),
+          Line(points={{-30,0},{60,0}}, color={0,0,255}),
+          Polygon(
+            points={{20,14},{30,34},{40,14},{20,14}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{20,-34},{30,-14},{40,-34},{20,-34}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-30,-46},{-30,46}}, color={0,0,255}),
+          Polygon(
+            points={{-40,34},{-30,14},{-20,34},{-40,34}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-40,14},{-20,14}}, color={0,0,255}),
+          Line(points={{-30,14},{-42,2}}, color={176,0,0}),
+          Polygon(
+            points={{-40,-14},{-30,-34},{-20,-14},{-40,-14}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-40,-34},{-20,-34}}, color={0,0,255}),
+          Line(points={{-30,-34},{-42,-46}}, color={176,0,0}),
+          Line(points={{-70,10},{-60,10},{-60,46},{30,46}}, color={0,0,255}),
+          Line(points={{-70,-10},{-60,-10},{-60,-46},{30,-46}}, color={0,0,255})}),
       Documentation(info="<html>
 <p>Four quadrant time-averaged inverter. Fulfills the power balance:
 <pre>  vAC*iAC = vDC*iDC</pre></p>
@@ -393,40 +372,36 @@ The method must be improved in this case (in particular in context with inductiv
   u[1] = 1 corresponds to AC amplitude = (4/pi)*sin(width*pi/2)*v_DC
 </pre></p>
 </html>"));
-
-equation
-  Vloss = if par.Vf<1e-3 then 0 else tanh(10*iDC1/par.I_nom)*2*par.Vf;
-  cT = if size(par.cT_loss,1)>0 then loss(T[1]-par.T0_loss, par.cT_loss) else 1;
-  hsw_nom = if syn then (2*par.Hsw_nom*m_carr/(pi*par.V_nom*par.I_nom))*der(theta) else
-                 4*par.Hsw_nom*f_carr/(par.V_nom*par.I_nom);
-
-  phi = theta + uPhasor[2] + system.alpha0;
-  switch[1] = factor*uPhasor[1]*cos(phi);
-  switch[2] = -switch[1];
-  v = (vDC1 - cT*Vloss)*switch;
-// passive mode?
-
-  Q_flow = {par.eps[1]*R_nom*AC.pin.i*AC.pin.i +
-                       cT*(par.Vf + hsw_nom*abs(vDC1))*(abs(AC.pin[1].i)+abs(AC.pin[2].i))};
 end InverterAverage;
 
 model Chopper "DC-DC converter"
   extends Partials.DC_DC_base(heat(final m=2));
 
   Modelica.Blocks.Interfaces.RealInput uDC "desired uDC"
-                                                   annotation(extent=[50,90; 70,
-        110],                                                                          rotation=-90);
+                                                   annotation (Placement(
+          transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   replaceable Control.Modulation.ChopperPWM modulator
-    extends Base.Icons.BlockS "modulator type"
-    annotation (extent=[-10,40; 10,60]);
+    constrainedby Base.Icons.BlockS "modulator type"
+    annotation (Placement(transformation(extent={{-10,40},{10,60}}, rotation=0)));
   replaceable Components.ChopperModular chopper "chopper model"
-    annotation (extent=[-10,-10; 10,10]);
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
 
+
+equation
+  connect(uDC, modulator.uDC)   annotation (Line(points={{60,100},{60,70},{6,70},
+            {6,60}}, color={0,0,127}));
+  connect(DCin, chopper.DCin)
+      annotation (Line(points={{-100,0},{-10,0}}, color={0,0,255}));
+  connect(chopper.DCout, DCout)
+      annotation (Line(points={{10,0},{100,0}}, color={0,0,255}));
+  connect(modulator.gate, chopper.gate)
+      annotation (Line(points={{-6,40},{-6,10}}, color={255,0,255}));
+  connect(chopper.heat, heat)   annotation (Line(points={{0,10},{0,20},{20,20},
+            {20,80},{0,80},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="chopper",
-  Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
   Window(
         x=0.45,
         y=0.01,
@@ -442,31 +417,29 @@ annotation (defaultComponentName="chopper",
   u_DC &le  1
 </pre></p>
 </html>"),
-  Icon,
-  Diagram);
-
-equation
-  connect(uDC, modulator.uDC)   annotation (points=[60,100; 60,70; 6,70; 6,60],
-        style(color=74, rgbcolor={0,0,127}));
-  connect(DCin, chopper.DCin)
-      annotation (points=[-100,0; -10,0], style(color=3, rgbcolor={0,0,255}));
-  connect(chopper.DCout, DCout)
-      annotation (points=[10,0; 100,0], style(color=3, rgbcolor={0,0,255}));
-  connect(modulator.gate, chopper.gate)
-      annotation (points=[-6,40; -6,10], style(color=5, rgbcolor={255,0,255}));
-  connect(chopper.heat, heat)   annotation (points=[0,10; 0,20; 20,20; 20,80; 0,
-          80; 0,100], style(color=42, rgbcolor={176,0,0}));
+  Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Chopper;
 
 model ChopperAverage "DC-DC converter time-average"
   extends Partials.DC_DC_base(heat(final m=1));
 
   replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-    annotation (extent=[-80,-80;-60,-60]);
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation
+            =0)));
   parameter SI.Frequency f_carr=1e3 "carrier frequency"
     annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput uDC "desired uDC"
-   annotation(extent=[50,90; 70,110], rotation=-90);
+   annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   protected
   SI.Voltage vDCin=DCin.pin[1].v - DCin.pin[2].v;
   SI.Voltage vDCout=DCout.pin[1].v - DCout.pin[2].v;
@@ -477,149 +450,6 @@ model ChopperAverage "DC-DC converter time-average"
   SI.Temperature[heat.m] T = heat.port.T "component temperature";
   SI.HeatFlowRate[heat.m] Q_flow = -heat.port.Q_flow "component loss-heat flow";
   function lossT = Spot.Base.Math.taylor "spec loss function of temperature";
-  annotation (
-    defaultComponentName="chopper",
-Coordsys(
-  extent=
- [-100, -100; 100, 100],
-  grid=[2,2],
-  component=
-    [20, 20]),
-Window(
-  x=0.45,
-      y=0.01,
-      width=
-0.44,
-  height=
- 0.65),
-Icon(   Text(
-          extent=[-100,-70; 100,-90],
-          style(color=42, rgbcolor={176,0,0}),
-          string="average")),
-Diagram(Text(
-          extent=[-40,-60; 40,-80],
-          style(color=42, rgbcolor={176,0,0}),
-          string="time average equation"),
-  Line(points=[-20,30; -20,50],
-                        style(
-      color=3,
-      rgbcolor={0,0,255},
-      fillColor=3,
-      rgbfillColor={0,0,255})),
-  Line(points=[0,0; 0,20],    style(
-      color=3,
-      rgbcolor={0,0,255},
-      fillColor=3,
-      rgbfillColor={0,0,255})),
-  Polygon(
-  points=[-20,20; -20,0; 0,10; -20,20], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-  Polygon(
-  points=[-20,40; 0,50; 0,30; -20,40], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-        Line(points=[-70,-10; -50,-10; -50,-46; 50,-46; 50,-10; 70,-10],
-            style(color=3, rgbcolor={0,0,255})),
-        Line(points=[-70,10; -50,10; -50,27; -40,27], style(color=3, rgbcolor=
-               {0,0,255})),
-        Line(points=[20,27; 50,27; 50,10; 70,10], style(color=3, rgbcolor={0,
-                0,255})),
-        Line(points=[30,27; 30,-46], style(color=3, rgbcolor={0,0,255})),
-  Polygon(
-  points=[20,-30; 30,-10; 40,-30; 20,-30], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-  Line(points=[20,-10; 40,-10],
-                      style(
-      color=3,
-      rgbcolor={0,0,255},
-      fillColor=3,
-      rgbfillColor={0,0,255})),
-        Line(points=[-20,40; -40,40; -40,10; -20,10], style(color=3, rgbcolor=
-               {0,0,255})),
-        Line(points=[0,40; 20,40; 20,10; 0,10], style(color=3, rgbcolor={0,0,
-                255})),
-  Line(points=[0,10; 12,-4], style(color=42, rgbcolor={176,0,0})),
-      Ellipse(extent=[-72,8; -68,12],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[-72,-12; -68,-8],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[68,12; 72,8], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[68,-8; 72,-12], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-        Text(
-          extent=[74,16; 86,4],
-          style(color=3, rgbcolor={0,0,255}),
-          string="+"),
-        Text(
-          extent=[74,-4; 86,-16],
-          style(color=3, rgbcolor={0,0,255}),
-          string="-"),
-      Ellipse(extent=[-72,8; -68,12],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[-72,-12; -68,-8],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[68,12; 72,8], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[68,-8; 72,-12], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-        Text(
-          extent=[74,16; 86,4],
-          style(color=3, rgbcolor={0,0,255}),
-          string="+"),
-        Text(
-          extent=[74,-4; 86,-16],
-          style(color=3, rgbcolor={0,0,255}),
-          string="-"),
-        Text(
-          extent=[-86,16; -74,4],
-          style(color=3, rgbcolor={0,0,255}),
-          string="+"),
-        Text(
-          extent=[-86,-4; -74,-16],
-          style(color=3, rgbcolor={0,0,255}),
-          string="-")),
-      Documentation(info="<html>
-<p>One quadrant time averaged converter. Fulfills the power balance:
-<pre>  vDCin*iDCin = vDCout*iDCout</pre></p>
-<p><tt>u_DC</tt> determines the desired DC-out voltage <tt>v_DCout</tt> in terms of the DC-in voltage <tt>v_DCin</tt> according to the following relation:
-<pre>
-  v_DCout = u_DC*v_DCin
-  u_DC &le  1
-</pre></p>
-</html>"));
 
 equation
   DCin.pin[2].v = DCout.pin[2].v;
@@ -630,103 +460,154 @@ equation
   cT = if size(par.cT_loss,1)==0 then 1 else lossT(T[1]-par.T0_loss, par.cT_loss);
   Q_flow = {par.eps[1]*R_nom*DCin.pin[1].i*DCin.pin[1].i +
                      cT*(par.Vf + hsw_nom*abs(vDCin))*abs(DCin.pin[1].i)};
+  annotation (
+    defaultComponentName="chopper",
+Window(
+  x=0.45,
+      y=0.01,
+      width=
+0.44,
+  height=
+ 0.65),
+Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-100,-70},{100,-90}},
+            lineColor={176,0,0},
+            textString=
+                 "average")}),
+Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{-40,-60},{40,-80}},
+            lineColor={176,0,0},
+            textString=
+                 "time average equation"),
+          Line(points={{-20,30},{-20,50}}, color={0,0,255}),
+          Line(points={{0,0},{0,20}}, color={0,0,255}),
+          Polygon(
+            points={{-20,20},{-20,0},{0,10},{-20,20}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-20,40},{0,50},{0,30},{-20,40}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-70,-10},{-50,-10},{-50,-46},{50,-46},{50,-10},{70,-10}},
+              color={0,0,255}),
+          Line(points={{-70,10},{-50,10},{-50,27},{-40,27}}, color={0,0,255}),
+          Line(points={{20,27},{50,27},{50,10},{70,10}}, color={0,0,255}),
+          Line(points={{30,27},{30,-46}}, color={0,0,255}),
+          Polygon(
+            points={{20,-30},{30,-10},{40,-30},{20,-30}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{20,-10},{40,-10}}, color={0,0,255}),
+          Line(points={{-20,40},{-40,40},{-40,10},{-20,10}}, color={0,0,255}),
+          Line(points={{0,40},{20,40},{20,10},{0,10}}, color={0,0,255}),
+          Line(points={{0,10},{12,-4}}, color={176,0,0}),
+          Ellipse(
+            extent={{-72,8},{-68,12}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-72,-12},{-68,-8}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{68,12},{72,8}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{68,-8},{72,-12}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{74,16},{86,4}},
+            lineColor={0,0,255},
+            textString=
+                 "+"),
+          Text(
+            extent={{74,-4},{86,-16}},
+            lineColor={0,0,255},
+            textString=
+                 "-"),
+          Ellipse(
+            extent={{-72,8},{-68,12}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-72,-12},{-68,-8}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{68,12},{72,8}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{68,-8},{72,-12}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{74,16},{86,4}},
+            lineColor={0,0,255},
+            textString=
+                 "+"),
+          Text(
+            extent={{74,-4},{86,-16}},
+            lineColor={0,0,255},
+            textString=
+                 "-"),
+          Text(
+            extent={{-86,16},{-74,4}},
+            lineColor={0,0,255},
+            textString=
+                 "+"),
+          Text(
+            extent={{-86,-4},{-74,-16}},
+            lineColor={0,0,255},
+            textString=
+                 "-")}),
+      Documentation(info="<html>
+<p>One quadrant time averaged converter. Fulfills the power balance:
+<pre>  vDCin*iDCin = vDCout*iDCout</pre></p>
+<p><tt>u_DC</tt> determines the desired DC-out voltage <tt>v_DCout</tt> in terms of the DC-in voltage <tt>v_DCin</tt> according to the following relation:
+<pre>
+  v_DCout = u_DC*v_DCin
+  u_DC &le  1
+</pre></p>
+</html>"));
 end ChopperAverage;
 
 package Components "Equation-based and modular components"
   extends Base.Icons.Library;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Contains alternative components:
-<ul>
-<li>Equation-based: faster code, restricted to ideal V-I characteristic, but including forward threshold voltage, needed for calculation of thermal losses.</li>
-<li>Modular: composed from semiconductor-switches and diodes. These components with ideal V-I characteristic can be replaced by custom-specified semiconductor models.</li>
-</ul>
-</html>"),
-    Icon);
 
 model RectifierEquation "Rectifier equation, 1-phase"
   extends Partials.SwitchEquation(heat(final m=2));
 
   parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
         "SC parameters"
-    annotation (extent=[-80,-80;-60,-60]);
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation
+              =0)));
     protected
   SI.Voltage[2] V;
   SI.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
   Real[2] s "arc-length on characteristic";
 
-  annotation (defaultComponentName="rectifier",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon(
-        Text(
-          extent=[-60,-70; 60,-90],
-          style(color=42, rgbcolor={176,0,0}),
-        string="eq")),
-    Diagram(
-        Text(
-          extent=[-40,-60; 40,-80],
-          style(color=42, rgbcolor={176,0,0}),
-          string="time resolved equation"),
-      Polygon(
-      points=[-10,-38; 0,-18; 10,-38; -10,-38], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Polygon(
-      points=[-10,18; 0,38; 10,18; -10,18], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[0,-18; 0,18],   style(color=3, rgbcolor={0,0,255})),
-      Line(
-   points=[-10,-18; 10,-18],   style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[-10,38; 10,38],   style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[0,0; 60,0],    style(color=3, rgbcolor={0,0,255})),
-          Line(points=[-70,10; -60,10; -60,52; 0,52; 0,40], style(color=3,
-                rgbcolor={0,0,255})),
-          Line(points=[-70,-10; -60,-10; -60,-50; 0,-50; 0,-38], style(color=3,
-                rgbcolor={0,0,255}))),
-      Documentation(info="<html>
-<p>Passive rectifier, based on switch-equation.<br>
-Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</tt>.</p>
-</html>"));
 
 equation
   i_sc = AC.pin.i*par.V_nom/par.I_nom;
@@ -744,6 +625,53 @@ equation
   end for;
 
   Q_flow = (v - switch*vDC1).*i_sc*par.I_nom/par.V_nom;
+  annotation (defaultComponentName="rectifier",
+    Window(
+      x=
+0.45, y=
+0.01, width=
+    0.44,
+      height=
+     0.65),
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-60,-70},{60,-90}},
+              lineColor={176,0,0},
+              textString=
+               "eq")}),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Text(
+              extent={{-40,-60},{40,-80}},
+              lineColor={176,0,0},
+              textString=
+                 "time resolved equation"),
+            Polygon(
+              points={{-10,-38},{0,-18},{10,-38},{-10,-38}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Polygon(
+              points={{-10,18},{0,38},{10,18},{-10,18}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{0,-18},{0,18}}, color={0,0,255}),
+            Line(points={{-10,-18},{10,-18}}, color={0,0,255}),
+            Line(points={{-10,38},{10,38}}, color={0,0,255}),
+            Line(points={{0,0},{60,0}}, color={0,0,255}),
+            Line(points={{-70,10},{-60,10},{-60,52},{0,52},{0,40}}, color={0,0,
+                  255}),
+            Line(points={{-70,-10},{-60,-10},{-60,-50},{0,-50},{0,-38}}, color=
+                  {0,0,255})}),
+      Documentation(info="<html>
+<p>Passive rectifier, based on switch-equation.<br>
+Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</tt>.</p>
+</html>"));
 end RectifierEquation;
 
 model RectifierModular "Rectifier modular, 1-phase"
@@ -752,21 +680,39 @@ model RectifierModular "Rectifier modular, 1-phase"
   package SCpackage=Semiconductors.Ideal "SC package";
   replaceable parameter SCpackage.SCparameter par(final Hsw_nom=0)
         "SC parameters"
-  annotation (extent=[-80,-80;-60,-60]);
-  Nodes.Electric_pn_p_n pn_p_n annotation (extent=[80,-10; 60,10]);
-  Common.Thermal.Heat_a_b_ab heat_adapt annotation (extent=[-10,60; 10,80]);
+  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
+  Nodes.Electric_pn_p_n pn_p_n annotation (Placement(transformation(extent={{80,
+                -10},{60,10}}, rotation=0)));
+  Common.Thermal.Heat_a_b_ab heat_adapt annotation (Placement(transformation(
+              extent={{-10,60},{10,80}}, rotation=0)));
   Semiconductors.PhaseModules.DiodeModule diodeMod_a1(par=par)
         "diode module AC_a1"
-      annotation (extent=[-10,20; 10,40]);
+      annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=
+                0)));
   Semiconductors.PhaseModules.DiodeModule diodeMod_a2(par=par)
         "diode module AC_a2"
-      annotation (extent=[-10,-40; 10,-20]);
+      annotation (Placement(transformation(extent={{-10,-40},{10,-20}},
+              rotation=0)));
 
+
+equation
+  connect(AC, pn_p_n.term_pn)
+      annotation (Line(points={{100,0},{76,0}}, color={0,0,255}));
+  connect(pn_p_n.term_p, diodeMod_a1.AC)   annotation (Line(points={{64,4},{40,
+              4},{40,30},{10,30}}, color={0,0,255}));
+  connect(diodeMod_a1.DC, DC)   annotation (Line(points={{-10,30},{-40,30},{-40,
+              0},{-100,0}}, color={0,0,255}));
+  connect(pn_p_n.term_n, diodeMod_a2.AC)   annotation (Line(points={{64,-4},{40,
+              -4},{40,-30},{10,-30}}, color={0,0,255}));
+  connect(diodeMod_a2.DC, DC)   annotation (Line(points={{-10,-30},{-40,-30},{
+              -40,0},{-100,0}}, color={0,0,255}));
+  connect(diodeMod_a1.heat, heat_adapt.port_a) annotation (Line(points={{0,40},
+              {0,54},{-4,54},{-4,64}}, color={176,0,0}));
+  connect(diodeMod_a2.heat, heat_adapt.port_b) annotation (Line(points={{0,-20},
+              {0,0},{20,0},{20,54},{4,54},{4,64}}, color={176,0,0}));
+  connect(heat_adapt.port_ab, heat)
+        annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="rectifier",
-  Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
   Window(
         x=0.45,
         y=0.01,
@@ -776,31 +722,18 @@ annotation (defaultComponentName="rectifier",
           info="<html>
 <p>Passive rectifier, using diode-modules.</p>
 </html>"),
-  Icon( Text(
-          extent=[-100,-70; 100,-90],
-          style(color=42, rgbcolor={176,0,0}),
-        string="modular")),
-  Diagram);
-
-equation
-  connect(AC, pn_p_n.term_pn)
-      annotation (points=[100,0; 76,0],   style(color=3, rgbcolor={0,0,255}));
-  connect(pn_p_n.term_p, diodeMod_a1.AC)   annotation (points=[64,4; 40,4; 40,
-            30; 10,30],    style(color=3, rgbcolor={0,0,255}));
-  connect(diodeMod_a1.DC, DC)   annotation (points=[-10,30; -40,30; -40,0; -100,
-            0],
-        style(color=3, rgbcolor={0,0,255}));
-  connect(pn_p_n.term_n, diodeMod_a2.AC)   annotation (points=[64,-4; 40,-4; 40,
-            -30; 10,-30],    style(color=3, rgbcolor={0,0,255}));
-  connect(diodeMod_a2.DC, DC)   annotation (points=[-10,-30; -40,-30; -40,0;
-            -100,0],
-        style(color=3, rgbcolor={0,0,255}));
-  connect(diodeMod_a1.heat, heat_adapt.port_a) annotation (points=[0,40; 0,54;
-            -4,54; -4,64], style(color=42, rgbcolor={176,0,0}));
-  connect(diodeMod_a2.heat, heat_adapt.port_b) annotation (points=[0,-20; 0,0;
-            20,0; 20,54; 4,54; 4,64], style(color=42, rgbcolor={176,0,0}));
-  connect(heat_adapt.port_ab, heat)
-        annotation (points=[0,76; 0,100], style(color=42, rgbcolor={176,0,0}));
+  Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-100,-70},{100,-90}},
+              lineColor={176,0,0},
+              textString=
+               "modular")}),
+  Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end RectifierModular;
 
 model InverterSwitch "Inverter equation, 1-phase"
@@ -808,79 +741,14 @@ model InverterSwitch "Inverter equation, 1-phase"
 
   Modelica.Blocks.Interfaces.BooleanInput[4] gates
         "gates pairs {a1_p, a1_n, a2_p, a2_n}"
-  annotation (
-        extent=[-70,90; -50,110],  rotation=-90);
+  annotation (Placement(transformation(
+            origin={-60,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
     protected
   constant Integer[2] pgt={1,3} "positive gates";
   constant Integer[2] ngt={2,4} "negative gates";
 
-  annotation (defaultComponentName="inverter",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon(
-        Text(
-          extent=[-60,-70; 60,-90],
-          style(color=42, rgbcolor={176,0,0}),
-            string="switch")),
-    Diagram(
-Line(points=[0,0; 60,0],   style(color=3, rgbcolor={0,0,255})),
-      Line(
-   points=[0,-46; 0,46],   style(color=3, rgbcolor={0,0,255})),
-      Polygon(
-      points=[-10,34; 0,14; 10,34; -10,34],    style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-10,14; 10,14],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[0,14; -12,2],   style(color=42, rgbcolor={176,0,0})),
-      Polygon(
-      points=[-10,-14; 0,-34; 10,-14; -10,-14],    style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-10,-34; 10,-34],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[0,-34; -12,-46],   style(color=42, rgbcolor={176,0,0})),
-        Line(points=[-70,10; -60,10; -60,46; 0,46], style(color=3, rgbcolor={
-                0,0,255})),
-        Line(points=[-70,-10; -60,-10; -60,-46; 0,-46], style(color=3,
-              rgbcolor={0,0,255})),
-        Text(
-          extent=[-40,-60; 40,-80],
-          style(color=42, rgbcolor={176,0,0}),
-            string="switch, no diode")),
-      Documentation(info="<html>
-<p>Four quadrant switched inverter, based on switch without antiparallel diode (no passive mode). Fulfills the power balance:
-<pre>  vAC*iAC = vDC*iDC</pre></p>
-<p>Gates:
-<pre>  true=on, false=off.</pre></p>
-<p>Contains no forward drop voltage Vf. Heat losses are set to zero.</p>
-</html>"), DymolaStoredErrors);
 
 equation
   for k in 1:2 loop
@@ -897,17 +765,71 @@ equation
   end for;
 
   Q_flow = zeros(heat.m);
+  annotation (defaultComponentName="inverter",
+    Window(
+      x=
+0.45, y=
+0.01, width=
+    0.44,
+      height=
+     0.65),
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-60,-70},{60,-90}},
+              lineColor={176,0,0},
+              textString=
+                   "switch")}),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Line(points={{0,0},{60,0}}, color={0,0,255}),
+            Line(points={{0,-46},{0,46}}, color={0,0,255}),
+            Polygon(
+              points={{-10,34},{0,14},{10,34},{-10,34}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{-10,14},{10,14}}, color={0,0,255}),
+            Line(points={{0,14},{-12,2}}, color={176,0,0}),
+            Polygon(
+              points={{-10,-14},{0,-34},{10,-14},{-10,-14}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{-10,-34},{10,-34}}, color={0,0,255}),
+            Line(points={{0,-34},{-12,-46}}, color={176,0,0}),
+            Line(points={{-70,10},{-60,10},{-60,46},{0,46}}, color={0,0,255}),
+            Line(points={{-70,-10},{-60,-10},{-60,-46},{0,-46}}, color={0,0,255}),
+
+            Text(
+              extent={{-40,-60},{40,-80}},
+              lineColor={176,0,0},
+              textString=
+                   "switch, no diode")}),
+      Documentation(info="<html>
+<p>Four quadrant switched inverter, based on switch without antiparallel diode (no passive mode). Fulfills the power balance:
+<pre>  vAC*iAC = vDC*iDC</pre></p>
+<p>Gates:
+<pre>  true=on, false=off.</pre></p>
+<p>Contains no forward drop voltage Vf. Heat losses are set to zero.</p>
+</html>"), DymolaStoredErrors);
 end InverterSwitch;
 
 model InverterEquation "Inverter equation, 1-phase"
   extends Partials.SwitchEquation(heat(final m=2));
 
   parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-    annotation (extent=[-80,-80;-60,-60]);
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation
+              =0)));
   Modelica.Blocks.Interfaces.BooleanInput[4] gates
         "gates pairs {a1_p, a1_n, a2_p, a2_n}"
-  annotation (
-        extent=[-70,90; -50,110],  rotation=-90);
+  annotation (Placement(transformation(
+            origin={-60,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
     protected
   constant Integer[2] pgt={1,3} "positive gates";
   constant Integer[2] ngt={2,4} "negative gates";
@@ -916,102 +838,6 @@ model InverterEquation "Inverter equation, 1-phase"
   SI.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
   Real[2] s "arc-length on characteristic";
 
-  annotation (defaultComponentName="inverter",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon(
-        Text(
-          extent=[-60,-70; 60,-90],
-          style(color=42, rgbcolor={176,0,0}),
-        string="eq")),
-    Diagram(
-        Text(
-          extent=[-40,-60; 40,-80],
-          style(color=42, rgbcolor={176,0,0}),
-          string="time resolved equation"),
-      Line(
-   points=[30,-46; 30,46], style(color=3, rgbcolor={0,0,255})),
-      Line(
-   points=[20,-14; 40,-14], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[20,34; 40,34], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-Line(points=[-30,0; 60,0], style(color=3, rgbcolor={0,0,255})),
-      Polygon(
-      points=[20,14; 30,34; 40,14; 20,14], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Polygon(
-      points=[20,-34; 30,-14; 40,-34; 20,-34], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-30,-46; -30,46],
-                           style(color=3, rgbcolor={0,0,255})),
-      Polygon(
-      points=[-40,34; -30,14; -20,34; -40,34], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-40,14; -20,14], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[-30,14; -42,2], style(color=42, rgbcolor={176,0,0})),
-      Polygon(
-      points=[-40,-14; -30,-34; -20,-14; -40,-14], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255})),
-      Line(
-   points=[-40,-34; -20,-34], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Line(
-   points=[-30,-34; -42,-46], style(color=42, rgbcolor={176,0,0})),
-          Line(points=[-70,10; -60,10; -60,46; 30,46], style(color=3, rgbcolor=
-                  {0,0,255})),
-          Line(points=[-70,-10; -60,-10; -60,-46; 30,-46], style(color=3,
-                rgbcolor={0,0,255}))),
-      Documentation(info="<html>
-<p>Four quadrant switched inverter, based on switch equation. Fulfills the power balance:
-<pre>  vAC*iAC = vDC*iDC</pre></p>
-<p>Gates:
-<pre>  true=on, false=off.</pre></p>
-<p>The Boolean parameter Vf_zero chooses faster code if both Vf_s and Vf_d are zero.<br>
-Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</tt>.</p>
-</html>"),
-    DymolaStoredErrors);
 
 equation
   i_sc = AC.pin.i*par.V_nom/par.I_nom;
@@ -1072,6 +898,73 @@ equation
     end for;
     Q_flow = (v - switch*vDC1).*i_sc*par.I_nom/par.V_nom;
   end if;
+  annotation (defaultComponentName="inverter",
+    Window(
+      x=
+0.45, y=
+0.01, width=
+    0.44,
+      height=
+     0.65),
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-60,-70},{60,-90}},
+              lineColor={176,0,0},
+              textString=
+               "eq")}),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Text(
+              extent={{-40,-60},{40,-80}},
+              lineColor={176,0,0},
+              textString=
+                 "time resolved equation"),
+            Line(points={{30,-46},{30,46}}, color={0,0,255}),
+            Line(points={{20,-14},{40,-14}}, color={0,0,255}),
+            Line(points={{20,34},{40,34}}, color={0,0,255}),
+            Line(points={{-30,0},{60,0}}, color={0,0,255}),
+            Polygon(
+              points={{20,14},{30,34},{40,14},{20,14}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Polygon(
+              points={{20,-34},{30,-14},{40,-34},{20,-34}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{-30,-46},{-30,46}}, color={0,0,255}),
+            Polygon(
+              points={{-40,34},{-30,14},{-20,34},{-40,34}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{-40,14},{-20,14}}, color={0,0,255}),
+            Line(points={{-30,14},{-42,2}}, color={176,0,0}),
+            Polygon(
+              points={{-40,-14},{-30,-34},{-20,-14},{-40,-14}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{-40,-34},{-20,-34}}, color={0,0,255}),
+            Line(points={{-30,-34},{-42,-46}}, color={176,0,0}),
+            Line(points={{-70,10},{-60,10},{-60,46},{30,46}}, color={0,0,255}),
+
+            Line(points={{-70,-10},{-60,-10},{-60,-46},{30,-46}}, color={0,0,
+                  255})}),
+      Documentation(info="<html>
+<p>Four quadrant switched inverter, based on switch equation. Fulfills the power balance:
+<pre>  vAC*iAC = vDC*iDC</pre></p>
+<p>Gates:
+<pre>  true=on, false=off.</pre></p>
+<p>The Boolean parameter Vf_zero chooses faster code if both Vf_s and Vf_d are zero.<br>
+Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</tt>.</p>
+</html>"),
+    DymolaStoredErrors);
 end InverterEquation;
 
 model InverterModular "Inverter modular, 1-phase"
@@ -1079,27 +972,53 @@ model InverterModular "Inverter modular, 1-phase"
 
   package SCpackage=Semiconductors.Ideal "SC package";
   replaceable parameter SCpackage.SCparameter par "SC parameters"
-  annotation (extent=[-80,-80;-60,-60]);
+  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
   Modelica.Blocks.Interfaces.BooleanInput[4] gates
         "gates pairs {a1_p, a1_n, a2_p, a2_n}"
-  annotation (
-        extent=[-70,90; -50,110],  rotation=-90);
-  Nodes.Electric_pn_p_n pn_p_n annotation (extent=[80,-10; 60,10]);
-  Common.Thermal.Heat_a_b_ab heat_adapt annotation (extent=[-10,60; 10,80]);
+  annotation (Placement(transformation(
+            origin={-60,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
+  Nodes.Electric_pn_p_n pn_p_n annotation (Placement(transformation(extent={{80,
+                -10},{60,10}}, rotation=0)));
+  Common.Thermal.Heat_a_b_ab heat_adapt annotation (Placement(transformation(
+              extent={{-10,60},{10,80}}, rotation=0)));
   Blocks.Multiplex.Gate2demux gate2demux1(final n=2)
-    annotation (extent=[-50,60; -30,80]);
+    annotation (Placement(transformation(extent={{-50,60},{-30,80}}, rotation=0)));
   Semiconductors.PhaseModules.SwitchModule switchMod_a1(par=par)
         "switch + reverse diode module AC_a1"
-      annotation (extent=[-10,20; 10,40]);
+      annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=
+                0)));
   Semiconductors.PhaseModules.SwitchModule switchMod_a2(par=par)
         "switch + reverse diode module AC_a2"
-      annotation (extent=[-10,-40; 10,-20]);
+      annotation (Placement(transformation(extent={{-10,-40},{10,-20}},
+              rotation=0)));
 
+
+equation
+  connect(gate2demux1.gates_1, switchMod_a1.gates) annotation (Line(points={{
+              -44,60},{-44,50},{-6,50},{-6,40}}, color={255,0,255}));
+  connect(gate2demux1.gates_2, switchMod_a2.gates) annotation (Line(points={{
+              -36,60},{-36,-10},{-6,-10},{-6,-20}}, color={255,0,255}));
+  connect(gates, gate2demux1.gates) annotation (Line(points={{-60,100},{-60,80},
+              {-40,80}}, color={255,0,255}));
+  connect(AC, pn_p_n.term_pn)
+      annotation (Line(points={{100,0},{76,0}}, color={0,0,255}));
+  connect(pn_p_n.term_p, switchMod_a1.AC)   annotation (Line(points={{64,4},{40,
+              4},{40,30},{10,30}}, color={0,0,255}));
+  connect(switchMod_a1.DC, DC)   annotation (Line(points={{-10,30},{-60,30},{
+              -60,0},{-100,0}}, color={0,0,255}));
+  connect(pn_p_n.term_n, switchMod_a2.AC)   annotation (Line(points={{64,-4},{
+              40,-4},{40,-30},{10,-30}}, color={0,0,255}));
+  connect(switchMod_a2.DC, DC)   annotation (Line(points={{-10,-30},{-60,-30},{
+              -60,0},{-100,0}}, color={0,0,255}));
+  connect(switchMod_a1.heat, heat_adapt.port_a) annotation (Line(points={{0,40},
+              {0,54},{-4,54},{-4,64}}, color={176,0,0}));
+  connect(switchMod_a2.heat, heat_adapt.port_b) annotation (Line(points={{0,-20},
+              {0,-10},{20,-10},{20,54},{4,54},{4,64}}, color={176,0,0}));
+  connect(heat_adapt.port_ab, heat)
+        annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="inverter",
-  Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
   Window(
         x=0.45,
         y=0.01,
@@ -1107,40 +1026,18 @@ annotation (defaultComponentName="inverter",
         height=0.65),
   Documentation(
           info=""),
-  Icon( Text(
-          extent=[-100,-70; 100,-90],
-          style(color=42, rgbcolor={176,0,0}),
-        string="modular")),
-  Diagram);
-
-equation
-  connect(gate2demux1.gates_1, switchMod_a1.gates) annotation (points=[-44,60;
-            -44,50; -6,50; -6,40],
-                               style(color=5, rgbcolor={255,0,255}));
-  connect(gate2demux1.gates_2, switchMod_a2.gates) annotation (points=[-36,60;
-            -36,-10; -6,-10; -6,-20],
-                                  style(color=5, rgbcolor={255,0,255}));
-  connect(gates, gate2demux1.gates) annotation (points=[-60,100; -60,80; -40,80],
-                                                                          style(
-        color=5, rgbcolor={255,0,255}));
-  connect(AC, pn_p_n.term_pn)
-      annotation (points=[100,0; 76,0],   style(color=3, rgbcolor={0,0,255}));
-  connect(pn_p_n.term_p, switchMod_a1.AC)   annotation (points=[64,4; 40,4; 40,
-            30; 10,30],    style(color=3, rgbcolor={0,0,255}));
-  connect(switchMod_a1.DC, DC)   annotation (points=[-10,30; -60,30; -60,0;
-            -100,0],
-        style(color=3, rgbcolor={0,0,255}));
-  connect(pn_p_n.term_n, switchMod_a2.AC)   annotation (points=[64,-4; 40,-4;
-            40,-30; 10,-30], style(color=3, rgbcolor={0,0,255}));
-  connect(switchMod_a2.DC, DC)   annotation (points=[-10,-30; -60,-30; -60,0;
-            -100,0],
-              style(color=3, rgbcolor={0,0,255}));
-  connect(switchMod_a1.heat, heat_adapt.port_a) annotation (points=[0,40; 0,54;
-            -4,54; -4,64], style(color=42, rgbcolor={176,0,0}));
-  connect(switchMod_a2.heat, heat_adapt.port_b) annotation (points=[0,-20; 0,
-            -10; 20,-10; 20,54; 4,54; 4,64], style(color=42, rgbcolor={176,0,0}));
-  connect(heat_adapt.port_ab, heat)
-        annotation (points=[0,76; 0,100], style(color=42, rgbcolor={176,0,0}));
+  Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-100,-70},{100,-90}},
+              lineColor={176,0,0},
+              textString=
+               "modular")}),
+  Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end InverterModular;
 
 model ChopperModular "DC_DC converter modular"
@@ -1148,25 +1045,54 @@ model ChopperModular "DC_DC converter modular"
 
   package SCpackage=Semiconductors.Ideal "SC package";
   replaceable parameter SCpackage.SCparameter par "SC parameters"
-  annotation (extent=[-80,-80;-60,-60]);
+  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
   Modelica.Blocks.Interfaces.BooleanInput gate "gate"
-    annotation (
-        extent=[-70,90; -50,110],  rotation=-90);
-  AC1_DC.Nodes.Electric_pn_p_n pn_p_n      annotation (extent=[-80,-10; -60,10]);
-  AC1_DC.Nodes.Electric_pn_p_n p_n_pn      annotation (extent=[80,-10; 60,10]);
+    annotation (Placement(transformation(
+            origin={-60,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
+  AC1_DC.Nodes.Electric_pn_p_n pn_p_n      annotation (Placement(transformation(
+              extent={{-80,-10},{-60,10}}, rotation=0)));
+  AC1_DC.Nodes.Electric_pn_p_n p_n_pn      annotation (Placement(transformation(
+              extent={{80,-10},{60,10}}, rotation=0)));
   SCpackage.SCswitch_Diode switch_D(par=par) "switch + reverse diode"
-                                          annotation (extent=[-10,20; 10,40]);
+                                          annotation (Placement(transformation(
+              extent={{-10,20},{10,40}}, rotation=0)));
   SCpackage.Diode diode(par=par) "diode"
-    annotation (extent=[20,-20; 40,0], rotation=90);
+    annotation (Placement(transformation(
+            origin={30,-10},
+            extent={{-10,-10},{10,10}},
+            rotation=90)));
 
+
+      Common.Thermal.Heat_a_b_ab heat_adapt
+        annotation (Placement(transformation(extent={{-10,60},{10,80}},
+              rotation=0)));
+equation
+  connect(gate, switch_D.gate)
+                              annotation (Line(points={{-60,100},{-60,50},{6,50},
+              {6,40}}, color={255,0,255}));
+  connect(DCin, pn_p_n.term_pn) annotation (Line(points={{-100,0},{-76,0}},
+            color={0,0,255}));
+  connect(pn_p_n.term_p, switch_D.term_p) annotation (Line(points={{-64,4},{-40,
+              4},{-40,30},{-10,30}}, color={0,0,255}));
+  connect(switch_D.term_n, p_n_pn.term_p) annotation (Line(points={{10,30},{64,
+              30},{64,4}}, color={0,0,255}));
+  connect(pn_p_n.term_n, p_n_pn.term_n) annotation (Line(points={{-64,-4},{-40,
+              -4},{-40,-32},{64,-32},{64,-4}}, color={0,0,255}));
+  connect(p_n_pn.term_n, diode.term_p) annotation (Line(points={{64,-4},{64,-32},
+              {30,-32},{30,-20}}, color={0,0,255}));
+  connect(diode.term_n, p_n_pn.term_p) annotation (Line(points={{30,0},{30,30},
+              {64,30},{64,4}}, color={0,0,255}));
+  connect(p_n_pn.term_pn, DCout) annotation (Line(points={{76,0},{100,0}},
+            color={0,0,255}));
+  connect(switch_D.heat, heat_adapt.port_a)     annotation (Line(points={{0,40},
+              {0,54},{-4,54},{-4,64}}, color={176,0,0}));
+  connect(diode.heat, heat_adapt.port_b)     annotation (Line(points={{20,-10},
+              {20,64},{4,64}}, color={176,0,0}));
+  connect(heat_adapt.port_ab, heat)
+        annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "chopper",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
     Window(
       x=
 0.45, y=
@@ -1179,87 +1105,72 @@ model ChopperModular "DC_DC converter modular"
 <p>One-quadrant chopper.</p>
 <p>Gates:
 <pre>  true=on, false=off.</pre></p>
-</html>"), Icon(
-        Text(
-          extent=[-100,-70; 100,-90],
-          style(color=42, rgbcolor={176,0,0}),
-        string="modular")),
-    Diagram);
-
-      Common.Thermal.Heat_a_b_ab heat_adapt
-        annotation (extent=[-10,60; 10,80]);
-equation
-  connect(gate, switch_D.gate)
-                              annotation (points=[-60,100; -60,50; 6,50; 6,40],
-      style(color=5, rgbcolor={255,0,255}));
-  connect(DCin, pn_p_n.term_pn) annotation (points=[-100,0; -76,0], style(color=3, rgbcolor={0,0,255}));
-  connect(pn_p_n.term_p, switch_D.term_p) annotation (points=[-64,4; -40,4; -40,
-        30; -10,30], style(color=3, rgbcolor={0,0,255}));
-  connect(switch_D.term_n, p_n_pn.term_p) annotation (points=[10,30; 64,30; 64,
-        4], style(color=3, rgbcolor={0,0,255}));
-  connect(pn_p_n.term_n, p_n_pn.term_n) annotation (points=[-64,-4; -40,-4; -40,
-        -32; 64,-32; 64,-4], style(color=3, rgbcolor={0,0,255}));
-  connect(p_n_pn.term_n, diode.term_p) annotation (points=[64,-4; 64,-32; 30,
-        -32; 30,-20], style(color=3, rgbcolor={0,0,255}));
-  connect(diode.term_n, p_n_pn.term_p) annotation (points=[30,0; 30,30; 64,30;
-        64,4], style(color=3, rgbcolor={0,0,255}));
-  connect(p_n_pn.term_pn, DCout) annotation (points=[76,0; 100,0], style(color=3, rgbcolor={0,0,255}));
-  connect(switch_D.heat, heat_adapt.port_a)     annotation (points=[0,40; 0,54; -4,54; -4,64], style(color=42,
-            rgbcolor={176,0,0}));
-  connect(diode.heat, heat_adapt.port_b)     annotation (points=[20,-10; 20,64;
-            4,64], style(color=42, rgbcolor={176,0,0}));
-  connect(heat_adapt.port_ab, heat)
-        annotation (points=[0,76; 0,100], style(color=42, rgbcolor={176,0,0}));
+</html>"), Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={Text(
+              extent={{-100,-70},{100,-90}},
+              lineColor={176,0,0},
+              textString=
+               "modular")}),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics));
 end ChopperModular;
 
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Contains alternative components:
+<ul>
+<li>Equation-based: faster code, restricted to ideal V-I characteristic, but including forward threshold voltage, needed for calculation of thermal losses.</li>
+<li>Modular: composed from semiconductor-switches and diodes. These components with ideal V-I characteristic can be replaced by custom-specified semiconductor models.</li>
+</ul>
+</html>"),
+    Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
 end Components;
 
 package Partials "Partial models"
   extends Base.Icons.Partials;
 
-  annotation (
-        Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]), Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1));
 
 partial model AC_DC_base "AC-DC base, 1-phase"
   extends Base.Icons.Inverter;
 
   Base.Interfaces.ElectricV_n AC(final m=2) "AC connection"
-      annotation (
-          extent=[90,-10; 110,10]);
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+              =0)));
   Base.Interfaces.ElectricV_p DC(final m=2) "DC connection"
-      annotation (
-          extent=[-110,-10; -90,10]);
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
+              rotation=0)));
   Base.Interfaces.ThermalV_n heat(m=2) "vector heat port"
-    annotation (extent=[-10,90; 10,110], rotation=90);
+    annotation (Placement(transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=90)));
   annotation (
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Icon(
-  Text(extent=[-70,34; -10,4],
-            style(color=3, rgbcolor={0,0,255}),
-            string="="),
-       Line(points=[-80,-60; 80,60], style(
-            color=3,
-            rgbcolor={0,0,255},
-            fillColor=7,
-            rgbfillColor={255,255,255},
-            fillPattern=1)),
-        Text(
-     extent=[0,-6; 80,-36], string="~")),
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Text(
+              extent={{-70,34},{-10,4}},
+              lineColor={0,0,255},
+              textString=
+                   "="),
+            Line(points={{-80,-60},{80,60}}, color={0,0,255}),
+            Text(extent={{0,-6},{80,-36}}, textString=
+                                   "~")}),
     Window(
       x=0.45,
           y=0.01,
@@ -1267,7 +1178,10 @@ partial model AC_DC_base "AC-DC base, 1-phase"
     0.44,
       height=
      0.65),
-        Diagram,
+        Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
       Documentation(info="<html>
 </html>"));
 
@@ -1277,21 +1191,16 @@ partial model DC_DC_base "DC-DC base"
   extends Base.Icons.Inverter;
 
   Base.Interfaces.ElectricV_p DCin(final m=2) "DC in connection"
-    annotation (
-          extent=[-110,-10; -90,10]);
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation
+              =0)));
   Base.Interfaces.ElectricV_n DCout(final m=2) "DC out connection"
-    annotation (
-          extent=[90,-10; 110,10]);
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
   Base.Interfaces.ThermalV_n heat(m=2) "vector heat port"
-    annotation (extent=[-10,90; 10,110], rotation=90);
+    annotation (Placement(transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=90)));
   annotation (
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
     Window(
       x=
 0.45, y=
@@ -1301,26 +1210,32 @@ partial model DC_DC_base "DC-DC base"
      0.65),
     Documentation(
           info="<html>
-</html>"), Diagram,
-    Icon(
-     Line(points=[-80,-60; 80,60], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=7,
-          rgbfillColor={255,255,255},
-          fillPattern=1)),
-Text(extent=[-70,34; -10,4],
-          style(color=3, rgbcolor={0,0,255}),
-          string="="),
-      Text(
-   extent=[0,-6; 80,-36], string="="),
-       Text(
-        extent=[-140,40; -60,20],
-        style(color=3, rgbcolor={0,0,255}),
-        string="in"), Text(
-        extent=[60,40; 140,20],
-        style(color=3, rgbcolor={0,0,255}),
-        string="out")));
+</html>"), Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Line(points={{-80,-60},{80,60}}, color={0,0,255}),
+            Text(
+              extent={{-70,34},{-10,4}},
+              lineColor={0,0,255},
+              textString=
+                 "="),
+            Text(extent={{0,-6},{80,-36}}, textString=
+                                 "="),
+            Text(
+              extent={{-140,40},{-60,20}},
+              lineColor={0,0,255},
+              textString=
+               "in"),
+            Text(
+              extent={{60,40},{140,20}},
+              lineColor={0,0,255},
+              textString=
+               "out")}));
 
 end DC_DC_base;
 
@@ -1338,91 +1253,6 @@ partial model SwitchEquation "Switch equation, 1-phase"
   SI.Temperature[heat.m] T "component temperature";
   SI.HeatFlowRate[heat.m] Q_flow "component loss-heat flow";
   function loss = Spot.Base.Math.taylor "spec loss function of temperature";
-  annotation (
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon,
-    Diagram(
-      Ellipse(extent=[-72,8; -68,12],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[-72,-12; -68,-8],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Text(
-        extent=[76,14; 84,6],
-        style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255},
-          fillPattern=1),
-            string="a1"),
-      Text(
-        extent=[76,-6; 84,-14],
-        style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255},
-          fillPattern=1),
-            string="a2"),
-      Ellipse(extent=[68,12; 72,8], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[68,-8; 72,-12], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[-72,8; -68,12],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[-72,-12; -68,-8],  style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[68,12; 72,8], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-      Ellipse(extent=[68,-8; 72,-12], style(
-          color=3,
-          rgbcolor={0,0,255},
-          fillColor=3,
-          rgbfillColor={0,0,255})),
-        Text(
-          extent=[-85,16; -73,4],
-          style(color=3, rgbcolor={0,0,255}),
-          string="+"),
-        Text(
-          extent=[-85,-4; -73,-16],
-          style(color=3, rgbcolor={0,0,255}),
-          string="-")),
-      Documentation(info="<html>
-</html>"));
 
 equation
   AC.pin.v = v + {vDC0,vDC0};
@@ -1431,7 +1261,127 @@ equation
 
   T = heat.port.T;
   heat.port.Q_flow = -Q_flow;
+  annotation (
+    Window(
+      x=
+0.45, y=
+0.01, width=
+    0.44,
+      height=
+     0.65),
+    Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics),
+    Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Ellipse(
+              extent={{-72,8},{-68,12}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-72,-12},{-68,-8}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{76,14},{84,6}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              textString=
+                   "a1"),
+            Text(
+              extent={{76,-6},{84,-14}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              textString=
+                   "a2"),
+            Ellipse(
+              extent={{68,12},{72,8}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{68,-8},{72,-12}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-72,8},{-68,12}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{-72,-12},{-68,-8}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{68,12},{72,8}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{68,-8},{72,-12}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-85,16},{-73,4}},
+              lineColor={0,0,255},
+              textString=
+                 "+"),
+            Text(
+              extent={{-85,-4},{-73,-16}},
+              lineColor={0,0,255},
+              textString=
+                 "-")}),
+      Documentation(info="<html>
+</html>"));
 end SwitchEquation;
 
+  annotation (       Window(
+x=0.05,
+y=0.44,
+width=0.31,
+height=0.26,
+library=1,
+autolayout=1));
 end Partials;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>The package contains passive rectifiers and switched/modulated inverters. Different implementations use:
+<ul>
+<li>Phase-modules (pairs of diodes or pairs of IGBT's with antiparallel diodes).</li>
+<li>The switch-equation for ideal components.</li>
+<li>The time-averaged switch-equation. As models based on single-switching are generally slow in simulation, alternative 'averaged' models are useful in cases, where details of current and voltage signals can be ignored.</li>
+</ul>
+<p>Thermal losses are proportional to the forward voltage drop V, which may depend on temperature.<br>
+The temperature dependence is given by
+<pre>  V(T) = Vf*(1 + cT[1]*(T - T0) + cT[2]*(T - T0)^2 + ...)</pre>
+where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty, no temperature dependence of losses is calculated.</p>
+<p>The switching losses are approximated by
+<pre>
+  h = Hsw_nom*v*i/(V_nom*I_nom)
+  use:
+  S_nom = V_nom*I_nom
+</pre>
+where <tt>Hsw_nom</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'. The same temperature dependence is assumed as for Vf. A generalisation to powers of i and v is straightforward.</p>
+<p>NOTE: actually the switching losses are only implemented for time-averaged components!</p>
+</html>"), Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Inverters;

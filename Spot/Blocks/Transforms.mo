@@ -2,28 +2,15 @@ within Spot.Blocks;
 package Transforms "Auxiliary blocks"
   extends Base.Icons.Library;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-</html>"),
-    Icon);
 
   block Park "Park-transform of input signal-vector"
     extends Partials.MIMO(final nin=3, final nout=3);
 
-    Modelica.Blocks.Interfaces.RealInput theta(redeclare type SignalType =
-          SI.Angle) "transformation angle"
-      annotation (extent=[-10,90; 10,110], rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput theta "transformation angle"
+      annotation (Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   protected
     constant Real s13=sqrt(1/3);
     constant Real s23=sqrt(2/3);
@@ -31,16 +18,20 @@ Documentation(info="<html>
     constant Real dph_c=4*pi/3;
     Real[3] c;
     Real[3] s;
+
+  equation
+    c =  cos({theta, theta - dph_b, theta - dph_c});
+    s =  sin({theta, theta - dph_b, theta - dph_c});
+    y = transpose([s23*c, -s23*s, {s13, s13, s13}])*u;
     annotation (defaultComponentName = "park",
-      Coordsys(
-        extent=[-100, -100; 100, 100],
-        grid=[2, 2],
-        component=[20, 20]),
-      Icon(
-     Text(
-    extent=[-80,40; 80,-40],
-    style(color=10),
-          string="park")),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-80,40},{80,-40}},
+            lineColor={128,128,128},
+            textString=
+                 "park")}),
       Window(
         x=0.45,
         y=0.01,
@@ -77,33 +68,37 @@ and
              [  0,  0,   1]
 </pre></p>
 </html>"),
-      Diagram);
-
-  equation
-    c =  cos({theta, theta - dph_b, theta - dph_c});
-    s =  sin({theta, theta - dph_b, theta - dph_c});
-    y = transpose([s23*c, -s23*s, {s13, s13, s13}])*u;
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Park;
 
   block Rotation_dq "Rotation of input signal-vector"
     extends Partials.MIMO(final nin=2, final nout=2);
 
-    Modelica.Blocks.Interfaces.RealInput theta(redeclare type SignalType =
-          SI.Angle) "rotation angle"
-      annotation (extent=[-10,90; 10,110], rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput theta "rotation angle" annotation (
+        Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   protected
     Real c;
     Real s;
+
+  equation
+    c =   cos(theta);
+    s =   sin(theta);
+    y = [c, -s; s, c]*u;
     annotation (defaultComponentName = "rot_dq",
-      Coordsys(
-        extent=[-100, -100; 100, 100],
-        grid=[2, 2],
-        component=[20, 20]),
-      Icon(
-     Text(
-    extent=[-75,40; 75,-40],
-    style(color=10),
-          string="rot_dq")),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-75,40},{75,-40}},
+            lineColor={128,128,128},
+            textString=
+                 "rot_dq")}),
       Window(
         x=0.45,
         y=0.01,
@@ -134,36 +129,39 @@ are invariant under transformations R_dqo</p>
 <pre>  R_dqo = P0*R_abc*P0'.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 </html>
-"),   Diagram);
-
-  equation
-    c =   cos(theta);
-    s =   sin(theta);
-    y = [c, -s; s, c]*u;
+"),   Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end Rotation_dq;
 
   block Rotation_abc "Rotation of input signal-vector"
     extends Partials.MIMO(final nin=3, final nout=3);
 
-    Modelica.Blocks.Interfaces.RealInput theta(redeclare type SignalType =
-          SI.Angle) "rotation angle"
-      annotation (extent=[-10,90; 10,110], rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput theta "rotation angle" annotation (
+        Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   protected
     constant Real q13=1/3;
     constant Real q23=2/3;
     constant Real dph_b=2*pi/3;
     constant Real dph_c=4*pi/3;
     Real[3] g;
+
+  equation
+    g =  {q13, q13, q13} + q23*cos({theta, theta - dph_b, theta - dph_c});
+    y =  [g[{1,2,3}], g[{3,1,2}], g[{2,3,1}]]*u;
     annotation (defaultComponentName = "rot_abc",
-      Coordsys(
-        extent=[-100, -100; 100, 100],
-        grid=[2, 2],
-        component=[20, 20]),
-      Icon(
-     Text(
-    extent=[-75,40; 75,-40],
-    style(color=10),
-          string="rot_abc")),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-75,40},{75,-40}},
+            lineColor={128,128,128},
+            textString=
+                 "rot_abc")}),
       Window(
         x=0.45,
         y=0.01,
@@ -197,28 +195,28 @@ are invariant under transformations R_abc</p>
 <pre>  R_abc = P0'*R_dqo*P0.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 </html>"));
-
-  equation
-    g =  {q13, q13, q13} + q23*cos({theta, theta - dph_b, theta - dph_c});
-    y =  [g[{1,2,3}], g[{3,1,2}], g[{2,3,1}]]*u;
   end Rotation_abc;
 
   block RotationPhasor "Rotation of input signal-vector"
     extends Partials.MIMO(final nin=2, final nout=2);
 
-    Modelica.Blocks.Interfaces.RealInput theta(redeclare type SignalType =
-          SI.Angle) "rotation angle"
-      annotation (extent=[-10,90; 10,110], rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput theta "rotation angle" annotation (
+        Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+
+  equation
+    y = {u[1], u[2] + theta};
     annotation (defaultComponentName = "rot_Phasor",
-      Coordsys(
-        extent=[-100, -100; 100, 100],
-        grid=[2, 2],
-        component=[20, 20]),
-      Icon(
-     Text(
-    extent=[-75,40; 75,-40],
-    style(color=10),
-          string="rot_Ph")),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Text(
+            extent={{-75,40},{75,-40}},
+            lineColor={128,128,128},
+            textString=
+                 "rot_Ph")}),
       Window(
         x=0.45,
         y=0.01,
@@ -237,38 +235,45 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
   y[2] = u[2] + theta    argument, phase
 </pre></p>
 </html>"),
-      Diagram);
-
-  equation
-    y = {u[1], u[2] + theta};
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end RotationPhasor;
 
   block PhasorToAlphaBeta "Rotation of input signal-vector"
     extends Partials.MIMO(final nin=2, final nout=2);
 
-    Modelica.Blocks.Interfaces.RealInput theta(redeclare type SignalType =
-          SI.Angle) "rotation angle"
-      annotation (extent=[-10,90; 10,110], rotation=-90);
+    Modelica.Blocks.Interfaces.RealInput theta "rotation angle" annotation (
+        Placement(transformation(
+          origin={0,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
   protected
     constant Real s23=sqrt(2/3);
+
+  equation
+    y = sqrt(2/3)*u[1]*{cos(u[2] + theta), sin(u[2] + theta)};
     annotation (defaultComponentName = "phToAlphaBeta",
-      Coordsys(
-        extent=[-100, -100; 100, 100],
-        grid=[2, 2],
-        component=[20, 20]),
-      Icon(
-     Text(
-    extent=[-70,18; -10,-18],
-    style(color=10),
-          string="uPh"),
-     Text(
-    extent=[-10,40; 80,10],
-    style(color=10),
-          string="alpha"),
-     Text(
-    extent=[-10,-10; 80,-40],
-    style(color=10),
-          string="beta")),
+      Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Text(
+            extent={{-70,18},{-10,-18}},
+            lineColor={128,128,128},
+            textString=
+                 "uPh"),
+          Text(
+            extent={{-10,40},{80,10}},
+            lineColor={128,128,128},
+            textString=
+                 "alpha"),
+          Text(
+            extent={{-10,-10},{80,-40}},
+            lineColor={128,128,128},
+            textString=
+                 "beta")}),
       Window(
         x=0.45,
         y=0.01,
@@ -287,9 +292,23 @@ i.e. rotates phasor in polar representation by angle theta and transforms to Euc
   y = sqrt(2/3)*u[1]*{cos(u[2] + theta), sin(u[2] + theta)}    amplitudes alpha, beta
 </pre></p>
 </html>"),
-      Diagram);
-
-  equation
-    y = sqrt(2/3)*u[1]*{cos(u[2] + theta), sin(u[2] + theta)};
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics));
   end PhasorToAlphaBeta;
+  annotation (preferedView="info",
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.32,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+</html>"),
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={2,2}), graphics));
 end Transforms;

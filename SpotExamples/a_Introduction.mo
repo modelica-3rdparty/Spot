@@ -4,58 +4,6 @@ package a_Introduction "Introductory examples"
 
   model Units "SI and pu units"
 
-  annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-    Diagram,
-    Documentation(
-            info="<html>
-<p>This example shows, how input-parameters can be defined in SI- or in pu-units (V, A or 'per unit').<br>
-'SI | pu' means 'SI' or 'pu', depending on the choice of 'units'.
-<pre>
-  SI:     base-values = 1
-  pu:     base-values = nominal-values (by definition)
-</pre></p>
-<p>
-Upper part:<br>
-input for 'voltage_SI', 'meter_SI' and 'load_SI' in V, VA, and Ohm.
-<pre>
-  V_base = 1,     V_nom = 400 V
-  S_base = 1,     S_nom = 10 kVA
-  R_base = 1
-</pre>
-Lower part:<br>
-input for 'voltage_pu', 'meter_pu' and 'load_pu' in pu.
-<pre>
-  V_base = V_nom = 400 V
-  S_base = S_nom = 10 kVA
-  R_base = V_base^2/S_base = 16 Ohm
-</pre>
-The corresponding values are
-<pre>
-  408 V   and  1.02 pu
-  20 Ohm  and  1.25 pu
-</pre>
-Quantities in 'meter_SI' are displayed in SI.<br>
-Quantities in 'meter_pu' are displayed in pu.</p>
-<p>
-<i>See for example:</i>
-<pre>
-  meter_SI.p[1] = 8323.2 W   (active power in SI)
-  meter_pu.p[1] = 0.83232 pu (active power in pu)
-</pre>
-and other meter-signals.</p>
-<p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
-</html>"),
-    experiment(StopTime=0.1),
-    experimentSetupOutput);
     inner Spot.System system(ref="inertial")
                       annotation (extent=[-100,80; -80,100]);
     Spot.ACabc.Sources.Voltage voltage_SI(
@@ -145,10 +93,6 @@ and other meter-signals.</p>
       annotation (points=[-70,30; -60,30], style(color=3, rgbcolor={0,0,255}));
     connect(grdV2.term, voltage_pu.neutral) annotation (points=[-70,-30; -60,
           -30], style(color=3, rgbcolor={0,0,255}));
-  end Units;
-
-  model Frequency "System and autonomous frequency"
-
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -162,19 +106,49 @@ and other meter-signals.</p>
     Diagram,
     Documentation(
             info="<html>
-<p>Example of two frequency-independent parts, one with system- and one with autonomous frequency.</p>
-<p>The input 'omega_inp' of voltage2 is connected to a signal source and the parameter <tt>fType</tt> is set to <tt>\"sig\"</tt>. The source delivers an angular frequency <tt>omega</tt> which is independent of the actual system frequency.</p>
-<p>Note: the 'Mode'-parameters 'ini' and 'sim' in 'system' are ignored by one-phase and DC components.</p>
+<p>This example shows, how input-parameters can be defined in SI- or in pu-units (V, A or 'per unit').<br>
+'SI | pu' means 'SI' or 'pu', depending on the choice of 'units'.
+<pre>
+  SI:     base-values = 1
+  pu:     base-values = nominal-values (by definition)
+</pre></p>
+<p>
+Upper part:<br>
+input for 'voltage_SI', 'meter_SI' and 'load_SI' in V, VA, and Ohm.
+<pre>
+  V_base = 1,     V_nom = 400 V
+  S_base = 1,     S_nom = 10 kVA
+  R_base = 1
+</pre>
+Lower part:<br>
+input for 'voltage_pu', 'meter_pu' and 'load_pu' in pu.
+<pre>
+  V_base = V_nom = 400 V
+  S_base = S_nom = 10 kVA
+  R_base = V_base^2/S_base = 16 Ohm
+</pre>
+The corresponding values are
+<pre>
+  408 V   and  1.02 pu
+  20 Ohm  and  1.25 pu
+</pre>
+Quantities in 'meter_SI' are displayed in SI.<br>
+Quantities in 'meter_pu' are displayed in pu.</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter1     v and i-signal, system frequency (60 Hz)
-  meter2     v and i-signal, variable frequency (10 to 50 Hz)
-</pre></p>
+  meter_SI.p[1] = 8323.2 W   (active power in SI)
+  meter_pu.p[1] = 0.83232 pu (active power in pu)
+</pre>
+and other meter-signals.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    experiment(NumberOfIntervals=1000),
+    experiment(StopTime=0.1),
     experimentSetupOutput);
+  end Units;
+
+  model Frequency "System and autonomous frequency"
+
     inner Spot.System system(f_nom=60, ref="inertial")
                       annotation (extent=[-100,80; -80,100]);
     Spot.Blocks.Signals.TransientFreq theta_dqo(f_fin=50, f_ini=10)
@@ -222,10 +196,6 @@ and other meter-signals.</p>
         style(color=3, rgbcolor={0,0,255}));
     connect(theta_dqo.y, voltage2.omega) annotation (points=[-60,-10; -36,-10;
           -36,-20], style(color=74, rgbcolor={0,0,127}));
-  end Frequency;
-
-  model ReferenceInertial "Inertial reference system (non rotating)"
-
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -239,20 +209,23 @@ and other meter-signals.</p>
     Diagram,
     Documentation(
             info="<html>
-<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dqo-representation.</p>
-<p>In the inertial, non rotating reference frame (<tt>SynRef=false</tt>), signals oscillate with the source frequency.</p>
+<p>Example of two frequency-independent parts, one with system- and one with autonomous frequency.</p>
+<p>The input 'omega_inp' of voltage2 is connected to a signal source and the parameter <tt>fType</tt> is set to <tt>\"sig\"</tt>. The source delivers an angular frequency <tt>omega</tt> which is independent of the actual system frequency.</p>
+<p>Note: the 'Mode'-parameters 'ini' and 'sim' in 'system' are ignored by one-phase and DC components.</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter_abc.i     standard notation: 'abc'-system
-  meter_dqo.i     standard notation: 'alpha beta gamma'-system
-</pre>
-and other meter-signals.<br>
-Compare with the signals of the identical system in the example below.</p>
+  meter1     v and i-signal, system frequency (60 Hz)
+  meter2     v and i-signal, variable frequency (10 to 50 Hz)
+</pre></p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    experiment(StopTime=0.1, NumberOfIntervals=1000),
+    experiment(NumberOfIntervals=1000),
     experimentSetupOutput);
+  end Frequency;
+
+  model ReferenceInertial "Inertial reference system (non rotating)"
+
     inner Spot.System system(ini="tr", ref="inertial")
                       annotation (extent=[-100,80; -80,100]);
     Spot.ACabc.Sources.Voltage voltage_abc(
@@ -343,30 +316,6 @@ Compare with the signals of the identical system in the example below.</p>
       annotation (points=[-70,30; -60,30], style(color=3, rgbcolor={0,0,255}));
     connect(grdV_dqo.term, voltage_dqo.neutral) annotation (points=[-70,-30;
           -60,-30], style(color=3, rgbcolor={0,0,255}));
-  end ReferenceInertial;
-
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
-Documentation(info="<html>
-<p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.
-The examples are based on most elementary configurations. A meter is added for convenience, displaying signals both in abc- and dqo-representation. </p>
-<p>The component Spot.System is needed in all models, except in Introduction.Tables.</p>
-<p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
-</html>
-"), Icon);
-
-  model ReferenceSynchron "Synchronous reference system (rotating)"
-
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -381,19 +330,24 @@ The examples are based on most elementary configurations. A meter is added for c
     Documentation(
             info="<html>
 <p>This example shows two physically identical systems, the upper one in abc-, the lower one in dqo-representation.</p>
-<p>In the synchronous, rotating reference frame (<tt>SynRef=true</tt>), steady-state signals are constant (after an initial oscillation).</p>
+<p>In the inertial, non rotating reference frame (<tt>SynRef=false</tt>), signals oscillate with the source frequency.</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter_abc.i
-  meter_dqo.i     standard notation: 'dqo'-system
+  meter_abc.i     standard notation: 'abc'-system
+  meter_dqo.i     standard notation: 'alpha beta gamma'-system
 </pre>
 and other meter-signals.<br>
-Compare with the signals of the identical system in the example above.</p>
+Compare with the signals of the identical system in the example below.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, NumberOfIntervals=1000),
     experimentSetupOutput);
+  end ReferenceInertial;
+
+
+  model ReferenceSynchron "Synchronous reference system (rotating)"
+
     inner Spot.System system(ini="tr")
                       annotation (extent=[-100,80; -80,100]);
     Spot.ACabc.Sources.Voltage voltage_abc(
@@ -485,10 +439,6 @@ Compare with the signals of the identical system in the example above.</p>
       annotation (points=[-70,30; -60,30], style(color=3, rgbcolor={0,0,255}));
     connect(grdV_dqo.term, voltage_dqo.neutral) annotation (points=[-70,-30;
           -60,-30], style(color=3, rgbcolor={0,0,255}));
-  end ReferenceSynchron;
-
-  model InitialSteadyState "Steady-state initialisation"
-
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -499,21 +449,27 @@ Compare with the signals of the identical system in the example above.</p>
           y=0.01,
           width=0.44,
           height=0.65),
+    Diagram,
     Documentation(
             info="<html>
-<p>With 'system.ini = steady' (using the steady-state initial conditions) no inrush is observed as in the previous two examples. The solution is steady-state from the beginning.</p>
-<p>The example illustrates the choice <tt>SynRef=false</tt> (inertial system), but is valid for other choices too.</p>
+<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dqo-representation.</p>
+<p>In the synchronous, rotating reference frame (<tt>SynRef=true</tt>), steady-state signals are constant (after an initial oscillation).</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter_abc.i_abc
-  meter_dqo.i_abc
+  meter_abc.i
+  meter_dqo.i     standard notation: 'dqo'-system
 </pre>
+and other meter-signals.<br>
+Compare with the signals of the identical system in the example above.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    Diagram,
     experiment(StopTime=0.1, NumberOfIntervals=1000),
     experimentSetupOutput);
+  end ReferenceSynchron;
+
+  model InitialSteadyState "Steady-state initialisation"
+
     inner Spot.System system(ref="inertial")
                       annotation (extent=[-100,80; -80,100]);
     Spot.ACabc.Sources.Voltage voltage_abc(
@@ -606,10 +562,6 @@ Compare with the signals of the identical system in the example above.</p>
       annotation (points=[-70,30; -60,30], style(color=3, rgbcolor={0,0,255}));
     connect(grdV_dqo.term, voltage_dqo.neutral) annotation (points=[-70,-30;
           -60,-30], style(color=3, rgbcolor={0,0,255}));
-  end InitialSteadyState;
-
-  model SimulationTransient "Transient simulation"
-
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -622,20 +574,23 @@ Compare with the signals of the identical system in the example above.</p>
           height=0.65),
     Documentation(
             info="<html>
-<p>With 'system.sim = transient' fast dynamics after switching are resolved.</p>
-<p>The example uses the dqo-representation, but is valid for abc too.</p>
+<p>With 'system.ini = steady' (using the steady-state initial conditions) no inrush is observed as in the previous two examples. The solution is steady-state from the beginning.</p>
+<p>The example illustrates the choice <tt>SynRef=false</tt> (inertial system), but is valid for other choices too.</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter.p[1]  active power in pu, changing from 0.5 (1000 MW) to 0.25 (500 MW)
-  meter.p[2]  reactive power in pu, from 0.25 (500 MW) to 0.125 (250 MW)
+  meter_abc.i_abc
+  meter_dqo.i_abc
 </pre>
-and other meter-signals.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
-</html>
-"), Diagram,
-    experiment(NumberOfIntervals=1000),
+</html>"),
+    Diagram,
+    experiment(StopTime=0.1, NumberOfIntervals=1000),
     experimentSetupOutput);
+  end InitialSteadyState;
+
+  model SimulationTransient "Transient simulation"
+
     inner Spot.System system
                       annotation (extent=[-100,80; -80,100]);
     Spot.Blocks.Signals.TransientPhasor transPh(
@@ -714,10 +669,6 @@ and other meter-signals.</p>
       annotation (points=[80,30; 90,30], style(color=3, rgbcolor={0,0,255}));
     connect(grdB.term, voltageB.neutral)
       annotation (points=[20,-90; 20,-81], style(color=3, rgbcolor={0,0,255}));
-  end SimulationTransient;
-
-  model SimulationSteadyState "Steady-state simulation"
-
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -730,8 +681,7 @@ and other meter-signals.</p>
           height=0.65),
     Documentation(
             info="<html>
-<p>With 'system.sim = steady' transients are suppressed and only slow dynamics, imposed by the source-voltage is resolved.<br>
-This approximation corresponds to an infinitely fast response of the system.</p>
+<p>With 'system.sim = transient' fast dynamics after switching are resolved.</p>
 <p>The example uses the dqo-representation, but is valid for abc too.</p>
 <p>
 <i>See for example:</i>
@@ -745,6 +695,10 @@ and other meter-signals.</p>
 "), Diagram,
     experiment(NumberOfIntervals=1000),
     experimentSetupOutput);
+  end SimulationTransient;
+
+  model SimulationSteadyState "Steady-state simulation"
+
     inner Spot.System system(sim="st")
                       annotation (extent=[-100,80; -80,100]);
     Spot.Blocks.Signals.TransientPhasor transPh(
@@ -822,10 +776,6 @@ and other meter-signals.</p>
       annotation (points=[80,30; 90,30], style(color=3, rgbcolor={0,0,255}));
     connect(voltageB.neutral, grdB.term)
       annotation (points=[20,-81; 20,-90], style(color=3, rgbcolor={0,0,255}));
-  end SimulationSteadyState;
-
-  model Display "Display of phasors and power"
-
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -838,24 +788,25 @@ and other meter-signals.</p>
           height=0.65),
     Documentation(
             info="<html>
-<p>The example shows the use of a display element for voltage and current 'phasors' with additional power bars.</p>
-<p>The phase of 'voltageL' moves in positive sense with increasing amplitude.<br>
-Inductive current (blue) is behind, capacitive ahead of voltage (red).</p>
-<p>
-The left bar (green) displays the active power,<br>
-the right bar (violet) displays the reactive power.<br>
-An additional arrow indicates the direction of active power flow.</p>
+<p>With 'system.sim = steady' transients are suppressed and only slow dynamics, imposed by the source-voltage is resolved.<br>
+This approximation corresponds to an infinitely fast response of the system.</p>
 <p>The example uses the dqo-representation, but is valid for abc too.</p>
 <p>
-Select Experiment Setup/Compiler/'MS Visual C++ with DDE'<br>
-Check Experiment Setup/Realtime/'Synchronize with realtime'<br>
-Select Experiment Setup/Realtime/'Load result interval' = 0.1 s<br>
-Select 'Diagram' in the Simulation layer</p>
+<i>See for example:</i>
+<pre>
+  meter.p[1]  active power in pu, changing from 0.5 (1000 MW) to 0.25 (500 MW)
+  meter.p[2]  reactive power in pu, from 0.25 (500 MW) to 0.125 (250 MW)
+</pre>
+and other meter-signals.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
-    experiment(StopTime=30, NumberOfIntervals=1500),
+</html>
+"), Diagram,
+    experiment(NumberOfIntervals=1000),
     experimentSetupOutput);
+  end SimulationSteadyState;
+
+  model Display "Display of phasors and power"
+
     inner Spot.System system(f=50)
                       annotation (extent=[-100,80; -80,100]);
     Spot.Blocks.Signals.TransientPhasor transPh(
@@ -920,10 +871,56 @@ Select 'Diagram' in the Simulation layer</p>
       annotation (points=[-80,0; -70,0], style(color=3, rgbcolor={0,0,255}));
     connect(voltageR.neutral, grdV2.term)
       annotation (points=[80,40; 90,40], style(color=3, rgbcolor={0,0,255}));
+  annotation (
+    Coordsys(
+          extent=[-100,-100; 100,100],
+          grid=[2,2],
+          component=[20,20]),
+    Window(
+          x=0.45,
+          y=0.01,
+          width=0.44,
+          height=0.65),
+    Documentation(
+            info="<html>
+<p>The example shows the use of a display element for voltage and current 'phasors' with additional power bars.</p>
+<p>The phase of 'voltageL' moves in positive sense with increasing amplitude.<br>
+Inductive current (blue) is behind, capacitive ahead of voltage (red).</p>
+<p>
+The left bar (green) displays the active power,<br>
+the right bar (violet) displays the reactive power.<br>
+An additional arrow indicates the direction of active power flow.</p>
+<p>The example uses the dqo-representation, but is valid for abc too.</p>
+<p>
+Select Experiment Setup/Compiler/'MS Visual C++ with DDE'<br>
+Check Experiment Setup/Realtime/'Synchronize with realtime'<br>
+Select Experiment Setup/Realtime/'Load result interval' = 0.1 s<br>
+Select 'Diagram' in the Simulation layer</p>
+<p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
+</html>"),
+    Diagram,
+    experiment(StopTime=30, NumberOfIntervals=1500),
+    experimentSetupOutput);
   end Display;
 
   model Tables "Using tables"
 
+    parameter Integer icol[:]={2,3} "{2nd column, 3rd column}";
+    Real u "1st column";
+    Real y[size(icol, 1)] "values of chosen columns";
+    Modelica.Blocks.Tables.CombiTable1Ds table(
+      table=fill(0.0, 0, 0),
+      columns=icol,
+      tableOnFile=true,
+      tableName="values",
+      fileName=TableDir + "TableExample.tab")
+                             annotation (extent=[-20,-20; 20,20]);
+
+  equation
+    u = 10*time "for plotting, time = {0, 1}";
+
+    table.u = u;
+    y = table.y;
   annotation (
     Coordsys(
           extent=[-100,-100; 100,100],
@@ -954,22 +951,25 @@ Interpolates table-values.</p>
     Diagram,
     experiment,
     experimentSetupOutput);
-    parameter Integer icol[:]={2,3} "{2nd column, 3rd column}";
-    Real u "1st column";
-    Real y[size(icol, 1)] "values of chosen columns";
-    Modelica.Blocks.Tables.CombiTable1Ds table(
-      table=fill(0.0, 0, 0),
-      columns=icol,
-      tableOnFile=true,
-      tableName="values",
-      fileName=TableDir + "TableExample.tab")
-                             annotation (extent=[-20,-20; 20,20]);
-
-  equation
-    u = 10*time "for plotting, time = {0, 1}";
-
-    table.u = u;
-    y = table.y;
   end Tables;
 
+  annotation (preferedView="info",
+Coordsys(
+  extent=[-100, -100; 100, 100],
+  grid=[2, 2],
+  component=[20, 20]),
+Window(
+  x=0.05,
+  y=0.41,
+  width=0.4,
+  height=0.42,
+  library=1,
+  autolayout=1),
+Documentation(info="<html>
+<p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.
+The examples are based on most elementary configurations. A meter is added for convenience, displaying signals both in abc- and dqo-representation. </p>
+<p>The component Spot.System is needed in all models, except in Introduction.Tables.</p>
+<p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
+</html>
+"), Icon);
 end a_Introduction;
