@@ -1,4 +1,4 @@
-# SPOT
+# Spot
 
 Free library providing components to model power systems both in transient and steady-state mode.
 
@@ -18,13 +18,18 @@ As the electric equations are valid in reference systems with arbitrary angular 
 
 ### Commercial successor "Electric Power Library"
 
-There is a completely new and commercial [Electric Power Library](http://www.modelon.com/products/modelica-libraries/electrical-power-library/) available which is developed by the original author of the `SPOT` library in cooperation with [Modelon](http://www.modelon.com).
+There is a completely new and commercial [Electric Power Library](http://www.modelon.com/products/modelica-libraries/electrical-power-library/) available which is developed by the original author of the `Spot` library in cooperation with [Modelon](http://www.modelon.com).
 
 ## Current release
 
-Download [SPOT v0.706 (2007-09-11)](../../archive/v0.706.zip)
+Download [Spot v0.706.1 (2014-04-09)](../../archive/v0.706.1.zip)
 
 #### Release notes
+
+* [Version v0.706.1 (2014-04-09)](../../archive/v0.706.1.zip)
+ * Clean-up release removing illegal annotatons and upgrading to MSL 3.2.1
+ * Be aware that there are still several issues with this library which might
+   lead to several errors and warnings in the tool.
 
 * [Version v0.706 (2007-09-11)](../../archive/v0.706.zip)
  * Structure improved.
@@ -32,7 +37,7 @@ Download [SPOT v0.706 (2007-09-11)](../../archive/v0.706.zip)
 ## License
 
 This Modelica package is free software and the use is completely at your own risk;
-it can be redistributed and/or modified under the terms of the [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2).
+it can be redistributed and/or modified under the terms of the [Modelica License 1.1](https://modelica.org/licenses/ModelicaLicense1.1).
 
 ## Development and contribution
 Author: [HansJ&uuml;rg Wiesmann](hj.wiesmann@bluewin.ch)
