@@ -26,5 +26,6 @@ Documentation(info="<html>
 <p><i>The Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b>
 <a href=\"Modelica://Modelica.UsersGuide.ModelicaLicense\">here</a>.</i></p>
 </html>"),
-  uses(Modelica(version="2.2.1"), Spot(version="0.705")));
+  uses(Modelica(version="2.2.2"), Spot(version="0.706.1")),
+  version="0.706.1");
 end SpotExamples;

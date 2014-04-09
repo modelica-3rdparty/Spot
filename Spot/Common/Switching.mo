@@ -2,7 +2,7 @@ within Spot.Common;
 package Switching "Common switching components"
   extends Base.Icons.Library;
 
-  annotation (preferedView="info", uses(Modelica(version="2.2"), Spot(version="0.506")),
+  annotation (preferedView="info",
     Documentation(info="<html>
 <p>Structurally incomplete kernel models.</p>
 </html>"));

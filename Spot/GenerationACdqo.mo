@@ -19,8 +19,7 @@ Documentation(info="<html>
 <p>Combined turbine-generator systems with governor and exciter, both electrical and mechanical model.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
 </html>
-"), Icon,
-    uses(Spot(version="0.702"), Modelica(version="2.2.1")));
+"));
 
   model TurboGenerator "Turbo generator single mass"
     extends Partials.GenBase_el;

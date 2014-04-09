@@ -16,8 +16,8 @@ annotation (preferedView="info",
     height=0.57,
     library=1,
     autolayout=1),
-  version="0.705",
-  versionDate="2007-05-1",
+  version="0.706.1",
+  versionDate="2014-04-09",
   preferedView="text",
   Settings(NewStateSelection=true),
   Documentation(info="<html>
@@ -30,8 +30,7 @@ annotation (preferedView="info",
 <a href=\"Modelica://Modelica.UsersGuide.ModelicaLicense\">here</a>.</i></p>
 </html>
 "),
-  uses(Spot(version="0.705"), Modelica(version="2.2.1")),
-  DymolaStoredErrors);
+  uses(Modelica(version="2.2.2")));
 
 
 package UsersGuide "Users Guide"
@@ -645,16 +644,35 @@ Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
 <h3><font color=\"#008000\">Actual version 0.705 (2007 May 1)</font></h3>
 <p>Releases:</p>
 <ul>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_7_0_5\">Version 0.705</a> (2007 May 1)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_6_0_6\">Version 0.606</a> (2006 June 26)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_6_0_5\">Version 0.605</a> (2006 May 01)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_5_0_6\">Version 0.506</a> (2005 June 01)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_706_1\">Version 0.706.1</a> (2014 April 9)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_705\">Version 0.705</a> (2007 May 1)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_606\">Version 0.606</a> (2006 June 26)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_605\">Version 0.605</a> (2006 May 01)</li>
+<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_506\">Version 0.506</a> (2005 June 01)</li>
 </ul>
 <p><a href=\"Spot.UsersGuide\">up</a></p>
 </html>
 "));
 
-  class Version_0_7_0_5 "Version 0.705"
+
+  class Version_0_706_1 "Version 0.706.1"
+
+      annotation (Documentation(info="<html>
+<h3><font color=\"#008000\">Version 0.706.1 (2014 April 9)</font></h3>
+<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p>
+A simple clean up version of the latest (undocumented) version 0.706 (2007 June). Annotations were cleaned up in order to get it to work properly with Modelica tools that follow the Modelica Specification.</p>
+
+<p>
+This version still uses the <em>Modelica Standard Library 2.2.2</em>.
+</p>
+<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+</html>
+"));
+  end Version_0_706_1;
+
+
+  class Version_0_705 "Version 0.705"
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.705 (2007 May 1)</font></h3>
@@ -671,9 +689,9 @@ The following <b>changes</b> have been performed in the <b>Spot 0.705</b> librar
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>
 "));
-  end Version_0_7_0_5;
+  end Version_0_705;
 
-  class Version_0_6_0_6 "Version 0.606"
+  class Version_0_606 "Version 0.606"
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.606 (2006 June 26)</font></h3>
@@ -690,9 +708,9 @@ unconnected neutral is 'isolated neutral' (before: 'ideally grounded')</li>
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>
 "));
-  end Version_0_6_0_6;
+  end Version_0_606;
 
-  class Version_0_6_0_5 "Version 0.605"
+  class Version_0_605 "Version 0.605"
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.605 (2006 May 01)</font></h3>
@@ -706,9 +724,9 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>
 "));
-  end Version_0_6_0_5;
+  end Version_0_605;
 
-  class Version_0_5_0_6 "Version 0.506"
+  class Version_0_506 "Version 0.506"
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.506 (2005 June 01)</font></h3>
@@ -716,7 +734,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>
 "));
-  end Version_0_5_0_6;
+  end Version_0_506;
   end ReleaseNotes;
 
   class Contact "Contact"
