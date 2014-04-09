@@ -607,11 +607,15 @@ Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
 <h3><font color=\"#008000\">Version 0.706.1 (2014 April 9)</font></h3>
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 <p>
-A simple clean up version of the latest (undocumented) version 0.706 (2007 June). Annotations were cleaned up in order to get it to work properly with Modelica tools that follow the Modelica Specification.</p>
+A clean up version of the latest (undocumented) version 0.706 (2007 June). Annotations were cleaned up in order to get it to work properly with Modelica tools that follow the Modelica Specification.</p>
 
 <p>
-This version still uses the <em>Modelica Standard Library 2.2.2</em>.
+This version was updated to use <em>Modelica Standard Library 3.2.1</em>.
 </p>
+<p>
+Be aware that there are several issues within this library which are still not fixed!
+</p>
+
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_706_1;
