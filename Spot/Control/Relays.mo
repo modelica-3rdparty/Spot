@@ -25,11 +25,6 @@ package Relays "Relays"
       end for;
     end when;
     annotation (defaultComponentName = "relay1",
-      Window(
-  x=0.01,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows choosing the phases that will be switched at defined time-events t_switch (finite length vector).</p>
@@ -46,11 +41,7 @@ package Relays "Relays"
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "switch")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "switch")}));
   end SwitchRelay;
 
   block TapChangerRelay "Relay for setting tap-changer "
@@ -84,11 +75,6 @@ package Relays "Relays"
       tap_n := preset_2[min(cnt_2, size(preset_2, 1))];
     end when;
     annotation (defaultComponentName = "tapRelay1",
-      Window(
-  x=0.01,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The voltage level indices are pre-selected. They correspond to the index of the tap voltage levels
@@ -113,11 +99,7 @@ of the transformer model. Level 0 is nominal voltage.</p>
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "tap")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "tap")}));
   end TapChangerRelay;
 
   block TapChanger3Relay "Relay for setting tap-changer 3-winding transformer"
@@ -159,11 +141,6 @@ of the transformer model. Level 0 is nominal voltage.</p>
       tap_n[2] := preset_2b[min(cnt_2b, size(preset_2b, 1))];
     end when;
     annotation (defaultComponentName = "tapRelay1",
-      Window(
-  x=0.01,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The voltage level indices are pre-selected. They correspond to the index of the tap voltage levels
@@ -188,11 +165,7 @@ of the transformer model. Level 0 is nominal voltage.</p>
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "tap")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "tap")}));
   end TapChanger3Relay;
 
   block Y_DeltaControl "Relay for Y-Delta topology switching "
@@ -214,11 +187,6 @@ of the transformer model. Level 0 is nominal voltage.</p>
       y := not y;
     end when;
     annotation (defaultComponentName = "relay1",
-      Window(
-  x=0.01,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows choosing Y or Delta-topology at defined time-events t_switch (finite length vector).</p>
@@ -235,24 +203,9 @@ of the transformer model. Level 0 is nominal voltage.</p>
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "Y - D")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "Y - D")}));
   end Y_DeltaControl;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Relays;

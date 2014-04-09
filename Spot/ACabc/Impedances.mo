@@ -13,11 +13,6 @@ package Impedances "Impedance and admittance two terminal"
     R*i = v;
     annotation (
       defaultComponentName="res1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package ACabc.Impedances.</p>
@@ -66,11 +61,6 @@ package Impedances "Impedance and admittance two terminal"
     G*v = i;
     annotation (
       defaultComponentName="cond1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package ACabc.Impedances.</p>
@@ -132,11 +122,6 @@ package Impedances "Impedance and admittance two terminal"
     end if;
     annotation (
       defaultComponentName="ind1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package ACabc.Impedances.</p>
@@ -235,11 +220,6 @@ package Impedances "Impedance and admittance two terminal"
     end if;
     annotation (
       defaultComponentName="cap1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>No phase to phase capacitance.</p>
@@ -360,11 +340,6 @@ package Impedances "Impedance and admittance two terminal"
     end if;
     annotation (
       defaultComponentName="impedance1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>This model corresponds to ACabc.Inductor, but uses a different determination of the coefficients.<br>
@@ -492,11 +467,6 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
     end if;
     annotation (
       defaultComponentName="admittance1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>This model corresponds to ACabc.Capacitor, but uses a different determination of the coefficients.<br>
@@ -620,11 +590,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     R*i = v;
     annotation (
       defaultComponentName="resNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Resistor with general resistance matrix, defined in abc inertial system.<br>
@@ -697,11 +662,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     der(psi) + omega[2]*j_abc(psi) + R*i = v;
     annotation (
       defaultComponentName="indNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductor with general reactance matrix, defined in abc inertial system.<br>
@@ -814,11 +774,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     der(q) + omega[2]*j_abc(q) + G*v = i;
     annotation (
       defaultComponentName="capNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Capacitor with general susceptance matrix, defined in abc inertial system.<br>
@@ -934,11 +889,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     v = V0*tanh(H0*i);
     annotation (
       defaultComponentName="varistor",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Voltage limiter with hyperbolic tangent characteristic.</p>
@@ -1002,19 +952,10 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       v = term_p.v - term_n.v;
       i = term_p.i;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
+"),        Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -1033,24 +974,11 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       Real[3,3] Rot = Base.Transforms.rotation_abc(term_p.theta[2]);
 
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
     info="<html>
 <p>Same as ImpedBase, but contains additionally a rotation-transform which is needed for
 transformation of general impedance matrices from abc rest- to rotating abc-system.</p>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ImpedNonSymBase;
 
     partial model ImpedHeat "Impedance base with heat port, 3-phase abc"
@@ -1060,24 +988,12 @@ transformation of general impedance matrices from abc rest- to rotating abc-syst
     equation
       Q_flow = v*i;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 <p>Same as ImpedBase, but contains an additional heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connector is given by the total dissipated electric energy of all conductors.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ImpedHeat;
 
     partial model ImpedNonSymHeat
@@ -1092,42 +1008,16 @@ transformation of general impedance matrices from abc rest- to rotating abc-syst
     equation
       Q_flow = v_abc.*i_abc;
       annotation (
-        Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(
       info="<html>
 <p>Same as ImpedNonSymBase, but contains an additional vector heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connectors is given by the dissipated electric power per conductor.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ImpedNonSymHeat;
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
   end Partials;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.44,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Contains lumped impedance models and can also be regarded as a collection of basic formulas. Shunts are part of a separate package.</p>
 <p>General relations.</p>
@@ -1221,9 +1111,5 @@ autolayout=1),
   b_dqo = P*b_abc*transpose(P)
   g_dqo = P*g_abc*transpose(P)
 </pre>
-</html>"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Impedances;

@@ -7,24 +7,9 @@ record SCparameter "Custom semiconductor parameters"
   extends Base.Units.NominalDataVI;
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
-</html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end SCparameter;
 
 model Diode "Diode"
@@ -37,11 +22,6 @@ model Diode "Diode"
 equation
   i = v; // replace!
   annotation (defaultComponentName = "diode1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -57,11 +37,7 @@ height=0.65),
           Line(points={{-90,0},{-40,0}}, color={0,0,255}),
           Line(points={{40,0},{90,0}}, color={0,0,255}),
           Line(points={{40,40},{40,-40}}, color={0,0,255}),
-          Line(points={{-100,-100},{100,100}}, color={255,0,0})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-100,-100},{100,100}}, color={255,0,0})}));
 end Diode;
 
 model SCswitch "IGBT"
@@ -79,11 +55,6 @@ model SCswitch "IGBT"
 equation
   i = v; // replace!
   annotation (defaultComponentName = "IGBT1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>"),
@@ -102,11 +73,7 @@ height=0.65),
           Line(points={{-70,40},{70,40}}, color={0,0,255}),
           Line(points={{-70,60},{70,60}}, color={0,0,255}),
           Line(points={{-90,0},{-80,0},{-20,40}}, color={0,0,255}),
-          Line(points={{-100,-100},{100,100}}, color={255,0,0})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-100,-100},{100,100}}, color={255,0,0})}));
 end SCswitch;
 
 model Thyristor "Thyristor"
@@ -123,11 +90,6 @@ model Thyristor "Thyristor"
 equation
   i = v; // replace!
   annotation (defaultComponentName = "thyristor1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -147,27 +109,12 @@ height=0.65),
             points={{20,0},{60,40},{60,90}},
             color={255,0,255},
             pattern=LinePattern.Dot),
-          Line(points={{-100,-100},{100,100}}, color={255,0,0})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-100,-100},{100,100}}, color={255,0,0})}));
 end Thyristor;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Intended for custom semiconductor models, replacing ideal components.<br>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Custom;

@@ -14,11 +14,6 @@ package Faults "Line-faults "
     {v,i} = if on then {epsR*s,s} else {s,epsG*s};
       annotation (
         defaultComponentName="short_ABC",
-      Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
       Documentation(
         info="<html>
 <p>Fault acts on 'term' and connected terminals.</p>
@@ -48,22 +43,13 @@ The transformation to inertial abc is only needed to determine the correct phase
             extent={{-40,-70},{0,-80}},
             lineColor={0,0,0},
             fillColor={255,0,0},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Short_ABC;
 
                 model Fault_bc "b to c fault, 3-phase dqo"
     extends Partials.Fault_pp(final n_ph=1);
 
                 annotation (defaultComponentName = "fault_bc",
-                  Window(
-                      x=0.45,
-                      y=0.01,
-                      width=0.44,
-                      height=0.65),
                   Documentation(
                           info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -93,11 +79,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_pp(final n_ph=2);
 
   annotation (defaultComponentName = "fault_ca",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -127,11 +108,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_pp(final n_ph=3);
 
   annotation (defaultComponentName = "fault_ab",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -191,11 +167,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     i[3] = epsG*v[3];
   //  sum(i_abc) = epsG*sum(v_abc);
   annotation (defaultComponentName = "fault_abc",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -223,22 +194,13 @@ The transformation to inertial abc is only needed to determine the correct phase
             extent={{-40,-70},{0,-80}},
             lineColor={0,0,0},
             fillColor={0,255,128},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Fault_abc;
 
   model Fault_A "a to ground fault, 3-phase dqo"
     extends Partials.Fault_pg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_A",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -268,11 +230,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_pg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_B",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -302,11 +259,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_pg(final n_ph=3);
 
     annotation (defaultComponentName = "fault_C",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -336,11 +288,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_ppg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_bC",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -370,11 +317,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_ppg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_cA",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -404,11 +346,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_ppg(final n_ph=3);
 
     annotation (defaultComponentName = "fault_aB",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
@@ -438,57 +375,33 @@ The transformation to inertial abc is only needed to determine the correct phase
     extends Partials.Fault_pppg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_Abc",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Fault_Abc;
 
   model Fault_aBc "a to b, c to b, b to ground fault, 3-phase dqo"
     extends Partials.Fault_pppg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_aBc",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Fault_aBc;
 
   model Fault_abC "a to c, b to c, c to ground fault, 3-phase dqo"
     extends Partials.Fault_pppg(final n_ph=3);
 
     annotation (defaultComponentName = "fault_abC",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Fault_abC;
 
   package Partials "Partial models"
@@ -532,13 +445,6 @@ The transformation to inertial abc is only needed to determine the correct phase
       end when;
       on = sum(term.theta) > pre(theta_zero) + 2*pi*phi_on/360;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>The small parameter epsG is used to define voltage on the faulted line in particular when the line is disconnected from its sources. For disconnecting switches with zero 'open' conductivity, epsG can not be set to zero.</p>
@@ -546,11 +452,7 @@ The transformation to inertial abc is only needed to determine the correct phase
 - lower case a, b, c:     shorted phase to phase<br>
 - upper case A, B, C:     shorted phase to ground</p>
 </html>
-"),     Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
+"),        Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Rectangle(
@@ -622,13 +524,6 @@ The transformation to inertial abc is only needed to determine the correct phase
       v_pos = v_abc[n_phRef] > 0;
       i_abc[m_ph] = epsG*v_abc[m_ph];
            annotation (extent=[-20,-20; 20,20],
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -681,13 +576,6 @@ The transformation to inertial abc is only needed to determine the correct phase
       v_pos = v_abc[m_ph[1]] - v_abc[m_ph[2]] > 0;
       i_abc[n_ph] = epsG*v_abc[n_ph];
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -750,13 +638,6 @@ The transformation to inertial abc is only needed to determine the correct phase
     equation
       v_pos = v_abc[n_ph] > 0;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -785,32 +666,14 @@ The transformation to inertial abc is only needed to determine the correct phase
               fillColor={255,0,0},
               fillPattern=FillPattern.Solid)}));
     end Fault_pppg;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.26,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains faults (shorts) phase to phase and phase to ground.</p>
 <p>Terminology:</p>
 <p><tt><b>Fault_*</b></tt>, example: <tt><b>Fault_abC</b></tt>:</p>
 <p><tt>A B C </tt> denote a phase with (additional) fault to ground,<br>
 <tt>a b c </tt> denote a phase with no fault to ground</p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Faults;

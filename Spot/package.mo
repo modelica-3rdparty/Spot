@@ -809,16 +809,11 @@ end UsersGuide;
     end if;
     der(theta) = omega;
     annotation (
-    preferedView="info",
+    preferredView="info",
     defaultComponentName="system",
     defaultComponentPrefixes="inner",
     missingInnerMessage="No \"system\" component is defined.
     Drag Spot.ACbase.System into the top level of your model.",
-    Window(
-      x=0.13,
-      y=0.1,
-      width=0.81,
-      height=0.83),
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -855,10 +850,6 @@ end UsersGuide;
           extent={{-100,-70},{100,-100}},
           lineColor={176,0,0},
           textString =                           "ini:%ini  sim:%sim")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
     Documentation(info="<html>
 <p>The model <b>System</b> represents a global reference for the following purposes:</p>
 <p>It allows the choice of </p>
@@ -901,17 +892,9 @@ end UsersGuide;
 </html>"));
   end System;
 
-annotation (preferedView="info",
-  Window(
-    x=0.02,
-    y=0.01,
-    width=0.2,
-    height=0.57,
-    library=1,
-    autolayout=1),
+annotation (preferredView="info",
   version="0.706.1",
   versionDate="2014-04-09",
-  preferedView="text",
   Settings(NewStateSelection=true),
   Documentation(info="<html>
 <h3><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT</font></h3>

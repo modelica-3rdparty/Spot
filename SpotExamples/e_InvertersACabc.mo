@@ -81,17 +81,6 @@ package e_InvertersACabc "Inverters abc"
     connect(rectifier.heat, bdCond.heat)
       annotation (points=[20,20; 20,20], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>3-phase rectifier. Compare 'equation' and 'modular' version.</p>
@@ -101,8 +90,7 @@ package e_InvertersACabc "Inverters abc"
         StopTime=0.2,
         NumberOfIntervals=1000,
         Tolerance=1e-005,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end Rectifier;
 
   model InverterToLoad "Inverter to load"
@@ -173,17 +161,6 @@ package e_InvertersACabc "Inverters abc"
     connect(grd.term, vDC.neutral) annotation (points=[-80,-10; -80,-10], style(
           color=3, rgbcolor={0,0,255}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>3-phase inverter, feeding load at constant 100Hz with increasing amplitude.</p>
@@ -193,8 +170,7 @@ package e_InvertersACabc "Inverters abc"
         StopTime=0.2,
         NumberOfIntervals=1000,
         Tolerance=1e-005,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end InverterToLoad;
 
   model InverterToGrid "Inverter to grid"
@@ -284,17 +260,6 @@ package e_InvertersACabc "Inverters abc"
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-20,0; -20,0], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>3-phase inverter, feeding into grid with increasing phase. Compare 'switch', 'equation' and 'modular' version.</p>
@@ -304,8 +269,7 @@ package e_InvertersACabc "Inverters abc"
         StopTime=0.2,
         NumberOfIntervals=1000,
         Tolerance=1e-005,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end InverterToGrid;
 
   model InverterAvToGrid "Inverter to grid"
@@ -393,17 +357,6 @@ package e_InvertersACabc "Inverters abc"
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-20,0; -20,0], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>3-phase inverter based on AVERAGED switch-equation, feeding into grid with increasing phase.</p>
@@ -412,25 +365,13 @@ package e_InvertersACabc "Inverters abc"
 "),   experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
-        Algorithm="Dassl"),
-      experimentSetupOutput);
+        Algorithm="Dassl"));
   end InverterAvToGrid;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Comparison of different three-phase rectifier and inverter models.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon);
+"));
 end e_InvertersACabc;

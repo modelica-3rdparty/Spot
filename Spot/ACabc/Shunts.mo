@@ -30,11 +30,6 @@ package Shunts "Reactive and capacitive shunts"
       omega[2]*L*j_abc(i_x) + R*i_x = v;
     end if;
   annotation (defaultComponentName = "xShunt1",
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>Info see package ACabc.Impedances.</p>
@@ -153,11 +148,6 @@ package Shunts "Reactive and capacitive shunts"
       omega[2]*C*j_abc(v) + G*v = i;
     end if;
   annotation (defaultComponentName = "cShunt1",
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>Terminology.<br>
@@ -364,11 +354,6 @@ package Shunts "Reactive and capacitive shunts"
     psi_x = L*(i - G*v);
     der(psi_x) + omega[2]*j_abc(psi_x) + R*i_x = v;
   annotation (defaultComponentName = "xShuntNonSym",
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>Reactive shunt with general reactance matrix and parallel conductor, defined in abc inertial system.<br>
@@ -499,11 +484,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     q = C*v;
     der(q) + omega[2]*j_abc(q) + G*v = i;
   annotation (defaultComponentName = "cShuntNonSym",
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>Capacitive shunt with general susceptance matrix and parallel conductor, defined in abc inertial system.<br>
@@ -702,11 +682,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       v = term.v;
       i = term.i;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 </html>
@@ -734,11 +709,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
               fillPattern=FillPattern.Solid),
             Line(points={{-80,50},{-60,50}}, color={0,0,255}),
             Line(points={{-80,0},{-60,0}}, color={0,0,255}),
-            Line(points={{-80,-50},{-60,-50}}, color={0,0,255})}),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Line(points={{-80,-50},{-60,-50}}, color={0,0,255})}));
     end ShuntBase;
 
     partial model ShuntBaseNonSym "Shunt base non symmetric, 3-phase dqo"
@@ -747,11 +718,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     protected
       Real[3,3] Rot = Base.Transforms.rotation_abc(term.theta[2]);
     annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(
     info="<html>
 <pre>
@@ -759,39 +725,13 @@ Same as ShuntBase, but contains additionally a Park-transform which is needed fo
 transformation of general impedance matrices from abc rest- to rotating abc-system.
 (for example when coefficients of non symmetric systems are defined in abc representation.)
 </pre>
-</html>"),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ShuntBaseNonSym;
 
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
   end Partials;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.44,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Info see package ACabc.Impedances.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Shunts;

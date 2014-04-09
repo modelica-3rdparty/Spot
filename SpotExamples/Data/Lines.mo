@@ -16,15 +16,6 @@ package Lines "Line example data"
     parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="OH15kV1ph",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>
@@ -48,15 +39,6 @@ package Lines "Line example data"
     parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="OH_15kV1ph",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>
@@ -76,15 +58,6 @@ record OHline132kV1ph "Overhead PI-line 132kV 1-phase rail, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
 annotation (defaultComponentName="OH132kV1ph",
-    Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=[20,20]),
-    Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
     Documentation(
       info="<html>
 </html>"));
@@ -107,15 +80,6 @@ record OHline_132kV1ph "Overhead PI-line 132kV 1-phase rail, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
 annotation (defaultComponentName="OH_132kV1ph",
-    Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=[20,20]),
-    Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
     Documentation(
       info="<html>
 </html>"));
@@ -134,16 +98,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C132kVDC",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Icon,
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -166,18 +120,9 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C_132kVDC",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Documentation(
         info="<html>
-</html>"),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65));
+</html>"));
   end Cable_132kVDC;
 
   record OHline132kV "Overhead RX-line 132kV 3-phase, example"
@@ -193,15 +138,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH132kV",
-    Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=[20,20]),
-    Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
     Documentation(
       info="<html>
 </html>"));
@@ -224,15 +160,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH_132kV",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -251,15 +178,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH400kV",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -282,15 +200,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH_400kV",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -309,16 +218,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C132kV",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Icon,
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -341,18 +240,9 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C_132kV",
-       Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Documentation(
         info="<html>
-</html>"),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65));
+</html>"));
   end Cable_132kV;
 
   record Cable400kV "Cable RX-line 400kV 3-phase, example"
@@ -368,16 +258,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C400kV",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
-      Icon,
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -400,20 +280,11 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C_400kV",
-      Coordsys(
-      extent=[-100,-100; 100,100],
-      grid=[2,2],
-      component=[20,20]),
       Documentation(
         info="<html>
-</html>"),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65));
+</html>"));
   end Cable_400kV;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Some examples of standard-types.<br>
 Exact data for specific cases still have to be determined.</p>

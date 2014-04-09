@@ -16,8 +16,6 @@ package Thermal "Thermal boundary and adaptors"
   equation
     heat.T = T_amb;
     annotation (defaultComponentName="bdCond",
-      Icon(graphics),
-      Diagram(graphics),
       Documentation(info="<html>
 <p>Deault thermal boundary condition for applications where the thermal output of heat-producing components is not needed.<br>
 Boundary has fixed temperature T = 0.</p>
@@ -39,8 +37,6 @@ Boundary has fixed temperature T = 0.</p>
   equation
     heat.port.T = fill(T_amb, heat.m);
     annotation (defaultComponentName="bdCond",
-      Icon(graphics),
-      Diagram(graphics),
       Documentation(info="<html>
 <p>Deault thermal boundary condition for applications where the thermal output of heat-producing components is not needed.<br>
 Boundary has fixed temperature T = 0.</p>
@@ -78,8 +74,6 @@ Boundary has fixed temperature T = 0.</p>
       q = 0;
     end if;
     annotation (defaultComponentName="boundary",
-      Icon(graphics),
-      Diagram(graphics),
       Documentation(info="<html>
 <p>Ideal cooling (ideal=true):<br>
 Boundary has fixed temperature T_amb.</p>
@@ -130,8 +124,6 @@ at constant ambient temperature. The correspondence is
       q = zeros(if add_up then 1 else m);
     end if;
     annotation (defaultComponentName="boundary",
-      Icon(graphics),
-      Diagram(graphics),
       Documentation(info="<html>
 <p>Ideal cooling (ideal=true):<br>
 Boundary has fixed temperature T_amb.</p>
@@ -395,7 +387,6 @@ at constant ambient temperature. The correspondence is
     port_a.port.T = fill( port_b.T, port_a.m);
     sum(port_a.port.Q_flow) + port_b.Q_flow = 0;
     annotation (defaultComponentName="heat_collect",
-      Diagram(graphics),
       Icon(graphics={
           Rectangle(
             extent={{-60,40},{60,-40}},
@@ -435,7 +426,6 @@ model BdCondBase "Default (Neumann) boundary condition base"
               fillColor={192,192,192},
               fillPattern=FillPattern.Backward),
             Line(points={{-80,-50},{80,-50}}, color={255,255,255})}),
-    Diagram(graphics),
     Documentation(info="<html>
 <p>Deault thermal boundary condition for applications where the thermal output of heat-producing components is not needed.<br>
 Boundary has fixed temperature T = 0.</p>
@@ -489,30 +479,18 @@ initial equation
               lineColor={0,0,0},
               textString=
        "%name")}),
-    Diagram(graphics),
     Documentation(info="<html>
 </html>
 "));
 end BoundaryBase;
   annotation (
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1),
     Documentation(
             info="<html>
 </html>
 "));
 end Partials;
 
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>Auxiliary thermal boundary-conditions, boundary-elements and adptors.</p>
 </html>"));
 end Thermal;

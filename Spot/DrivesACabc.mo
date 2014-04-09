@@ -21,11 +21,6 @@ package DrivesACabc "AC drives abc"
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
             {0,100}}, color={176,0,0}));
     annotation (defaultComponentName = "asm",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Complete ASM drive.</p>
@@ -38,11 +33,7 @@ package DrivesACabc "AC drives abc"
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "asyn")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "asyn")}));
   end ASM;
 
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
@@ -70,11 +61,6 @@ package DrivesACabc "AC drives abc"
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
             {0,100}}, color={176,0,0}));
     annotation (defaultComponentName = "asm_Y_D",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Complete ASM drive with switcheable Y-Delta topology.</p>
@@ -148,11 +134,6 @@ package DrivesACabc "AC drives abc"
             10},{-16,10},{-16,20},{-84,20},{-84,10},{-76,10}}, color={0,0,127}));
     annotation (
       defaultComponentName="sm_ctrlAv",
-  Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
   Documentation(
           info="<html>
 <p>Complete ASM drive with inverter and motor for field oriented current control.</p>
@@ -165,11 +146,7 @@ package DrivesACabc "AC drives abc"
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "asyn")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "asyn")}));
   end ASM_ctrl;
 
   model SM_el "Synchronous machine, electric excitation"
@@ -218,11 +195,6 @@ package DrivesACabc "AC drives abc"
     connect(excitation.termVoltage, termVoltage) annotation (Line(points={{-66,
             40},{-66,60},{-60,60},{-60,100}}, color={0,0,127}));
     annotation (defaultComponentName = "sm_el",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Complete SM drive with electrically excited motor.</p>
@@ -238,11 +210,7 @@ package DrivesACabc "AC drives abc"
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "syn")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "syn")}));
   end SM_el;
 
   model SM_ctrl "Synchronous machine, current-control"
@@ -291,11 +259,6 @@ package DrivesACabc "AC drives abc"
             {-24,40},{-24,10}}, color={0,0,127}));
     annotation (
       defaultComponentName="sm_ctrl",
-  Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
   Documentation(
           info="<html>
 <p>Complete SM drive with inverter and motor for field oriented current control.</p>
@@ -319,11 +282,7 @@ package DrivesACabc "AC drives abc"
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "syn")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "syn")}));
   end SM_ctrl;
 
   package Partials "Partial models"
@@ -401,13 +360,6 @@ package DrivesACabc "AC drives abc"
               lineColor={255,170,85},
               fillColor={255,170,85},
               fillPattern=FillPattern.Solid)}),
-  Window(
-    x=0.41,
-        y=0.01,
-        width=
-  0.6,
-    height=
-   0.6),
   Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -476,13 +428,6 @@ package DrivesACabc "AC drives abc"
               lineColor={255,170,85},
               fillColor={255,170,85},
               fillPattern=FillPattern.Solid)}),
-  Window(
-    x=0.41,
-        y=0.01,
-        width=
-  0.6,
-    height=
-   0.6),
   Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -526,11 +471,6 @@ package DrivesACabc "AC drives abc"
     connect(heat_adapt.port_ab, heat)
       annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
   annotation (
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 </html>"),
@@ -541,28 +481,10 @@ package DrivesACabc "AC drives abc"
               extent={{-90,112},{90,88}},
               lineColor={0,0,127},
               fillColor={170,213,255},
-              fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
   end DriveBase_ctrl;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of AC-drives, abc-representation.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>

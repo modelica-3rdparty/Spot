@@ -37,15 +37,6 @@ package f_TransformationAC1ph "Transformation 1 phase"
     connect(grd.term, voltage.neutral)
       annotation (points=[-90,0; -90,0], style(color=3, rgbcolor={0,0,255}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The one-phase transformer has fluctuating potential primary and secondary side.<br>
@@ -60,10 +51,8 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram,
-      Icon,
-      experiment(NumberOfIntervals=1234),
-      experimentSetupOutput);
+"),
+      experiment(NumberOfIntervals=1234));
   end OnePhase;
 
   model TapChanger "One phase tap changing primary and secondary"
@@ -142,16 +131,6 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     connect(TapRelay2.tap_n, trafo2.tap_n) annotation (points=[14,-60; 14,-40],
         style(color=45, rgbcolor={255,127,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Diagram,
       Documentation(
               info="<html>
 <p>The transformers change either primary or secondary voltage level at times (1,2,3).
@@ -168,25 +147,12 @@ Note that the primary voltage source is fixed.</p>
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Icon,
-      experiment(StopTime=4, NumberOfIntervals=4567),
-      experimentSetupOutput);
+"),
+      experiment(StopTime=4, NumberOfIntervals=4567));
   end TapChanger;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers one-phase and tap changer control.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon);
+</html>"));
 end f_TransformationAC1ph;

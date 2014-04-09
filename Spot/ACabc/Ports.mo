@@ -14,8 +14,7 @@ partial model Port_p "AC one port 'positive', 3-phase"
             lineColor={0,0,0},
             textString=
            "%name")}),
-    Documentation(info="<html></html>"),
-    Diagram(graphics));
+    Documentation(info="<html></html>"));
 end Port_p;
 
 partial model Port_n "AC one port 'negative', 3-phase"
@@ -28,8 +27,7 @@ annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
             lineColor={0,0,0},
             textString=
                  "%name")}),
-    Documentation(info="<html></html>"),
-    Diagram(graphics));
+    Documentation(info="<html></html>"));
 end Port_n;
 
 partial model Port_f "AC one port 'fault', 3-phase"
@@ -45,8 +43,7 @@ annotation (Placement(transformation(
             lineColor={0,0,0},
             textString=
            "%name")}),
-    Documentation(info="<html></html>"),
-    Diagram(graphics));
+    Documentation(info="<html></html>"));
 end Port_f;
 
 partial model Port_p_n "AC two port, 3-phase"
@@ -65,8 +62,7 @@ Icon(graphics={Text(
             textString=
            "%name")}),
 Documentation(info="<html>
-</html>"),
-Diagram(graphics));
+</html>"));
 end Port_p_n;
 
 partial model Port_pn "AC two port 'current_in = current_out', 3-phase"
@@ -76,10 +72,8 @@ partial model Port_pn "AC two port 'current_in = current_out', 3-phase"
 equation
   term_p.i + term_n.i = zeros(3);
   annotation (
-Icon(graphics),
 Documentation(info="<html>
-</html>"),
-Diagram(graphics));
+</html>"));
 end Port_pn;
 
 partial model Port_p_n_f "AC three port, 3-phase"
@@ -95,10 +89,8 @@ equation
   Connections.branch(term_p.theta, term_f.theta);
   term_f.theta = term_p.theta;
   annotation (
-Icon(graphics),
 Documentation(info="<html>
-</html>"),
-Diagram(graphics));
+</html>"));
 end Port_p_n_f;
 
 partial model Yport_p "AC one port Y topology 'positive'"
@@ -114,7 +106,6 @@ equation
   term.i = i;
   i_n = sum(term.i);
   annotation (
-          Icon(graphics),
                 Diagram(graphics={Line(points={{30,-16},{52,-16},{62,0},{52,16},
                 {30,16}}, color={0,0,255}), Line(points={{30,0},{70,0}}, color=
                 {0,0,255})}),
@@ -149,7 +140,6 @@ equation
   term.i = i;
   i_n = sum(term.i);
   annotation (
-          Icon(graphics),
                 Diagram(graphics={Line(points={{-30,-16},{-52,-16},{-62,0},{-52,
                 16},{-30,16}}, color={0,0,255}), Line(points={{-70,0},{-30,0}},
               color={0,0,255})}),
@@ -191,8 +181,6 @@ equation
   term.v = top.v_term;
   term.i = top.i_term;
   annotation (
-          Icon(graphics),
-                Diagram(graphics),
     Documentation(info="<html>
 <p>Defines Y- and Delta-topology transform of voltage and current variables.</p>
 <p>Definitions</p>
@@ -237,8 +225,6 @@ equation
   term.v = top.v_term;
   term.i = top.i_term;
   annotation (
-          Icon(graphics),
-                Diagram(graphics),
     Documentation(info="<html>
 <p>Defines Y- and Delta-topology transform of voltage and current variables.</p>
 <p>Definitions</p>
@@ -280,8 +266,6 @@ equation
   connect(YDcontrol, top.control) annotation (Line(points={{-100,40},{40,40},{
             40,20}}, color={255,0,255}));
   annotation (
-          Icon(graphics),
-                Diagram(graphics),
     Documentation(info="<html>
 <p>Modification of YDport_p for switcheable Y-Delta transform.<br>
 Defines Y- and Delta-topology transform of voltage and current variables.<br>
@@ -345,7 +329,6 @@ equation
   term_n.v = top_n.v_term;
   term_n.i = top_n.i_term;
   annotation (
-Icon(graphics),
 Documentation(info="<html>
 <p>Defines Y- and Delta-topology transform of voltage and current variables and contains additionally voltage and current scaling.</p>
 <p>Below</p>
@@ -375,8 +358,7 @@ Documentation(info="<html>
   i_term = i_cond[{1,2,3}] - i_cond[{3,1,2}]
 </pre>
 </html>
-"),
-Diagram(graphics));
+"));
 end YDportTrafo_p_n;
 
 partial model YDportTrafo_p_n_n
@@ -486,8 +468,7 @@ Documentation(info="<html>
   with Rot = rotation_30deg
 </pre>
 </html>
-"),
-Diagram(graphics));
+"));
 end YDportTrafo_p_n_n;
 
 package Topology "Topology transforms "
@@ -508,11 +489,6 @@ partial model TopologyBase "Topology transform base"
 
   annotation (
     defaultComponentName="Y",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
       info="<html>
 </html>
@@ -527,11 +503,7 @@ partial model TopologyBase "Topology transform base"
               extent={{-100,-90},{100,-130}},
               lineColor={0,0,0},
               textString=
-         "%name")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+         "%name")}));
 end TopologyBase;
 
 model Y "Y transform"
@@ -546,11 +518,6 @@ equation
   annotation (
     structurallyIncomplete,
     defaultComponentName="Y",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
       info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within appropriate complete model.<br>
@@ -620,11 +587,6 @@ equation
     annotation (
       structurallyIncomplete,
       defaultComponentName="Delta",
-    Window(
-x=0.45,
-  y=0.01,
-  width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within appropriate complete model.<br>
@@ -667,8 +629,7 @@ The neutral point is isolated.</p>
             Polygon(
               points={{-60,0},{80,80},{80,-80},{-60,0}},
               lineColor={255,0,0},
-              lineThickness=0.5)}),
-      DymolaStoredErrors);
+              lineThickness=0.5)}));
 end Delta;
 
 model Y_Delta "Y Delta switcheble transform"
@@ -698,11 +659,6 @@ equation
   annotation (
     structurallyIncomplete,
     defaultComponentName="Y_Delta",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
       info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within appropriate complete model.<br>
@@ -852,11 +808,6 @@ equation
   annotation (
     structurallyIncomplete,
     defaultComponentName="Y_Delta",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
       info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within appropriate complete model.<br>
@@ -973,32 +924,14 @@ Regularised version of Y_Delta. To be used, if device is fed accross an inductiv
               color={255,0,255},
               pattern=LinePattern.Dot)}));
 end Y_DeltaRegular;
-annotation (preferedView="info",
-  Window(
-    x=0.05,
-    y=0.41,
-    width=0.4,
-    height=0.32,
-    library=1,
-    autolayout=1),
+annotation (preferredView="info",
   Documentation(info="<HTML>
 <p>
 Contains transforms for Y and Delta topology abc.
 </p>
-</HTML>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</HTML>"));
 end Topology;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.03,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Electrical ports with connectors Base.Interfaces.ACabc:</p>
 <p>The index notation <tt>_p_n</tt> and <tt>_pn</tt> is used for</p>
@@ -1007,9 +940,5 @@ Documentation(info="<html>
   _pn:      with conservation of current
 </pre>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Ports;

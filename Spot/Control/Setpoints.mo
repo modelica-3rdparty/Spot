@@ -20,11 +20,6 @@ equation
   setpts[2] = p_set;
   setpts[3] = v_set;
   annotation (defaultComponentName = "setpts1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The speed-, power-, and voltage setpoints setpts[1:3] are determined by the corresponding setpoint-parameters.<br>
@@ -68,11 +63,7 @@ The setpoints are kept constant during simulation.</p>
             lineColor={95,95,95},
             lineThickness=0.5,
             textString=
-               "v")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+               "v")}));
 end Set_w_p_v;
 
 block SetVariable_w_p_v "Variable setpoints w, p, v for generation"
@@ -105,11 +96,6 @@ equation
   setpts[2] = setpt_p;
   setpts[3] = setpt_v;
   annotation (defaultComponentName = "setpts1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The speed-, power-, and voltage setpoints setpts[1:3] are are taken from inputs set_w, setpt_p, set_v.<br>
@@ -147,11 +133,7 @@ They depend on the chosen (initial) system-frequency f0, the initial terminal vo
             lineColor={95,95,95},
             lineThickness=0.5,
             textString=
-               "v")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+               "v")}));
 end SetVariable_w_p_v;
 
 block Set_w_p "Set-points for generation"
@@ -168,11 +150,6 @@ equation
   setpts[1] = w_set;
   setpts[2] = setpt_p;
   annotation (defaultComponentName = "setpts1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The speed setpoint setpts[1] is directly determined by the parameter w_set with attribute 'fixed=true'.<br>
@@ -201,11 +178,7 @@ The power setpoint setpts[2] is taken from input setpt_p.</p>
             extent={{0,20},{80,-20}},
             lineColor={95,95,95},
             textString=
-               "p")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+               "p")}));
 end Set_w_p;
   annotation (Documentation(info="<html>
 </html>"));

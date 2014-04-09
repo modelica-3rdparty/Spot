@@ -24,8 +24,7 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
                 {-8,-4},{-2,0},{-2,0},{2,4},{10,6},{10,6},{16,2},{22,6},{30,4},
                 {40,-2},{56,2},{76,-4},{100,0}},
             color={255,255,0},
-            thickness=1)}),
-      Diagram(graphics));
+            thickness=1)}));
   end ArcBreaker;
 
   model ArcFault "Arc voltage for faults"
@@ -37,11 +36,6 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
   equation
     v = V*tanh(r*i);
     annotation (structurallyIncomplete, defaultComponentName = "arcFault1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>
@@ -99,52 +93,21 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
               lineColor={0,0,0},
               textString=
                "%name")}),
-        Window(
-          x=
-    0.55, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
-"),     Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ArcBase;
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.26,
-  library=1,
-  autolayout=1),
       Documentation(
               info="<html>
 </html>
 "));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Properties of plasma arcs for breakers and faults.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Plasma;

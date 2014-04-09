@@ -94,17 +94,7 @@ package a_Introduction "Introductory examples"
     connect(grdV2.term, voltage_pu.neutral) annotation (points=[-70,-30; -60,
           -30], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-    Diagram,
-    Documentation(
+       Documentation(
             info="<html>
 <p>This example shows, how input-parameters can be defined in SI- or in pu-units (V, A or 'per unit').<br>
 'SI | pu' means 'SI' or 'pu', depending on the choice of 'units'.
@@ -143,8 +133,7 @@ Quantities in 'meter_pu' are displayed in pu.</p>
 and other meter-signals.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    experiment(StopTime=0.1),
-    experimentSetupOutput);
+    experiment(StopTime=0.1));
   end Units;
 
   model Frequency "System and autonomous frequency"
@@ -197,16 +186,6 @@ and other meter-signals.</p>
     connect(theta_dqo.y, voltage2.omega) annotation (points=[-60,-10; -36,-10;
           -36,-20], style(color=74, rgbcolor={0,0,127}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-    Diagram,
     Documentation(
             info="<html>
 <p>Example of two frequency-independent parts, one with system- and one with autonomous frequency.</p>
@@ -220,8 +199,7 @@ and other meter-signals.</p>
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    experiment(NumberOfIntervals=1000),
-    experimentSetupOutput);
+    experiment(NumberOfIntervals=1000));
   end Frequency;
 
   model ReferenceInertial "Inertial reference system (non rotating)"
@@ -317,16 +295,6 @@ and other meter-signals.</p>
     connect(grdV_dqo.term, voltage_dqo.neutral) annotation (points=[-70,-30;
           -60,-30], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-    Diagram,
     Documentation(
             info="<html>
 <p>This example shows two physically identical systems, the upper one in abc-, the lower one in dqo-representation.</p>
@@ -341,8 +309,7 @@ and other meter-signals.<br>
 Compare with the signals of the identical system in the example below.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    experiment(StopTime=0.1, NumberOfIntervals=1000),
-    experimentSetupOutput);
+    experiment(StopTime=0.1, NumberOfIntervals=1000));
   end ReferenceInertial;
 
 
@@ -440,16 +407,6 @@ Compare with the signals of the identical system in the example below.</p>
     connect(grdV_dqo.term, voltage_dqo.neutral) annotation (points=[-70,-30;
           -60,-30], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
-    Diagram,
     Documentation(
             info="<html>
 <p>This example shows two physically identical systems, the upper one in abc-, the lower one in dqo-representation.</p>
@@ -464,8 +421,7 @@ and other meter-signals.<br>
 Compare with the signals of the identical system in the example above.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    experiment(StopTime=0.1, NumberOfIntervals=1000),
-    experimentSetupOutput);
+    experiment(StopTime=0.1, NumberOfIntervals=1000));
   end ReferenceSynchron;
 
   model InitialSteadyState "Steady-state initialisation"
@@ -563,15 +519,6 @@ Compare with the signals of the identical system in the example above.</p>
     connect(grdV_dqo.term, voltage_dqo.neutral) annotation (points=[-70,-30;
           -60,-30], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>With 'system.ini = steady' (using the steady-state initial conditions) no inrush is observed as in the previous two examples. The solution is steady-state from the beginning.</p>
@@ -584,9 +531,7 @@ Compare with the signals of the identical system in the example above.</p>
 </pre>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    Diagram,
-    experiment(StopTime=0.1, NumberOfIntervals=1000),
-    experimentSetupOutput);
+    experiment(StopTime=0.1, NumberOfIntervals=1000));
   end InitialSteadyState;
 
   model SimulationTransient "Transient simulation"
@@ -670,15 +615,6 @@ Compare with the signals of the identical system in the example above.</p>
     connect(grdB.term, voltageB.neutral)
       annotation (points=[20,-90; 20,-81], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>With 'system.sim = transient' fast dynamics after switching are resolved.</p>
@@ -692,9 +628,8 @@ Compare with the signals of the identical system in the example above.</p>
 and other meter-signals.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    experiment(NumberOfIntervals=1000),
-    experimentSetupOutput);
+"),
+    experiment(NumberOfIntervals=1000));
   end SimulationTransient;
 
   model SimulationSteadyState "Steady-state simulation"
@@ -777,15 +712,6 @@ and other meter-signals.</p>
     connect(voltageB.neutral, grdB.term)
       annotation (points=[20,-81; 20,-90], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>With 'system.sim = steady' transients are suppressed and only slow dynamics, imposed by the source-voltage is resolved.<br>
@@ -800,9 +726,8 @@ This approximation corresponds to an infinitely fast response of the system.</p>
 and other meter-signals.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    experiment(NumberOfIntervals=1000),
-    experimentSetupOutput);
+"),
+    experiment(NumberOfIntervals=1000));
   end SimulationSteadyState;
 
   model Display "Display of phasors and power"
@@ -872,15 +797,6 @@ and other meter-signals.</p>
     connect(voltageR.neutral, grdV2.term)
       annotation (points=[80,40; 90,40], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>The example shows the use of a display element for voltage and current 'phasors' with additional power bars.</p>
@@ -898,9 +814,7 @@ Select Experiment Setup/Realtime/'Load result interval' = 0.1 s<br>
 Select 'Diagram' in the Simulation layer</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    Diagram,
-    experiment(StopTime=30, NumberOfIntervals=1500),
-    experimentSetupOutput);
+    experiment(StopTime=30, NumberOfIntervals=1500));
   end Display;
 
   model Tables "Using tables"
@@ -922,15 +836,6 @@ Select 'Diagram' in the Simulation layer</p>
     table.u = u;
     y = table.y;
   annotation (
-    Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=[20,20]),
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>The example shows the use of a table.<br>
@@ -947,29 +852,15 @@ Interpolates table-values.</p>
 </pre>
 (choose  u as 'independent variable', right mouse)</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
-    experiment,
-    experimentSetupOutput);
+</html>"));
   end Tables;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.
 The examples are based on most elementary configurations. A meter is added for convenience, displaying signals both in abc- and dqo-representation. </p>
 <p>The component Spot.System is needed in all models, except in Introduction.Tables.</p>
 <p><a href=\"Spot.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>
-"), Icon);
+"));
 end a_Introduction;

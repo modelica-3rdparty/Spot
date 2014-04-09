@@ -16,13 +16,6 @@ record SCparameter "Ideal semiconductor parameters"
   parameter SI.Temp_K T0_loss=300 "reference T for cT_loss expansion"
     annotation(Dialog(enable=size(cT_loss,1)>0), Evaluate=true);
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>The small parameters epsR and epsG are given in dimensionless units. This allows to work with deault values also in cases where the exact semiconductor data are missing. A resonable (approximate) value for <tt>Z_nom</tt> is needed for scaling.
@@ -38,15 +31,7 @@ where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty,  no
 <pre>  h = hSw_nom*v*i/S_nom,   S_nom = V_nom*I_nom</pre>
 where <tt>q</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'.<br>
 A generalisation to powers of i and v is straightforward.</p>
-</html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end SCparameter;
 
 partial model IdealCharacteristic "Ideal diode characteristic"
@@ -66,25 +51,10 @@ equation
   V = if size(par.cT_loss,1)==0 then par.Vf else par.Vf*loss(T - par.T0_loss, par.cT_loss);
   {v,i_sc} = if on then {par.eps[1]*s + (1 - par.eps[1])*V,s - (1 - par.eps[2])*V} else {s,par.eps[2]*s};
 annotation (
-  Window(
-    x=0.45,
-      y=0.01,
-      width=
-  0.44,
-    height=
-   0.65),
   Documentation(
         info="<html>
 </html>
-"),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end IdealCharacteristic;
 
 model Diode "Diode"
@@ -93,11 +63,6 @@ model Diode "Diode"
 equation
   on = s > V;
   annotation (defaultComponentName = "diode1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal Diode with forward threshold voltage <tt>Vf_d</tt>.</p>
@@ -113,11 +78,7 @@ height=0.65),
             fillPattern=FillPattern.Solid),
           Line(points={{-90,0},{-40,0}}, color={0,0,255}),
           Line(points={{40,0},{90,0}}, color={0,0,255}),
-          Line(points={{40,40},{40,-40}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{40,40},{40,-40}}, color={0,0,255})}));
 end Diode;
 
 model Thyristor "Thyristor"
@@ -132,11 +93,6 @@ model Thyristor "Thyristor"
 equation
   on = s > V and (pre(on) or gate);
   annotation (defaultComponentName = "thyristor1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -155,11 +111,7 @@ height=0.65),
           Line(
             points={{20,0},{60,40},{60,90}},
             color={255,0,255},
-            pattern=LinePattern.Dot)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            pattern=LinePattern.Dot)}));
 end Thyristor;
 
 model SCswitch "Semiconductor switch"
@@ -174,11 +126,6 @@ model SCswitch "Semiconductor switch"
 equation
   on = s > V and gate;
   annotation (defaultComponentName = "GTO1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal semiconductor switch with forward threshold voltage <tt>Vf_s</tt>.<br>
@@ -196,11 +143,7 @@ height=0.65),
           Line(points={{-90,0},{-60,0}}, color={0,0,255}),
           Line(points={{20,0},{90,0}}, color={0,0,255}),
           Line(points={{20,40},{20,-40}}, color={0,0,255}),
-          Line(points={{20,0},{60,40},{60,90}}, color={255,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{20,0},{60,40},{60,90}}, color={255,0,255})}));
 end SCswitch;
 
 model SCswitch_Diode "Semiconductor switch with reverse Diode"
@@ -235,11 +178,6 @@ equation
     {v, i_sc} = if s < - V then {par.eps[1]*s - (1 - par.eps[1])*V, s + (1 - par.eps[2])*V} else {s,par.eps[2]*s};
   end if;
   annotation (defaultComponentName = "GTO_D1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal semiconductor switch with forward threshold voltage <tt>Vf_s</tt> and reverse Diode with forward threshold voltage <tt>Vf_d</tt>.<br>
@@ -265,27 +203,12 @@ height=0.65),
           Line(points={{30,40},{60,40},{60,-40},{40,-40}}, color={0,0,255}),
           Line(points={{-40,40},{-60,40},{-60,-40},{-30,-40}}, color={0,0,255}),
 
-          Line(points={{30,40},{60,70},{60,90}}, color={255,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{30,40},{60,70},{60,90}}, color={255,0,255})}));
 end SCswitch_Diode;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Ideal semiconductor models (default choice).</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Ideal;

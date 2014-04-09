@@ -20,11 +20,6 @@ package Multiplex "Multiplexer and AD converter"
   equation
     y = cat(1, u1, u2);
     annotation (defaultComponentName = "r2mux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -67,18 +62,9 @@ package Multiplex "Multiplexer and AD converter"
   equation
     y = cat(1,u1, u2, u2);
     annotation (defaultComponentName = "r3mux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -94,8 +80,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{-60,-20},{-20,-60}},
             lineColor={0,0,127},
             textString=
-                 "3")}),
-      DymolaStoredErrors);
+                 "3")}));
   end R3mux;
 
   block R4mux "Real multiplexer 4-fold"
@@ -122,11 +107,6 @@ package Multiplex "Multiplexer and AD converter"
   equation
     y = cat(1, u1[1:n[1]], u2[1:n[2]], u3[1:n[3]], u4[1:n[4]]);
     annotation (defaultComponentName = "r4mux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -165,19 +145,10 @@ package Multiplex "Multiplexer and AD converter"
   equation
     u = cat(1, y1, y2);
     annotation (defaultComponentName = "r2demux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={
@@ -215,11 +186,6 @@ package Multiplex "Multiplexer and AD converter"
   equation
     u = cat(1, y1, y2, y3);
     annotation (defaultComponentName = "r3demux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -264,11 +230,6 @@ package Multiplex "Multiplexer and AD converter"
   equation
     u = cat(1, y1, y2, y3, y4);
     annotation (defaultComponentName = "r4demux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -287,11 +248,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{20,-20},{60,-60}},
             lineColor={0,0,127},
             textString=
-                 "4")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "4")}));
   end R4demux;
 
   block B2mux "Boolean multiplexer 2-fold "
@@ -312,11 +269,6 @@ package Multiplex "Multiplexer and AD converter"
   equation
     y = cat(1, u1, u2);
     annotation (defaultComponentName = "b2mux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -335,11 +287,7 @@ package Multiplex "Multiplexer and AD converter"
             textString=
            "2"),
           Line(points={{-20,40},{0,40},{60,0},{0,-40},{-20,-40}}, color={255,0,
-                255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                255})}));
   end B2mux;
 
   block B2demux "Boolean demultiplexer 2-fold "
@@ -362,11 +310,6 @@ package Multiplex "Multiplexer and AD converter"
   equation
     u = cat(1, y1, y2);
     annotation (defaultComponentName = "b2demux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -385,11 +328,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{20,-20},{60,-60}},
             lineColor={255,0,255},
             textString=
-           "2")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "2")}));
   end B2demux;
 
   block Gate2demux "Boolean demultiplexer 2-fold"
@@ -417,11 +356,6 @@ package Multiplex "Multiplexer and AD converter"
     gates_1[1:n] = gates[1:n];
     gates_2[1:n] = gates[(n + 1):(n + n)];
     annotation (defaultComponentName = "gate2demux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -440,11 +374,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{30,-8},{50,-48}},
             lineColor={255,0,255},
             textString=
-           "2")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "2")}));
   end Gate2demux;
 
   block Gate3demux "Boolean demultiplexer 3-fold "
@@ -478,11 +408,6 @@ package Multiplex "Multiplexer and AD converter"
     gates_b[1:n] = gates[(n + 1):2*n];
     gates_c[1:n] = gates[(2*n + 1):3*n];
     annotation (defaultComponentName = "gate3demux1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -507,11 +432,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{-70,-10},{-50,-50}},
             lineColor={255,0,255},
             textString=
-           "a")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "a")}));
   end Gate3demux;
 
   block AD1ph "Analog-Digital converter 1-phase"
@@ -531,11 +452,6 @@ package Multiplex "Multiplexer and AD converter"
     gates[1] = if p > 0.5 then true else false;
     gates[2] = if n > 0.5 then true else false;
     annotation (defaultComponentName = "AD1ph",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -584,12 +500,7 @@ package Multiplex "Multiplexer and AD converter"
   n = 1 if gates[2] = true else n = 0
 </pre>
 </html>
-"),   Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Text(
@@ -637,11 +548,6 @@ package Multiplex "Multiplexer and AD converter"
     gates[5] = if c_p > 0.5 then true else false;
     gates[6] = if c_n > 0.5 then true else false;
     annotation (defaultComponentName = "AD3ph",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -727,12 +633,7 @@ package Multiplex "Multiplexer and AD converter"
   c_n = 1 if gates[6] = true else c_n = 0
 </pre>
 </html>
-"),   Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={
@@ -757,18 +658,7 @@ package Multiplex "Multiplexer and AD converter"
             textString=
            ".")}));
   end DA3ph;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Multiplex;

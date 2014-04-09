@@ -10,11 +10,6 @@ package Nodes "Nodes "
   equation
     term.pin.v = zeros(2);
     annotation (defaultComponentName = "grd1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Zero voltage on both conductors of terminal.</p>
@@ -58,11 +53,6 @@ package Nodes "Nodes "
       term.pin[1].i = term.pin[2].i;
     end if;
     annotation (defaultComponentName = "polGrd1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Zero voltage depending on polarity choice.</p>
@@ -129,11 +119,6 @@ package Nodes "Nodes "
     term.v = 0;
     annotation (
       defaultComponentName="grdOne1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Zero voltage on terminal.</p>
@@ -176,11 +161,6 @@ package Nodes "Nodes "
     term.pin.i = zeros(2);
     v = term.pin[1].v - term.pin[2].v;
     annotation (defaultComponentName = "bus1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -194,10 +174,6 @@ package Nodes "Nodes "
             pattern=LinePattern.None,
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>Calculates difference voltage conductor 1 - conductor 2.</p>
@@ -220,11 +196,6 @@ package Nodes "Nodes "
     term_pn.pin.v = {term_p.v, term_n.v};
     term_pn.pin.i + {term_p.i, term_n.i} = zeros(2);
     annotation (defaultComponentName = "pn_p_n",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -271,11 +242,6 @@ package Nodes "Nodes "
     {term_a.v,term_b.v,term_c.v} = term_abc.pin.v;
     term_abc.pin.i + {term_a.i,term_b.i,term_c.i} = zeros(3);
       annotation (defaultComponentName = "abc_a_b_c",
-          Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
           Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -303,18 +269,7 @@ package Nodes "Nodes "
           Line(points={{-40,-5},{0,-5},{0,-40},{40,-40}}, color={0,0,255}),
           Line(points={{-40,0},{40,0}}, color={0,0,255})}));
   end Electric_abc_a_b_c;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Nodes;

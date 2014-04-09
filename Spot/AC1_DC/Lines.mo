@@ -16,11 +16,6 @@ package Lines "Transmission lines 1-phase"
 
     L*der(i) + diagonal(R)*i = v;
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Transmission line modelled as concentrated RX-impedance.</p>
@@ -97,11 +92,6 @@ package Lines "Transmission lines 1-phase"
     C*der(v) + G*v = i[:, 1:ne] - i[:, 2:ne1];
     L*der(i) + diagonal(R)*i = [[2*(term_p.pin.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.pin.v)]];
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Transmission line modelled as discretised telegraph-equation, 'pi-elements'.</p>
@@ -251,11 +241,6 @@ equation
   (1 - p)*(L*der(i2) + diagonal(R)*i2) = term_f.pin.v - term_n.pin.v;
   annotation (
     defaultComponentName="faultRXline",
-Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
 Documentation(
         info="<html>
 <p>Transmission line modelled as concentrated RX-impedance, with third terminal for connecting line-fault component.</p>
@@ -404,11 +389,6 @@ equation
   L*der(iF) + diagonal(R)*iF = (v[:, nF-1] - term_f.pin.v)/pe + (v[:, nF] - term_f.pin.v)/(1-pe);
   annotation (
     defaultComponentName="faultPIline",
-Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
 Documentation(
         info="<html>
 <p>Transmission line modelled as discretised telegraph-equation, 'pi-elements'.</p>
@@ -513,24 +493,10 @@ end FaultPIline;
       final parameter SI.Resistance[2] R=par.r*delta_len*RL_base[1];
       final parameter SI.Inductance[2,2] L=([(par.x + par.x0),(par.x0 - par.x);(par.x0 - par.x),(par.x + par.x0)]/2)*delta_len*RL_base[2];
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Precalculation of coefficient matrices.</p>
-</html>"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end RXlineBase;
 
     partial model PIlineBase "PI-line base, 1-phase"
@@ -544,33 +510,11 @@ end FaultPIline;
       final parameter SI.Conductance[2,2] G=[par.g_pg+par.g_pp,-par.g_pp;-par.g_pp,par.g_pg+par.g_pp]*delta_len*GC_base[1];
       final parameter SI.Capacitance[2,2] C=[par.b_pg+par.b_pp,-par.b_pp;-par.b_pp,par.b_pg+par.b_pp]*delta_len*GC_base[2];
         annotation (extent=[-80,60; -60,80],
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Precalculation of coefficient matrices.</p>
-</html>"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
+</html>"),        Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
     end PIlineBase;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
 package Parameters "Parameter data for interactive use"
@@ -585,11 +529,6 @@ package Parameters "Parameter data for interactive use"
 
       annotation (
         defaultComponentName="data",
-        Window(
-     x=0.45,
-  y=0.01,
-  width=0.44,
-     height=0.65),
         Documentation(info=
      "<html>
 <p>Relations.</p>
@@ -603,15 +542,7 @@ package Parameters "Parameter data for interactive use"
   uncoupled limit:      x0 = x
 </pre>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end RXline;
 
   record PIline "PI-line parameters, 1-phase"
@@ -623,11 +554,6 @@ package Parameters "Parameter data for interactive use"
 
       annotation (
         defaultComponentName="data",
-  Window(
-      x=0.45,
-    y=0.01,
-    width=0.44,
-      height=0.65),
   Documentation(
   info="<html>
 <p>Relations.</p>
@@ -638,37 +564,15 @@ package Parameters "Parameter data for interactive use"
 </pre>
 <p>where <tt>_pg</tt> denotes phase-to-ground, and <tt>_pp</tt> phase-to-phase.</p>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>"),
-  Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end PIline;
- annotation (preferedView="info",
-    Window(
- x=0.05,
- y=0.41,
- width=0.4,
- height=0.38,
- library=1,
- autolayout=1),
+ annotation (preferredView="info",
     Documentation(info=
                   "<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Different types of transmission line models.<br>
 Faulted transmission lines contain a third terminal for connection to a fault-component.</p>
@@ -682,8 +586,5 @@ Faulted transmission lines contain a third terminal for connection to a fault-co
 <p>Coupling:</p>
 <pre>  cpl = x_m/x_s &gt  0,        positive for lines</pre>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Lines;

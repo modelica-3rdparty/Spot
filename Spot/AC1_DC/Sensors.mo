@@ -26,18 +26,9 @@ package Sensors "Sensors n-phase or DC"
             lineColor={135,135,135},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end VdiffSensor;
 
   model IdiffSensor "Current difference sensor, 1-phase"
@@ -53,22 +44,13 @@ package Sensors "Sensors n-phase or DC"
   equation
     i = 0.5*(term_p.pin[1].i - term_p.pin[2].i);
     annotation (defaultComponentName = "Isensor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Ellipse(extent={{-20,20},{20,-20}}, lineColor=
-                {135,135,135}), Line(points={{0,20},{0,90}}, color={135,135,135})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                {135,135,135}), Line(points={{0,20},{0,90}}, color={135,135,135})}));
   end IdiffSensor;
 
   model Vsensor "Voltage sensor, 1-phase"
@@ -95,18 +77,9 @@ package Sensors "Sensors n-phase or DC"
             fillPattern=FillPattern.Solid),
           Line(points={{-20,50},{20,70}}, color={135,135,135}),
           Line(points={{-20,40},{20,60}}, color={135,135,135})}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Vsensor;
 
   model Isensor "Current sensor, 1-phase"
@@ -122,11 +95,6 @@ package Sensors "Sensors n-phase or DC"
   equation
     i = term_p.pin.i;
     annotation (defaultComponentName = "Isensor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),   Icon(coordinateSystem(
@@ -136,11 +104,7 @@ package Sensors "Sensors n-phase or DC"
           Ellipse(extent={{-20,20},{20,-20}}, lineColor={135,135,135}),
           Line(points={{0,20},{0,90}}, color={135,135,135}),
           Line(points={{-20,50},{20,70}}, color={135,135,135}),
-          Line(points={{-20,40},{20,60}}, color={135,135,135})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-20,40},{20,60}}, color={135,135,135})}));
   end Isensor;
 
   model Psensor "Power sensor, 1-phase"
@@ -155,11 +119,6 @@ package Sensors "Sensors n-phase or DC"
   equation
     p = term_p.pin.v*term_p.pin.i;
    annotation (defaultComponentName = "Psensor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -171,11 +130,7 @@ package Sensors "Sensors n-phase or DC"
             lineColor={135,135,135},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid), Line(points={{0,0},{20,0}}, color={
-                0,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                0,0,255})}));
   end Psensor;
 
   model Vmeter "Voltage meter, 1-phase"
@@ -204,11 +159,6 @@ package Sensors "Sensors n-phase or DC"
             fillPattern=FillPattern.Solid),
           Line(points={{-15,45},{15,59}}, color={135,135,135}),
           Line(points={{-15,35},{15,49}}, color={135,135,135})}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -218,10 +168,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
   v      difference voltage 'plus' - 'minus'
   v0     average voltage ('plus' + 'minus')/2
 </pre>
-</html>"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Vmeter;
 
   model Imeter "Current meter, 1-phase"
@@ -239,11 +186,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     i = (i_ab[1] - i_ab[2])/2;
     i0 = (i_ab[1] + i_ab[2]);
     annotation (defaultComponentName = "Imeter1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -290,11 +232,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
       pav = 0;
     end if;
     annotation (defaultComponentName = "Pmeter1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -353,11 +290,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
       pav = 0;
     end if;
     annotation (defaultComponentName = "PVImeter1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -440,13 +372,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     end if;
     annotation (
       defaultComponentName="efficiency",
-  Window(
-      x=0.45,
-        y=0.01,
-        width=
-    0.44,
-      height=
-     0.65),
   Documentation(
           info="<html>
 <p>Measures the electric power <tt>p</tt> flowing from 'term_p' to 'term_n' and the total heat inflow <tt>q</tt> at term 'heat'. The efficiency eta in % is then defined by
@@ -468,11 +393,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             lineColor={176,0,0},
             fillColor={176,0,0},
             fillPattern=FillPattern.Solid), Line(points={{0,0},{20,0}}, color={
-                0,0,255})}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                0,0,255})}));
   end Efficiency;
 
   package Partials "Partial models"
@@ -485,13 +406,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
     equation
       term.pin.i = zeros(2);
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -515,13 +429,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
     equation
       term_p.pin.v = term_n.pin.v;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -545,13 +452,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
       extends Base.Units.Nominal;
 
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -559,11 +459,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Ellipse(extent={{-70,70},{70,-70}},
-                lineColor={135,135,135})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                lineColor={135,135,135})}));
     end Meter1Base;
 
     partial model Meter2Base "Meter base 2 terminal, 1-phase"
@@ -574,27 +470,10 @@ In problematic cases use power sensors electrical and mechanical.</p>
                   {135,135,135})}));
     end Meter2Base;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Sensors directly output terminal signals (voltage, current, power).</p>
 <p>Meters allow choosing base-units for output variables.</p>
-</html>"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Sensors;

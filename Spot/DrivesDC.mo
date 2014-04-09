@@ -18,11 +18,6 @@ package DrivesDC "DC-drives"
     connect(term, motor.term)
       annotation (Line(points={{-100,0},{-40,0}}, color={0,0,255}));
   annotation (defaultComponentName = "dcm_ser",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Complete DC drive series connected.</p>
@@ -40,11 +35,7 @@ package DrivesDC "DC-drives"
           Line(points={{-90,-10},{-60,-10}}, color={0,0,255}),
           Line(points={{-90,10},{-80,10},{-80,50},{-60,50}}, color={0,0,255}),
           Line(points={{-60,10},{-70,10},{-70,-6}}, color={0,0,255}),
-          Line(points={{-70,-14},{-70,-50},{-60,-50}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-70,-14},{-70,-50},{-60,-50}}, color={0,0,255})}));
   end DCMser;
 
   model DCMpar "DC machine, parallel connected"
@@ -67,11 +58,6 @@ package DrivesDC "DC-drives"
     connect(field, motor.field) annotation (Line(points={{-100,-40},{-60,-40},{
             -60,-4},{-40,-4}}, color={0,0,255}));
   annotation (defaultComponentName = "dcm_par",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Complete DC drive parallel connected.</p>
@@ -90,11 +76,7 @@ package DrivesDC "DC-drives"
                "DC par"),
           Line(points={{-90,-50},{-60,-50}}, color={0,0,255}),
           Line(points={{-60,50},{-68,50},{-68,14}}, color={0,0,255}),
-          Line(points={{-68,-14},{-68,-30},{-90,-30}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-68,-14},{-68,-30},{-90,-30}}, color={0,0,255})}));
   end DCMpar;
 
   model DCMpm "DC machine, permanent magnet"
@@ -112,11 +94,6 @@ package DrivesDC "DC-drives"
     connect(term, motor.term)
       annotation (Line(points={{-100,0},{-40,0}}, color={0,0,255}));
   annotation (defaultComponentName = "dcm_pm",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Complete DC drive permanent magnet excited.</p>
@@ -142,11 +119,7 @@ package DrivesDC "DC-drives"
             extent={{-60,-40},{80,-44}},
             lineColor={176,0,0},
             fillColor={176,0,0},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end DCMpm;
 
   model BLDC "BLDC machine"
@@ -191,11 +164,6 @@ package DrivesDC "DC-drives"
     connect(motor.uPhasor, inverter.uPhasor) annotation (Line(points={{-40,10},
             {-64,10}}, color={0,0,127}));
   annotation (defaultComponentName = "bldcm",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Complete brushless DC drive with inverter.</p>
@@ -225,11 +193,7 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "BLDC")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "BLDC")}));
   end BLDC;
 
   package Partials "Partial models"
@@ -315,13 +279,6 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
               lineColor={255,170,85},
               fillColor={255,170,85},
               fillPattern=FillPattern.Solid)}),
-  Window(
-    x=0.41,
-        y=0.01,
-        width=
-  0.6,
-    height=
-   0.6),
   Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -383,23 +340,9 @@ Using a pu-current <tt>i_sd_pu</tt> we obtain
               fillPattern=FillPattern.Solid)}));
   end Synchron3rd_bldc;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of DC-drives.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>

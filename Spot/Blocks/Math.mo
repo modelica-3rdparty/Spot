@@ -10,11 +10,6 @@ block Integrator "Integral of input-signal"
 equation
   der(y) = u;
   annotation (
-    Window(
-      x=0.29,
-      y=0.05,
-      width=0.53,
-      height=0.54),
     Documentation(info="<html>
 <p/>Calculates:
 <pre>  y_ini + Integral dt u</pre>
@@ -39,11 +34,7 @@ equation
           Line(
             points={{-61,31},{-61,-31}},
             color={135,135,135},
-            thickness=0.5)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
 end Integrator;
 
   block TimeAverage "Time average of input signal"
@@ -58,11 +49,6 @@ end Integrator;
   equation
     der(y) = (u - y)/tcst;
     annotation (defaultComponentName = "time_av",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Calculates the time-average of the input-signal u with exponential memory function (first order transfer function with initial condition).</p>
@@ -79,11 +65,7 @@ end Integrator;
             extent={{-80,80},{80,40}},
             lineColor={128,128,128},
             textString=
-                 "_____")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "_____")}));
   end TimeAverage;
 
   block TimeAvInterval "Time average over interval of input signal"
@@ -98,11 +80,6 @@ end Integrator;
     der(U) = u;
     y = (U - delay(U, tcst))/tcst;
     annotation (defaultComponentName = "time_avI",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Calculates the time-average of the input-signal u over the interval {time - tau, time}.</p>
@@ -119,11 +96,7 @@ end Integrator;
             extent={{-80,40},{80,-40}},
             lineColor={128,128,128},
             textString=
-                 "[...]")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "[...]")}));
   end TimeAvInterval;
 
   block ComponentAverage "Component average of input signal"
@@ -144,16 +117,7 @@ end Integrator;
       Documentation(
               info="<html>
 <p>Calculates the average over the components of the input-signal u.</p>
-</html>"),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end ComponentAverage;
 
   block Norm "Norm of input signal"
@@ -166,11 +130,6 @@ end Integrator;
   equation
     y = sqrt(u[1:n_eval]*u[1:n_eval]);
     annotation (defaultComponentName = "norm",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows in particular to calculate the dqo-norm (n_eval=3) or dq-norm (n_eval=2) of the input signal.</p>
@@ -182,11 +141,7 @@ end Integrator;
             extent={{-80,40},{80,-40}},
             lineColor={128,128,128},
             textString=
-           "|u|")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "|u|")}));
   end Norm;
 
   block ToPolar "Rotation of input signal-vector"
@@ -209,11 +164,6 @@ end Integrator;
             lineColor={128,128,128},
             textString=
                  "polar >")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Converts Euclidean {u[1], u[2]} to  polar {y[1], y[2]} coordinates, where
 <pre>
@@ -222,11 +172,7 @@ end Integrator;
 </pre></p>
 <p>The phase <tt>y[2]</tt> is continuous in the interval
 <pre>  -pi &lt  phi &lt = +pi</pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end ToPolar;
 
   block ToPolarR "Rotation of input signal-vector"
@@ -258,11 +204,6 @@ end Integrator;
             lineColor={255,85,85},
             textString=
                  "polar >")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Converts Euclidean {u[1], u[2]} to  polar {y[1], y[2]} coordinates, where
 <pre>
@@ -271,11 +212,7 @@ end Integrator;
 </pre></p>
 <p>The phase <tt>y[2]</tt> is continuous on the whole real axis
 <pre>  -inf &lt  phi &lt  +inf</pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end ToPolarR;
 
   block FromPolar "Rotation of input signal-vector"
@@ -293,11 +230,6 @@ end Integrator;
             lineColor={128,128,128},
             textString=
                  "< polar")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Converts polar {u[1], u[2]} to Euclidean {y[1], y[2]} coordinates, where
 <pre>
@@ -305,23 +237,9 @@ end Integrator;
   u[2]     argument, phase
 </pre></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end FromPolar;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Math;

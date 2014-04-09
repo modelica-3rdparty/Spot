@@ -9,11 +9,6 @@ package Interfaces "Interfaces "
   Documentation(info="<html>
 </html>
 "),
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -41,11 +36,6 @@ package Interfaces "Interfaces "
     annotation (defaultComponentName = "term_n",
   Documentation(info="<html>
 </html>"),
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -75,12 +65,7 @@ package Interfaces "Interfaces "
     Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, positive.</p>
 </html>
-"), Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
-    Icon(coordinateSystem(
+"),    Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Polygon(
@@ -122,11 +107,6 @@ package Interfaces "Interfaces "
     Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, negative.</p>
 </html>"),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -170,11 +150,6 @@ package Interfaces "Interfaces "
     Documentation(info="<html>
 <p>AC connector with vector variables in abc-representation, positive.</p>
 </html>"),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -215,11 +190,6 @@ package Interfaces "Interfaces "
     Documentation(info="<html>
 <p>AC connector with vector variables in abc-representation, negative.</p>
 </html>"),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -259,11 +229,6 @@ package Interfaces "Interfaces "
     Documentation(info="<html>
 <p>AC connector with vector variables in dqo-representation, positive.</p>
 </html>"),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -304,11 +269,6 @@ package Interfaces "Interfaces "
     Documentation(info="<html>
 <p>AC connector with vector variables in dqo-representation, negative.</p>
 </html>"),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -347,11 +307,6 @@ package Interfaces "Interfaces "
   connector Rotation_p "Rotational flange ('positive') "
     extends Connectors.Rotation;
   annotation (defaultComponentName = "flange_p",
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Mechanical rotational connector (also electro-mechanical), positive.</p>
 </html>
@@ -380,11 +335,6 @@ package Interfaces "Interfaces "
   connector Rotation_n "Rotational flange ('negative') "
     extends Connectors.Rotation;
   annotation (defaultComponentName = "flange_n",
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Mechanical rotational connector (also electro-mechanical), negative.</p>
 </html>
@@ -413,11 +363,6 @@ package Interfaces "Interfaces "
   connector Translation_p "Translational flange ('positive') "
     extends Connectors.Translation;
   annotation (defaultComponentName = "flange_p",
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Mechanical translational connector (also electro-mechanical), positive.</p>
 </html>"),
@@ -446,11 +391,6 @@ package Interfaces "Interfaces "
   connector Translation_n "Translational flange ('negative')"
     extends Connectors.Translation;
   annotation (defaultComponentName = "flange_n",
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Mechanical translational connector (also electro-mechanical), negative.</p>
 </html>"),
@@ -614,7 +554,6 @@ package Interfaces "Interfaces "
   The port collects the total heat dissipated by the component.
   </pre>
   </html>"),
-           Diagram(graphics),
       Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
@@ -624,8 +563,7 @@ package Interfaces "Interfaces "
       T = heat.T;
       Q_flow = -heat.Q_flow;
 
-      annotation (Diagram(graphics),
-                           Documentation(info="<html>
+      annotation (                           Documentation(info="<html>
 <p>Adds a heat-port to an electrical component.</p>
 <p>Copper data at 20degC.</p>
 <pre>
@@ -649,7 +587,6 @@ package Interfaces "Interfaces "
   Each port-component collects the heat dissipated by one conductor of the device.
   </pre>
   </html>"),
-           Diagram(graphics),
       Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
@@ -659,8 +596,7 @@ package Interfaces "Interfaces "
       T = heat.port.T;
       Q_flow = -heat.port.Q_flow;
 
-      annotation (Diagram(graphics),
-                           Documentation(info="<html>
+      annotation (                           Documentation(info="<html>
 <p>Adds a vector heat-port to an electrical component.</p>
 <p>Copper data at 20degC.</p>
 <pre>
@@ -703,11 +639,6 @@ package Interfaces "Interfaces "
             lineColor={120,0,120},
             textString=
                "%name")}),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>System position reference.<br>
 Used in extended 'System' for sending/receiving position.</p>
@@ -734,15 +665,6 @@ Used in extended 'System' for sending/receiving position.</p>
             lineColor={120,0,120},
             textString=
                    "%name")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Contains system position reference.<br>
 Needed within certain models to establish the connection to extended 'system' for sending/receiving position-data.</p>
@@ -782,11 +704,6 @@ Needed within certain models to establish the connection to extended 'system' fo
             lineColor={120,0,120},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid)}),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>System frequency reference.<br>
 Used in 'System' for sending/receiving weighted frequency-data.</p>
@@ -802,13 +719,6 @@ Used in 'System' for sending/receiving weighted frequency-data.</p>
     Frequency sendFreq          annotation (Placement(transformation(extent={{
               -60,-92},{60,28}}, rotation=0)));
     annotation (defaultComponentName = "sendFreq",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 <p>Contains system frequency reference.<br>
@@ -826,11 +736,7 @@ Needed within certain models to establish the connection to 'system' for sending
             points={{-100,-100},{0,100},{100,-100},{100,-100},{-100,-100}},
             lineColor={120,0,120},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end SenderFreq;
 
   package Connectors "Naked connectors"
@@ -847,13 +753,7 @@ Needed within certain models to establish the connection to 'system' for sending
   i:        current
 </pre>
 </html>
-"), Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
-    Icon(graphics),
-    Diagram(graphics));
+"));
   end Electric;
 
   connector AC3ph "AC terminal, 3-phase"
@@ -878,14 +778,7 @@ Needed within certain models to establish the connection to 'system' for sending
   theta_abs = theta[1] + theta[2]:  absolute angle
   der(theta_abs) = omega_abs:       absolute angular frequency
 </pre>
-</html>"),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
-    Icon(graphics),
-    Diagram(graphics));
+</html>"));
   end AC3ph;
 
   connector Rotation "Rotational flange"
@@ -898,9 +791,7 @@ Needed within certain models to establish the connection to 'system' for sending
   phi:      angle
   tau:      torque
 </pre>
-</html>"),
-    Icon(graphics),
-    Diagram(graphics));
+</html>"));
   end Rotation;
 
   connector Translation "Translational flange"
@@ -913,9 +804,7 @@ Needed within certain models to establish the connection to 'system' for sending
   s:        position
   f:        force
 </pre>
-</html>"),
-    Icon(graphics),
-    Diagram(graphics));
+</html>"));
   end Translation;
 
   connector Thermal "Thermal heat-port"
@@ -929,28 +818,15 @@ Needed within certain models to establish the connection to 'system' for sending
   Q_flow:   heat flow rate
 </pre>
 </html>
-"), Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
-    Icon(graphics),
-    Diagram(graphics));
+"));
   end Thermal;
   //  annotation 11;
-    annotation (preferedView="info",
+    annotation (preferredView="info",
   Documentation(info="<html>
 </html>"));
   end Connectors;
 
-    annotation (preferedView="info",
-      Window(
-        x=0,
-        y=0.55,
-        width=0.15,
-        height=0.41,
-        library=1,
-        autolayout=1),
+    annotation (preferredView="info",
       Documentation(info="<html>
 <p><a href=\"Spot.UsersGuide.Introduction.Interfaces\">up users guide</a></p>
 </html>

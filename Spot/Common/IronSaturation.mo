@@ -15,11 +15,6 @@ package IronSaturation "Iron saturation properties"
     psi[k] := (c[1]/c[2])*tanh(c[2]*psi0[k]) + c[3]*psi0[k];
     end for;
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Returns analytic saturation function.
@@ -43,10 +38,7 @@ in the following way
   c[3] = xratio
 </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end saturationAnalytic;
 
   function der_saturationAnalytic
@@ -62,11 +54,6 @@ in the following way
     der_psi[k] := c[1]/(cosh(c[2]*psi0[k]))^2 + c[3];
     end for;
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Returns  the derivative of analytic saturation function.
@@ -90,11 +77,7 @@ in the following way
   c[2] = (1-xratio)/(psi_sat-xratio)
   c[3] = xratio
 </pre></p>
-</html>"),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end der_saturationAnalytic;
 
   record SaturationTab "Saturating flux table"
@@ -210,11 +193,6 @@ in the following way
     5.0500000e+000,  1.5005000e+000,  6.0837891e-003];
 
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Example table of saturating flux. The tabulated values correspond to the function values of 'saturationAnalytic' and 'der_saturationAnalytic', psi(psi0) and d_psi/d_psi0(psi0).</p>
@@ -225,24 +203,11 @@ in the following way
   der_psi = y[2]
 </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end SaturationTab;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Iron saturation function and table.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end IronSaturation;

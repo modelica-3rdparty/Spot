@@ -18,21 +18,10 @@ record TrafoIdeal1ph "Ideal trafo, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end TrafoIdeal1ph;
 
 record TrafoStray1ph "Trafo with ideal magnetic coupling, 1-phase, example"
@@ -52,31 +41,10 @@ record TrafoStray1ph "Trafo with ideal magnetic coupling, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram(
-   Rectangle(extent=[-26,60; -20,-60],style(
-    color=30,
-    rgbcolor={215,215,215},
-    fillColor=30,
-    rgbfillColor={215,215,215})),
-   Rectangle(extent=[20,60; 26,-60],  style(
-    color=30,
-    rgbcolor={215,215,215},
-    fillColor=30,
-    rgbfillColor={215,215,215}))));
+"));
 end TrafoStray1ph;
 
 record TrafoMag1ph "Trafo with magnetic coupling, 1-phase, example"
@@ -98,35 +66,10 @@ record TrafoMag1ph "Trafo with magnetic coupling, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram(
-Line(points=[-30,60; -30,-60], style(
-    color=3,
-    rgbcolor={0,0,255},
-    pattern=3,
-    fillColor=7,
-    rgbfillColor={255,255,255},
-    fillPattern=1)),
-Line(points=[30,60; 30,-60], style(
-    color=3,
-    rgbcolor={0,0,255},
-    pattern=3,
-    fillColor=7,
-    rgbfillColor={255,255,255},
-    fillPattern=1))));
+"));
 end TrafoMag1ph;
 
 record TrafoSat1ph "Trafo with saturation, 1-phase, example"
@@ -150,28 +93,10 @@ record TrafoSat1ph "Trafo with saturation, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram(
-Line(points=[-15,-40; -11,-10; -7,10; -5,20; -1,30; 5,36; 15,40], style(
-    color=0,
-    rgbcolor={0,0,0},
-    thickness=2,
-    fillColor=30,
-    rgbfillColor={215,215,215},
-    fillPattern=1))));
+"));
 end TrafoSat1ph;
 
 record TrafoIdeal "Ideal trafo, 3-phase, example"
@@ -191,21 +116,10 @@ record TrafoIdeal "Ideal trafo, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end TrafoIdeal;
 
 record TrafoStray "Trafo with ideal magnetic coupling, 3-phase, example"
@@ -228,21 +142,10 @@ record TrafoStray "Trafo with ideal magnetic coupling, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end TrafoStray;
 
 record TrafoMag "Trafo with magnetic coupling, 3-phase, example"
@@ -268,21 +171,10 @@ record TrafoMag "Trafo with magnetic coupling, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end TrafoMag;
 
 record TrafoSat "Trafo with saturation, 3-phase, example"
@@ -310,23 +202,12 @@ record TrafoSat "Trafo with saturation, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end TrafoSat;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define the winding ratio and voltage start values.</p>
 </html>"));

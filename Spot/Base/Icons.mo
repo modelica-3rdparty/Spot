@@ -6,11 +6,6 @@ package Icons "Icons"
   partial block Block "Block icon"
 
     annotation (
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Documentation(info="
 "),
   Icon(coordinateSystem(
@@ -26,11 +21,6 @@ package Icons "Icons"
   partial block Block0 "Block icon 0"
     extends Block;
     annotation (
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Documentation(info="
 "),
   Icon(coordinateSystem(
@@ -46,11 +36,6 @@ package Icons "Icons"
   partial block Block1 "Block icon 1"
     extends Block;
     annotation (
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Documentation(info="
 "),
   Icon(coordinateSystem(
@@ -66,11 +51,6 @@ package Icons "Icons"
   partial block BlockS "Block icon shadowed"
 
     annotation (
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Documentation(info="
 "),
   Icon(coordinateSystem(
@@ -86,11 +66,6 @@ package Icons "Icons"
   partial block BlockS0 "Block icon shadowed 0"
     extends BlockS;
     annotation (
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Documentation(info="
 "),
   Icon(coordinateSystem(
@@ -106,11 +81,6 @@ package Icons "Icons"
   partial block BlockS1 "Block icon shadowed 1"
     extends BlockS;
     annotation (
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Documentation(info="
 "),
   Icon(coordinateSystem(
@@ -126,13 +96,6 @@ package Icons "Icons"
 partial model Adaptor_abc "Adaptor icon abc"
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -205,10 +168,6 @@ partial model Adaptor_abc "Adaptor icon abc"
             lineColor={0,0,0},
             textString=
            "%name")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info=""));
 
 end Adaptor_abc;
@@ -216,13 +175,6 @@ end Adaptor_abc;
 partial model Adaptor_dqo "Adaptor icon dqo"
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -291,10 +243,6 @@ partial model Adaptor_dqo "Adaptor icon dqo"
             lineColor={0,0,0},
             textString=
            "%name")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info=""));
 
 end Adaptor_dqo;
@@ -302,13 +250,6 @@ end Adaptor_dqo;
 partial model Inverter "Inverter icon"
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -328,10 +269,6 @@ partial model Inverter "Inverter icon"
             lineColor={0,0,0},
             textString=
            "%name")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info=""));
 
 end Inverter;
@@ -339,13 +276,6 @@ end Inverter;
 partial model Inverter_abc "Inverter icon"
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -381,10 +311,6 @@ partial model Inverter_abc "Inverter icon"
             textString =            "~"),
           Text(extent={{-80,40},{0,0}}, textString=
                                   "=")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info=""));
 
 end Inverter_abc;
@@ -392,13 +318,6 @@ end Inverter_abc;
 partial model Inverter_dqo "Inverter icon"
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -430,10 +349,6 @@ partial model Inverter_dqo "Inverter icon"
            "%name"),
           Text(extent={{-80,40},{0,0}}, textString=
                                   "=")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info=""));
 
 end Inverter_dqo;
@@ -480,15 +395,7 @@ partial function Function "Function icon"
             textString =                       "%name")}),
     Documentation(
             info="
-"), Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Function;
 
 partial class Enumeration "Enumeration icon"
@@ -545,11 +452,7 @@ end Enumeration;
             fillPattern=FillPattern.Solid,
             textString=
                  "Library")}),
-      Documentation(info=""),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+      Documentation(info=""));
   end Library;
 
   partial class SpecialLibrary "Package icon 'Special Library'"
@@ -586,18 +489,7 @@ end Enumeration;
             lineColor={255,0,0},
             textString=
                  "%name")}),
-  Window(
-    x=0.05,
-    y=0.44,
-    width=0.29,
-    height=0.24,
-    library=1,
-    autolayout=1),
-  Documentation(info=""),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+  Documentation(info=""));
   end SpecialLibrary;
 
   partial class Base "Package icon 'Base'"
@@ -629,18 +521,7 @@ end Enumeration;
             fillPattern=FillPattern.Solid,
             textString=
                  "Base")}),
-  Window(
-    x=0.05,
-    y=0.44,
-    width=0.29,
-    height=0.24,
-    library=1,
-    autolayout=1),
-  Documentation(info=""),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+  Documentation(info=""));
   end Base;
 
   partial class Partials "Package icon 'Partials'"
@@ -672,18 +553,7 @@ end Enumeration;
             fillPattern=FillPattern.Solid,
             textString=
                  "Partials")}),
-  Window(
-    x=0.05,
-    y=0.44,
-    width=0.29,
-    height=0.24,
-    library=1,
-    autolayout=1),
-  Documentation(info=""),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+  Documentation(info=""));
   end Partials;
 
   partial class Examples "Package icon 'Examples'"
@@ -713,27 +583,9 @@ end Enumeration;
             lineColor={95,95,95},
             textString=
                  "Examples")}),
-  Window(
-    x=0.05,
-    y=0.44,
-    width=0.29,
-    height=0.24,
-    library=1,
-    autolayout=1),
-  Documentation(info=""),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+  Documentation(info=""));
   end Examples;
-annotation (preferedView="info",
-  Window(
-    x=0.05,
-    y=0.41,
-    width=0.4,
-    height=0.32,
-    library=1,
-    autolayout=1),
+annotation (preferredView="info",
   Documentation(info="<html>
 </html>
 "));

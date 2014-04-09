@@ -32,11 +32,6 @@ package Transforms "Auxiliary blocks"
             lineColor={128,128,128},
             textString=
                  "park")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>The block <tt>Park</tt> transforms abc variables (u) into dqo variables (y) with arbitrary angular orientation
 <pre>  y = P*u</pre>
@@ -67,11 +62,7 @@ and
   R(theta) = [s_0,  c_0, 0]
              [  0,  0,   1]
 </pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Park;
 
   block Rotation_dq "Rotation of input signal-vector"
@@ -99,11 +90,6 @@ and
             lineColor={128,128,128},
             textString=
                  "rot_dq")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>The block <tt>Rotation_dq</tt> rotates u by an arbitrary angle <tt>theta</tt> into y according to
 <pre>  y = R_dq*u</pre>
@@ -129,10 +115,7 @@ are invariant under transformations R_dqo</p>
 <pre>  R_dqo = P0*R_abc*P0'.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Rotation_dq;
 
   block Rotation_abc "Rotation of input signal-vector"
@@ -162,11 +145,6 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
             lineColor={128,128,128},
             textString=
                  "rot_abc")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>The block <tt>Rotation_abc</tt> rotates u by an arbitrary angle <tt>theta</tt> into y according to
 <pre>  y = R_abc*u</pre>
@@ -217,11 +195,6 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
             lineColor={128,128,128},
             textString=
                  "rot_Ph")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Rotates phasor u in polar representation by angle theta.</p>
 <p>Input u:
@@ -234,11 +207,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
   y[1] = u[1]            absolute value
   y[2] = u[2] + theta    argument, phase
 </pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end RotationPhasor;
 
   block PhasorToAlphaBeta "Rotation of input signal-vector"
@@ -274,11 +243,6 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
             lineColor={128,128,128},
             textString=
                  "beta")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Transforms phasor u to amplitudes {alpha, beta}.<br>
 i.e. rotates phasor in polar representation by angle theta and transforms to Euclidean {y[1], y[2]} coordinates.</p>
@@ -291,24 +255,9 @@ i.e. rotates phasor in polar representation by angle theta and transforms to Euc
 <pre>
   y = sqrt(2/3)*u[1]*{cos(u[2] + theta), sin(u[2] + theta)}    amplitudes alpha, beta
 </pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end PhasorToAlphaBeta;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Transforms;

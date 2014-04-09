@@ -27,21 +27,10 @@ package Partials "Partial models"
     T = heat.T;
     heat.Q_flow = -v*i;
     annotation (
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Text(
@@ -65,21 +54,10 @@ package Partials "Partial models"
           extent={{-10,-10},{10,10}},
           rotation=90)));
     annotation (
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Text(
@@ -94,11 +72,4 @@ package Partials "Partial models"
 
   end AC1_DC_base;
 
-  annotation (       Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.25,
-library=1,
-autolayout=1));
 end Partials;

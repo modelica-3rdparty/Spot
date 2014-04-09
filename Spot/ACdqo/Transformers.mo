@@ -17,24 +17,11 @@ package Transformers "Transformers 3-phase"
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoIdeal;
 
   model TrafoStray "Ideal magnetic coupling transformer, 3-phase dqo"
@@ -56,11 +43,6 @@ package Transformers "Transformers 3-phase"
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance, but ideal magnetic coupling, i.e. zero magnetisation current.<br>
@@ -79,15 +61,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end TrafoStray;
 
   model TrafoMag "Magnetic coupling transformer, 3-phase dqo"
@@ -120,11 +94,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance and resistance, with non-ideal magnetic coupling, i.e. non-zero magnetisation current
@@ -150,15 +119,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end TrafoMag;
 
   model TrafoSatEff "Averaged saturation transformer, 3-phase dqo"
@@ -199,11 +160,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance and resistance, with non-ideal magnetic coupling, i.e. non-zero magnetisation current, eddy current losses and effective saturation.<br>
@@ -235,15 +191,7 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
 <p>Saturation needs high-precision integration!</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoSatEff;
 
   model TrafoSat "Saturation transformer, 3-phase dqo"
@@ -278,11 +226,6 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
     Park*diagonal(gp)*transpose(Park)*(der(psi0) + omega[2]*j_dqo(psi0)) = v0;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance and resistance, with non-ideal magnetic coupling, i.e. non-zero magnetisation current, eddy current losses and saturation.<br>
@@ -312,10 +255,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 <p>Saturation needs high-precision integration!</p>
 </html>
 "),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
   Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -349,8 +288,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
       omega[2]*L[2]*j_dqo(i2a) + R[2]*i2a = v2a - v0;
       omega[2]*L[3]*j_dqo(i2b) + R[3]*i2b = v2b - v0;
     end if;
-        annotation (Diagram(graphics),
-                             Icon(graphics));
   end Trafo3Stray;
 
   package Partials "Partial models"
@@ -422,11 +359,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         v_n2 = R_n2*i_n2
         "2: equation neutral to ground (relevant if Y-topology)";
         annotation (
-          Window(
-            x=0.45,
-            y=0.01,
-            width=0.44,
-            height=0.65),
           Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -526,11 +458,6 @@ For variable transformer ratio tap changer input needed.</p>
       final parameter SI.Inductance[2] L=par.x.*RL_base[:, 2];
       final parameter SI.Inductance[2] L0=par.x0.*RL_base[:, 2];
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling transformer</p>
@@ -570,11 +497,6 @@ For variable transformer ratio tap changer input needed.</p>
       final parameter SI.Inductance Lm=par.xm*RL12_base[2];
       final parameter SI.Inductance Lm0=par.xm0*RL12_base[2];
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficients for magnetic coupling trafo transformer</p>
@@ -624,11 +546,6 @@ For variable transformer ratio tap changer input needed.</p>
       final parameter SI.MagneticFlux psi_nom=sqrt(scale[1])*par.V_nom[1]/(2*pi*par.f_nom)
         "amplitude!";
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficients for saturation transformer</p>
@@ -729,11 +646,6 @@ For variable transformer ratio tap changer input needed.</p>
     v_n2b = R_n2b*i_n2b
         "2b: equation neutral to ground (relevant if Y-topology)";
     annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -857,11 +769,6 @@ For variable transformer ratio tap changer input needed.</p>
     final parameter SI.Inductance[3] L=par.x.*RL_base[:, 2];
     final parameter SI.Inductance[3] L0=par.x0.*RL_base[:, 2];
     annotation (
-      Window(
-  x=0.45,
-        y=0.01,
-        width=0.44,
-  height=0.65),
       Documentation(
       info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling 3-winding transformer</p>
@@ -888,13 +795,6 @@ For variable transformer ratio tap changer input needed.</p>
               fillPattern=FillPattern.Solid)}));
   end Trafo3StrayBase;
 
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.32,
-        library=1,
-        autolayout=1));
   end Partials;
 
 package Parameters "Parameter data for interactive use"
@@ -910,22 +810,9 @@ record TrafoIdeal "Parameters for ideal transformer, 3-phase"
   parameter SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)";
   parameter SIpu.Resistance r_n2=1 "2: resistance neutral to grd (if Y)";
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoIdeal;
 
 record TrafoStray "Parameters for ideal magnetic coupling transformer, 3-phase"
@@ -935,22 +822,9 @@ record TrafoStray "Parameters for ideal magnetic coupling transformer, 3-phase"
   parameter SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoStray;
 
 record TrafoMag "Parameters for magnetic coupling transformer, 3-phase"
@@ -960,22 +834,9 @@ record TrafoMag "Parameters for magnetic coupling transformer, 3-phase"
   parameter SIpu.Reactance xm0=1 "mutual reactance zero";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoMag;
 
 record TrafoSat "Parameters for saturation transformer, 3-phase"
@@ -984,22 +845,9 @@ record TrafoSat "Parameters for saturation transformer, 3-phase"
   parameter SIpu.Reactance xm_sat=1 "mutual reactance saturated";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoSat;
 
 record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
@@ -1015,23 +863,10 @@ record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
   parameter SIpu.Resistance r_n2a=1 "2a: resistance neutral to grd (if Y)";
   parameter SIpu.Resistance r_n2b=1 "2b: resistance neutral to grd (if Y)";
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 <p>Nominal voltage with 3 components: {prim, sec_a, sec_b}.</p>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Ideal;
 
 record Trafo3Stray
@@ -1044,47 +879,16 @@ record Trafo3Stray
         "{1,2a,2b}: stray reactance zero-comp";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Stray;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Transformer models in different abstraction levels.</p>
 <p>All transformers allow the choice between Y- and Delta-topology both at primary and secondary side.<br>
@@ -1118,9 +922,5 @@ compared to the terminal voltage and current. Therefore the impedance relating c
 </pre>
 The equations are written in winding-scaled form.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Transformers;

@@ -17,21 +17,10 @@ package Turbines "Turbine example data"
      parameter SI.Power[:] P_nom={480e6,240e6,240e6,240e6} "nom power turbines";
 
      annotation (defaultComponentName="turboGrp1200M",
-       Coordsys(
-   extent=[-100,-100; 100,100],
-   grid=[2,2],
-   component=
-     [20, 20]),
-       Window(
-   x=0.45,
-         y=0.01,
-         width=0.44,
-   height=0.65),
        Documentation(
        info="<html>
 </html>
-"),    Icon,
-       Diagram);
+"));
    end SteamTurboGroup1200MW;
 
 record GasTurbineGear "Small GT with gear, example"
@@ -53,22 +42,9 @@ record GasTurbineGear "Small GT with gear, example"
   parameter SI.Power[:] P_nom={1.2, -0.2}*7e6 "nom power {turbine, compressor}";
 
   annotation (defaultComponentName="GTgear",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon,
-    Diagram,
-    DymolaStoredErrors);
+</html>"));
 end GasTurbineGear;
 
 record HydroTurbine "Hydro turbine, example"
@@ -83,22 +59,9 @@ record HydroTurbine "Hydro turbine, example"
   parameter SI.Power P_nom=20e6 "nom power turbine";
 
   annotation (defaultComponentName="hydro",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon,
-    Diagram,
-    DymolaStoredErrors);
+</html>"));
 end HydroTurbine;
 
 record Diesel "Diesel, example"
@@ -112,22 +75,9 @@ record Diesel "Diesel, example"
   parameter SI.Power P_nom=100e3 "nom power diesel";
 
   annotation (defaultComponentName="diesel",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon,
-    Diagram,
-    DymolaStoredErrors);
+</html>"));
 end Diesel;
 
 record WindTurbineGear "Wind turbine with gear, example"
@@ -143,24 +93,11 @@ record WindTurbineGear "Wind turbine with gear, example"
   parameter SI.Power P_nom=30e3 "nom power turbine";
 
   annotation (defaultComponentName="windTurb",
-    Coordsys(
-extent=[-100,-100; 100,100],
-grid=[2,2],
-component=
-  [20, 20]),
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
-</html>"),
-    Icon,
-    Diagram,
-    DymolaStoredErrors);
+</html>"));
 end WindTurbineGear;
-   annotation (preferedView="info",
+   annotation (preferredView="info",
  Documentation(info="<html>
 </html>"));
 end Turbines;

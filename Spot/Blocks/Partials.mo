@@ -10,22 +10,9 @@ package Partials "Partial models"
       annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
             =0)));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end SO;
 
   partial block MO
@@ -36,22 +23,9 @@ package Partials "Partial models"
             =0)));
     parameter Integer n=1 "dim of output signal-vector";
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end MO;
 
   partial block SISO
@@ -64,22 +38,9 @@ package Partials "Partial models"
       annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
             =0)));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end SISO;
 
   partial block MISO
@@ -93,22 +54,9 @@ package Partials "Partial models"
             =0)));
     parameter Integer n=1 "dim of input signal-vector";
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end MISO;
 
   partial block MIMO
@@ -123,22 +71,9 @@ package Partials "Partial models"
     parameter Integer nin=1 "dim of input signal-vector";
     parameter Integer nout=1 "dim of output signal-vector";
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end MIMO;
   annotation (Documentation(info="<html>
 </html>"));

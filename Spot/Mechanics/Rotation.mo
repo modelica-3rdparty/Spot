@@ -17,7 +17,6 @@ package Rotation "Rotating parts "
               lineColor={0,0,0},
               textString=
              "%name")}),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Flange_p;
@@ -32,7 +31,6 @@ package Rotation "Rotating parts "
               lineColor={0,0,0},
               textString=
              "%name")}),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Flange_n;
@@ -49,7 +47,6 @@ package Rotation "Rotating parts "
               lineColor={0,0,0},
               textString=
              "%name")}),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Flange_p_n;
@@ -61,8 +58,6 @@ package Rotation "Rotating parts "
   equation
     flange_p.phi = flange_n.phi;
     annotation (
-  Icon(graphics),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Rigid;
@@ -77,28 +72,15 @@ package Rotation "Rotating parts "
     flange_n.phi - flange_p.phi = d_phi;
     flange_n.tau - flange_p.tau = 2*d_tau;
     annotation (
-  Icon(graphics),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Compliant;
 
     annotation (
-      preferedView="info",
-  Window(
-    x=0.05,
-    y=0.03,
-    width=0.4,
-    height=0.38,
-    library=1,
-    autolayout=1),
+      preferredView="info",
   Documentation(info="<html>
 <p>Contains mechanical one and two-ports with rotational connectors.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Ports;
 
   model Speed "Rotation with given angular velocity"
@@ -145,11 +127,6 @@ package Rotation "Rotating parts "
             lineColor={0,0,0},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -217,11 +194,6 @@ The start value is always given by <tt>w0</tt>.</p>
             lineColor={0,0,0},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -287,11 +259,6 @@ equation
     terminate("BOUNDARY TIME REACHED!");
   end when;
   annotation (defaultComponentName = "tabTorq1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The torque is defined in a table as a function of time.
@@ -307,24 +274,7 @@ negative direction, if tau_table &gt  0 and drive_load = -1 or tau_table &lt  0 
 </pre></p>
 <p>Note: start integration at time = 0</p>
 </html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
               defaultComponentName = "tabTorq1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The torque load is defined in a table.
@@ -333,8 +283,7 @@ height=0.65),
   Column 'colTorque' contains the torque in units <tt>tau_unit</tt> (<tt>tau_unit</tt> in \"N.m\").
 </pre>
 </html>
-"), Icon,
-    Diagram);
+"));
 end TabTimeTorque;
 
 model TabPosSlopeTorque "Torque using table (position... slope)"
@@ -387,11 +336,6 @@ equation
     terminate("BOUNDARY POSITION REACHED!");
   end when;
   annotation (defaultComponentName = "tabTorq1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>This model uses a position-slope table. It is mainly intended for test-purposes.</p>
@@ -425,11 +369,7 @@ Start integration at time = 0.</p>
             points={{-60,90},{-60,80},{60,100},{60,110},{-60,90}},
             lineColor={255,0,0},
             fillColor={255,0,0},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
 end TabPosSlopeTorque;
 
   model FrictionTorque "Friction torque"
@@ -445,11 +385,6 @@ end TabPosSlopeTorque;
     w = der(phi);
     flange.tau = (cFrict[1] + cFrict[2]*noEvent(abs(w)))*w;
   annotation (defaultComponentName = "frictTorq1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Linear and quadratic friction torque <tt>tau</tt>.</p>
@@ -478,11 +413,7 @@ end TabPosSlopeTorque;
             extent={{-44,44},{44,-43}},
             lineColor={95,95,95},
             fillColor={95,95,95},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end FrictionTorque;
 
 model FixedAngle "Flange at fixed angular position"
@@ -495,11 +426,6 @@ model FixedAngle "Flange at fixed angular position"
 equation
   flange.phi = phi0;
   annotation (defaultComponentName = "fixAng1",
-    Window(
-      x=0.27,
-      y=0.02,
-      width=0.63,
-      height=0.73),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -518,10 +444,7 @@ equation
     Documentation(info="<html>
 <p>Fixes the angular variable <tt>phi</tt> of a connected flange to a parameter value <tt>phi0</tt>.</p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end FixedAngle;
 
 model Rotor "Rigid rotating mass"
@@ -531,15 +454,6 @@ model Rotor "Rigid rotating mass"
 equation
   J*a = flange_p.tau + flange_n.tau;
   annotation (defaultComponentName = "rotor1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -570,11 +484,6 @@ end Rotor;
     extends Partials.RigidRotorCase;
 
     annotation (defaultComponentName = "turbRotor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -616,11 +525,7 @@ phi and w represent the mechanical angle and angular velocity.
             extent={{-100,-70},{100,-90}},
             lineColor={175,175,175},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
 
   end ThermalTurbineRotor;
 
@@ -628,11 +533,6 @@ phi and w represent the mechanical angle and angular velocity.
     extends Partials.RigidRotorCase;
 
     annotation (defaultComponentName = "turbRotor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -688,22 +588,13 @@ phi and w represent the mechanical angle and angular velocity.
             extent={{20,10},{100,-10}},
             lineColor={0,0,0},
             fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={215,215,215})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillColor={215,215,215})}));
   end HydroTurbineRotor;
 
   model DieselRotor "Diesel rotor"
     extends Partials.RigidRotorCase;
 
     annotation (defaultComponentName = "turbRotor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -749,22 +640,13 @@ phi and w represent the mechanical angle and angular velocity.
             extent={{-30,4},{30,-56}},
             lineColor={95,95,95},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end DieselRotor;
 
   model WindTurbineRotor "Wind turbine rotor"
     extends Partials.RigidRotorCase;
 
   annotation (defaultComponentName = "turbRotor1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -811,22 +693,13 @@ phi and w represent the mechanical angle and angular velocity.
             extent={{40,10},{100,-10}},
             lineColor={0,0,0},
             fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={215,215,215})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillColor={215,215,215})}));
   end WindTurbineRotor;
 
   model ElectricRotor "Electric generator/motor rotor, mechanical"
     extends Partials.RigidRotorCase;
 
   annotation (defaultComponentName = "elRotor",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Rotor as one single stiff mass.</p>
@@ -868,11 +741,7 @@ phi and w represent the mechanical angle and angular velocity.
             extent={{-100,-70},{100,-90}},
             lineColor={175,175,175},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end ElectricRotor;
 
 model ShaftNoMass "Elastic massless shaft"
@@ -885,11 +754,6 @@ equation
   flange_p.tau + flange_n.tau = 0;
   d_tau = stiff*d_phi;
   annotation (defaultComponentName = "shaft1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Rotating torsion-elastic massless shaft. It is equivalent to a massless torsion spring.<br><br>
@@ -902,11 +766,7 @@ The parameter <tt>stiffness</tt> is a length-independent specification, in contr
             extent={{-100,10},{100,-10}},
             lineColor={0,0,0},
             fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={255,255,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillColor={255,255,255})}));
 end ShaftNoMass;
 
 model Shaft "Elastic massive shaft"
@@ -925,11 +785,6 @@ equation
   J*a = flange_p.tau + flange_n.tau;
   d_tau = stiff*d_phi;
   annotation (defaultComponentName = "shaft1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Rotating torsion-elastic massive shaft. It is equivalent to a massive torsion spring.<br>
@@ -943,11 +798,7 @@ The parameter <tt>stiffness</tt> is a length-independent specification, in contr
             extent={{-100,10},{100,-10}},
             lineColor={0,0,0},
             fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={175,175,175})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillColor={175,175,175})}));
 end Shaft;
 
 model GearNoMass "Massless gear"
@@ -962,11 +813,6 @@ equation
   flange_p.phi = ratio_pn*flange_n.phi;
   ratio_pn*flange_p.tau + flange_n.tau = 0;
   annotation (defaultComponentName = "gear",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal massless gear. Rigid coupling with gear-ratio</p>
@@ -1107,11 +953,6 @@ equation
   a = der(w);
   (ratio2*J)*a = ratio_pn*flange_p.tau + flange_n.tau;
   annotation (defaultComponentName = "gear",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal massive gear. N rigidly coupled inertias with gear-ratio
@@ -1240,11 +1081,6 @@ equation
   flange_p.phi = flange_n.phi;
   flange_p.tau + flange_n.tau = 0;
   annotation (defaultComponentName = "joint",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Joining two rotational flanges directly, in place of gear.</p>
@@ -1258,11 +1094,7 @@ height=0.65),
             pattern=LinePattern.Dot,
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid), Line(points={{-90,0},{90,0}}, color
-              ={0,0,0})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+              ={0,0,0})}));
 end NoGear;
 
 model AngleSensor "Angle and angular velocity sensor (mechanical)"
@@ -1284,11 +1116,6 @@ equation
   phi = flange.phi;
   w = der(flange.phi);
   annotation (defaultComponentName = "angleSens1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -1322,11 +1149,7 @@ height=0.65),
             extent={{-100,-100},{100,-140}},
             lineColor={0,0,0},
             textString=
-         "%name")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+         "%name")}));
 end AngleSensor;
 
 model PowerSensor "Power and torque sensor (mechanical)"
@@ -1348,11 +1171,6 @@ equation
   tau = flange_p.tau;
   p = der(flange_p.phi)*flange_p.tau;
   annotation (defaultComponentName = "powerSens1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -1378,11 +1196,7 @@ height=0.65),
           Line(points={{-40,57},{-30,43}}, color={95,95,95}),
           Line(points={{0,70},{0,52}}, color={95,95,95}),
           Line(points={{40,57},{30,42}}, color={95,95,95}),
-          Line(points={{66,24},{48,18}}, color={95,95,95})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{66,24},{48,18}}, color={95,95,95})}));
 end PowerSensor;
 
   package Partials "Partial models"
@@ -1409,11 +1223,6 @@ end PowerSensor;
       flange_p.phi = flange_n.phi;
       flange_p.tau + flange_n.tau + tau = 0;
       annotation (defaultComponentName = "tabForce1",
-        Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
         Documentation(
                 info="<html>
 </html>
@@ -1444,11 +1253,7 @@ end PowerSensor;
               points={{26,20},{46,-20},{66,20},{26,20}},
               lineColor={0,0,0},
               fillColor={175,175,175},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end TabTorque;
 
     partial model RigidRotorBase "Rigid rotor base"
@@ -1464,24 +1269,9 @@ end PowerSensor;
       w = der(phi);
       a = der(w);
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end RigidRotorBase;
 
     partial model RigidRotorCase "Rigid rotor with case"
@@ -1514,22 +1304,11 @@ end PowerSensor;
       friction.phi = rotor.phi;
       J*a = rotor.tau + flange_p.tau + flange_n.tau + friction.tau;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Rigid rotor base with an additional access for torque on rotor, stator (case) reaction torque, and a collective access for friction.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
+"),        Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Line(points={{0,-80},{0,-60}}, color={0,0,0}),
@@ -1539,27 +1318,10 @@ end PowerSensor;
               thickness=0.5)}));
     end RigidRotorCase;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Rotation;

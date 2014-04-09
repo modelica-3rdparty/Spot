@@ -15,8 +15,7 @@ package Ports "Strandard electric ports"
             lineColor={0,0,0},
             textString=
              "%name")}),
-      Documentation(info="<html></html>"),
-                  Diagram(graphics));
+      Documentation(info="<html></html>"));
   end Port_p;
 
   partial model Port_n "One port, 'negative'"
@@ -29,8 +28,7 @@ package Ports "Strandard electric ports"
             lineColor={0,0,0},
             textString=
              "%name")}),
-      Documentation(info="<html></html>"),
-                  Diagram(graphics));
+      Documentation(info="<html></html>"));
   end Port_n;
 
   partial model Port_f "One port, 'fault'"
@@ -46,8 +44,7 @@ package Ports "Strandard electric ports"
             lineColor={0,0,0},
             textString=
              "%name")}),
-      Documentation(info="<html></html>"),
-                  Diagram(graphics));
+      Documentation(info="<html></html>"));
   end Port_f;
 
   partial model Port_p_n "Two port"
@@ -63,8 +60,7 @@ package Ports "Strandard electric ports"
             textString=
              "%name")}),
   Documentation(info="<html>
-</html>"),
-  Diagram(graphics));
+</html>"));
 
   end Port_p_n;
 
@@ -75,10 +71,8 @@ package Ports "Strandard electric ports"
   equation
     term_p.pin.i + term_n.pin.i = zeros(2);
     annotation (
-  Icon(graphics),
   Documentation(info="<html>
-</html>"),
-  Diagram(graphics));
+</html>"));
   end Port_pn;
 
   partial model Port_p_n_f "Three port"
@@ -90,10 +84,8 @@ package Ports "Strandard electric ports"
           extent={{-10,-10},{10,10}},
           rotation=90)));
     annotation (
-  Icon(graphics),
   Documentation(info="<html>
-</html>"),
-  Diagram(graphics));
+</html>"));
   end Port_p_n_f;
 
   partial model PortTrafo_p_n "Two port for transformers"
@@ -117,7 +109,6 @@ package Ports "Strandard electric ports"
     v2 = (term_n.pin[1].v - term_n.pin[2].v)/w2;
     term_n.pin[1].i = i2/w2;
     annotation (
-  Icon(graphics),
   Documentation(info="<html>
 <p>Contains voltage and current scaling.</p>
 <p>Below</p>
@@ -139,8 +130,7 @@ package Ports "Strandard electric ports"
   term.pin[1].i = i/w;
 </pre>
 </html>
-"),
-  Diagram(graphics));
+"));
   end PortTrafo_p_n;
 
   partial model PortTrafo_p_n_n "Three port for 3-winding transformers"
@@ -206,18 +196,10 @@ package Ports "Strandard electric ports"
   term.pin[1].i = i/w;
 </pre>
 </html>
-"),
-  Diagram(graphics));
+"));
   end PortTrafo_p_n_n;
 
-    annotation (preferedView="info",
-      Window(
-        x=0,
-        y=0.55,
-        width=0.15,
-        height=0.41,
-        library=1,
-        autolayout=1),
+    annotation (preferredView="info",
       Documentation(info="<html>
 <p>Electrical ports with connectors Base.Interfaces.ElectricV:</p>
 <p>The index notation <tt>_p_n</tt> and <tt>_pn</tt> is used for</p>

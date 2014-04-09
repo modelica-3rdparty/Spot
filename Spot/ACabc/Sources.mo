@@ -24,11 +24,6 @@ package Sources "Voltage and Power Sources"
     phi = term.theta[1] + alpha + system.alpha0;
     term.v = V*cos(fill(phi,3) - phShift) + fill(neutral.v, 3);
     annotation (defaultComponentName = "voltage1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Voltage with constant amplitude and phase when 'vType' is 'parameter',<br>
@@ -41,14 +36,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
    vPhasor[2]     in rad
 </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Voltage;
 
   model Vspectrum "Ideal voltage spectrum, 3-phase abc"
@@ -90,11 +78,6 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     end for;
     term.v := V*(H*v0);
     annotation (defaultComponentName = "Vspec1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Voltage spectrum with constant amplitude and phase when 'vType' is 'parameter',<br>
@@ -128,12 +111,7 @@ where
             fillColor={127,0,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "~~~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      DymolaStoredErrors);
+                 "~~~")}));
   end Vspectrum;
 
   model InfBus "Infinite slack bus, 3-phase abc"
@@ -165,13 +143,6 @@ where
     phi = term.theta[1] + alpha + system.alpha0;
     term.v = V*cos(fill(phi,3) - phShift) + fill(neutral.v, 3);
     annotation(defaultComponentName = "infBus",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 <p>Ideal voltage source with constant amplitude and phase when 'vPhasor' unconnected,<br>
@@ -201,11 +172,7 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
             fillColor={127,0,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "slack")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "slack")}));
   end InfBus;
 
   model VsourceRX "Voltage behind reactance source, 3-phase abc"
@@ -274,11 +241,6 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
       omega[2]*L*j_abc(i) + R*i = V*cos(fill(phi,3) - phShift) + fill(neutral.v, 3) - v;
     end if;
     annotation (defaultComponentName = "Vsource1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Ideal voltage source with constant amplitude and phase, and with resistive-inductive inner impedance.</p>
@@ -306,11 +268,7 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
             fillColor={127,0,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "RX")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "RX")}));
   end VsourceRX;
 
   model PVsource "Power-voltage source, 3-phase abc"
@@ -369,16 +327,7 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
             fillColor={127,0,255},
             fillPattern=FillPattern.Solid,
             textString=
-         "PV")}),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+         "PV")}));
   end PVsource;
 
   model PQsource "Power source, 3-phase abc"
@@ -432,16 +381,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
             fillColor={127,0,255},
             fillPattern=FillPattern.Solid,
             textString=
-         "PQ")}),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+         "PQ")}));
   end PQsource;
 
   package Partials "Partial models"
@@ -469,25 +409,10 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
 
       sum(term.i) + neutral.i = 0;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>If the connector 'neutral' remains unconnected, then the source has an isolated neutral point. In all other cases connect 'neutral' to the desired circuit or ground.</p>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end SourceBase;
 
     partial model VoltageBase "Voltage base, 3-phase abc"
@@ -527,13 +452,6 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
         der(theta) = omega;
       end if;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -558,11 +476,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
               fillColor={127,0,255},
               fillPattern=FillPattern.Solid,
               textString=
-           "~")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+           "~")}));
     end VoltageBase;
 
     partial model PowerBase "Power source base, 3-phase abc"
@@ -571,13 +485,6 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
     protected
       final parameter SI.ApparentPower S_base=Base.Precalculation.baseS(units, S_nom);
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -602,29 +509,11 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
               fillColor={127,0,255},
               fillPattern=FillPattern.Solid,
               textString=
-           "~")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+           "~")}));
 
     end PowerBase;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>The sources have optional inputs:</p>
 <pre>
@@ -646,9 +535,5 @@ relative to each other (pu, norm = 1) and as example (SI, 400 V).</p>
 <tr><td>Three-phase norm</td><td>|v_dqo|</td><td><b>1</b></td><td><b>400</b></td> </tr>
 <tr><td>Phase to phase dq-norm</td><td>|vpp_dq|</td><td>sqrt(2)</td><td>565</td></tr>
 </table>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Sources;

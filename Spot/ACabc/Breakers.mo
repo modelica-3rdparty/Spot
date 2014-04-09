@@ -29,11 +29,6 @@ package Breakers "Switches and Breakers 3-phase"
       {v,i} = if closed then {epsR*s,s} else {s,epsG*s};
     end if;
   annotation (defaultComponentName = "switch1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Switching by forced change of current-voltage ratio.</p>
@@ -154,11 +149,6 @@ with
       {v_f,i_f} = if not control then {epsR*s_f,s_f} else {s_f,epsG*s_f};
     end if;
   annotation (defaultComponentName = "switch1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Switching by forced change of current-voltage ratio.</p>
@@ -287,11 +277,6 @@ with
     connect(control[3], switch_c.closed)  annotation (Line(points={{0,106.667},
             {0,90},{30,90},{30,-30}}, color={255,0,255}));
     annotation (defaultComponentName = "switch1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows single-phase switching.</p>
@@ -365,11 +350,6 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
     connect(control[3], breaker_c.closed)  annotation (Line(points={{0,106.667},
             {0,90},{30,90},{30,-30}}, color={255,0,255}));
     annotation (defaultComponentName = "breaker1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows single-phase switching.</p>
@@ -425,13 +405,6 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       v = term_p.v - term_n.v;
       term_p.i = i;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
@@ -455,11 +428,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
             Line(
               points={{0,90},{0,40}},
               color={255,0,255},
-              pattern=LinePattern.Dot)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              pattern=LinePattern.Dot)}));
     end SwitchBase;
 
     partial model SwitchTrsfBase
@@ -496,21 +465,10 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
   i_abc = Rot*i;
 */
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
+"),        Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -521,13 +479,6 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
             Line(points={{-80,60},{-60,60}}, color={0,0,255}),
             Line(points={{0,60},{80,60}}, color={0,0,255})}));
     end SwitchTrsfBase;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
 package Parameters "Parameter data for interactive use"
@@ -542,55 +493,22 @@ record BreakerArc "Breaker parameters, 3-phase"
   parameter Real R0=1 "small signal resistance arc";
 
   annotation (defaultComponentName = "data",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
-"), Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
 end BreakerArc;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Terminology:</p>
 <p><tt><b>Forced switch</b></tt> is used for a component that breaks the current independent of a possible zero crossing.<br>
 <tt><b>Switch</b></tt> is used for a component, that breaks the current during zero-crossing but does not contain any additional physical properties like arc-voltage etc.<br>
 <tt><b>Breaker</b></tt> is used for a component that acts basically like a 'Switch' but contains additionally physical properties of plasma-arcs, opening duration etc.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Breakers;

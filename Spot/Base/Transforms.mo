@@ -487,19 +487,9 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 </html>"));
   end der2_permutation;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Transforms;

@@ -24,11 +24,6 @@ package Breakers "Breakers "
     r = relaxation(time - t0, t_relax, p_relax);
     {v,i} = if closed then {(r[1]+r[2]*epsR)*s,(r[1]*epsG+r[2])*s} else {(r[1]*epsR+r[2])*s,(r[1]+r[2]*epsG)*s};
     annotation (defaultComponentName = "switch1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows switching of single conductor (of totally one or two).<br>
@@ -136,11 +131,6 @@ with
     {v_t,i_t} = if closed_t then {(r[1]+r[2]*epsR)*s_t,(r[1]*epsG+r[2])*s_t} else {(r[1]*epsR+r[2])*s_t,(r[1]+r[2]*epsG)*s_t};
     {v_f,i_f} = if open_t then {(r[1]+r[2]*epsR)*s_f,(r[1]*epsG+r[2])*s_f} else {(r[1]*epsR+r[2])*s_f,(r[1]+r[2]*epsG)*s_f};
     annotation (defaultComponentName = "switch1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows switching of single conductor (of totally one or two).<br>
@@ -256,11 +246,6 @@ with
     connect(control, switch_1.closed)
       annotation (Line(points={{0,100},{0,60}}, color={255,0,255}));
     annotation (defaultComponentName = "switch1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows switching of single conductor (of totally one or two).</p>
@@ -273,11 +258,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
           grid={2,2}), graphics={Line(
             points={{-40,0},{40,0}},
             color={0,0,255},
-            pattern=LinePattern.Dot)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            pattern=LinePattern.Dot)}));
   end Switch;
 
   model Breaker "Breaker, 1-phase"
@@ -303,11 +284,6 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
     connect(control, breaker_1.closed)
       annotation (Line(points={{0,100},{0,50}}, color={255,0,255}));
     annotation (defaultComponentName = "breaker1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p> Allows switching of single conductor (of totally one or two).</p>
@@ -321,11 +297,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
           grid={2,2}), graphics={Line(
             points={{-40,0},{-22,-6},{-10,-4},{2,4},{16,-4},{30,2},{40,0}},
             color={255,255,0},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end Breaker;
 
   model ForcedDoubleSwitch "Forced double switch, 1-phase"
@@ -354,11 +326,6 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
     {v[1],i[1]} = if closed[1] then {(r_1[1]+r_1[2]*epsR)*s[1],(r_1[1]*epsG+r_1[2])*s[1]} else {(r_1[1]*epsR+r_1[2])*s[1],(r_1[1]+r_1[2]*epsG)*s[1]};
     {v[2],i[2]} = if closed[2] then {(r_2[1]+r_2[2]*epsR)*s[2],(r_2[1]*epsG+r_2[2])*s[2]} else {(r_2[1]*epsR+r_2[2])*s[2],(r_2[1]+r_2[2]*epsG)*s[2]};
     annotation (defaultComponentName = "switch1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows double switching of double conductor.<br>
@@ -453,11 +420,6 @@ with
     connect(control[2], switch_2.closed)  annotation (Line(points={{0,105},{0,
             80},{20,80},{20,0}}, color={255,0,255}));
     annotation (defaultComponentName = "switch1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows double switching of double conductor.</p>
@@ -471,11 +433,7 @@ if it is mechanically 'open' and the corresponding phase-current crosses zero.</
           grid={2,2}), graphics={Line(
             points={{-40,0},{40,0}},
             color={0,0,255},
-            pattern=LinePattern.Dot)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            pattern=LinePattern.Dot)}));
   end DoubleSwitch;
 
   model DoubleBreaker "Double breaker, 1-phase"
@@ -513,11 +471,6 @@ if it is mechanically 'open' and the corresponding phase-current crosses zero.</
     connect(control[2], breaker_2.closed)  annotation (Line(points={{0,105},{0,
             80},{20,80},{20,0}}, color={255,0,255}));
     annotation (defaultComponentName = "breaker1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows double switching of double conductor.</p>
@@ -531,11 +484,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
           grid={2,2}), graphics={Line(
             points={{-40,0},{-22,-6},{-10,-4},{2,4},{16,-4},{30,2},{40,0}},
             color={255,255,0},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end DoubleBreaker;
 
   package Partials "Partial models"
@@ -551,13 +500,6 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
        final parameter SI.Resistance epsR=eps[1]*V_nom/I_nom;
        final parameter SI.Conductance epsG=eps[2]*I_nom/V_nom;
         annotation (
-          Window(
-            x=
-      0.45, y=
-      0.01, width=
-          0.44,
-            height=
-           0.65),
           Documentation(
                 info="<html>
 </html>"),       Icon(coordinateSystem(
@@ -574,11 +516,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
             Line(
               points={{0,90},{0,34}},
               color={255,0,255},
-              pattern=LinePattern.Dot)}),
-          Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              pattern=LinePattern.Dot)}));
      end SwitchBase0;
 
     partial model SwitchBase "Switch base, 1-phase"
@@ -597,21 +535,10 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
       i = term_p.pin[1].i;
       term_p.pin[2].v = term_n.pin[2].v;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Allows one or two conductors. The first is switched.</p>
-</html>"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
+</html>"),        Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -636,13 +563,6 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
       v = term_p.pin.v - term_n.pin.v;
       i = term_p.pin.i;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Both of two conductors are switched.</p>
@@ -660,13 +580,6 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
             Line(points={{-80,30},{-50,30}}, color={0,0,255}),
             Line(points={{10,30},{80,30}}, color={0,0,255})}));
     end DoubleSwitchBase;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
 package Parameters "Parameter data for interactive use"
@@ -681,54 +594,21 @@ record BreakerArc "Breaker parameters, 3-phase"
   parameter Real R0=1 "small signal resistance arc";
 
   annotation (defaultComponentName = "data",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
-</html>"), Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end BreakerArc;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains switches acting on one conductor only and double-switches acting on both conductors.</p>
 <p>Terminology:</p>
 <p><tt><b>Forced switch</b></tt> is used for a component that breaks the current independent of a possible zero crossing.<br>
 <tt><b>Switch</b></tt> is used for a component, that breaks the current during zero-crossing but does not contain any additional physical properties like arc-voltage etc.<br>
 <tt><b>Breaker</b></tt> is used for a component that acts basically like a 'Switch' but contains additionally physical properties of plasma-arcs, opening duration etc.</p>
-</html>"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Breakers;

@@ -59,13 +59,9 @@ package Visualise "Elementary visualisers"
             thickness=0.5), Line(
             points=DynamicSelect({{0,0},{0.5,0}},needle2),
             color={128,128,128},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-1,-1},{1,1}},
-          grid={0.02,0.02}), graphics));
+            thickness=0.5)}));
   end DoubleNeedle;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p><a href=\"Spot.UsersGuide.Introduction.Visualisation\">up users guide</a></p>
 </html>

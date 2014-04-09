@@ -53,15 +53,6 @@ package d_DrivesDC "DC drives"
     connect(ramp.y, voltage.vDC) annotation (points=[-60,20; -44,20; -44,0],
         style(color=74, rgbcolor={0,0,127}));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>DC machine (series-connected) with load (drive along height-profile).</p>
@@ -72,10 +63,8 @@ package d_DrivesDC "DC drives"
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    Icon,
-    experiment(StopTime=60),
-    experimentSetupOutput);
+"),
+    experiment(StopTime=60));
   end DCmotor_ser;
 
   model DCmotor_par "DC motor parallel excited"
@@ -128,15 +117,6 @@ package d_DrivesDC "DC drives"
         rgbfillColor={213,170,255},
         fillPattern=1));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>DC machine (parallel-connected) with load (drive along height-profile).</p>
@@ -147,10 +127,7 @@ package d_DrivesDC "DC drives"
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram,
-    Icon,
-    experiment(StopTime=60),
-    experimentSetupOutput);
+    experiment(StopTime=60));
   end DCmotor_par;
 
   model DCmotor_pm "DC motor permanent magnet excited"
@@ -194,15 +171,6 @@ package d_DrivesDC "DC drives"
     connect(dcm_pm.heat, efficiency.heat) annotation (points=[20,0; 20,10; -10,
           10; -10,0], style(color=42, rgbcolor={176,0,0}));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>DC machine (permanent magnet) start-up and step-load.</p>
@@ -216,10 +184,8 @@ package d_DrivesDC "DC drives"
 <p>See also example DCcharSpeed.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    Icon,
-    experiment(StopTime=3),
-    experimentSetupOutput);
+"),
+    experiment(StopTime=3));
   end DCmotor_pm;
 
   model BLDC "Brushless DC motor"
@@ -274,15 +240,6 @@ package d_DrivesDC "DC drives"
     connect(loadInertia.flange_n, torqueStep.flange) annotation (points=[60,-10;
           64,-10; 64,30; 70,30], style(color=0, rgbcolor={0,0,0}));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Brushless DC machine (permanent magnet synchronous machine) start-up and step-load.</p>
@@ -296,8 +253,7 @@ package d_DrivesDC "DC drives"
 <p>See also example BLDCcharSpeed.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    Icon,
+"),
     experiment(
         StopTime=3,
         Tolerance=1e-005,
@@ -342,15 +298,6 @@ package d_DrivesDC "DC drives"
     connect(machine.heat, efficiency.heat) annotation (points=[10,0; 10,10; -30,
           10; -30,0], style(color=42, rgbcolor={176,0,0}));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>DC machine (permanent magnet) torque-speed characteristic.</p>
@@ -364,8 +311,6 @@ package d_DrivesDC "DC drives"
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram,
-    Icon,
     experiment(Tolerance=1e-005, Algorithm="Dassl"),
     experimentSetupOutput(events=false));
   end DCcharSpeed;
@@ -411,15 +356,6 @@ package d_DrivesDC "DC drives"
     connect(speedSignal.y, speed.w) annotation (points=[80,-10; 60,-10], style(
           color=74, rgbcolor={0,0,127}));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Brushless DC machine (permanent magnet synchronous machine) torque-speed characteristic.</p>
@@ -433,27 +369,13 @@ package d_DrivesDC "DC drives"
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram,
-    Icon,
     experiment(Tolerance=1e-005, Algorithm="Dassl"),
     experimentSetupOutput(events=false));
   end BLDCcharSpeed;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>DC drives (motors electrical and mechanical).</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon);
+</html>"));
 end d_DrivesDC;

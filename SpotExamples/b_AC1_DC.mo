@@ -42,23 +42,7 @@ package b_AC1_DC "AC 1-phase and DC components"
       annotation (points=[50,60; 50,10], style(color=5, rgbcolor={255,0,255}));
     connect(grd1.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>"),
-      experiment(StopTime=0.2, NumberOfIntervals=2345),
-      experimentSetupOutput);
+    annotation (experiment(StopTime=0.2, NumberOfIntervals=2345));
   end Breaker;
 
   model Fault "Fault"
@@ -113,23 +97,7 @@ package b_AC1_DC "AC 1-phase and DC components"
         style(color=3, rgbcolor={0,0,255}));
     connect(voltage2.neutral, grd2.term)
       annotation (points=[90,-30; 90,-30], style(color=3, rgbcolor={0,0,255}));
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>
-"),   experiment(StopTime=0.2, NumberOfIntervals=2345),
-      experimentSetupOutput);
+    annotation (experiment(StopTime=0.2, NumberOfIntervals=2345));
   end Fault;
 
   model Impedance "Impedance"
@@ -159,23 +127,7 @@ package b_AC1_DC "AC 1-phase and DC components"
       annotation (points=[40,0; 80,0], style(color=3, rgbcolor={0,0,255}));
     connect(grd1.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>"),
-      experiment(StopTime=0.2, NumberOfIntervals=731),
-      experimentSetupOutput);
+    annotation (experiment(StopTime=0.2, NumberOfIntervals=731));
   end Impedance;
 
   model ImpedanceOneTerm "Impedance One-terminal"
@@ -202,22 +154,7 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(grd.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>"),
-      experiment(StopTime=0.2, NumberOfIntervals=731),
-      experimentSetupOutput);
+      experiment(StopTime=0.2, NumberOfIntervals=731));
   end ImpedanceOneTerm;
 
   model Line "Line"
@@ -256,22 +193,10 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(voltage2.neutral, grd2.term)
       annotation (points=[90,0; 90,0], style(color=3, rgbcolor={0,0,255}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 </html>"),
-      experiment(StopTime=0.2, NumberOfIntervals=3456),
-      experimentSetupOutput);
+      experiment(StopTime=0.2, NumberOfIntervals=3456));
   end Line;
 
   model LoadAC "AC load"
@@ -302,22 +227,10 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(trsSignal.y, zLoadAC.p_set)
       annotation (points=[40,50; 40,10], style(color=74, rgbcolor={0,0,127}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 </html>"),
-      experiment(NumberOfIntervals=3456),
-      experimentSetupOutput);
+      experiment(NumberOfIntervals=3456));
   end LoadAC;
 
   model LoadDC "AC load"
@@ -347,22 +260,10 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(trsSignalL.y, pLoadDC.p_set)
       annotation (points=[40,50; 40,10], style(color=74, rgbcolor={0,0,127}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 </html>"),
-      experiment(NumberOfIntervals=731),
-      experimentSetupOutput);
+      experiment(NumberOfIntervals=731));
   end LoadDC;
 
   model Machines "Machines"
@@ -406,22 +307,10 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(transTau.y, torq.tau)
       annotation (points=[80,0; 80,0], style(color=74, rgbcolor={0,0,127}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 </html>
-"),   experiment,
-      experimentSetupOutput);
+"));
   end Machines;
 
   model Sensor "Sensor and meter"
@@ -462,22 +351,11 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(grd.term, voltage.neutral)
       annotation (points=[-70,0; -70,0], style(color=3, rgbcolor={0,0,255}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Diagram,
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
-"),   Icon,
-      experiment(StopTime=0.2, NumberOfIntervals=731),
-      experimentSetupOutput);
+"),
+      experiment(StopTime=0.2, NumberOfIntervals=731));
   end Sensor;
 
   model Source "Source"
@@ -507,22 +385,11 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(grd.term, voltage.neutral)
       annotation (points=[-40,0; -40,0], style(color=3, rgbcolor={0,0,255}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Diagram,
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
-"),   Icon,
-      experiment(StopTime=0.2, NumberOfIntervals=731),
-      experimentSetupOutput);
+"),
+      experiment(StopTime=0.2, NumberOfIntervals=731));
   end Source;
 
   model Transformer "Transformer"
@@ -575,22 +442,11 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(TapChanger.tap_n, trafo.tap_n) annotation (points=[14,50; 14,10], style(
           color=45, rgbcolor={255,127,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
       Documentation(
               info="<html>
 </html>
-"),   Diagram,
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      experiment(StopTime=3, NumberOfIntervals=7531),
-      experimentSetupOutput);
+"),
+      experiment(StopTime=3, NumberOfIntervals=7531));
   end Transformer;
 
   model Rectifier "Rectifier"
@@ -642,22 +498,7 @@ package b_AC1_DC "AC 1-phase and DC components"
     connect(rectifier.heat, boundary.heat)
       annotation (points=[20,10; 20,10], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>
-"),   experiment(StopTime=0.2, NumberOfIntervals=1000),
-      experimentSetupOutput);
+		experiment(StopTime=0.2, NumberOfIntervals=1000));
   end Rectifier;
 
 
@@ -716,59 +557,19 @@ package b_AC1_DC "AC 1-phase and DC components"
                                        style(color=3, rgbcolor={0,0,255}));
     connect(dc_ac.heat, boundary.heat)
       annotation (points=[20,10; 20,10], style(color=42, rgbcolor={176,0,0}));
-    annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
-      Documentation(
-              info="<html>
-</html>
-"),   experiment(StopTime=0.2, NumberOfIntervals=1000),
-      experimentSetupOutput);
+    annotation (experiment(StopTime=0.2, NumberOfIntervals=1000));
   end Inverter;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>This package contains small models for testing single components from AC1_DC.
 The replaceable component can be replaced by a user defined component of similar type.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon,
-    Diagram,  preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+</html>"),  preferredView="info",
 Documentation(info="<html>
 <pre>
 Models for testing components from Spot.Electronics.
 </pre>
 </html>
-"), Icon);
+"));
 end b_AC1_DC;

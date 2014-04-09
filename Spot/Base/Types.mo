@@ -219,14 +219,7 @@ the equation finally becomes
   type Charge_Ah = Real (final quantity="ElectricCharge", final unit="Ah");
 
   type Percent = Real(final quantity="Percent",final unit="%");
- annotation (preferedView="info",
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65,
-    library=1,
-    autolayout=1),
+ annotation (preferredView="info",
   Invisible=true,
   Documentation(info="<html>
 </html>

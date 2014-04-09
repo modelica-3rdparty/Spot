@@ -11,11 +11,6 @@ package Loads "Loads"
     Z = (p0/(p0*p0))*V2_nom;
     annotation (
       defaultComponentName="zLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with impedance characteristic.<br>
@@ -90,11 +85,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = ((p0/(p0*p0))*v2*tanh(imax)/tanh(imax*v2/V2_nom) - Z)/tcst;
     annotation (
       defaultComponentName="pqLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with constant characteristic.<br>
@@ -109,11 +99,7 @@ Consumes the desired active and reactive power independent of voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-             "p   q")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+             "p   q")}));
   end PQindLoad;
 
   model Yload "Admittance load, 3-phase abc"
@@ -124,11 +110,6 @@ Consumes the desired active and reactive power independent of voltage.</p>
     Y = (p0/(p0*p0))*I2_nom;
     annotation (
       defaultComponentName="yLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Capacitive load with admittance characteristic.<br>
@@ -143,11 +124,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "Y")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "Y")}));
   end Yload;
 
   model PQcapLoad "PQ capacitive load, 3-phase abc"
@@ -166,11 +143,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Y) = ((p0/(p0*p0))*i2*tanh(vmax)/tanh(vmax*i2/I2_nom) - Y)/tcst;
     annotation (
       defaultComponentName="pqLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Capacitive load with constant characteristic.<br>
@@ -185,11 +157,7 @@ Consumes the desired active and reactive power independent of voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-             "p   q")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+             "p   q")}));
   end PQcapLoad;
 
   model ZIPload "ZIP inductive load, 3-phase abc"
@@ -214,11 +182,6 @@ Consumes the desired active and reactive power independent of voltage.</p>
     der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="zipLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with characteristic depending on powers 0,1,2 of voltage or current.<br>
@@ -234,11 +197,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "ZIP")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "ZIP")}));
   end ZIPload;
 
   model FrequencyLoad "Frequency inductive load, 3-phase abc"
@@ -263,11 +222,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="freqLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with frequency and voltage sensitive characteristic.<br>
@@ -282,11 +236,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-             "f")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+             "f")}));
   end FrequencyLoad;
 
   model DynamicLoad "Dynamic inductive load, 3-phase abc"
@@ -322,11 +272,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="dynLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with characteristic depending on dynamic state.<br>
@@ -341,11 +286,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-             "dyn")}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+             "dyn")}));
   end DynamicLoad;
 
   package Partials "Partial models"
@@ -390,11 +331,6 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       end if;
       v_n = R_n*i_n "equation neutral to ground";
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 </html>"),
@@ -415,21 +351,9 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
               lineThickness=0.5,
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid)}),
-        Coordsys(
-          extent=[-100,-100; 100,100],
-          grid=[2,2],
-          component=
-    [20, 20]),
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
-</html>"),
-        Diagram,
-        Icon);
+</html>"));
     end LoadBase;
 
     partial model IndLoadBase "Inductive load base, 3-phase abc"
@@ -460,11 +384,6 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
         omega[2]*j_abc(psi) + Z[1]*i = v;
       end if;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(info=
         "<html>
 </html>
@@ -476,11 +395,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
               lineColor={0,130,175},
               lineThickness=0.5,
               fillColor={0,130,175},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end IndLoadBase;
 
     partial model CapLoadBase "Capacitive load base, 3-phase abc"
@@ -510,11 +425,6 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
         omega[2]*j_abc(q) + Y[1]*v = i;
       end if;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(info=
         "<html>
 </html>
@@ -537,35 +447,13 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
               points={{-20,36},{-20,-36},{-10,-33},{-10,33},{-20,36}},
               lineColor={0,130,175},
               fillColor={0,130,175},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end CapLoadBase;
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
   end Partials;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.44,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Load models with an optional input (if scType=signal):</p>
 <pre>  p_set:     {active, reactive} power</pre>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Loads;

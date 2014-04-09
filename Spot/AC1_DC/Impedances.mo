@@ -15,11 +15,6 @@ package Impedances "Impedance and admittance two terminal"
   equation
     diagonal(R)*i = v;
     annotation (defaultComponentName="res1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
@@ -58,11 +53,6 @@ package Impedances "Impedance and admittance two terminal"
   equation
     diagonal(G)*v = i;
     annotation (defaultComponentName="cond1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
@@ -104,11 +94,6 @@ package Impedances "Impedance and admittance two terminal"
   equation
     L*der(i) + diagonal(R)*i = v;
     annotation (defaultComponentName="ind1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
@@ -173,11 +158,6 @@ package Impedances "Impedance and admittance two terminal"
   equation
     diagonal(C)*der(v) + diagonal(G)*v = i;
     annotation (defaultComponentName="cap1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>No pair capacitance.</p>
@@ -262,11 +242,6 @@ package Impedances "Impedance and admittance two terminal"
   equation
     L*der(i) + R*i = v;
     annotation (defaultComponentName="impedance1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>This model corresponds to AC1_DC.Inductor, but uses a different determination of the coefficients.<br>
@@ -354,11 +329,6 @@ Instead of x and r the parameters z_abs and cos(phi) are used.</p>
   equation
     C*der(v) + G*v = i;
     annotation (defaultComponentName="admittance1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>This model corresponds to AC1_DC.Capacitor, but uses a different determination of the coefficients.<br>
@@ -453,11 +423,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   equation
     v = V0*tanh(H0*i);
     annotation (defaultComponentName="varistor",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Voltage limiter with hyperbolic tangent characteristic.</p>
@@ -526,11 +491,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     connect(resSym.neutral, neutral) annotation (Line(points={{-20,-1.22465e-15},
             {-20,-40},{0,-40},{0,-100}}, color={0,0,255}));
     annotation (defaultComponentName="resSym",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),   Icon(coordinateSystem(
@@ -546,11 +506,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
               color={0,0,255}),
           Line(points={{0,70},{0,60}}, color={0,0,255}),
           Line(points={{0,-60},{0,-70}}, color={0,0,255}),
-          Line(points={{0,0},{20,0},{20,-100},{10,-100}}, color={0,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{0,0},{20,0},{20,-100},{10,-100}}, color={0,0,255})}));
   end ResistorSym;
 
   model CapacitorSym "Symmetrical capacitor with neutral access"
@@ -598,11 +554,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     connect(capSym.neutral, neutral) annotation (Line(points={{-20,-1.22461e-15},
             {-20,-40},{0,-40},{0,-100}}, color={0,0,255}));
     annotation (defaultComponentName="capSym",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),   Icon(coordinateSystem(
@@ -647,11 +598,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
               color={0,0,255}),
           Line(points={{20,-54},{20,-100},{10,-100}}, color={0,0,255}),
           Line(points={{0,70},{0,48}}, color={0,0,255}),
-          Line(points={{0,-48},{0,-70}}, color={0,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{0,-48},{0,-70}}, color={0,0,255})}));
   end CapacitorSym;
 
   model DClink "DC-link with filter circuit"
@@ -724,11 +671,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     connect(p_n_pn.term_pn, term_n)
       annotation (Line(points={{76,0},{100,0}}, color={0,0,255}));
     annotation (defaultComponentName="dcLink",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),   Icon(coordinateSystem(
@@ -742,11 +684,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
             extent={{-80,20},{80,-20}},
             lineColor={0,0,255},
             textString=
-                 "DClink")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "DClink")}));
   end DClink;
 
   model DClinkSym "Symmetrical DC-link with filter circuit and neutral access"
@@ -819,11 +757,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     connect(p_n_pn.term_pn, term_n)
       annotation (Line(points={{76,0},{100,0}}, color={0,0,255}));
     annotation (defaultComponentName="dcLink",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),   Icon(coordinateSystem(
@@ -844,11 +777,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
             extent={{-80,0},{80,-40}},
             lineColor={0,0,255},
             textString=
-                 "sym")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "sym")}));
   end DClinkSym;
 
   package Partials "Partial models"
@@ -861,13 +790,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
 
     annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>"),   Icon(coordinateSystem(
@@ -877,11 +799,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
               extent={{-100,130},{100,90}},
               lineColor={0,0,0},
               textString=
-               "%name")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+               "%name")}));
     end ImpedBase0;
     extends Base.Icons.Partials;
 
@@ -897,20 +815,9 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
       v = term_p.pin.v - term_n.pin.v;
       i = term_p.pin.i;
     annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
-</html>"),   Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Diagram(coordinateSystem(
+</html>"),      Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -924,26 +831,11 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
       extends ImpedBase;
       extends Base.Interfaces.AddHeat;
       annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Same as ImpedBase, but contains an additional heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connector is given by the total dissipated electric power of both conductors.</p>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ImpedBaseHeat;
 
   partial model ImpedNonSymHeat
@@ -955,42 +847,16 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   equation
     Q_flow = v.*i;
     annotation (
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(
     info="<html>
 <p>Same as ImpedBase, but contains an additional vector heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connectors is given by the total dissipated electric power per conductor.</p>
-</html>"),   Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end ImpedNonSymHeat;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains lumped impedance models and can also be regarded as a collection of basic formulas. Shunts are part of a separate package.</p>
 <p>General relations.</p>
@@ -1036,9 +902,5 @@ Documentation(info="<html>
   g = [g_pg + g_pp, -g_pp
       -g_pp,         g_pg + g_pp]
 </pre>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Impedances;

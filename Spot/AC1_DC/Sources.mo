@@ -26,11 +26,6 @@ package Sources "DC voltage sources"
     phi = theta + alpha + system.alpha0;
     term.pin[1].v - term.pin[2].v = V*cos(phi);
     annotation (defaultComponentName = "voltage1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>AC voltage with constant amplitude and phase when 'vType' is 'parameter',<br>
@@ -42,14 +37,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
    vPhasor[1]     in SI or pu, depending on choice of 'units'
    vPhasor[2]     in rad
 </pre></p>
-</html>"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end ACvoltage;
 
   model Vspectrum "Ideal voltage spectrum, 1-phase"
@@ -76,11 +64,6 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     phi = h*(theta + alpha + system.alpha0) + h.*alpha0;
     term.pin[1].v - term.pin[2].v = V*veff*cos(phi);
     annotation (defaultComponentName = "voltage1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>AC voltage spectrum with constant amplitude and phase when 'vType' is 'parameter',<br>
@@ -112,11 +95,7 @@ where
             fillColor={127,0,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "~~~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "~~~")}));
   end Vspectrum;
 
   model DCvoltage "Ideal DC voltage"
@@ -134,25 +113,13 @@ where
     end if;
     term.pin[1].v - term.pin[2].v = v;
     annotation (defaultComponentName = "voltage1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>DC voltage with constant amplitude when 'vType' is 'parameter',<br>
 with variable amplitude when 'vType' is 'signal'.</p>
 <p>Optional input:
 <pre>  vDC     DC voltage in SI or pu, depending on choice of 'units' </pre></p>
-</html>"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end DCvoltage;
 
   model Battery "Battery"
@@ -177,11 +144,6 @@ with variable amplitude when 'vType' is 'signal'.</p>
     term.pin[1].v - term.pin[2].v = v;
     term.pin[1].i = -i;
     annotation (defaultComponentName = "battery1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p><b>Preliminary:</b> Battery is DC voltage with constant amplitude.<br>
@@ -210,11 +172,7 @@ To be completed later with charging and discharging characteristic.</p>
           Line(
             points={{20,0},{34,0}},
             color={255,255,255},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end Battery;
 
   package Partials "Partial models"
@@ -251,13 +209,6 @@ To be completed later with charging and discharging characteristic.</p>
 
       sum(term.pin.i) + neutral.i = 0;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Allows positive, symmetrical, and negativ grounding according to the choice of parameter 'pol'.<br>
@@ -273,11 +224,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
               fillPattern=FillPattern.Solid), Line(
               points={{-70,0},{70,0}},
               color={176,0,0},
-              thickness=0.5)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              thickness=0.5)}));
     end VoltageBase;
 
     partial model ACvoltageBase "AC voltage base"
@@ -317,13 +264,6 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
         der(theta) = omega;
       end if;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -337,11 +277,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
               fillColor={127,0,255},
               fillPattern=FillPattern.Solid,
               textString=
-           "~")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+           "~")}));
     end ACvoltageBase;
 
     partial model DCvoltageBase "DC voltage base"
@@ -358,13 +294,6 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
             extent={{-10,-10},{10,10}},
             rotation=270)));
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -378,30 +307,12 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
               fillColor={127,0,255},
               fillPattern=FillPattern.Solid,
               textString=
-                   "=")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                   "=")}));
 
     end DCvoltageBase;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.35,
-  height=0.27,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>AC sources have the optional inputs:</p>
 <pre>
@@ -411,9 +322,5 @@ Documentation(info="<html>
 <p>DC sources have the optional input:</p>
 <pre>  vDC:       DC voltage</pre>
 <p>To use signal inputs, choose parameters vType=signal and/or fType=signal.</p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Sources;

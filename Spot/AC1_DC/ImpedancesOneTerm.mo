@@ -15,11 +15,6 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
   equation
     R*i = v;
     annotation (defaultComponentName="res1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
@@ -53,11 +48,6 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
   equation
     G*v = i;
     annotation (defaultComponentName="cond1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
@@ -94,11 +84,6 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
   equation
     L*der(i) + R*i = v;
     annotation (defaultComponentName="ind1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
@@ -144,11 +129,6 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
   equation
     C*der(v) + G*v = i;
     annotation (defaultComponentName="cap1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1_DC.Impedances.</p>
@@ -208,11 +188,6 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
   equation
     v = V0*tanh(H0*i);
     annotation (defaultComponentName="varistor",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p> Voltage limiter with hyperbolic tangent characteristic.</p>
@@ -255,21 +230,10 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
       v = term.pin[1].v - term.pin[2].v;
       i = term.pin[1].i;
     annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>
-"),   Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Diagram(coordinateSystem(
+"),      Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Line(points={{-80,20},{-60,20},{-60,80},{0,
@@ -282,51 +246,20 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
       extends ImpedBase;
       extends Base.Interfaces.AddHeat;
       annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Same as ImpedBase, but contains an additional heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connector is given by the total dissipated electric power.</p>
 </html>
-"), Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ImpedBaseHeat;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains lumped impedance models with one terminal.</p>
 <p>General relations see AC1_DC.Impedances.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end ImpedancesOneTerm;

@@ -43,13 +43,6 @@ equation
   connect(diode2.heat, heat)   annotation (Line(points={{-10,-30},{-20,-30},{
             -20,80},{0,80},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "diodeMod1",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Diode-module for passive AC-DC rectifiers.</p>
@@ -75,11 +68,7 @@ equation
           Line(points={{-80,10},{-60,10},{-60,50},{0,50},{0,38}}, color={0,0,
                 255}),
           Line(points={{-80,-10},{-60,-10},{-60,-50},{0,-50},{0,-40}}, color={0,
-                0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                0,255})}));
 end DiodeModule;
 
 model SwitchModule "Switch module"
@@ -140,13 +129,6 @@ equation
   connect(switch_D2.heat, heat)   annotation (Line(points={{-10,-30},{-20,-30},
             {-20,80},{0,80},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "switchMod1",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Switch-module for controlled DC-AC inverters.</p>
@@ -192,26 +174,11 @@ for all times.</p>
             fillPattern=FillPattern.Solid),
           Line(points={{30,14},{16,2}}, color={255,0,255}),
           Line(points={{-80,10},{-60,10},{-60,46},{30,46}}, color={0,0,255}),
-          Line(points={{-80,-10},{-60,-10},{-60,-48},{30,-48}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-80,-10},{-60,-10},{-60,-48},{30,-48}}, color={0,0,255})}));
 end SwitchModule;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Phase modules for passive and active devices.<br>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end PhaseModules;

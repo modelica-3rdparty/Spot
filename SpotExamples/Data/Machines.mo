@@ -18,25 +18,10 @@ record DCser1500V_1p5MVA "DC machine series excited, example"
   parameter SIpu.AngularVelocity_rpm rpm_nom=1500 "nom r.p.m.";
 
   annotation (defaultComponentName="DCs1500_1p5M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end DCser1500V_1p5MVA;
 
 record DCpar1500V_1p5MVA "DC machine parallel excited, example"
@@ -55,25 +40,10 @@ record DCpar1500V_1p5MVA "DC machine parallel excited, example"
   parameter SI.Voltage Vf_nom=1500 "nom field voltage";
 
   annotation (defaultComponentName="DCp1500_1p5M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end DCpar1500V_1p5MVA;
 
 record DCpm100V_1kVA "DC machine permanent magnet excited, example"
@@ -89,25 +59,10 @@ record DCpm100V_1kVA "DC machine permanent magnet excited, example"
   parameter SIpu.AngularVelocity_rpm rpm_nom=1500 "nom r.p.m.";
 
   annotation (defaultComponentName="DCpm100_1k",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end DCpm100V_1kVA;
 
 record BLDC100V_1kVA
@@ -132,20 +87,6 @@ record BLDC100V_1kVA
   parameter SI.Frequency f_nom=60 "nom frequency";
 
   annotation (defaultComponentName="bldc100_1k",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>The relation between source DC voltage V_dc and nominal 3-phase voltage of the synchronous machine V_nom is given by
@@ -153,8 +94,7 @@ record BLDC100V_1kVA
 Note that V_nom is only used, if impedance values x and r are given in pu.<br>
 f_nom is needed to relate impedance x and inductance L values.</p>
 </html>
-"), Icon,
-    Diagram);
+"));
 end BLDC100V_1kVA;
 
 record BLDC100V_1kVA_SI
@@ -179,20 +119,6 @@ record BLDC100V_1kVA_SI
   parameter SI.Frequency f_nom=60 "nom frequency";
 
   annotation (defaultComponentName="bldc100_1k_SI",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>The relation between source DC voltage V_dc and nominal 3-phase voltage of the synchronous machine V_nom is given by
@@ -200,8 +126,7 @@ record BLDC100V_1kVA_SI
 Note that V_nom is only used, if impedance values x and r are given in pu.<br>
 f_nom is needed to relate impedance x and inductance L values.</p>
 </html>
-"), Icon,
-    Diagram);
+"));
 end BLDC100V_1kVA_SI;
 
 record Asynchron400V_30kVA "Asynchronous machine, example"
@@ -233,25 +158,10 @@ record Asynchron400V_30kVA "Asynchronous machine, example"
   parameter SI.Frequency f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="asyn400_30k",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end Asynchron400V_30kVA;
 
 record Asynchron3kV_1p5MVA "Asynchronous machine, example"
@@ -286,25 +196,10 @@ record Asynchron3kV_1p5MVA "Asynchronous machine, example"
   parameter SI.Frequency f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="asyn3k_1p5M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end Asynchron3kV_1p5MVA;
 
 record Synchron3rd_pm400V_30kVA
@@ -329,25 +224,10 @@ record Synchron3rd_pm400V_30kVA
   parameter SI.Frequency f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="syn3rdpm400_30k",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end Synchron3rd_pm400V_30kVA;
 
 record Synchron_pm400V_30kVA "Synchronous machine pm, example"
@@ -405,26 +285,10 @@ record Synchron_pm400V_30kVA "Synchronous machine pm, example"
   parameter SI.Current If_nom=0 "nom field current (V=V_nom at open term)";
 
   annotation (defaultComponentName="synpm400_30k",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon,
     Documentation(
           info="<html>
 </html>
-"), Diagram,
-    DymolaStoredErrors);
+"));
 end Synchron_pm400V_30kVA;
 
 record Synchron3rd_pm560V_100kVA "Synchronous machine 3rd order pm, example"
@@ -448,26 +312,10 @@ record Synchron3rd_pm560V_100kVA "Synchronous machine 3rd order pm, example"
   parameter SI.Frequency f_nom=400 "nom frequency";
 
   annotation (defaultComponentName="syn3rdpm560_100k",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon,
     Documentation(
           info="<html>
 </html>
-"), Diagram,
-    DymolaStoredErrors);
+"));
 end Synchron3rd_pm560V_100kVA;
 
 record Synchron_pm560V_100kVA "Synchronous machine pm, example"
@@ -525,26 +373,10 @@ record Synchron_pm560V_100kVA "Synchronous machine pm, example"
   parameter SI.Current If_nom=0 "nom field current (V=V_nom at open term)";
 
   annotation (defaultComponentName="synpm560_100k",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon,
     Documentation(
           info="<html>
 </html>
-"), Diagram,
-    DymolaStoredErrors);
+"));
 end Synchron_pm560V_100kVA;
 
 record Synchron3rd20kV_1200MVA "Synchronous machine, 3rd order model, example"
@@ -568,26 +400,10 @@ record Synchron3rd20kV_1200MVA "Synchronous machine, 3rd order model, example"
   parameter SI.Frequency f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="syn20k_1200M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon,
     Documentation(
           info="<html>
 </html>
-"), Diagram,
-    DymolaStoredErrors);
+"));
 end Synchron3rd20kV_1200MVA;
 
 record Synchron20kV_1200MVA "Synchronous machine, example"
@@ -645,26 +461,10 @@ record Synchron20kV_1200MVA "Synchronous machine, example"
   parameter SI.Current If_nom=8000 "nom field current (V=V_nom at open term)";
 
   annotation (defaultComponentName="syn20k_1200M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon,
     Documentation(
           info="<html>
 </html>
-"), Diagram,
-    DymolaStoredErrors);
+"));
 end Synchron20kV_1200MVA;
 
 record Synchron3rd60Hz26kV_720MVA
@@ -689,25 +489,10 @@ record Synchron3rd60Hz26kV_720MVA
   parameter SI.Frequency f_nom=60 "nom frequency";
 
   annotation (defaultComponentName="syn3rd60Hz26k_720M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end Synchron3rd60Hz26kV_720MVA;
 
 record Synchron60Hz26kV_720MVA "Synchronous machine, example"
@@ -765,26 +550,10 @@ record Synchron60Hz26kV_720MVA "Synchronous machine, example"
   parameter SI.Current If_nom=1800 "nom field current (V=V_nom at open term)";
 
    annotation (defaultComponentName="syn60Hz26k_720M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
-    Icon,
     Documentation(
           info="<html>
 </html>
-"), Diagram,
-    DymolaStoredErrors);
+"));
 end Synchron60Hz26kV_720MVA;
 
 record SynchronIso20kV_500MVA
@@ -809,27 +578,12 @@ record SynchronIso20kV_500MVA
   parameter SI.Frequency f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="syn3rd20k_500M",
-    Coordsys(
-      extent=
-     [-100, -100; 100, 100],
-      grid=
-   [2, 2],
-      component=
-        [20, 20]),
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
-"), Icon,
-    Diagram);
+"));
 end SynchronIso20kV_500MVA;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define voltage start values.</p>
 </html>"));

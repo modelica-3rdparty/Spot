@@ -67,17 +67,6 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
     connect(rectifier.heat, bdCond.heat)
       annotation (points=[20,20; 20,20], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>1-phase rectifier. Compare 'equation' and 'modular' version.</p>
@@ -86,8 +75,7 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
 "),   experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end Rectifier;
 
   model InverterToLoad "Inverter to load"
@@ -156,17 +144,6 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-10,0; -10,0], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>1-phase inverter, feeding load at constant 100Hz with increasing amplitude.</p>
@@ -175,8 +152,7 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
 "),   experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end InverterToLoad;
 
   model InverterToGrid "Inverter to grid"
@@ -252,17 +228,6 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-20,0; -20,0], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>3-phase inverter, feeding into grid with increasing phase. Compare 'switch', 'equation' and 'modular' version.</p>
@@ -271,8 +236,7 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
       experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end InverterToGrid;
 
   model InverterAvToGrid "Inverter to grid"
@@ -344,17 +308,6 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
     connect(inverter.heat, bdCond.heat)
       annotation (points=[-20,0; -20,0], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>1-phase inverter based on AVERAGED switch-equation, feeding into grid with increasing phase.</p>
@@ -363,8 +316,7 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
       experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end InverterAvToGrid;
 
   model Chopper "Chopper"
@@ -416,17 +368,6 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
     connect(chopper.heat, bdCond.heat)
       annotation (points=[0,0; 0,0], style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Icon,
-      Diagram,
       Documentation(
               info="<html>
 <p>One quadrant chopper.</p>
@@ -435,25 +376,13 @@ package e_InvertersAC1_DC "Inverters 1 phase and DC"
 "),   experiment(
         StopTime=0.2,
         NumberOfIntervals=1000,
-        Algorithm="Lsodar"),
-      experimentSetupOutput);
+        Algorithm="Lsodar"));
   end Chopper;
 
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Comparison of different one-phase rectifier and inverter models.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon);
+"));
 end e_InvertersAC1_DC;

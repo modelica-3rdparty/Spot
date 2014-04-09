@@ -57,15 +57,6 @@ equation
   connect(infBus.neutral, grd2.term)
       annotation (points=[70,10; 70,10], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Amplitude and phase of voltage are given in both nodes.<br>
@@ -76,10 +67,7 @@ The powerflow depends essentially on the phase difference between the nodes and 
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    Icon,
-      experiment,
-      experimentSetupOutput);
+"));
 end Vsource;
 
 model PVsource "Power transfer from power-voltage source to slack bus"
@@ -134,15 +122,6 @@ equation
   connect(infBus.neutral, grd2.term)
       annotation (points=[70,10; 70,10], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Power and voltage-amplitude are given in the source node, whereas the slackBus is identical to the previous example.<br>
@@ -152,11 +131,7 @@ The active powerflow is now directly determined through a parameter instead of i
  sensor.p[1:2]    active and reactive power
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
-    Icon,
-      experiment,
-      experimentSetupOutput);
+</html>"));
 end PVsource;
 
 model PQsource "Power transfer from power source to slack bus"
@@ -210,15 +185,6 @@ equation
   connect(infBus.neutral, grd2.term)
       annotation (points=[70,10; 70,10], style(color=3, rgbcolor={0,0,255}));
   annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Active and reactive power are given in the source node, whereas the slackBus is identical to the previous example.<br>
@@ -228,11 +194,7 @@ Both active and reactive powerflow are now directly determined through a paramet
  sensor.p[1:2]    active and reactive power
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Diagram,
-    Icon,
-      experiment,
-      experimentSetupOutput);
+</html>"));
 end PQsource;
 
   model PowerAngle "Generator at fixed power angle"
@@ -355,16 +317,6 @@ end PQsource;
     connect(generator.heat, bdCond.heat)   annotation (points=[-40,20; -40,20],
         style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
-      Diagram,
       Documentation(
               info="<html>
 <p>This example is a first step on the way 'from voltage source to generator model'.</p>
@@ -383,7 +335,7 @@ The power-angle is artificially fixed. The correspondence is:
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Icon);
+"));
   end PowerAngle;
 
   model TurbineGenerator "Turbine with generator"
@@ -509,15 +461,6 @@ The power-angle is artificially fixed. The correspondence is:
     connect(generator.heat, bdCond.heat)   annotation (points=[-40,20; -40,20],
         style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Second example 'from voltage source to generator model' with additional turbine.</p>
@@ -537,10 +480,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram,
-      Icon,
-      experiment,
-      experimentSetupOutput);
+"));
   end TurbineGenerator;
 
   model TurbineGeneratorLine "Turbine with generator and line"
@@ -711,15 +651,6 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
     connect(generator.heat, bdCond.heat)   annotation (points=[-40,20; -40,20],
         style(color=42, rgbcolor={176,0,0}));
     annotation (
-      Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The third example is obtained from the previous by adding a line between generator and infinite bus.</p>
@@ -735,10 +666,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram,
-      Icon,
-      experiment,
-      experimentSetupOutput);
+"));
   end TurbineGeneratorLine;
 
   model TurboGeneratorLine "Turbo-generator with line to infinite bus"
@@ -881,15 +809,6 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
     connect(turboGen.heat, bdCond.heat)   annotation (points=[-50,20; -50,20],
         style(color=42, rgbcolor={176,0,0}));
   annotation (
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>This example is the last step on the way 'from voltage source to generator model'.</p>
@@ -905,10 +824,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    Icon,
-      experiment,
-      experimentSetupOutput);
+"));
   end TurboGeneratorLine;
 
 model GenOrder3and7 "Generator-models of different order"
@@ -1019,15 +935,6 @@ equation
   connect(turboGen2.heat, bdCond2.heat)   annotation (points=[-70,-40; -70,-40],
         style(color=42, rgbcolor={176,0,0}));
   annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The example illustrates the difference in dynamic behaviour between low- and high-order generator models.<br>
@@ -1041,8 +948,6 @@ of <tt>turbGen1</tt> and <tt>turbGen2</tt>.<br>
 The high order model exhibits fast damping of torque-oscillations due to the damper windings. See also damper currents i_rd, i_rq (protected).</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram,
-    Icon,
       experiment(StopTime=0.5, NumberOfIntervals=1000),
       experimentSetupOutput(derivatives=false));
 end GenOrder3and7;
@@ -1125,15 +1030,6 @@ equation
   connect(turboGrpGen.heat, bdCond.heat)   annotation (points=[-70,20; -70,20],
         style(color=42, rgbcolor={176,0,0}));
   annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The example illustrates the influence of an electric shock on the mechanical behaviour of the turbogroup.<br>
@@ -1145,8 +1041,7 @@ A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram,
-    Icon,
+"),
       experiment(
         StopTime=0.5,
         NumberOfIntervals=1000,
@@ -1315,16 +1210,6 @@ equation
   connect(turboGen3.heat, bdCond3.heat)   annotation (points=[-10,70; -10,70],
         style(color=42, rgbcolor={176,0,0}));
   annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Diagram,
     Documentation(
             info="<html>
 <p>Tie line with three generators (third as infinite slack bus), feeding a variable load. The load changes abruptly at <tt>t=2</tt> and induces power oscillations between the nodes.<br>
@@ -1337,9 +1222,8 @@ After the load decreases, system frequency starts to increase from 60 to 62 Hz w
 </pre></p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon,
-      experiment(StopTime=30),
-      experimentSetupOutput);
+"),
+      experiment(StopTime=30));
 end TieLine;
 
 model WindGeneratorLine "Asynchronous generator"
@@ -1411,15 +1295,6 @@ equation
   connect(trsSignal1.y, windGen.windSpeed)   annotation (points=[-80,10; -60,10],
         style(color=74, rgbcolor={0,0,127}));
   annotation (
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>This example shows an asynchron generator directly coupled to the grid.<br>
@@ -1432,10 +1307,8 @@ The wind-speed is increased from 5 to 15 m/s. The machine remains stable.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 
-"), Diagram,
-    Icon,
-      experiment(StopTime=60, NumberOfIntervals=1000),
-      experimentSetupOutput);
+"),
+      experiment(StopTime=60, NumberOfIntervals=1000));
 end WindGeneratorLine;
 
 protected
@@ -1542,15 +1415,6 @@ equation
   connect(turboGen.phiRotor, reference.theta)   annotation (points=[-60,-40;
           -50,-40], style(color=74, rgbcolor={0,0,127}));
   annotation (
-Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=[20,20]),
-Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
 Documentation(
         info="<html>
 <p>Permanent magnet excited synchron generator, rotor defines reference system.<br>
@@ -1564,10 +1428,7 @@ integration in inertial abc-system.</p>
 </pre>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-Diagram,
-Icon,
-experiment(StopTime=30),
-experimentSetupOutput);
+experiment(StopTime=30));
 end Islanding;
 
 public
@@ -1665,15 +1526,6 @@ equation
   connect(i_d.y, PMgen.i_act[1]) annotation (points=[-80,-10; -36,-10; -36,
           -39.5], style(color=74, rgbcolor={0,0,127}));
   annotation (
-Coordsys(
-    extent=[-100,-100; 100,100],
-    grid=[2,2],
-    component=[20,20]),
-Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
 Documentation(
         info="<html>
 <p>Permanent magnet excited synchron generator.<br>
@@ -1685,26 +1537,12 @@ The generator is coupled to an contolled rectifier. If an average-version of the
 </pre>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-Diagram,
-Icon,
-experiment(StopTime=30),
-experimentSetupOutput);
+experiment(StopTime=30));
 end LocalGeneration;
-  annotation (preferedView="info",
-Coordsys(
-  extent=[-100, -100; 100, 100],
-  grid=[2, 2],
-  component=[20, 20]),
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Power sources and generation, a set of examples mainly for understanding the synchronous machine.</p>
 <p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon);
+"));
 end g_GenerationACabc;

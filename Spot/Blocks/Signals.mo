@@ -11,11 +11,6 @@ package Signals "Special signals"
   equation
     y = c;
     annotation (defaultComponentName = "cstSig1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -27,10 +22,7 @@ package Signals "Special signals"
       Documentation(
               info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Constant;
 
   block Transient "Transient vector"
@@ -46,11 +38,6 @@ package Signals "Special signals"
   equation
     y = 0.5*((s_fin + s_ini) + (s_fin - s_ini)*tanh(coef*(time - t_change)));
     annotation (defaultComponentName = "transSig1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal changes from <tt>s_ini</tt> to <tt>s_fin</tt><br>
@@ -73,11 +60,7 @@ The transition function is a hyperbolic tangent.</p>
             extent={{-10,50},{110,10}},
             lineColor={160,160,164},
             textString=
-                 "fin")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "fin")}));
   end Transient;
 
   block ConstantPhasor "Constant {norm, phase} of vector"
@@ -89,11 +72,6 @@ The transition function is a hyperbolic tangent.</p>
   equation
     y= {a, ph};
     annotation (defaultComponentName = "cstPh1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -108,11 +86,7 @@ The transition function is a hyperbolic tangent.</p>
             extent={{-100,20},{100,-20}},
             lineColor={160,160,164},
             textString=
-                 "{%a,%ph}")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "{%a,%ph}")}));
   end ConstantPhasor;
 
   block TransientPhasor "Transient {norm, phase} of vector"
@@ -130,11 +104,6 @@ The transition function is a hyperbolic tangent.</p>
   equation
     y = 0.5*({a_fin+a_ini, ph_fin+ph_ini} + {a_fin-a_ini, ph_fin-ph_ini}*tanh(coef*(time - t_change)));
      annotation (defaultComponentName = "transPh1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal is a two-dimensional vector in polar representation.<br>
@@ -163,11 +132,7 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
                  "fin"),
           Line(points={{-80,-60},{-64,-60},{-44,-58},{-34,-54},{-26,-48},{-20,
                 -40},{-14,-30},{-8,-18},{-2,-6},{2,4},{8,18},{14,30},{20,40},{
-                26,48},{34,54},{44,58},{64,60},{80,60}}, color={95,0,191})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                26,48},{34,54},{44,58},{64,60},{80,60}}, color={95,0,191})}));
   end TransientPhasor;
 
   block ConstantFreq "Constant frequency"
@@ -177,11 +142,6 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
   protected
     outer System system;
     annotation (defaultComponentName = "cstFreq1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -192,11 +152,7 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
             extent={{-100,100},{100,60}},
             lineColor={175,175,175},
             textString=
-                 "omega")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "omega")}));
   end ConstantFreq;
 
   block TransientFreq "Transient frequency"
@@ -209,11 +165,6 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
     final parameter SI.AngularFrequency omega_ini=2*pi*f_ini;
     final parameter SI.AngularFrequency omega_fin=2*pi*f_fin;
     annotation (defaultComponentName = "transFreq1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The frequency changes from <tt>f_ini</tt> to <tt>f_fin</tt><br>
@@ -230,11 +181,7 @@ The transition function is a hyperbolic tangent.</p>
             extent={{-100,100},{100,60}},
             lineColor={175,175,175},
             textString=
-                 "omega")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "omega")}));
   end TransientFreq;
 
   block Sin "Sine of n phases"
@@ -251,11 +198,6 @@ The transition function is a hyperbolic tangent.</p>
   equation
     y = a*sin(omega*time*ones(n) + ph);
    annotation (defaultComponentName = "sin",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal has constant amplitude, phase, and frequency.
@@ -269,11 +211,7 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
             extent={{-60,40},{60,-40}},
             lineColor={160,160,164},
             textString=
-                 "~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "~")}));
   end Sin;
 
   block VarSin "Sine of n phases with variable amplitude and frequency"
@@ -294,11 +232,6 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
     der(theta) = omega;
     y = amplitude*sin(fill(theta, n) + ph);
     annotation (defaultComponentName = "varSin",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal has variable amplitude and frequency and constant phase.
@@ -311,11 +244,7 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
             extent={{-60,40},{60,-40}},
             lineColor={160,160,164},
             textString=
-           "~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "~")}));
   end VarSin;
 
   block VarSinSpec
@@ -345,11 +274,6 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
       y[k] = amplitude*(a_rel*sin((theta + ph[k])*h + ph_h));
     end for;
    annotation (defaultComponentName = "varSin_spec",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal has variable amplitude and frequency and constant phase.
@@ -366,24 +290,9 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
             extent={{-60,40},{60,0}},
             lineColor={160,160,164},
             textString=
-           "~~~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "~~~")}));
   end VarSinSpec;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Signals;

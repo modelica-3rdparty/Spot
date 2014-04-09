@@ -10,11 +10,6 @@ package Nodes "Nodes and adaptors"
     term.v = zeros(3);
     annotation (
       defaultComponentName="grd1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Zero voltage on all phases of terminal.</p>
@@ -54,11 +49,6 @@ package Nodes "Nodes and adaptors"
     term.v = 0;
     annotation (
       defaultComponentName="grd1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Zero voltage on terminal.</p>
@@ -106,11 +96,6 @@ package Nodes "Nodes and adaptors"
     alpha_v = atan2(R[:, 2]*term.v[1:2], R[:, 1]*term.v[1:2]);
     annotation (
       defaultComponentName="bus1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -129,10 +114,6 @@ package Nodes "Nodes and adaptors"
         rgbcolor={0,0,255},
         fillColor=3,
         rgbfillColor={0,0,255})),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
   Documentation(
           info="<html>
 <p>Calculates norm and phase-angle of voltage.</p>
@@ -175,11 +156,6 @@ package Nodes "Nodes and adaptors"
     term_n.i + Park*switchD.pin[{3,1,2}].i = zeros(3);
     annotation (
       defaultComponentName="Y_Delta",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Can be used for detailed investigation of Y-Delta switching.</p>
@@ -299,11 +275,6 @@ package Nodes "Nodes and adaptors"
     neutral.i + sqrt(3)*term.i[3] = 0;
   annotation (
     defaultComponentName="Ynode",
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 <p>Can be used for grounding neutral of AC dqo 3phase components.</p>
@@ -361,11 +332,6 @@ package Nodes "Nodes and adaptors"
     R_n*i_n = v_n "equation neutral to ground";
     annotation (
       defaultComponentName="resGrd",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Can be used for grounding neutral of AC dqo 3phase components.</p>
@@ -444,11 +410,6 @@ package Nodes "Nodes and adaptors"
     L_n*der(i_n) + R_n*i_n = v_n;
     annotation (
       defaultComponentName="indGrd",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Can be used for grounding neutral of AC dqo 3phase components.</p>
@@ -538,11 +499,6 @@ package Nodes "Nodes and adaptors"
     C_n*der(v_n) + G_n*v_n = i_n;
     annotation (
       defaultComponentName="capGrd",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Can be used for grounding neutral of AC dqo 3phase components.</p>
@@ -639,11 +595,6 @@ equation
   plug_c.pin.v = cat(1, transpose(P[:, 3:3])*term.v, {neutral.v});
   term.i + P*{plug_a.pin[1].i, plug_b.pin[1].i, plug_c.pin[1].i} = zeros(3);
 annotation (defaultComponentName = "Y_abcn",
-      Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -654,10 +605,7 @@ height=0.65),
                  "> 1-phase")}),
       Documentation(info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Y_OnePhase;
 
 model ACdqo_a_b_c "Adaptor ACdqo to pins a, b, c"
@@ -680,21 +628,9 @@ equation
   {term_a.v,term_b.v,term_c.v} = transpose(P)*term.v;
   term.i + P*{term_a.i,term_b.i,term_c.i} = zeros(3);
   annotation (defaultComponentName = "acdqo_a_b_c",
-      Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end ACdqo_a_b_c;
 
 model ACdqo_abc "Adaptor ACdqo to 3-vector abc"
@@ -711,21 +647,9 @@ equation
   term_abc.pin.v = transpose(P)*term.v;
   term.i + P*term_abc.pin.i = zeros(3);
   annotation (defaultComponentName = "acdqo_abc",
-      Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end ACdqo_abc;
 
   model DefReference "Defines reference frame, 3phase dqo"
@@ -768,16 +692,7 @@ end ACdqo_abc;
       Documentation(info="<html>
 <p>Explicit definition of relative-angle term.theta[1] and reference-angle term.theta[2]<br>
 (only for advanced use needed).</p>
-</html>"),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end DefReference;
 
   model Break "Breaks transmission of term.theta, 3phase dqo"
@@ -810,11 +725,6 @@ end ACdqo_abc;
 <p>is omitted together with the function 'Connections.branch'<br>
 (only for advanced use needed).</p>
 </html>"),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -835,19 +745,8 @@ end ACdqo_abc;
           Line(points={{0,20},{0,-20}}, color={0,0,0})}));
   end Break;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Nodes;

@@ -13,13 +13,6 @@ equation
   end when;
   {v,i} = if closed or arc then {epsR*s,s} else {s,epsG*s};
   annotation (structurallyIncomplete, defaultComponentName = "switch_",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within complete Switch model.<br>
@@ -74,13 +67,6 @@ equation
   i_arc = if arc then s else 0;
   {v,i} = if closed then {epsR*s,s} else if arc then {v_arc,i_arc} else {s,epsG*s};
   annotation (structurallyIncomplete, defaultComponentName = "breaker_",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within complete Breaker model.<br>
@@ -97,11 +83,7 @@ When closing: <tt>arc</tt> becomes false (<tt>open</tt> changes from true to fal
             points={{-40,0},{-30,-4},{-24,0},{-14,-2},{-4,4},{2,0},{10,-2},{18,
                 2},{26,-2},{30,-2},{34,2},{40,0}},
             color={255,255,0},
-            thickness=0.5)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
 end Breaker;
 
 model Short "Short kernel optionally with exponential relaxation, no terminals"
@@ -128,13 +110,6 @@ equation
       annotation (
         structurallyIncomplete,
         defaultComponentName="fault_",
-Window(
-  x=0.45,
-    y=0.01,
-    width=
-0.44,
-  height=
- 0.65),
 Documentation(
       info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within complete Short model.</p>
@@ -147,10 +122,6 @@ with
   p           power of exponent
 </pre></p>
 </html>"),
-Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
 Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -208,23 +179,12 @@ equation
   end if;
   cleared = Q < Qclear;
 annotation (structurallyIncomplete, defaultComponentName = "fault_",
-  Window(
-    x=0.45,
-      y=0.01,
-      width=
-  0.44,
-    height=
-   0.65),
   Documentation(
         info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within complete Fault model.<br>
 Clearing criterion: balance heating-cooling.</p>
 <p>Contains replaceable model of plasma-arc.</p>
 </html>"),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -252,7 +212,7 @@ partial model SwitchBase "Switch base kernel, no terminals"
   Boolean open(start=true)=not closed;
   Modelica.Blocks.Interfaces.BooleanInput closed(start=false)
         "true:closed, false:open"
-    annotation (preferedView="info", Placement(transformation(
+    annotation (preferredView="info", Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -260,13 +220,6 @@ partial model SwitchBase "Switch base kernel, no terminals"
   Real s;
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
@@ -325,20 +278,9 @@ partial model FaultBase "Fault kernel base"
       annotation (
         structurallyIncomplete,
         defaultComponentName="fault_",
-Window(
-  x=0.45,
-    y=0.01,
-    width=
-0.44,
-  height=
- 0.65),
 Documentation(
       info="<html>
 </html>"),
-Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
 Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -354,23 +296,12 @@ Icon(coordinateSystem(
 
 end FaultBase;
   annotation (
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1),
     Documentation(
             info="<html>
 </html>
 "));
 end Partials;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
     Documentation(info="<html>
 <p>Structurally incomplete kernel models.</p>
 </html>"));

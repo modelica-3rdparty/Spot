@@ -20,25 +20,9 @@ package Semiconductors "Breaker example data"
     parameter SI.Current I_nom=10 "nom Current"
       annotation(Evaluate=true);
     annotation (defaultComponentName="idealSC100_10",
-      Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
-</html>"),
-      Diagram,
-      Icon);
+</html>"));
   end IdealSC100V_10A;
 
   record IdealSC1kV_100A "Ideal semiconductor parameters, example"
@@ -58,25 +42,9 @@ package Semiconductors "Breaker example data"
     parameter SI.Current I_nom=10 "nom Current"
       annotation(Evaluate=true);
     annotation (defaultComponentName="idealSC1k_100",
-      Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
-</html>"),
-      Diagram,
-      Icon);
+</html>"));
   end IdealSC1kV_100A;
 
   record IdealSC3kV_500A "Ideal semiconductor parameters, example"
@@ -96,28 +64,12 @@ package Semiconductors "Breaker example data"
     parameter SI.Current I_nom=500 "nom Current"
       annotation(Evaluate=true);
     annotation (defaultComponentName="idealSC3k_500",
-      Coordsys(
-        extent=
-       [-100, -100; 100, 100],
-        grid=
-     [2, 2],
-        component=
-          [20, 20]),
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
-</html>"),
-      Diagram,
-      Icon);
+</html>"));
   end IdealSC3kV_500A;
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>"));
 end Semiconductors;

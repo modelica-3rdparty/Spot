@@ -19,7 +19,6 @@ package Translation "Translating parts "
               lineColor={0,0,0},
               textString=
              "%name")}),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Flange_p;
@@ -35,7 +34,6 @@ package Translation "Translating parts "
               lineColor={0,0,0},
               textString=
              "%name")}),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Flange_n;
@@ -52,7 +50,6 @@ package Translation "Translating parts "
               lineColor={0,0,0},
               textString=
              "%name")}),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Flange_p_n;
@@ -65,8 +62,6 @@ package Translation "Translating parts "
   equation
     flange_n.s - flange_p.s = d;
     annotation (
-  Icon(graphics),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Rigid;
@@ -82,28 +77,15 @@ package Translation "Translating parts "
     flange_n.s - flange_p.s = d + d_s;
     flange_n.f - flange_p.f = 2*d_f;
     annotation (
-  Icon(graphics),
-  Diagram(graphics),
   Documentation(info="<html>
 </html>"));
   end Compliant;
 
     annotation (
-      preferedView="info",
-  Window(
-    x=0.05,
-    y=0.03,
-    width=0.4,
-    height=0.38,
-    library=1,
-    autolayout=1),
+      preferredView="info",
   Documentation(info="<html>
 <p>Contains mechanical one and two-ports with translational connectors.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Ports;
 
   model Speed "Translation with given velocity"
@@ -133,11 +115,6 @@ package Translation "Translating parts "
             lineColor={0,0,0},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'flange' moves with parameter-velocity v0 or with signal-velocity v, depending on 'scType'.<br>
@@ -189,11 +166,6 @@ The start value is always given by <tt>v0</tt>.</p>
             lineColor={0,0,0},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Force <tt>f</tt> acts in positive direction on the connected component if <tt>f > 0</tt>.</p>
@@ -257,11 +229,6 @@ equation
     terminate("BOUNDARY TIME REACHED!");
   end when;
   annotation (defaultComponentName = "tabForce1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The force is defined in a table as a function of time.
@@ -277,14 +244,7 @@ negative direction, if f_table &gt  0 and drive_load = -1 or f_table &lt  0 and 
 </pre></p>
 <p>Note: start integration at time = 0</p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end TabTimeForce;
 
 model TabPosSlopeForce "Force using table (position... slope)"
@@ -331,11 +291,6 @@ equation
     terminate("BOUNDARY POSITION REACHED!");
   end when;
   annotation (defaultComponentName = "tabForce1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>This model uses a position-slope table. It is mainly intended for test-purposes.</p>
@@ -367,11 +322,7 @@ Start integration at time = 0.</p>
             points={{-60,70},{-60,60},{60,80},{60,90},{-60,70}},
             lineColor={255,0,0},
             fillColor={255,0,0},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
 end TabPosSlopeForce;
 
   model FrictionForce "Friction force"
@@ -387,11 +338,6 @@ end TabPosSlopeForce;
     v = der(s);
     flange.f = (cFrict[1] + cFrict[2]*abs(v))*v;
   annotation (defaultComponentName = "frictForce1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Linear and quadratic friction force <tt>f</tt>.</p>
@@ -420,11 +366,7 @@ end TabPosSlopeForce;
             lineColor={95,95,95},
             fillColor={95,95,95},
             fillPattern=FillPattern.Solid),
-          Line(points={{-80,0},{-60,0},{-60,14},{-40,14}}, color={95,95,95})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-80,0},{-60,0},{-60,14},{-40,14}}, color={95,95,95})}));
   end FrictionForce;
 
 model FixedPosition "Flange at fixed linear position"
@@ -437,11 +379,6 @@ model FixedPosition "Flange at fixed linear position"
 equation
   flange.s = s0;
   annotation (defaultComponentName = "fixPos1",
-    Window(
-      x=0.27,
-      y=0.02,
-      width=0.63,
-      height=0.73),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -460,10 +397,7 @@ equation
     Documentation(info="<html>
 <p>Fixes the position variable <tt>s</tt> of a connected flange to a parameter value <tt>s0</tt>.</p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end FixedPosition;
 
 model Body "Rigid body, translating mass"
@@ -479,11 +413,6 @@ equation
   friction.s = s;
   m*a = flange_p.f + flange_n.f + friction.f;
   annotation (defaultComponentName = "body",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -533,11 +462,6 @@ end Body;
     a = der(w);
     J*a = wheel.tau + r*rail.f;
     annotation (defaultComponentName = "wheel",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The model relates traction force and torque on wheel, using a rail-wheel friction model.<br>
@@ -667,11 +591,6 @@ equation
   flange_p.f + flange_n.f = 0;
   d_f = stiff*d_s/d;
   annotation (defaultComponentName = "rod",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Translating elastic massless rod. It is equivalent to a massless spring.<br><br>
@@ -684,11 +603,7 @@ The parameter <tt>stiffness</tt> is a length-independent specification, in contr
             extent={{-90,10},{90,-10}},
             lineColor={0,0,0},
             fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={255,255,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillColor={255,255,255})}));
 end RodNoMass;
 
 model Rod "Elastic massive rod"
@@ -707,11 +622,6 @@ equation
   m*a = flange_p.f + flange_n.f;
   d_f = stiff*d_s/d;
   annotation (defaultComponentName = "rod",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Translating elastic massive rod. It is equivalent to a massive spring.<br>
@@ -725,11 +635,7 @@ The parameter <tt>stiffness</tt> is a length-independent specification, in contr
             extent={{-90,10},{90,-10}},
             lineColor={0,0,0},
             fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={175,175,175})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillColor={175,175,175})}));
 end Rod;
 
   model PositionSensor "Position and velocity sensor (mechanical)"
@@ -751,11 +657,6 @@ end Rod;
     s = flange.s;
     v = der(flange.s);
   annotation (defaultComponentName = "positionSens1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -789,11 +690,7 @@ end Rod;
             extent={{10,5},{20,-5}},
             lineColor={95,95,95},
             fillColor={135,135,135},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end PositionSensor;
 
   model PowerSensor "Power and torque sensor (mechanical)"
@@ -815,11 +712,6 @@ end Rod;
     f = flange_p.f;
     p = der(flange_p.s)*flange_p.f;
   annotation (defaultComponentName = "powerSens1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -845,11 +737,7 @@ end Rod;
           Rectangle(extent={{-20,16},{20,-16}}, lineColor={95,95,95}),
           Line(points={{-90,0},{-20,0}}, color={95,95,95}),
           Line(points={{0,0},{90,0}}, color={95,95,95}),
-          Line(points={{30,20},{70,0},{30,-20}}, color={95,95,95})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{30,20},{70,0},{30,-20}}, color={95,95,95})}));
   end PowerSensor;
 
   package Partials "Partial models"
@@ -876,11 +764,6 @@ end Rod;
       flange_p.s = flange_n.s;
       flange_p.f + flange_n.f + f = 0;
       annotation (defaultComponentName = "tabForce1",
-        Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
         Documentation(
                 info="<html>
 </html>
@@ -896,11 +779,7 @@ end Rod;
               fillPattern=FillPattern.Solid),
             Rectangle(extent={{-40,-80},{40,-60}}, lineColor={128,128,128}),
             Line(points={{-40,-70},{40,-70}}, color={128,128,128}),
-            Line(points={{-20,-60},{-20,-80}}, color={128,128,128})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Line(points={{-20,-60},{-20,-80}}, color={128,128,128})}));
     end TabForce;
 
     partial model RigidBodyBase "Rigid body base"
@@ -916,46 +795,15 @@ end Rod;
       v = der(s);
       a = der(v);
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end RigidBodyBase;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Translation;
