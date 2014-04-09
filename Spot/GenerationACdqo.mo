@@ -18,8 +18,7 @@ Window(
 Documentation(info="<html>
 <p>Combined turbine-generator systems with governor and exciter, both electrical and mechanical model.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
-</html>
-"));
+</html>"));
 
   model TurboGenerator "Turbo generator single mass"
     extends Partials.GenBase_el;
@@ -48,8 +47,7 @@ One-mass model, turbine- and generator-rotor represent one single rigid mass.<br
 The machine inertia is determined by the inertia time constant H.</p>
 <p>Steady-state initialisation:<br>
 If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <tt>p_set</tt> and <tt>v_set</tt> are determined at initialisation from initial active power and voltage. The corresponding value for the speed <tt>w_set</tt> is determined by the system frequency <tt>system.f0</tt>.</p>
-</html>
-"), Icon(
+</html>"), Icon(
       Polygon(
       points=[-20,70; -94,30; -94,-30; -20,-70; -20,70], style(
           color=10,
@@ -101,8 +99,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
 Turbo-group, with turbines and generator-rotor elastically coupled.</p>
 <p>Steady-state initialisation:<br>
 If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <tt>p_set</tt> and <tt>v_set</tt> are determined at initialisation from initial active power and voltage. The corresponding value for the speed <tt>w_set</tt> is determined by the system frequency <tt>system.f0</tt>.</p>
-</html>
-"), Icon(
+</html>"), Icon(
       Polygon(
       points=[-20,70; -94,30; -94,-30; -20,-70; -20,70], style(
           color=10,
@@ -163,8 +160,7 @@ Gas turbine with gear and generator-rotor, elastically coupled.</p>
 <p>Steady-state initialisation:<br>
 If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <tt>p_set</tt> and <tt>v_set</tt> are determined at initialisation from initial active power and voltage. The corresponding value for the speed <tt>w_set</tt> is determined by the system frequency <tt>system.f0</tt>.</p>
 <p>Note: for turbines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
-</html>
-"), Icon(
+</html>"), Icon(
       Polygon(
       points=[-20,70; -94,30; -94,-30; -20,-70; -20,70], style(
           color=10,
@@ -236,8 +232,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
 Hydro turbine and generator-rotor, elastically coupled.</p>
 <p>Steady-state initialisation:<br>
 If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <tt>p_set</tt> and <tt>v_set</tt> are determined at initialisation from initial active power and voltage. The corresponding value for the speed <tt>w_set</tt> is determined by the system frequency <tt>system.f0</tt>.</p>
-</html>
-"), Icon(
+</html>"), Icon(
       Rectangle(extent=[-70,50; -30,-52], style(
           color=10,
           rgbcolor={95,95,95},
@@ -303,8 +298,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
 Diesel-engine and generator-rotor, elastically coupled.</p>
 <p>Steady-state initialisation:<br>
 If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <tt>p_set</tt> and <tt>v_set</tt> are determined at initialisation from initial active power and voltage. The corresponding value for the speed <tt>w_set</tt> is determined by the system frequency <tt>system.f0</tt>.</p>
-</html>
-"), Icon(
+</html>"), Icon(
       Rectangle(extent=[-90,50; -20,-70], style(
           color=10,
           rgbcolor={95,95,95},
@@ -388,8 +382,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
 <p>Turbo generator model with governor and pm machine.<br>
 One-mass model, turbine- and generator-rotor represent one single rigid mass.<br>
 The machine inertia is determined by the inertia time constant H.</p>
-</html>
-"), Icon(Polygon(points=[-90,10; -20,30; -20,-32; -90,-10; -90,10], style(
+</html>"), Icon(Polygon(points=[-90,10; -20,30; -20,-32; -90,-10; -90,10], style(
           color=10,
           rgbcolor={95,95,95},
           fillColor=9,
@@ -445,8 +438,7 @@ The machine inertia is determined by the inertia time constant H.</p>
       Documentation(info="<html>
 <p>Generator with pm excitation and inverter for current-control. To be coupled to a mechanical engine. May contain a gear.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
-</html>
-"), Icon(
+</html>"), Icon(
         Rectangle(extent=[-50,14; -40,-14],
                                   style(
           color=10,

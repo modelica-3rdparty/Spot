@@ -21,8 +21,7 @@ Documentation(info="<html>
 <p><tt><b>Forced switch</b></tt> is used for a component that breaks the current independent of a possible zero crossing.<br>
 <tt><b>Switch</b></tt> is used for a component, that breaks the current during zero-crossing but does not contain any additional physical properties like arc-voltage etc.<br>
 <tt><b>Breaker</b></tt> is used for a component that acts basically like a 'Switch' but contains additionally physical properties of plasma-arcs, opening duration etc.</p>
-</html>
-"), Icon);
+</html>"), Icon);
   model ForcedSwitch "Forced switch, 1-phase"
     extends Partials.SwitchBase;
 
@@ -316,8 +315,7 @@ with
 <p>'closed' and 'open' determine the mechanical switch-position.<br>
 Electrically the switch is on if it is 'closed', whereas it is switched off, if it is mechanically 'open' and the corresponding phase-current crosses zero.</p>
 <p>Contains no plasma-arc, in contrast to Breaker.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
      Line(points=[-40,0; 40,0], style(
             color=3,
             rgbcolor={0,0,255},
@@ -362,8 +360,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
 Electrically the switch is on if it is 'closed', whereas it is switched off, if it is mechanically fully 'open' (after a given opening duration) and the corresponding phase-current crosses zero.</p>
 <p>Contains replaceable single-line breaker with replaceable tanh arc-voltage, i.e. a constant electric field strength E for large currents and a small-signal Ohmic resistance R.</p>
 </pre>
-</html>
-"),   Icon(
+</html>"),   Icon(
      Line(points=[-40,0; -22,-6; -10,-4; 2,4; 16,-4; 30,2; 40,0], style(
             color=49,
             rgbcolor={255,255,0},
@@ -510,8 +507,7 @@ with
 Electrically the switch is on if it is 'closed', whereas it is switched off,
 if it is mechanically 'open' and the corresponding phase-current crosses zero.</p>
 <p>Contains no plasma-arc, in contrast to Breaker.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
      Line(points=[-40,0; 40,0], style(
             color=3,
             rgbcolor={0,0,255},
@@ -577,8 +573,7 @@ if it is mechanically 'open' and the corresponding phase-current crosses zero.</
 Electrically the switch is on if it is 'closed', whereas it is switched off,
 if it is mechanically fully 'open' (after a given opening duration) and the corresponding phase-current crosses zero.</p>
 <p>Contains replaceable single-line breakers with replaceable tanh arc-voltage, i.e. a constant electric field strength E for large currents and a small-signal Ohmic resistance R.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
      Line(points=[-40,0; -22,-6; -10,-4; 2,4; 16,-4; 30,2; 40,0], style(
             color=49,
             rgbcolor={255,255,0},
@@ -631,8 +626,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
            0.65),
           Documentation(
                 info="<html>
-</html>
-"),       Icon(
+</html>"),       Icon(
             Rectangle(extent=[-80,60; 80,-40], style(
                 color=7,
                 rgbcolor={255,255,255},
@@ -685,8 +679,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
         Documentation(
               info="<html>
 <p>Allows one or two conductors. The first is switched.</p>
-</html>
-"),     Icon,
+</html>"),     Icon,
         Diagram(
           Line(points=[-80,-30; 80,-30], style(
               color=3,
@@ -751,8 +744,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
         Documentation(
               info="<html>
 <p>Both of two conductors are switched.</p>
-</html>
-"),     Icon(
+</html>"),     Icon(
     Line(points=[-80,-10; 80,-10],
                               style(color=3, rgbcolor={0,0,255}))),
         Diagram(
@@ -826,8 +818,7 @@ width=0.44,
 height=0.65),
     Documentation(
             info="<html>
-</html>
-"), Icon,
+</html>"), Icon,
     Diagram);
 end BreakerArc;
 end Parameters;

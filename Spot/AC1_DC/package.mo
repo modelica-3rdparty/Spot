@@ -18,6 +18,5 @@ Window(
   autolayout=1),
 Documentation(info="<html>
 <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
-</html>
-"));
+</html>"));
 end AC1_DC;

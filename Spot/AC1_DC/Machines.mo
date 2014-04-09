@@ -18,8 +18,7 @@ Window(
 Documentation(info="<html>
 <p>This package contains the <b>electrical part</b> (electrical equations) of DC machines.<br>
 Complete drives are found in package Drives.</p>
-</html>
-"), Icon,
+</html>"), Icon,
     Diagram(
          Line(points=[-110,-110; 90,90],   style(
           color=1,
@@ -88,8 +87,7 @@ Complete drives are found in package Drives.</p>
 <p>EMF transforms electrical power into rotational mechanical power without losses.
 <pre>  P_mec = der(airgap.phi)*airgap.tau = -v*i = -P_el.</pre></p>
 <p>The power is independent of the factor <tt>k</tt>. The connector 'airgap' transfers the rotor-torque to the mechanical system.</p>
-</html>
-"));
+</html>"));
 
   equation
     sum(term.pin.i) = 0;
@@ -138,8 +136,7 @@ L_md depends on the winding ratio between armature and field winding</p>
 &nbsp; - using a constant K_E (back EMF)<br>
 &nbsp; - solving the steady-state machine equations for L_md at nominal conditions. This method leads to</p>
 <pre>  L_md=(V_nom/I_nom - (R_fd + R_q))/(pp*w_nom)</pre>
-</html>
-"),   Icon(
+</html>"),   Icon(
      Text(
     extent=[-100,10; 100,-10],
           style(color=7, rgbcolor={255,255,255}),
@@ -211,8 +208,7 @@ It can be determined in several ways,<br>
   Vf_nom      field nominal voltage
   w_el_lim = pp*w_nom/(1 - R_q*I_nom/V_nom)  no-load angular velocity (electrical)
 </pre>
-</html>
-"),   Icon(
+</html>"),   Icon(
      Text(
     extent=[-100,10; 100,-10],
           style(color=7, rgbcolor={255,255,255}),
@@ -258,8 +254,7 @@ It can be determined in several ways,<br>
   Psi_nom = V_nom/(pp*w_nom)
 </pre>
 or from the induced armature voltage at nominal (compare with the synchronous machine).</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
      Text(
     extent=[-100,10; 100,-10],
           style(color=7, rgbcolor={255,255,255}),
@@ -725,8 +720,7 @@ Window(
   autolayout=1),
 Documentation(info="<html>
 <p>Records containing the result of precalculation, and used in the dynamical equations of the corresponding components.</p>
-</html>
-"), Icon);
+</html>"), Icon);
 
 record DCser "Coefficients of DC machine series excited"
   extends Base.Icons.Record;

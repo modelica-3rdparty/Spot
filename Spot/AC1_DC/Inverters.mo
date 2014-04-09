@@ -34,8 +34,7 @@ where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty, no 
 </pre>
 where <tt>Hsw_nom</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'. The same temperature dependence is assumed as for Vf. A generalisation to powers of i and v is straightforward.</p>
 <p>NOTE: actually the switching losses are only implemented for time-averaged components!</p>
-</html>
-"), Icon);
+</html>"), Icon);
 
 block Select "Select frequency and voltage-phasor type"
   extends Base.Icons.Block;
@@ -146,8 +145,7 @@ annotation (defaultComponentName="rectifier",
   Documentation(
           info="<html>
 <p>Passive rectifier, allows choosing between equation-based and modular version.</p>
-</html>
-"),
+</html>"),
   Icon,
   Diagram);
 
@@ -394,8 +392,7 @@ The method must be improved in this case (in particular in context with inductiv
   u[1] &le  1 for block modulation with pwm.
   u[1] = 1 corresponds to AC amplitude = (4/pi)*sin(width*pi/2)*v_DC
 </pre></p>
-</html>
-"));
+</html>"));
 
 equation
   Vloss = if par.Vf<1e-3 then 0 else tanh(10*iDC1/par.I_nom)*2*par.Vf;
@@ -778,8 +775,7 @@ annotation (defaultComponentName="rectifier",
   Documentation(
           info="<html>
 <p>Passive rectifier, using diode-modules.</p>
-</html>
-"),
+</html>"),
   Icon( Text(
           extent=[-100,-70; 100,-90],
           style(color=42, rgbcolor={176,0,0}),
@@ -884,8 +880,7 @@ Line(points=[0,0; 60,0],   style(color=3, rgbcolor={0,0,255})),
 <p>Gates:
 <pre>  true=on, false=off.</pre></p>
 <p>Contains no forward drop voltage Vf. Heat losses are set to zero.</p>
-</html>
-"), DymolaStoredErrors);
+</html>"), DymolaStoredErrors);
 
 equation
   for k in 1:2 loop
@@ -1184,8 +1179,7 @@ model ChopperModular "DC_DC converter modular"
 <p>One-quadrant chopper.</p>
 <p>Gates:
 <pre>  true=on, false=off.</pre></p>
-</html>
-"), Icon(
+</html>"), Icon(
         Text(
           extent=[-100,-70; 100,-90],
           style(color=42, rgbcolor={176,0,0}),
@@ -1307,8 +1301,7 @@ partial model DC_DC_base "DC-DC base"
      0.65),
     Documentation(
           info="<html>
-</html>
-"), Diagram,
+</html>"), Diagram,
     Icon(
      Line(points=[-80,-60; 80,60], style(
           color=3,
@@ -1429,8 +1422,7 @@ partial model SwitchEquation "Switch equation, 1-phase"
           style(color=3, rgbcolor={0,0,255}),
           string="-")),
       Documentation(info="<html>
-</html>
-"));
+</html>"));
 
 equation
   AC.pin.v = v + {vDC0,vDC0};

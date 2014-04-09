@@ -28,8 +28,7 @@ Faulted transmission lines contain a third terminal for connection to a fault-co
 <p>Coupling:</p>
 <pre>  cpl = x_m/x_s &gt  0,        positive for lines</pre>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>
-"), Icon);
+</html>"), Icon);
   model RXline "RX transmission line, 1-phase"
     extends Ports.Port_pn;
     extends Partials.RXlineBase(final ne=1);
@@ -49,8 +48,7 @@ Faulted transmission lines contain a third terminal for connection to a fault-co
       Documentation(
               info="<html>
 <p>Transmission line modelled as concentrated RX-impedance.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
        Rectangle(extent=[-80,30; -40,-30], style(
             color=3,
             rgbcolor={0,0,255},
@@ -153,8 +151,7 @@ Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a s
 The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 <p>This kind of discretisation is slightly more complicated than the division of the line into n identical elements, but it results in a symmetric model with respect to interchanging positive and negative terminal.
 The set of equations of two series connected lines of length len1 and len2 is identical to the set of equations for one line of length len1 + len2 if delta1 = delta2. Otherwise differences occur from the different discretisation length.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
     Rectangle(extent=[-80,30; 80,-32], style(
         color=7,
         rgbcolor={255,255,255},
@@ -405,8 +402,7 @@ Documentation(
 <p>Transmission line modelled as concentrated RX-impedance, with third terminal for connecting line-fault component.</p>
 <p>The fault is at relative length <tt>p(0&lt p&lt 1)</tt>:<br>
 <pre>  p*len = distance to fault from terminal term_p</pre>
-</html>
-"),
+</html>"),
 Icon( Rectangle(extent=[-40,30; 80,-30], style(
             color=3,
             rgbcolor={0,0,255},
@@ -799,8 +795,7 @@ end FaultPIline;
         Documentation(
               info="<html>
 <p>Precalculation of coefficient matrices.</p>
-</html>
-"),     Icon,
+</html>"),     Icon,
         Diagram);
     end RXlineBase;
 
@@ -832,8 +827,7 @@ end FaultPIline;
         Documentation(
               info="<html>
 <p>Precalculation of coefficient matrices.</p>
-</html>
-"),     Icon,
+</html>"),     Icon,
         Diagram);
     end PIlineBase;
   end Partials;
@@ -922,8 +916,7 @@ package Parameters "Parameter data for interactive use"
 </pre>
 <p>where <tt>_pg</tt> denotes phase-to-ground, and <tt>_pp</tt> phase-to-phase.</p>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>
-"),
+</html>"),
   Icon);
   end PIline;
 end Parameters;

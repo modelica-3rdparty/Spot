@@ -17,8 +17,7 @@ Window(
 Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of DC-drives.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
-</html>
-"));
+</html>"));
 
   model DCMser "DC machine, series connected"
     extends Partials.DriveBase(heat(final m=2));

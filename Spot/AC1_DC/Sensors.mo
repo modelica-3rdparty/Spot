@@ -18,8 +18,7 @@ Window(
 Documentation(info="<html>
 <p>Sensors directly output terminal signals (voltage, current, power).</p>
 <p>Meters allow choosing base-units for output variables.</p>
-</html>
-"), Icon);
+</html>"), Icon);
 
   model VdiffSensor "Voltage difference sensor, 1-phase"
     extends Partials.Sensor1Base;
@@ -72,8 +71,7 @@ Documentation(info="<html>
   height=0.65),
       Documentation(
               info="<html>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Ellipse(extent=[-20,20; 20,-20], style(color=10, rgbcolor={135,135,135})),
   Line(points=[0, 20; 0, 90], style(
             color=10,
@@ -151,8 +149,7 @@ Documentation(info="<html>
   height=0.65),
       Documentation(
               info="<html>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Ellipse(extent=[-20,20; 20,-20], style(color=10, rgbcolor={135,135,135})),
   Line(points=[0, 20; 0, 90], style(
             color=10,
@@ -259,8 +256,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
   v      difference voltage 'plus' - 'minus'
   v0     average voltage ('plus' + 'minus')/2
 </pre>
-</html>
-"),   Diagram);
+</html>"),   Diagram);
 
   equation
     v_ab = term.pin.v/V_base;
@@ -507,8 +503,7 @@ Positive values of eta indicate powerflow in direction of arrow,
 negative values of eta indicate powerflow against direction of arrow.</p>
 <p>Note: Take care about the above definitions if approximations are used in measured components.<br>
 In problematic cases use power sensors electrical and mechanical.</p>
-</html>
-"),
+</html>"),
   Icon(Ellipse(extent=[-20,20; 20,-20], style(
           color=42,
           rgbcolor={176,0,0},

@@ -28,8 +28,7 @@ annotation (preferedView="info",
 <p>Copyright &copy; 2004-2007, H.J. Wiesmann.</p>
 <p><i>The Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b>
 <a href=\"Modelica://Modelica.UsersGuide.ModelicaLicense\">here</a>.</i></p>
-</html>
-"),
+</html>"),
   uses(Modelica(version="2.2.2")));
 
 
@@ -57,8 +56,7 @@ this sense the library has a didactic intention.</p>
 <p>The present implementation leads to a considerable increase of simulation speed for linear or linearised symmetric systems, compared to the direct representation. This is not (yet) the case for nonlinear systems or when sources containing harmonics are present.</p>
 <p>As the electric equations are valid in reference systems with arbitrary angular orientation, the standard cases 'inertial' (non-rotating) and 'synchronous' (rotating with electrical frequency) system can simply be obtained by an appropriate parameter choice.</p>
 <p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
-</html>
-"));
+</html>"));
     end Concept;
 
     class System "System"
@@ -90,8 +88,7 @@ in order that it can be accessed from all objects in the model.<br>
 When dragging the 'System' from the package browser into the diagram layer,
 declaration and instance name are automatically generated.</p>
 <p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
-</html>
-"));
+</html>"));
     end System;
 
     class Units "Units"
@@ -296,8 +293,7 @@ Y_Delta-topology.</p>
 <p>_____<br>*) The reason for this choice is the following:<br>
 For three-phase systems it is useful to consider both voltage and current as abstract signal-vectors, which may be represented in different reference frames, related by appropriate transforms. It is natural and meaningful to transform vectors, whereas it is unnatural to transform 'pins', 'contacts' and the like.</p>
 <p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
-</html>
-"));
+</html>"));
     end Interfaces;
 
     class Precalculation "Precalculation"
@@ -315,8 +311,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
 <p>The provided functions allow obtaining 4 from 1 or 2 or 3.
 </p>
 <p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
-</html>
-"));
+</html>"));
     end Precalculation;
 
     class Initialisation "Initialisation"
@@ -343,8 +338,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
 </pre>
 <p>Each model-component contains these initial equations in conditional form. The desired case can be selected by an appropriate choice of the parameter 'ini' in 'system'. When choosing transient initialisation, no specific initial equations are defined.</p>
 <p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
-</html>
-"));
+</html>"));
     end Initialisation;
 
     class Simulation "Simulation"
@@ -426,16 +420,14 @@ The examples are based on most elementary configurations. A meter is added for c
 </ul>
 <p><b>All examples</b> see <a href=\"Spot.UsersGuide.Examples\">here</a>.</p>
 <p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
-</html>
-"));
+</html>"));
     end Examples;
 
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Introduction</font></h3>
 <p>The detailed <b>theoretical basis</b> of SPOT is published in the separate package <b>'SpotTheory'.</b></p>
 <p><a href=\"Spot.UsersGuide\">up</a></p>
-</html>
-"));
+</html>"));
   end Introduction;
 
   class Overview "Overview"
@@ -633,8 +625,7 @@ Shows basic principles and configurations.</p>
 <p><a href=\"SpotExamples.p_Precalculation\"><b>Precalculation</b></a><br>
 Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
 <p><a href=\"Spot.UsersGuide\">up</a></p>
-</html>
-"));
+</html>"));
   end Examples;
 
   class ReleaseNotes "Release notes"
@@ -651,8 +642,7 @@ Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
 <li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_506\">Version 0.506</a> (2005 June 01)</li>
 </ul>
 <p><a href=\"Spot.UsersGuide\">up</a></p>
-</html>
-"));
+</html>"));
 
 
   class Version_0_706_1 "Version 0.706.1"
@@ -667,8 +657,7 @@ A simple clean up version of the latest (undocumented) version 0.706 (2007 June)
 This version still uses the <em>Modelica Standard Library 2.2.2</em>.
 </p>
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
-</html>
-"));
+</html>"));
   end Version_0_706_1;
 
 
@@ -687,8 +676,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.705</b> librar
 <li>Contains some auxiliary components, in particular thermal boundaries.</li>
 </ul>
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
-</html>
-"));
+</html>"));
   end Version_0_705;
 
   class Version_0_606 "Version 0.606"
@@ -706,8 +694,7 @@ unconnected neutral is 'isolated neutral' (before: 'ideally grounded')</li>
 <li>Added thermal versions of three-phase rectifiers and inverters (preliminary versions!).</li>
 </ul>
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
-</html>
-"));
+</html>"));
   end Version_0_606;
 
   class Version_0_605 "Version 0.605"
@@ -722,8 +709,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
 <li>Restructuring and completion of library</li>
 </ul>
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
-</html>
-"));
+</html>"));
   end Version_0_605;
 
   class Version_0_506 "Version 0.506"
@@ -732,8 +718,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
 <h3><font color=\"#008000\">Version 0.506 (2005 June 01)</font></h3>
 <p> This is the actual state of the SPOT library in development.</p>
 <p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
-</html>
-"));
+</html>"));
   end Version_0_506;
   end ReleaseNotes;
 
@@ -752,8 +737,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
     email: <A HREF=\"mailto:hj.wiesmann@bluewin.ch\">hj.wiesmann@bluewin.ch</A></dd>
 </dl>
 <p><a href=\"Spot.UsersGuide\">up</a></p>
-</html>
-"));
+</html>"));
   end Contact;
 
   class ModelicaLicense "Modelica license"
@@ -772,8 +756,7 @@ that the conditions under (1) are met.</li>
 <h4><font color=\"#008000\">Disclaimer</font></h4>
 <p>The software (sources, binaries, etc.) in their original or in a modified form are provided \"as is\" and the copyright holders assume no responsibility for its contents what so ever. Any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are <b>disclaimed</b>. <b>In no event</b> shall the copyright holders, or any party who modify and/or redistribute the package, <b>be liable</b> for any direct, indirect, incidental, special, exemplary, or consequential damages, arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
 <p><a href=\"Spot.UsersGuide\">up</a></p>
-</html>
-"));
+</html>"));
   end ModelicaLicense;
 end UsersGuide;
 
@@ -917,8 +900,7 @@ end UsersGuide;
 </ul>
 <p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
 <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
-</html>
-"));
+</html>"));
 
   equation
     when initial() then

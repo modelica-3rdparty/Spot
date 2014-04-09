@@ -381,8 +381,7 @@ Instead of x and r the parameters z_abs and cos(phi) are used.</p>
   cpl &lt  0:        negative coupling
 </pre>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
        Rectangle(extent=[-80,30; -20,-30], style(
             color=3,
             rgbcolor={0,0,255},
@@ -461,8 +460,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 </pre>
 <p>No pair capacitance.</p>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
         Line(points=[-90,0; -20,0], style(
             color=3,
             rgbcolor={0,0,255},
@@ -580,8 +578,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
               info="<html>
 <p>Voltage limiter with hyperbolic tangent characteristic.</p>
 <p>More info see package AC1_DC.Impedances.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Rectangle(extent=[-80, 30; 80, -30], style(
             color=3,
             rgbcolor={0,0,255},
@@ -632,8 +629,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   height=0.65),
       Documentation(
               info="<html>
-</html>
-"),   Icon(
+</html>"),   Icon(
         Line(points=[0,10; 0,-10], style(color=3, rgbcolor={0,0,255})),
         Rectangle(extent=[-10,60; 10,10], style(color=3, rgbcolor={0,0,255})),
         Rectangle(extent=[-10,-10; 10,-60], style(color=3, rgbcolor={0,0,255})),
@@ -692,8 +688,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   height=0.65),
       Documentation(
               info="<html>
-</html>
-"),   Icon(
+</html>"),   Icon(
         Rectangle(extent=[-50,40; 50,20],  style(
             color=30,
             rgbcolor={215,215,215},
@@ -796,8 +791,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   height=0.65),
       Documentation(
               info="<html>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Rectangle(extent=[-80,60; 80,-60],   style(
             color=3,
             rgbcolor={0,0,255},
@@ -874,8 +868,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   height=0.65),
       Documentation(
               info="<html>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Rectangle(extent=[-80,60; 80,-60],   style(
             color=3,
             rgbcolor={0,0,255},
@@ -945,8 +938,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
        0.65),
       Documentation(
             info="<html>
-</html>
-"),   Icon(
+</html>"),   Icon(
          Text(
         extent=[-100,130; 100,90],
         string="%name",
@@ -979,8 +971,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
        0.65),
       Documentation(
             info="<html>
-</html>
-"),   Icon,
+</html>"),   Icon,
       Diagram(
           Line(points=[-80,20; -60,20], style(
               color=3,
@@ -1059,8 +1050,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     info="<html>
 <p>Same as ImpedBase, but contains an additional vector heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connectors is given by the total dissipated electric power per conductor.</p>
-</html>
-"),   Icon,
+</html>"),   Icon,
       Diagram);
 
   equation

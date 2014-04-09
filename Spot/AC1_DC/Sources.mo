@@ -56,8 +56,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
    vPhasor[1]     in SI or pu, depending on choice of 'units'
    vPhasor[2]     in rad
 </pre></p>
-</html>
-"),   Icon,
+</html>"),   Icon,
       Diagram);
 
   equation
@@ -162,8 +161,7 @@ where
 with variable amplitude when 'vType' is 'signal'.</p>
 <p>Optional input:
 <pre>  vDC     DC voltage in SI or pu, depending on choice of 'units' </pre></p>
-</html>
-"),   Icon,
+</html>"),   Icon,
       Diagram);
 
   equation
@@ -204,8 +202,7 @@ with variable amplitude when 'vType' is 'signal'.</p>
               info="<html>
 <p><b>Preliminary:</b> Battery is DC voltage with constant amplitude.<br>
 To be completed later with charging and discharging characteristic.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
         Ellipse(
         extent=[-70,-70; 70,70], style(
             color=3,

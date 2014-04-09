@@ -17,8 +17,7 @@ Window(
 Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of AC-drives, abc-representation.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
-</html>
-"));
+</html>"));
   model ASM "Asynchronous machine with cage rotor"
 
     parameter Spot.Base.Types.AngularVelocity speed_ini(unit="pu")=0

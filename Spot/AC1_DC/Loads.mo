@@ -19,8 +19,7 @@ package Loads "Loads"
         info="<html>
 <p>Resistive load AC or DC with impedance characteristic.<br>
 Consumes the desired power at <b>nominal</b> voltage.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Text(
     extent=[-80,28; 0,-32],
           string="R",
@@ -52,8 +51,7 @@ autolayout=1),
 <p>Different load models with an optional input:</p>
 <pre>  p_set:     active or {active, reactive} power</pre>
 <p>If p_set is <b>not</b> connected to a corresponding signal, parameter-values are relevant.</p>
-</html>
-"),
+</html>"),
   Icon);
 
   model ZloadAC "Impedance load AC, 1-phase"
@@ -74,8 +72,7 @@ autolayout=1),
         info="<html>
 <p>Inductive load AC with impedance characteristic.<br>
 Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Text(
     extent=[-98,28; -18,-32],
     string="Z",
@@ -158,8 +155,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
         info="<html>
 <p>Resistive-inductive load DC with impedance characteristic.<br>
 Consumes the desired power at <b>nominal</b> voltage.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Text(
     extent=[-98,28; -18,-32],
     string="Z",
@@ -442,8 +438,7 @@ Consumes the desired power independent of voltage.</p>
           height=0.65),
         Documentation(info=
                      "<html>
-</html>
-"),
+</html>"),
         Icon(Polygon(points=[-40,-45; -40,45; 80,0; -40,-45], style(
               color=3,
               rgbcolor={0,0,255},
@@ -489,8 +484,7 @@ Consumes the desired power independent of voltage.</p>
                        height=0.65),
                      Documentation(info=
                      "<html>
-</html>
-"),                  Icon(
+</html>"),                  Icon(
                        Polygon(points=[-40,44; -40,-44; -20,-36; -20,36; -40,44], style(
                            pattern=0,
                            fillColor=30,

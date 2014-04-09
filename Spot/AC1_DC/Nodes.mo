@@ -33,8 +33,7 @@ Documentation(info="<html>
       Documentation(
               info="<html>
 <p>Zero voltage on both conductors of terminal.</p>
-</html>
-"),   Icon(
+</html>"),   Icon(
         Line(points=[-90,0; -4,0], style(color=3, rgbcolor={0,0,255})),
         Rectangle(extent=[-4,60; 4,-60], style(
   color=10,
@@ -77,8 +76,7 @@ Documentation(info="<html>
   pol =  0     symmetrically grounded
   pol = -1     conductor 2 grounded (DC: negative)
 </pre>
-</html>
-"),   Icon(
+</html>"),   Icon(
         Line(points=[-50,0; -4,0], style(color=3, rgbcolor={0,0,255})),
         Rectangle(extent=[-4,60; 4,-60], style(
   color=10,
@@ -148,8 +146,7 @@ Documentation(info="<html>
   Documentation(
           info="<html>
 <p>Zero voltage on terminal.</p>
-</html>
-"),
+</html>"),
   Icon(
    Text(
   extent=[-100,-90; 100,-130],
@@ -211,8 +208,7 @@ Documentation(info="<html>
       Documentation(
               info="<html>
 <p>Calculates difference voltage conductor 1 - conductor 2.</p>
-</html>
-"));
+</html>"));
 
   equation
     term.pin.i = zeros(2);
@@ -252,8 +248,7 @@ Documentation(info="<html>
   Line(points=[-40,10; -10,10; -10,40; 40,40], style(color=3, rgbcolor={0,0,255}))),
       Documentation(
               info="<html>
-</html>
-"),   Diagram(
+</html>"),   Diagram(
   Line(points=[-40,5; 0,5; 0,40; 40,40],       style(color=3, rgbcolor={0,0,255})),
   Line(points=[-40,-5; 0,-5; 0,-40; 40,-40],       style(color=3, rgbcolor={0,0,
                 255}))));
@@ -303,8 +298,7 @@ Documentation(info="<html>
     string="%name",
     style(color=0))),
           Documentation(info="<html>
-</html>
-"),       Diagram(
+</html>"),       Diagram(
   Line(points=[-40,5; 0,5; 0,40; 40,40],       style(color=3, rgbcolor={0,0,255})),
   Line(points=[-40,-5; 0,-5; 0,-40; 40,-40],       style(color=3, rgbcolor={0,0,
                 255})),

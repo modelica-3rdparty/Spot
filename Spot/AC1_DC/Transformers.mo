@@ -16,8 +16,7 @@ library=1,
 autolayout=1),
     Documentation(info="<html>
 <p>One-phase transformer models in different abstraction levels.</p>
-</html>
-"),
+</html>"),
   Icon);
 
   model TrafoIdeal "Ideal transformer, 1-phase"
@@ -37,8 +36,7 @@ autolayout=1),
       Documentation(
         info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
-</html>
-"),   Icon,
+</html>"),   Icon,
       Diagram);
 
   equation
@@ -75,8 +73,7 @@ autolayout=1),
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>
-"),   Icon(Rectangle(extent=[-10,62; 10,-62], style(
+</html>"),   Icon(Rectangle(extent=[-10,62; 10,-62], style(
       color=30,
       rgbcolor={215,215,215},
       fillColor=30,
@@ -126,8 +123,7 @@ and eddy current losses.</p>
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Rectangle(extent=[-10,62; 10,-62], style(
       color=30,
       rgbcolor={215,215,215},
@@ -212,8 +208,7 @@ and eddy current losses.</p>
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>
-"),   Icon(
+</html>"),   Icon(
   Rectangle(extent=[-10,62; 10,-62], style(
       color=30,
       rgbcolor={215,215,215},
@@ -306,8 +301,7 @@ and eddy current losses.</p>
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>
-"),   Icon(Rectangle(extent=[-10,62; 10,-62], style(
+</html>"),   Icon(Rectangle(extent=[-10,62; 10,-62], style(
       color=30,
       rgbcolor={215,215,215},
       fillColor=30,
@@ -419,8 +413,7 @@ For variable transformer ratio tap changer input needed.</p>
 <p>must be defined in accordance with the input-signals of </p>
 <pre>  tap     index of tap voltage levels, v_tc[tap]</pre>
 <p>Set <tt>dynTC = true</tt> if tap-index changes during simulation.</p>
-</html>
-"),     DymolaStoredErrors);
+</html>"),     DymolaStoredErrors);
 
     initial equation
       if dynTC then
@@ -656,8 +649,7 @@ For variable transformer ratio tap changer input needed.</p>
 <p>must be defined in accordance with the input-signals of </p>
 <pre>  tap     index of tap voltage levels, v_tc[tap]</pre>
 <p>Set <tt>dynTC = true</tt> if tap-index changes during simulation.</p>
-</html>
-"),     DymolaStoredErrors);
+</html>"),     DymolaStoredErrors);
 
     initial equation
       if dynTC then
