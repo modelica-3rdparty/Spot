@@ -40,7 +40,7 @@ This Modelica package is free software and the use is completely at your own ris
 it can be redistributed and/or modified under the terms of the [Modelica License 1.1](https://modelica.org/licenses/ModelicaLicense1.1).
 
 ## Development and contribution
-Author: [HansJ&uuml;rg Wiesmann](hj.wiesmann@bluewin.ch)
+Original author: HansJ&uuml;rg Wiesmann (&dagger; 2015)
 
 You may report any issues with using the [Issues](../../issues) button.
 
