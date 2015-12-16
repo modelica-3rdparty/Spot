@@ -25,7 +25,7 @@ this sense the library has a didactic intention.</p>
 <p>It is one of the purposes of this library to treat both cases within one common framework and to bring the power-flow approximation closer to the general case. To this purpose we need a transformed representation of the standard electrical equations. It allows the separation of the trivial non-perturbed sinusoidal dynamics of the system from it's non-trivial transient behaviour. The transformed equations contain a steady-state or power-flow limit, obtained by choosing a synchronously rotating reference system and omitting the time-derivative.</p>
 <p>The present implementation leads to a considerable increase of simulation speed for linear or linearised symmetric systems, compared to the direct representation. This is not (yet) the case for nonlinear systems or when sources containing harmonics are present.</p>
 <p>As the electric equations are valid in reference systems with arbitrary angular orientation, the standard cases 'inertial' (non-rotating) and 'synchronous' (rotating with electrical frequency) system can simply be obtained by an appropriate parameter choice.</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Concept;
 
@@ -33,7 +33,7 @@ this sense the library has a didactic intention.</p>
 
         annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">System Component</font></h3>
-<p>The model <a href=\"Spot.System\"><b>System</b></a> represents a global reference for the following purposes:</p>
+<p>The model <a href=\"modelica://Spot.System\"><b>System</b></a> represents a global reference for the following purposes:</p>
 <p>It allows choosing</p>
 <ul>
 <li> nominal frequency (default 50 or 60 Hertz)
@@ -57,7 +57,7 @@ this sense the library has a didactic intention.</p>
 in order that it can be accessed from all objects in the model.<br>
 When dragging the 'System' from the package browser into the diagram layer,
 declaration and instance name are automatically generated.</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end System;
 
@@ -97,7 +97,7 @@ As independent base-values (for electrical quantities) we use voltage and appare
 </pre>
 <p>relation abc to dqo:</p>
 <pre>
-  v_dqo  = P*v_abc            P: orthogonal <a href=\"Spot.UsersGuide.Introduction.Transforms\">transform</a> abc to dqo
+  v_dqo  = P*v_abc            P: orthogonal <a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">transform</a> abc to dqo
   vpp_dq  = P*(v_b - v_c), .. definition phase to phase voltage dq
  |v_abc| = |v_dqo|            as P orthogonal
 </pre>
@@ -111,7 +111,7 @@ As independent base-values (for electrical quantities) we use voltage and appare
 <tr><td>Three-phase norm</td><td>|v_dqo|</td><td><b>1</b></td><td><b>400</b></td> </tr>
 <tr><td>Phase to phase dq-norm</td><td>|vpp_dq|</td><td>sqrt(2)</td><td>565</td></tr>
 </table>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Units;
 
@@ -144,7 +144,7 @@ Frequency-independent sub-systems within one model can therefore easily be defin
 <p>Note:<br>
 <tt>&nbsp; &nbsp; <b>omega</b></tt> is used for electrical angular frequency,<br>
 <tt>&nbsp; &nbsp; <b>w</b></tt> is used for mechanical angular frequency.</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Frequency;
 
@@ -162,7 +162,7 @@ We distinguish between an 'absolute' system (<tt>s_abc</tt>) and a manifold of t
 </pre>
 <p></p>
 The relation between absolute and relative signals is given by orthogonal transforms
-<a href=\"Spot.Base.Transforms.rotation_abc\">R_abc</a> and <a href=\"Spot.Base.Transforms.park\">P</a> according to the following transformation formula</p>
+<a href=\"modelica://Spot.Base.Transforms.rotation_abc\">R_abc</a> and <a href=\"modelica://Spot.Base.Transforms.park\">P</a> according to the following transformation formula</p>
 <pre>
   s_abc_theta = R_abc'*s_abc,  s_abc = R_abc*s_abc_theta
   s_dqo_theta = P*s_abc,       s_abc = P'*s_dqo_theta
@@ -172,7 +172,7 @@ The relation between absolute and relative signals is given by orthogonal transf
   R_abc' = inverse(R_abc)
   P' = inverse(P)
 </pre>
-<p>Both R_abc and P depend on an angle <tt>theta</tt>.P can be factorised into a constant, angle independent matrix P0 and an angle-dependent rotation <a href=\"Spot.Base.Transforms.rotation_dqo\">R_dqo</a></p>
+<p>Both R_abc and P depend on an angle <tt>theta</tt>.P can be factorised into a constant, angle independent matrix P0 and an angle-dependent rotation <a href=\"modelica://Spot.Base.Transforms.rotation_dqo\">R_dqo</a></p>
 <pre>  P(theta) = R_dqo'(theta)*P0</pre>
 <p>As the choice of <tt>theta</tt> is arbitrary, <tt>R_abc</tt> and <tt>P</tt> do not define one specific but a whole manifold
 of abc- and dqo-systems.</p>
@@ -213,7 +213,7 @@ Here it is used in a generalised sense. Nevertheless we call it 'Park-transform'
   ACabc: v = v_abc_theta, i = i_abc_theta
   ACdqo  v = v_dqo_theta, i = i_dqo_theta
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Transforms;
 
@@ -221,7 +221,7 @@ Here it is used in a generalised sense. Nevertheless we call it 'Park-transform'
 
         annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Interfaces and Ports</font></h3>
-<p>Most connector-types exist as <b>pair</b>. Exceptions are the connectors for position and frequency (see <a href=\"Spot.Base.Interfaces\">Base.Interfaces</a>)<br>
+<p>Most connector-types exist as <b>pair</b>. Exceptions are the connectors for position and frequency (see <a href=\"modelica://Spot.Base.Interfaces\">Base.Interfaces</a>)<br>
 We use consistently the indices <b>_p</b> for 'positive' and <b>_n</b> for 'negative' connectors, for all types, electrical, mechanical and thermal.<br>
 Both connector types are physically identical. The only difference is the icon, filled for _p, empty for _n.</p>
 <p>This choice allows a graphical definition of the positive direction in two-terminal components, from _p to _n.<br>
@@ -251,7 +251,7 @@ The system parameter <tt>ref</tt> then allows running a model in an inertial or 
   theta = {0, theta_root}     if ref = \"synchron\"
 </pre>
 As <tt>theta</tt> is <b>transmitted</b> through all connections, a connected network part uses a <b>common</b> reference.<br>
-The electric variables <tt>v</tt> and <tt>i</tt> refer to a coordinate system with angular orientation <tt>theta[2]</tt>. (see also <a href=\"Spot.UsersGuide.Introduction.Transforms\">Transforms</a>).
+The electric variables <tt>v</tt> and <tt>i</tt> refer to a coordinate system with angular orientation <tt>theta[2]</tt>. (see also <a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">Transforms</a>).
 <p><b>Basic</b> one-, two-, and three-<b>ports</b> are defined, also using the indexing _p and _n.</p>
 <pre>
   two-ports 'Port_p_n': no conservation of flow-variable (current)
@@ -262,7 +262,7 @@ switchable
 Y_Delta-topology.</p>
 <p>_____<br>*) The reason for this choice is the following:<br>
 For three-phase systems it is useful to consider both voltage and current as abstract signal-vectors, which may be represented in different reference frames, related by appropriate transforms. It is natural and meaningful to transform vectors, whereas it is unnatural to transform 'pins', 'contacts' and the like.</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Interfaces;
 
@@ -280,7 +280,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
 </ol>
 <p>The provided functions allow obtaining 4 from 1 or 2 or 3.
 </p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Precalculation;
 
@@ -307,7 +307,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
       [ 0,  0,  0]
 </pre>
 <p>Each model-component contains these initial equations in conditional form. The desired case can be selected by an appropriate choice of the parameter 'ini' in 'system'. When choosing transient initialisation, no specific initial equations are defined.</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Initialisation;
 
@@ -344,7 +344,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
 <p>It is obvious that going from transient to steady-state mode, differential equations are replaced by
 algebraic ones.</p>
 <p>As each model-component contains both types of equations, transient and steady, the desired case can be selected by an appropriate choice of the parameter 'sim' in 'system'.</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Simulation;
 
@@ -356,9 +356,9 @@ algebraic ones.</p>
 Therefore a rough dynamical visualisation of phasors and power flow is often useful.</p>
 <p>For models in dqo-representation, phasors are directly obtained as first two components of voltage and current (dq-components).<br>
 In abc-representation phasors are obtained by an appropriate
-<a href=\"Spot.UsersGuide.Introduction.Transforms\">transform</a>.</p>
+<a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">transform</a>.</p>
 <p>Models using visualisation should be <b>synchronised with realtime</b><br>(ExperimentSetup/Realtime: Synchronize with realtime,<br>ExperimentSetup/Compiler: Microsoft VisualC++ with DDE).</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Visualisation;
 
@@ -369,34 +369,34 @@ In abc-representation phasors are obtained by an appropriate
 <p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.<br>
 The examples are based on most elementary configurations. A meter is added for convenience.</p>
 <ul>
-<li><a href=\"SpotExamples.a_Introduction.Units\">Units</a><br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.Units\">Units</a><br>
     Alternative use of SI and pu ('per unit') units.</li>
-<li><a href=\"SpotExamples.a_Introduction.Frequency\">Frequency</a><br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.Frequency\">Frequency</a><br>
     Uncoupled parts with system and with autonomous frequency.</li>
-<li><a href=\"SpotExamples.a_Introduction.ReferenceInertial\">ReferenceInertial</a> <br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.ReferenceInertial\">ReferenceInertial</a> <br>
     Inertial reference system (non-rotating).</li>
-<li><a href=\"SpotExamples.a_Introduction.ReferenceSynchron\">ReferenceSynchron</a> <br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.ReferenceSynchron\">ReferenceSynchron</a> <br>
    Synchronous reference system (rotating).</li>
-<li><a href=\"SpotExamples.a_Introduction.InitialSteadyState\">InitialSteadyState</a><br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.InitialSteadyState\">InitialSteadyState</a><br>
     Steady-state initialisation.</li>
-<li><a href=\"SpotExamples.a_Introduction.SimulationTransient\">SimulationTransient</a><br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.SimulationTransient\">SimulationTransient</a><br>
     Electrical equations in transient mode.</li>
-<li><a href=\"SpotExamples.a_Introduction.SimulationSteadyState\">SimulationSteadyState</a><br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.SimulationSteadyState\">SimulationSteadyState</a><br>
     Electrical equations in steady-state mode.</li>
-<li><a href=\"SpotExamples.a_Introduction.Display\">Display</a><br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.Display\">Display</a><br>
     Displays voltage and current phasors as well as active and reactive power flow.</li>
-<li><a href=\"SpotExamples.a_Introduction.Tables\">Tables</a><br>
+<li><a href=\"modelica://SpotExamples.a_Introduction.Tables\">Tables</a><br>
     Use of tables.</li>
 </ul>
-<p><b>All examples</b> see <a href=\"Spot.UsersGuide.Examples\">here</a>.</p>
-<p><a href=\"Spot.UsersGuide.Introduction\">up</a></p>
+<p><b>All examples</b> see <a href=\"modelica://Spot.UsersGuide.Examples\">here</a>.</p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction\">up</a></p>
 </html>"));
     end Examples;
 
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Introduction</font></h3>
 <p>The detailed <b>theoretical basis</b> of SPOT is published in the separate package <b>'SpotTheory'.</b></p>
-<p><a href=\"Spot.UsersGuide\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
   end Introduction;
 
@@ -414,38 +414,38 @@ You may work with a reduced library according to your needs:</p>
 </font>
 
 <ul>
-<li><a href=\"Spot.System\"><b>System</b></a><br>
+<li><a href=\"modelica://Spot.System\"><b>System</b></a><br>
 Represents a global reference for the choice of system parameters and simulation modes.</li><br><br>
 
-<li><a href=\"Spot.Base\"><b>Base</b></a><br>
+<li><a href=\"modelica://Spot.Base\"><b>Base</b></a><br>
 Contains coefficient records, complex functions, icons, interfaces, mathematical- and precalculation-functions, transforms, type declarations mainly for alternative SI | pu types, and some rudimentary components for visualisation.</li><br><br>
 
-<li><a href=\"Spot.AC1_DC\"><b>AC1_DC</b></a>, <a href=\"Spot.ACabc\"><b>ACabc</b></a>, <a href=\"Spot.ACdqo\"><b>ACdqo</b></a><br>
+<li><a href=\"modelica://Spot.AC1_DC\"><b>AC1_DC</b></a>, <a href=\"modelica://Spot.ACabc\"><b>ACabc</b></a>, <a href=\"modelica://Spot.ACdqo\"><b>ACdqo</b></a><br>
 These three packages exhibit essentially the same structure. They contain the elementary electrical components for one-phase or DC and for three-phase AC applications.<br><br>
 AC one-phase and DC components are modelled as two-conductor components, although the elementary impedances exist also in a one-conductor version. Sources, loads, shunts and the like therefore have one single electric connector, similar to their three-phase relatives. This also contributes to a more homogeneous appearance of the library, both for single components and for complete models. Yet it has also physical reasons, as for example a finite line impedance can only be defined using a pair-conductor.<br><br>
 ACabc and ACdqo are complementary packages, treating identical three-phase components, one in abc-, the other in dqo-representation. Both declaration and equation part of the models keep an identical or analogous structure as far as possible.<br>
 All AC models use connectors, containing the reference angles theta[1:2]. The angles are needed within the packages ACabc and ACdqo, theta[1] in the initial equations, theta[2] in the dynamical equations.</li><br><br>
 
-<li><a href=\"Spot.Common\"><b>Common</b></a><br>
+<li><a href=\"modelica://Spot.Common\"><b>Common</b></a><br>
 Common components: auxiliary blocks (multiplexers, special signals and transforms), simple idealised functions for iron-saturation, plasma-arcs of breakers or faults, a collection of ideal semiconductor components and modules, and kernel models for switches and breakers.</li><br><br>
 
-<li><a href=\"Spot.Control\"><b>Control</b></a><br>
+<li><a href=\"modelica://Spot.Control\"><b>Control</b></a><br>
 This package should <b>not</b> be considered as an exhaustive collection of control-components for power-systems. It contains elementary versions allowing the simulation of generators, drives and inverters:<br>
 exciters for synchronous machines (generators), turbine governors, ignition tables and PWM-modulation for inverters, relays, setpoints and tap-change control (<i>presently still empty!</i>).</li><br><br>
 
-<li><a href=\"Spot.DrivesACabc\"><b>AC-Drives abc</b></a>, <a href=\"Spot.DrivesACdqo\"><b>AC-Drives dqo</b></a>, <a href=\"Spot.DrivesDC\"><b>DC-Drives</b></a><br>
+<li><a href=\"modelica://Spot.DrivesACabc\"><b>AC-Drives abc</b></a>, <a href=\"modelica://Spot.DrivesACdqo\"><b>AC-Drives dqo</b></a>, <a href=\"modelica://Spot.DrivesDC\"><b>DC-Drives</b></a><br>
 Contains AC-drives with asynchronous and synchronous machines, both with abc and dqo electric terminals, and DC-drives with electric and permanent magnet excitation.</li><br><br>
 
-<li><a href=\"Spot.GenerationACabc\"><b>AC-Generation abc</b></a>, <a href=\"Spot.GenerationACdqo\"><b>AC-Generation dqo</b></a><br>
+<li><a href=\"modelica://Spot.GenerationACabc\"><b>AC-Generation abc</b></a>, <a href=\"modelica://Spot.GenerationACdqo\"><b>AC-Generation dqo</b></a><br>
 Contains generation packages with synchronous generators and turbines, both with abc and dqo electric terminals. Some of the models should be considered as example-models, as for example the turbo-group models.</li><br><br>
 
-<li><a href=\"Spot.Mechanics\"><b>Mechanics</b></a><br>
+<li><a href=\"modelica://Spot.Mechanics\"><b>Mechanics</b></a><br>
 Contains elementary mechanical components, both translational and rotational, that are needed for simulation of power-stations and rail vehicles.<br>
 In addition it contains examples of turbo-groups and default-models for turbine torque.</li><br><br>
-<li><a href=\"SpotExamples\"><b>Examples</b></a><br>
+<li><a href=\"modelica://SpotExamples\"><b>Examples</b></a><br>
 Introductory examples, example models for testing single components, drives, inverters, transformation, generation, transmission precalculation and some example data. Details are found under 'Examples'.</li><br><br>
 </ul>
-<p><a href=\"Spot.UsersGuide\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
   end Overview;
 
@@ -453,148 +453,148 @@ Introductory examples, example models for testing single components, drives, inv
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Package SpotExamples</font></h3>
-<li><a href=\"SpotExamples.Data\"><b>Data</b></a><br>
+<li><a href=\"modelica://SpotExamples.Data\"><b>Data</b></a><br>
 Contains data records for breakers, lines, machines, transformers, and turbines.</li>
-<p><a href=\"SpotExamples.a_Introduction\"><b>Introductory examples</b></a><br>
+<p><a href=\"modelica://SpotExamples.a_Introduction\"><b>Introductory examples</b></a><br>
 Each of the introductory examples points out one particular aspect of specifying and simulating a model.
 The examples are based on most elementary configurations. A meter is added for convenience.
-<a href=\"Spot.UsersGuide.Introduction.Examples\">details</a></p>
-<p><a href=\"SpotExamples.b_AC1_DC\"><b>AC1_DC</b></a>,
-   <a href=\"SpotExamples.c_ACabc\"><b>ACabc</b></a>,
-   <a href=\"SpotExamples.c_ACdqo\"><b>ACdqo</b></a><br>
+<a href=\"modelica://Spot.UsersGuide.Introduction.Examples\">details</a></p>
+<p><a href=\"modelica://SpotExamples.b_AC1_DC\"><b>AC1_DC</b></a>,
+   <a href=\"modelica://SpotExamples.c_ACabc\"><b>ACabc</b></a>,
+   <a href=\"modelica://SpotExamples.c_ACdqo\"><b>ACdqo</b></a><br>
 These packages provide small and simple test models, intended for testing custom components. The component inside the red rectangle may be replaced by a user defined version of similar type. The user is responsible for choosing reasonable parameter values.</p>
-<p><a href=\"SpotExamples.d_DrivesACabc\"><b>AC Drives abc</b></a><br>
+<p><a href=\"modelica://SpotExamples.d_DrivesACabc\"><b>AC Drives abc</b></a><br>
 AC machines, terminals in abc-representation, containing electrical and mechanical motor models with optional gear.</p>
 <ul>
-<li><a href=\"SpotExamples.d_DrivesACabc.ASMcharacteristic\">ASMcharacteristic</a>  Asynchronous machine: characteristic torque vs slip.</li>
-<li><a href=\"SpotExamples.d_DrivesACabc.ASM_Y_D\">ASM_Y_D</a>  AC asynchronous motor with switchable topology.</li>
-<li><a href=\"SpotExamples.d_DrivesACabc.ASMav\">ASMav</a>  AC asynchronous motor with fixed topology. Time-average inverter.</li>
-<li><a href=\"SpotExamples.d_DrivesACabc.ASM\">ASM</a>  AC asynchronous motor with fixed topology. Modulated inverter.</li>
-<li><a href=\"SpotExamples.d_DrivesACabc.SM_ctrlAv\">SM_ctrlAv</a>  AC synchronous motor, current controlled. Time-average inverter.</li>
-<li><a href=\"SpotExamples.d_DrivesACabc.SM_ctrl\">SM_ctrl</a>  AC synchronous motor, current controlled. Modulated inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACabc.ASMcharacteristic\">ASMcharacteristic</a>  Asynchronous machine: characteristic torque vs slip.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACabc.ASM_Y_D\">ASM_Y_D</a>  AC asynchronous motor with switchable topology.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACabc.ASMav\">ASMav</a>  AC asynchronous motor with fixed topology. Time-average inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACabc.ASM\">ASM</a>  AC asynchronous motor with fixed topology. Modulated inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACabc.SM_ctrlAv\">SM_ctrlAv</a>  AC synchronous motor, current controlled. Time-average inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACabc.SM_ctrl\">SM_ctrl</a>  AC synchronous motor, current controlled. Modulated inverter.</li>
 </ul>
-<p><a href=\"SpotExamples.d_DrivesACdqo\"><b>AC Drives dqo</b></a><br>
+<p><a href=\"modelica://SpotExamples.d_DrivesACdqo\"><b>AC Drives dqo</b></a><br>
 AC machines, terminals in dqo-representation, containing electrical and mechanical motor models with optional gear.</p>
 <ul>
-<li><a href=\"SpotExamples.d_DrivesACdqo.ASMcharacteristic\">ASMcharacteristic</a>  Asynchronous machine: characteristic torque vs slip.</li>
-<li><a href=\"SpotExamples.d_DrivesACdqo.ASM_Y_D\">ASM_Y_D</a>  AC asynchronous motor with switchable topology.</li>
-<li><a href=\"SpotExamples.d_DrivesACdqo.ASMav\">ASMav</a>  AC asynchronous motor with fixed topology. Time-average inverter.</li>
-<li><a href=\"SpotExamples.d_DrivesACdqo.ASM\">ASM</a>  AC asynchronous motor with fixed topology. Modulated inverter.</li>
-<li><a href=\"SpotExamples.d_DrivesACdqo.SM_ctrlAv\">SM_ctrlAv</a>  AC synchronous motor, current controlled. Time-average inverter.</li>
-<li><a href=\"SpotExamples.d_DrivesACdqo.SM_ctrl\">SM_ctrl</a>  AC synchronous motor, current controlled. Modulated inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACdqo.ASMcharacteristic\">ASMcharacteristic</a>  Asynchronous machine: characteristic torque vs slip.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACdqo.ASM_Y_D\">ASM_Y_D</a>  AC asynchronous motor with switchable topology.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACdqo.ASMav\">ASMav</a>  AC asynchronous motor with fixed topology. Time-average inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACdqo.ASM\">ASM</a>  AC asynchronous motor with fixed topology. Modulated inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACdqo.SM_ctrlAv\">SM_ctrlAv</a>  AC synchronous motor, current controlled. Time-average inverter.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesACdqo.SM_ctrl\">SM_ctrl</a>  AC synchronous motor, current controlled. Modulated inverter.</li>
 </ul>
-<p><a href=\"SpotExamples.d_DrivesDC\"><b>DC Drives</b></a><br>
+<p><a href=\"modelica://SpotExamples.d_DrivesDC\"><b>DC Drives</b></a><br>
 DC machines, containing electrical and mechanical motor models with optional gear.</p>
 <ul>
-<li><a href=\"SpotExamples.d_DrivesDC.DCmotor_ser\">DCmotor_ser</a>  DC motor series excited.</li>
-<li><a href=\"SpotExamples.d_DrivesDC.DCmotor_par\">DCmotor_par</a>  DC motor parallel excited.</li>
-<li><a href=\"SpotExamples.d_DrivesDC.DCmotor_pm\">DCmotor_pm</a>  DC motor permanent magnet excited.</li>
-<li><a href=\"SpotExamples.d_DrivesDC.BLDC\">BLDC</a>  BLDC brushless DC motor (permanent magnet excited synchronous machine).</li>
-<li><a href=\"SpotExamples.d_DrivesDC.DCcharSpeed\">DCcharSpeed</a>  DC motor: characteristic torque vs speed.</li>
-<li><a href=\"SpotExamples.d_DrivesDC.BLDCcharSpeed\">BLDCcharSpeed</a>  BLDC motor: characteristic torque vs speed..</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesDC.DCmotor_ser\">DCmotor_ser</a>  DC motor series excited.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesDC.DCmotor_par\">DCmotor_par</a>  DC motor parallel excited.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesDC.DCmotor_pm\">DCmotor_pm</a>  DC motor permanent magnet excited.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesDC.BLDC\">BLDC</a>  BLDC brushless DC motor (permanent magnet excited synchronous machine).</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesDC.DCcharSpeed\">DCcharSpeed</a>  DC motor: characteristic torque vs speed.</li>
+<li><a href=\"modelica://SpotExamples.d_DrivesDC.BLDCcharSpeed\">BLDCcharSpeed</a>  BLDC motor: characteristic torque vs speed..</li>
 </ul>
-<p><a href=\"SpotExamples.e_InvertersAC1_DC\"><b>Inverters one-phase</b></a><br>
+<p><a href=\"modelica://SpotExamples.e_InvertersAC1_DC\"><b>Inverters one-phase</b></a><br>
 One-phase passive rectifier, controlled inverter and chopper in compact and modular implementation.</p>
 <ul>
-<li><a href=\"SpotExamples.e_InvertersAC1_DC.Rectifier\">Rectifier</a> Rectifier one-phase.</li>
-<li><a href=\"SpotExamples.e_InvertersAC1_DC.InverterToLoad\">InverterToLoad</a> Inverter one-phase feeding load.</li>
-<li><a href=\"SpotExamples.e_InvertersAC1_DC.InverterToGrid\">InverterToGrid</a> Modulated inverter one-phase coupled to grid.</li>
-<li><a href=\"SpotExamples.e_InvertersAC1_DC.InverterAvToGrid\">InverterAvToGrid</a> Time-average inverter one-phase coupled to grid.</li>
-<li><a href=\"SpotExamples.e_InvertersAC1_DC.Chopper\">Chopper</a> Chopper with load.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersAC1_DC.Rectifier\">Rectifier</a> Rectifier one-phase.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersAC1_DC.InverterToLoad\">InverterToLoad</a> Inverter one-phase feeding load.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersAC1_DC.InverterToGrid\">InverterToGrid</a> Modulated inverter one-phase coupled to grid.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersAC1_DC.InverterAvToGrid\">InverterAvToGrid</a> Time-average inverter one-phase coupled to grid.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersAC1_DC.Chopper\">Chopper</a> Chopper with load.</li>
 </ul>
-<p><a href=\"SpotExamples.e_InvertersACabc\"><b>Inverters abc</b></a><br>
+<p><a href=\"modelica://SpotExamples.e_InvertersACabc\"><b>Inverters abc</b></a><br>
 Three-phase passive rectifier and controlled inverter abc in compact and modular implementation.</p>
 <ul>
-<li><a href=\"SpotExamples.e_InvertersACabc.Rectifier\">Rectifier</a> Rectifier abc.</li>
-<li><a href=\"SpotExamples.e_InvertersACabc.InverterToLoad\">InverterToLoad</a> Inverter abc feeding load.</li>
-<li><a href=\"SpotExamples.e_InvertersACabc.InverterToGrid\">InverterToGrid</a> Modulated inverter abc coupled to grid.</li>
-<li><a href=\"SpotExamples.e_InvertersACabc.InverterAvToGrid\">InverterAvToGrid</a> Time-average inverter abc coupled to grid.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACabc.Rectifier\">Rectifier</a> Rectifier abc.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACabc.InverterToLoad\">InverterToLoad</a> Inverter abc feeding load.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACabc.InverterToGrid\">InverterToGrid</a> Modulated inverter abc coupled to grid.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACabc.InverterAvToGrid\">InverterAvToGrid</a> Time-average inverter abc coupled to grid.</li>
 </ul>
-<p><a href=\"SpotExamples.e_InvertersACdqo\"><b>Inverters dqo</b></a><br>
+<p><a href=\"modelica://SpotExamples.e_InvertersACdqo\"><b>Inverters dqo</b></a><br>
 Three-phase passive rectifier and controlled inverter dqo in compact and modular implementation.</p>
 <ul>
-<li><a href=\"SpotExamples.e_InvertersACdqo.Rectifier\">Rectifier</a> Rectifier dqo.</li>
-<li><a href=\"SpotExamples.e_InvertersACdqo.InverterToLoad\">InverterToLoad</a> Inverter dqo feeding load.</li>
-<li><a href=\"SpotExamples.e_InvertersACdqo.InverterToGrid\">InverterToGrid</a> Modulated inverter dqo coupled to grid.</li>
-<li><a href=\"SpotExamples.e_InvertersACdqo.InverterAvToGrid\">InverterAvToGrid</a> Time-average inverter dqo coupled to grid.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACdqo.Rectifier\">Rectifier</a> Rectifier dqo.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACdqo.InverterToLoad\">InverterToLoad</a> Inverter dqo feeding load.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACdqo.InverterToGrid\">InverterToGrid</a> Modulated inverter dqo coupled to grid.</li>
+<li><a href=\"modelica://SpotExamples.e_InvertersACdqo.InverterAvToGrid\">InverterAvToGrid</a> Time-average inverter dqo coupled to grid.</li>
 </ul>
-<p><a href=\"SpotExamples.f_TransformationAC1ph\"><b>Transformation one-phase</b></a><br>
+<p><a href=\"modelica://SpotExamples.f_TransformationAC1ph\"><b>Transformation one-phase</b></a><br>
 The concept for tap changer control is based on a transformer model with parameter-specified tap voltage-levels.<br>
 The control part is treated as a separate component.</p>
 <ul>
-<li><a href=\"SpotExamples.f_TransformationAC1ph.OnePhase\">OnePhase</a>  One-phase transformers.</li>
-<li><a href=\"SpotExamples.f_TransformationAC1ph.TapChanger\">TapChanger</a>  Tap changer control of one-phase transformers.</li>
+<li><a href=\"modelica://SpotExamples.f_TransformationAC1ph.OnePhase\">OnePhase</a>  One-phase transformers.</li>
+<li><a href=\"modelica://SpotExamples.f_TransformationAC1ph.TapChanger\">TapChanger</a>  Tap changer control of one-phase transformers.</li>
 </ul>
-<p><a href=\"SpotExamples.f_TransformationACabc\"><b>Transformation abc</b></a><br>
+<p><a href=\"modelica://SpotExamples.f_TransformationACabc\"><b>Transformation abc</b></a><br>
 Three-phase transformers show phase shifts for Delta/Y topology primary/secondary.<br>
 The concept for tap changer control is based on a transformer model with parameter-specified tap voltage-levels.<br>
 The control part is treated as a separate component.</p>
 <ul>
-<li><a href=\"SpotExamples.f_TransformationACabc.PhaseShifts\">PhaseShifts</a>  Topology dependent phase shifts of transformers.</li>
-<li><a href=\"SpotExamples.f_TransformationACabc.TapChanger\">TapChanger</a>  Tap changer control.</li>
+<li><a href=\"modelica://SpotExamples.f_TransformationACabc.PhaseShifts\">PhaseShifts</a>  Topology dependent phase shifts of transformers.</li>
+<li><a href=\"modelica://SpotExamples.f_TransformationACabc.TapChanger\">TapChanger</a>  Tap changer control.</li>
 </ul>
-<p><a href=\"SpotExamples.f_TransformationACdqo\"><b>Transformation dqo</b></a><br>
+<p><a href=\"modelica://SpotExamples.f_TransformationACdqo\"><b>Transformation dqo</b></a><br>
 Three-phase transformers show phase shifts for Delta/Y topology primary/secondary.<br>
 The concept for tap changer control is based on a transformer model with parameter-specified tap voltage-levels.<br>
 The control part is treated as a separate component.</p>
 <ul>
-<li><a href=\"SpotExamples.f_TransformationACdqo.PhaseShifts\">PhaseShifts</a>  Topology dependent phase shifts of transformers.</li>
-<li><a href=\"SpotExamples.f_TransformationACdqo.TapChanger\">TapChanger</a>  Tap changer control.</li>
+<li><a href=\"modelica://SpotExamples.f_TransformationACdqo.PhaseShifts\">PhaseShifts</a>  Topology dependent phase shifts of transformers.</li>
+<li><a href=\"modelica://SpotExamples.f_TransformationACdqo.TapChanger\">TapChanger</a>  Tap changer control.</li>
 </ul>
-<p><a href=\"SpotExamples.g_GenerationACabc\"><b>Generation abc</b></a><br>
+<p><a href=\"modelica://SpotExamples.g_GenerationACabc\"><b>Generation abc</b></a><br>
 A series of examples intended for a better understanding of synchronous generator models, with an additional asynchronous generator. Electric terminal in abc-representation.</p>
 <ul>
-<li><a href=\"SpotExamples.g_GenerationACabc.Vsource\">Vsource</a>  Voltage (norm and phase) source.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.PVsource\">PVsource</a>  Active power and voltage (norm) source.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.PQsource\">PQsource</a>  Power (active and
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.Vsource\">Vsource</a>  Voltage (norm and phase) source.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.PVsource\">PVsource</a>  Active power and voltage (norm) source.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.PQsource\">PQsource</a>  Power (active and
   reactive) source.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.PowerAngle\">PowerAngle</a>  Generator without mechanical part, running at fixed power angle</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.TurbineGenerator\">TurbineGenerator</a>  Turbo-generator, in an 'unpacked' version.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.TurbineGeneratorLine\">TurbineGeneratorLine</a>  Turbo-generator with line, in an 'unpacked' version.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.TurboGeneratorLine\">TurboGeneratorLine</a>  Turbo-generator with line.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.GenOrder3and7\">GenOrder3and7</a>  Differences between low- and high-order electric models.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.TurboGroupGenerator\">TurboGroupGenerator</a>  Interaction between electrical and mechanical part.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.TieLine\">TieLine</a>  Interaction between machines.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.WindGeneratorLine\">WindGeneratorLine</a>  Asynchronous wind generator on line.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.Islanding\">Islanding</a>  Fast turbine with pm-generator in islanding configuration.</li>
-<li><a href=\"SpotExamples.g_GenerationACabc.LocalGeneration\">Local generation</a>  Current-controlled pm-generator.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.PowerAngle\">PowerAngle</a>  Generator without mechanical part, running at fixed power angle</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.TurbineGenerator\">TurbineGenerator</a>  Turbo-generator, in an 'unpacked' version.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.TurbineGeneratorLine\">TurbineGeneratorLine</a>  Turbo-generator with line, in an 'unpacked' version.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.TurboGeneratorLine\">TurboGeneratorLine</a>  Turbo-generator with line.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.GenOrder3and7\">GenOrder3and7</a>  Differences between low- and high-order electric models.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.TurboGroupGenerator\">TurboGroupGenerator</a>  Interaction between electrical and mechanical part.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.TieLine\">TieLine</a>  Interaction between machines.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.WindGeneratorLine\">WindGeneratorLine</a>  Asynchronous wind generator on line.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.Islanding\">Islanding</a>  Fast turbine with pm-generator in islanding configuration.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACabc.LocalGeneration\">Local generation</a>  Current-controlled pm-generator.</li>
 </ul>
-<p><a href=\"SpotExamples.g_GenerationACdqo\"><b>Generation dqo</b></a><br>
+<p><a href=\"modelica://SpotExamples.g_GenerationACdqo\"><b>Generation dqo</b></a><br>
 A series of examples intended for a better understanding of synchronous generator models, with an additional asynchronous generator. Electric terminal in dqo-representation.</p>
 <ul>
-<li><a href=\"SpotExamples.g_GenerationACdqo.Vsource\">Vsource</a>  Voltage (norm and phase) source.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.PVsource\">PVsource</a>  Active power and voltage (norm) source.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.PQsource\">PQsource</a>  Power (active and
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.Vsource\">Vsource</a>  Voltage (norm and phase) source.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.PVsource\">PVsource</a>  Active power and voltage (norm) source.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.PQsource\">PQsource</a>  Power (active and
   reactive) source.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.PowerAngle\">PowerAngle</a>  Generator without mechanical part, running at fixed power angle</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.TurbineGenerator\">TurbineGenerator</a>  Turbo-generator, in an 'unpacked' version.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.TurbineGeneratorLine\">TurbineGeneratorLine</a>  Turbo-generator with line, in an 'unpacked' version.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.TurboGeneratorLine\">TurboGeneratorLine</a>  Turbo-generator with line.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.GenOrder3and7\">GenOrder3and7</a>  Differences between low- and high-order electric models.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.TurboGroupGenerator\">TurboGroupGenerator</a>  Interaction between electrical and mechanical part.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.TieLine\">TieLine</a>  Interaction between machines.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.WindGeneratorLine\">WindGeneratorLine</a>  Asynchronous wind generator on line.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.Islanding\">Islanding</a>  Fast turbine with pm-generator in islanding configuration.</li>
-<li><a href=\"SpotExamples.g_GenerationACdqo.LocalGeneration\">Local generation</a>  Current-controlled pm-generator.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.PowerAngle\">PowerAngle</a>  Generator without mechanical part, running at fixed power angle</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.TurbineGenerator\">TurbineGenerator</a>  Turbo-generator, in an 'unpacked' version.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.TurbineGeneratorLine\">TurbineGeneratorLine</a>  Turbo-generator with line, in an 'unpacked' version.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.TurboGeneratorLine\">TurboGeneratorLine</a>  Turbo-generator with line.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.GenOrder3and7\">GenOrder3and7</a>  Differences between low- and high-order electric models.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.TurboGroupGenerator\">TurboGroupGenerator</a>  Interaction between electrical and mechanical part.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.TieLine\">TieLine</a>  Interaction between machines.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.WindGeneratorLine\">WindGeneratorLine</a>  Asynchronous wind generator on line.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.Islanding\">Islanding</a>  Fast turbine with pm-generator in islanding configuration.</li>
+<li><a href=\"modelica://SpotExamples.g_GenerationACdqo.LocalGeneration\">Local generation</a>  Current-controlled pm-generator.</li>
 </ul>
-<p><a href=\"SpotExamples.h_TransmissionACdqo\"><b>Transmission</b></a><br>
+<p><a href=\"modelica://SpotExamples.h_TransmissionACdqo\"><b>Transmission</b></a><br>
 Shows basic principles and configurations.</p>
 <ul>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.PowerTransfer\">PowerTransfer</a> Power flow
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.PowerTransfer\">PowerTransfer</a> Power flow
   and phase angle.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.VoltageStability\">VoltageStability</a>  Voltage stability.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.RXline\">RXline</a>  Lumped line model.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.PIline\">PIline</a>  Distributed line model.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.FaultRXline\">FaultRXline</a>  Single lumped line model with fault on line.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.FaultPIline\">FaultPIline</a>  Single distributed line model with fault on line.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.DoubleRXline\">DoubleRXline</a>  Double lumped line model with fault on one line.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.DoublePIline\">DoublePIline</a>  Double distributed line model with fault on one line.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.DoubleRXlineTG\">DoubleRXlineTG</a>  Turbo-generator and double lumped line model with fault on one line.</li>
-<li><a href=\"SpotExamples.h_TransmissionACdqo.DoublePIlineTG\">DoublePIlineTG</a>  Turbo-generator and double distributed line model with fault on one line.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.VoltageStability\">VoltageStability</a>  Voltage stability.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.RXline\">RXline</a>  Lumped line model.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.PIline\">PIline</a>  Distributed line model.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.FaultRXline\">FaultRXline</a>  Single lumped line model with fault on line.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.FaultPIline\">FaultPIline</a>  Single distributed line model with fault on line.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.DoubleRXline\">DoubleRXline</a>  Double lumped line model with fault on one line.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.DoublePIline\">DoublePIline</a>  Double distributed line model with fault on one line.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.DoubleRXlineTG\">DoubleRXlineTG</a>  Turbo-generator and double lumped line model with fault on one line.</li>
+<li><a href=\"modelica://SpotExamples.h_TransmissionACdqo.DoublePIlineTG\">DoublePIlineTG</a>  Turbo-generator and double distributed line model with fault on one line.</li>
 </ul>
-<p><a href=\"SpotExamples.p_Precalculation\"><b>Precalculation</b></a><br>
+<p><a href=\"modelica://SpotExamples.p_Precalculation\"><b>Precalculation</b></a><br>
 Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
-<p><a href=\"Spot.UsersGuide\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
   end Examples;
 
@@ -605,7 +605,7 @@ Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.706.1 (2014 April 9)</font></h3>
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 <p>
 A clean up version of the latest (undocumented) version 0.706 (2007 June). Annotations were cleaned up in order to get it to work properly with Modelica tools that follow the Modelica Specification.</p>
 
@@ -616,7 +616,7 @@ This version was updated to use <em>Modelica Standard Library 3.2.1</em>.
 Be aware that there are several issues within this library which are still not fixed!
 </p>
 
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_706_1;
 
@@ -624,7 +624,7 @@ Be aware that there are several issues within this library which are still not f
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.705 (2007 May 1)</font></h3>
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 <p>
 The following <b>changes</b> have been performed in the <b>Spot 0.705</b> library:
 </p>
@@ -634,7 +634,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.705</b> librar
 <li>Current controlled synchronous and asynchronous machines have been added.</li>
 <li>Contains some auxiliary components, in particular thermal boundaries.</li>
 </ul>
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_705;
 
@@ -642,7 +642,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.705</b> librar
 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.606 (2006 June 26)</font></h3>
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 <p>
 The following <b>changes</b> have been performed in the <b>Spot 0.606</b> library:
 </p>
@@ -652,7 +652,7 @@ unconnected neutral is 'isolated neutral' (before: 'ideally grounded')</li>
 <li>Inverters: introduced minimal switch-on time to avoid numerically singular cases. Some modification of example parameters.</li>
 <li>Added thermal versions of three-phase rectifiers and inverters (preliminary versions!).</li>
 </ul>
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_606;
 
@@ -667,7 +667,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
 <ul>
 <li>Restructuring and completion of library</li>
 </ul>
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_605;
 
@@ -676,7 +676,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.506 (2005 June 01)</font></h3>
 <p> This is the actual state of the SPOT library in development.</p>
-<p><a href=\"Spot.UsersGuide.ReleaseNotes\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_506;
     annotation (Documentation(info="<html>
@@ -684,13 +684,13 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
 <h3><font color=\"#008000\">Actual version 0.705 (2007 May 1)</font></h3>
 <p>Releases:</p>
 <ul>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_706_1\">Version 0.706.1</a> (2014 April 9)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_705\">Version 0.705</a> (2007 May 1)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_606\">Version 0.606</a> (2006 June 26)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_605\">Version 0.605</a> (2006 May 01)</li>
-<li> <a href=\"Spot.UsersGuide.ReleaseNotes.Version_0_506\">Version 0.506</a> (2005 June 01)</li>
+<li> <a href=\"modelica://Spot.UsersGuide.ReleaseNotes.Version_0_706_1\">Version 0.706.1</a> (2014 April 9)</li>
+<li> <a href=\"modelica://Spot.UsersGuide.ReleaseNotes.Version_0_705\">Version 0.705</a> (2007 May 1)</li>
+<li> <a href=\"modelica://Spot.UsersGuide.ReleaseNotes.Version_0_606\">Version 0.606</a> (2006 June 26)</li>
+<li> <a href=\"modelica://Spot.UsersGuide.ReleaseNotes.Version_0_605\">Version 0.605</a> (2006 May 01)</li>
+<li> <a href=\"modelica://Spot.UsersGuide.ReleaseNotes.Version_0_506\">Version 0.506</a> (2005 June 01)</li>
 </ul>
-<p><a href=\"Spot.UsersGuide\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
   end ReleaseNotes;
 
@@ -708,7 +708,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
     CH-8607 Seegr&auml;ben (Z&uuml;rich)<br><br>
     email: <A HREF=\"mailto:hj.wiesmann@bluewin.ch\">hj.wiesmann@bluewin.ch</A></dd>
 </dl>
-<p><a href=\"Spot.UsersGuide\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
   end Contact;
 
@@ -727,7 +727,7 @@ that the conditions under (1) are met.</li>
 </ol>
 <h4><font color=\"#008000\">Disclaimer</font></h4>
 <p>The software (sources, binaries, etc.) in their original or in a modified form are provided \"as is\" and the copyright holders assume no responsibility for its contents what so ever. Any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are <b>disclaimed</b>. <b>In no event</b> shall the copyright holders, or any party who modify and/or redistribute the package, <b>be liable</b> for any direct, indirect, incidental, special, exemplary, or consequential damages, arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
-<p><a href=\"Spot.UsersGuide\">up</a></p>
+<p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
   end ModelicaLicense;
   annotation (DocumentationClass=true, Documentation(info="<html>
@@ -735,7 +735,7 @@ that the conditions under (1) are met.</li>
 <p>The library is a Modelica package providing components to model
 <br><b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>This package contains the <b>users guide</b> to the library.</p>
-<p><a href=\"Spot\">up</a></p>
+<p><a href=\"modelica://Spot\">up</a></p>
 </html>"));
 end UsersGuide;
 
@@ -892,7 +892,7 @@ end UsersGuide;
      </li>
 </ul>
 <p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
-<p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Overview\">up users guide</a></p>
 </html>"));
   end System;
 
@@ -904,7 +904,7 @@ annotation (preferredView="info",
 <h3><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT</font></h3>
 <p>The library is a Modelica package providing components to model<br>
 <b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
-<p>The Users Guide to the library is <a href=\"Spot.UsersGuide\"><b>here</b></a>.</p>
+<p>The Users Guide to the library is <a href=\"modelica://Spot.UsersGuide\"><b>here</b></a>.</p>
 <p>Copyright &copy; 2004-2007, H.J. Wiesmann.</p>
 <p><i>The Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b>
 <a href=\"Modelica://Modelica.UsersGuide.ModelicaLicense\">here</a>.</i></p>

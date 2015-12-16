@@ -6,6 +6,6 @@ package Data "Data"
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>Example data used in package SpotExamples.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"));
 end Data;

@@ -5,7 +5,7 @@ package Control "Control blocks"
 
 annotation (preferredView="info",
 Documentation(info="<html>
-<p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Overview\">up users guide</a></p>
 </html>
 "));
 end Control;

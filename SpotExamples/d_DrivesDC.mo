@@ -61,7 +61,7 @@ package d_DrivesDC "DC drives"
   power.p
   tabLoad.vVehicle
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
     experiment(StopTime=60));
@@ -125,7 +125,7 @@ package d_DrivesDC "DC drives"
   power.p
   tabLoad.vVehicle
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
     experiment(StopTime=60));
   end DCmotor_par;
@@ -182,7 +182,7 @@ package d_DrivesDC "DC drives"
   efficiency.eta               efficiency
 </pre></p>
 <p>See also example DCcharSpeed.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
     experiment(StopTime=3));
@@ -251,7 +251,7 @@ package d_DrivesDC "DC drives"
   efficiency.eta               efficiency including semiconductor losses
 </pre></p>
 <p>See also example BLDCcharSpeed.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
     experiment(
@@ -309,7 +309,7 @@ package d_DrivesDC "DC drives"
   machine.motor.tau_el     torque (el)
 </pre>
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
     experiment(Tolerance=1e-005, Algorithm="Dassl"),
     experimentSetupOutput(events=false));
@@ -367,7 +367,7 @@ package d_DrivesDC "DC drives"
   machine.motor.tau_el     torque (el)
 </pre>
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
     experiment(Tolerance=1e-005, Algorithm="Dassl"),
     experimentSetupOutput(events=false));
@@ -376,6 +376,6 @@ package d_DrivesDC "DC drives"
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>DC drives (motors electrical and mechanical).</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"));
 end d_DrivesDC;

@@ -828,7 +828,7 @@ Needed within certain models to establish the connection to 'system' for sending
 
     annotation (preferredView="info",
       Documentation(info="<html>
-<p><a href=\"Spot.UsersGuide.Introduction.Interfaces\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Interfaces\">up users guide</a></p>
 </html>
 "));
 end Interfaces;

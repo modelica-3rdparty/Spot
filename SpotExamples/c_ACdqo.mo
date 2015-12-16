@@ -512,7 +512,7 @@ package c_ACdqo "AC 3-phase components dqo"
 Documentation(info="<html>
 <p>This package contains small models for testing single components from ACdqo.
 The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),     preferredView="info",
 Documentation(info="<html>
 <pre>

@@ -796,7 +796,7 @@ remain the same for d- and q-axis. This facilitates checking.</p>
   xm[2:n] = 0, no coupling terms in q-axis
 </pre>
 whereas for machines <b>without</b> field-winding (asynchronous), the q-axis diagram is valid for both axes d and q.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
 end p_Precalculation;

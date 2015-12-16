@@ -481,6 +481,6 @@ package DrivesACdqo "AC-drives dqo"
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of AC-drives, dqo-representation.</p>
-<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"Spot.UsersGuide.Overview\">up users guide</a></p>
+<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"modelica://Spot.UsersGuide.Overview\">up users guide</a></p>
 </html>"));
 end DrivesACdqo;

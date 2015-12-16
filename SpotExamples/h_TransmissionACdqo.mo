@@ -54,7 +54,7 @@ Alternatively one can look at a variation of amplitude ratios.</p>
   sensor1.p[1]     active power
   sensor1.p[2]     reactive power.
 </pre>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(StopTime=60));
@@ -152,7 +152,7 @@ equation
   meter1/2/3.v_norm and plot it against
   meter1/2/3.p[1] as independent variable.
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
       experiment(StopTime=180, NumberOfIntervals=1000));
 end VoltageStability;
@@ -220,7 +220,7 @@ end VoltageStability;
 Compare with PIline.</p>
 <p><i>See for example:</i>
 <pre>  meter.p[1:2]     active and reactive power</pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
   end RXline;
@@ -291,7 +291,7 @@ Compare with RXline.</p>
   meter.p[1:2]     active and reactive power
   line.v           line voltage, oscillations due to switching
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(NumberOfIntervals=34567));
@@ -367,7 +367,7 @@ Compare with FaultPIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
   end FaultRXline;
@@ -443,7 +443,7 @@ Compare with FaultRXline.</p>
   line.v           line voltage, oscillations due to switching
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(NumberOfIntervals=34567));
@@ -537,7 +537,7 @@ Compare with DoublePIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(StopTime=0.5, NumberOfIntervals=20000));
@@ -633,7 +633,7 @@ Compare with DoublePIline.</p>
   lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, NumberOfIntervals=20000));
   end DoublePIline;
@@ -737,7 +737,7 @@ Compare with DoublePIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(StopTime=0.5));
@@ -843,13 +843,13 @@ Compare with DoublePIline.</p>
   lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, NumberOfIntervals=3400));
   end DoublePIlineTG;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transmission line models and faults.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"));
 end h_TransmissionACdqo;

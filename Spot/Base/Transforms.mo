@@ -40,7 +40,7 @@ used in complex plane with
 <pre>  j*u</pre>
 is
 <pre>  J_abc*u = ([0,-1,1; 1,0,-1; -1,1,0]/sqrt(3))*u</pre></p>
-<p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
   end j_abc;
 
@@ -58,7 +58,7 @@ is
     y := 0.577350269189626*{u[3,:]-u[2,:], u[1,:]-u[3,:], u[2,:]-u[1,:]};
     annotation (smoothOrder=2,
   Documentation(info="<html>
-<p>The function <tt>jj_abc(u)</tt> corresponds to <a href=\"Spot.Base.Transforms.j_abc\">j_abc</a> but has a matrix argument u.<br>
+<p>The function <tt>jj_abc(u)</tt> corresponds to <a href=\"modelica://Spot.Base.Transforms.j_abc\">j_abc</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_abc for all values of the second index.
 </html>"));
   end jj_abc;
@@ -89,7 +89,7 @@ used in complex 2-dimensional notation with
 is
 <pre>  J_dqo*u = [0,-1,0; 1,0,0; 0,0,0]*u</pre></p>
 <p>Note: If the argument u is 2-dimensional, then <tt>j_dqo(u)</tt> is the restriction of <tt>j_dqo(u)</tt> to the dq-plane.</p>
-<p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
   end j_dqo;
 
@@ -106,7 +106,7 @@ is
   //  y := cat(1, {-u[2,1:size(u,2)], u[1,1:size(u,2)]}, zeros(size(u,1)-2, size(u,2))); // preliminary until bug removed
     annotation (smoothOrder=2,
   Documentation(info="<html>
-<p>The function <tt>jj_dqo(u)</tt> corresponds to <a href=\"Spot.Base.Transforms.j_dqo\">j_dqo</a> but has a matrix argument u.<br>
+<p>The function <tt>jj_dqo(u)</tt> corresponds to <a href=\"modelica://Spot.Base.Transforms.j_dqo\">j_dqo</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_dqo for all values of the second index.
 </html>"));
   end jj_dqo;
@@ -159,7 +159,7 @@ and
   R(theta) = [s_0,  c_0, 0]
              [  0,  0,   1]
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
   end park;
 
@@ -254,7 +254,7 @@ are invariant under transformations R_dqo</p>
 <p>The connection between R_dqo and R_abc is the following
 <pre>  R_dqo = P0*R_abc*P0'.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
-<p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>
 "));
   end rotation_dq;
@@ -353,7 +353,7 @@ are invariant under transformations R_abc</p>
 <p>The connection between R_abc and R_dqo is the following
 <pre>  R_abc = P0'*R_dqo*P0.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
-<p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
   end rotation_abc;
 
@@ -436,7 +436,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     annotation (smoothOrder=2,
   Documentation(info="<html>
 <p>Positive permutation of 3-vector.</p>
-<p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
   end permutation;
 
@@ -489,7 +489,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
   annotation (preferredView="info",
 Documentation(info="<html>
-<p><a href=\"Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>
 "));
 end Transforms;
