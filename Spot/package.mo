@@ -1,6 +1,6 @@
 within ;
 package Spot "Power-systems SPOT"
-  extends Base.Icons.Library;
+  extends Spot.Base.Icons.Library;
   import SI = Modelica.SIunits;
   import SIpu = Spot.Base.Types;
   import Modelica.Constants.pi;
