@@ -10,7 +10,7 @@ package Relays "Relays"
     parameter Boolean ini_state=true "initial state (closed true, open false)"
       annotation(choices(choice=true "closed", choice=false "open"));
     parameter SI.Time t_switch[:]={1} "switching time vector";
-    Modelica.Blocks.Interfaces.BooleanOutput[n] y(start=fill(ini_state, n), fixed=true)
+    Modelica.Blocks.Interfaces.BooleanOutput[n] y(start=fill(ini_state, n), each fixed=true)
       "boolean state of switch (closed:true, open:false)"
       annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
             =0)));
