@@ -65,7 +65,7 @@ The powerflow depends essentially on the phase difference between the nodes and 
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
 end Vsource;
@@ -130,7 +130,7 @@ The active powerflow is now directly determined through a parameter instead of i
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"));
 end PVsource;
 
@@ -193,7 +193,7 @@ Both active and reactive powerflow are now directly determined through a paramet
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"));
 end PQsource;
 
@@ -333,7 +333,7 @@ The power-angle is artificially fixed. The correspondence is:
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
   end PowerAngle;
@@ -478,7 +478,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
  sensor.p[1:2]      active and reactive power
  V_gen1.alpha0 with gen.powerAngle.
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
   end TurbineGenerator;
@@ -664,7 +664,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
  sensor.p[1:2]      active and reactive power
  V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
   end TurbineGeneratorLine;
@@ -822,7 +822,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
  sensor.p[1:2]      active and reactive power
  V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
   end TurboGeneratorLine;
@@ -946,7 +946,7 @@ A common 3-phase short circuit occurs at 100 msec, cleared after 300 ms.</p>
 </pre>
 of <tt>turbGen1</tt> and <tt>turbGen2</tt>.<br>
 The high order model exhibits fast damping of torque-oscillations due to the damper windings. See also damper currents i_rd, i_rq (protected).</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, NumberOfIntervals=1000),
       experimentSetupOutput(derivatives=false));
@@ -1039,7 +1039,7 @@ A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
   turboGrpGen.generator.tau      torque (electric frequency)
   turboGrpGen.turboGroup.delta   relative angles between single turbines (frequencies typical 16 to 23 Hz)
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(
@@ -1220,7 +1220,7 @@ After the load decreases, system frequency starts to increase from 60 to 62 Hz w
  sensor's.p[1:2]    active and reactive power
  system.omega       system frequency
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(StopTime=30));
@@ -1304,7 +1304,7 @@ The wind-speed is increased from 5 to 15 m/s. The machine remains stable.</p>
   sensor.p[1:2]    active and reactive power
   windGen.generator.slip
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 
 "),
@@ -1426,7 +1426,7 @@ integration in inertial abc-system.</p>
   DCpower.p
   DCvoltage.v
 </pre>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
 experiment(StopTime=30));
 end Islanding;
@@ -1535,14 +1535,14 @@ The generator is coupled to an contolled rectifier. If an average-version of the
   DCpower.p
   DCvoltage.v
 </pre>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
 experiment(StopTime=30));
 end LocalGeneration;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Power sources and generation, a set of examples mainly for understanding the synchronous machine.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
 end g_GenerationACabc;

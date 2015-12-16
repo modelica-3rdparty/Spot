@@ -49,7 +49,7 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
   meter1.v     voltage phase secondary Y-Y topology
   meter2.v     voltage phase secondary Y_Delta topology
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(NumberOfIntervals=1234));
@@ -145,7 +145,7 @@ Note that the primary voltage source is fixed.</p>
   meter 12.v     voltage secondary, if primary is changed at fixed source.
   meter 22.v     voltage secondary, if secondary is changed at fixed source.
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(StopTime=4, NumberOfIntervals=4567));
@@ -153,6 +153,6 @@ Note that the primary voltage source is fixed.</p>
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers one-phase and tap changer control.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"));
 end f_TransformationAC1ph;

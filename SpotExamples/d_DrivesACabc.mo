@@ -54,7 +54,7 @@ package d_DrivesACabc "AC drives, abc"
 </pre></p>
 <p>Plot torque vs slip:<br>
 plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent variable': 'asm.motor.slip'.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"));
   end ASMcharacteristic;
   extends Spot.Base.Icons.Examples;
@@ -117,7 +117,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
   frictTorq.w
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(StopTime=3));
@@ -209,7 +209,7 @@ The model uses a time-average inverter. With the actual parameter values the 'in
   tabLoad.vVehicle
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
       experiment(StopTime=60));
@@ -298,7 +298,7 @@ The model uses a time-average inverter. For comparison with the previous example
   tabLoad.vVehicle
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "),
     experiment(
@@ -393,7 +393,7 @@ The machine defines the reference-system independent of the system choice (as ne
   time_av.y         time-average pu stator currents
   asm.motor.tau_el  electric torque
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
       experiment(Tolerance=1e-005, Algorithm="Lsodar"),
       experimentSetupOutput(
@@ -486,7 +486,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
   sm_ctrl.motor.w_el
   loadInertia.w
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
   experiment(StopTime=10));
 end SM_ctrlAv;
@@ -574,7 +574,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
   sm_ctrl.motor.w_el
   loadInertia.w
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
   experiment(
         StopTime=3,
@@ -670,7 +670,7 @@ On-load steady-state start with torque-increase at 3 s, load-step 6 s and field-
   asm_ctrl.motor.slip
 </pre></p>
 Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage proportional to uPhasor[1] even if uPhasor[1] &gt  1. For a time-resolved converter this corresponds to overmodulation.
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
   experiment(
       StopTime=10,
@@ -764,7 +764,7 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
   asm_ctrl.motor.uPhasor
   asm_ctrl.motor.slip
 </pre></p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
   experiment(
       StopTime=3,
@@ -778,7 +778,7 @@ end ASM_ctrl;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>AC drives (motors electrical and mechanical). Electric motor terminal in abc-representation.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "));
 end d_DrivesACabc;

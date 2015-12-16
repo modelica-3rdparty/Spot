@@ -133,7 +133,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   c = {-6, 11, -6, 1};
 </blockquote><pre>
 <p>See also
-<a href=\"Spot.Base.Math.polyCoef\">polyCoef</a>, <a href=\"Spot.Base.Math.polyRoots\">polyRoots</a></p>
+<a href=\"modelica://Spot.Base.Math.polyCoef\">polyCoef</a>, <a href=\"modelica://Spot.Base.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
   end polyCoefReal;
@@ -174,7 +174,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   c = [-6, 0; 11, 0; -6, 0; 1, 0];
 </blockquote></pre>
 <p>See also
-<a href=\"Spot.Base.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"Spot.Base.Math.polyRoots\">polyRoots</a></p>
+<a href=\"modelica://Spot.Base.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://Spot.Base.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
   end polyCoef;
@@ -240,7 +240,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   r[2,:] = {-0.333333 -0.471405};
 </blockquote></pre>
 <p>See also
-<a href=\"Spot.Base.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"Spot.Base.Math.polyCoef\">polyCoef</a>, <a href=\"Modelica:Modelica.Math.Matrices.eigenValues\">eigenValues</a></p>
+<a href=\"modelica://Spot.Base.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://Spot.Base.Math.polyCoef\">polyCoef</a>, <a href=\"Modelica:Modelica.Math.Matrices.eigenValues\">eigenValues</a></p>
 </html>
 "));
   end polyRoots;

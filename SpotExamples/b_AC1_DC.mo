@@ -564,7 +564,7 @@ package b_AC1_DC "AC 1-phase and DC components"
 Documentation(info="<html>
 <p>This package contains small models for testing single components from AC1_DC.
 The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"Spot.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://Spot.UsersGuide.Examples\">up users guide</a></p>
 </html>"),  preferredView="info",
 Documentation(info="<html>
 <pre>
