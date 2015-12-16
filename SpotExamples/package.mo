@@ -10,7 +10,7 @@ package SpotExamples "Spot examples"
 
 annotation (preferredView="info",
 Documentation(info="<html>
-<h3><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT: Examples</font></h3>
+<h4><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT: Examples</font></h4>
 <p><a href=\"modelica://Spot.UsersGuide.Overview\">up users guide</a></p>
 <p>Copyright &copy; 2004-2007, H.J. Wiesmann.</p>
 <p><i>The Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b>
