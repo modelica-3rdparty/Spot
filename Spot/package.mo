@@ -16,7 +16,7 @@ package UsersGuide "Users Guide"
     class Concept "Concept"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Concept of the Library</font></h3>
+<h4><font color=\"#008000\">Concept of the Library</font></h4>
 <p>Modelica is an equation-based simulation language. Theory of electro-technical devices and calculation-methods have been strongly influenced by the earlier use of
 analogue computers, leading to a 'diagrammatic' model description. In contrast to this tradition, models within this library are based on a clear set of equations rather than on a set of diagrams. In
 this sense the library has a didactic intention.</p>
@@ -32,7 +32,7 @@ this sense the library has a didactic intention.</p>
     class System "System"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">System Component</font></h3>
+<h4><font color=\"#008000\">System Component</font></h4>
 <p>The model <a href=\"modelica://Spot.System\"><b>System</b></a> represents a global reference for the following purposes:</p>
 <p>It allows choosing</p>
 <ul>
@@ -64,7 +64,7 @@ declaration and instance name are automatically generated.</p>
     class Units "Units"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Units SI and pu</font></h3>
+<h4><font color=\"#008000\">Units SI and pu</font></h4>
 <p>Electric parameters can be defined either in SI or in pu ('per unit') units. Meters allow this choice for output-signals.<br>
 Note that 'pu' only affects input-output and precalculation whereas the model equations always refer to SI.</p>
 <p>The relation between values in SI- and pu-units is given by:</p>
@@ -118,7 +118,7 @@ As independent base-values (for electrical quantities) we use voltage and appare
     class Frequency "Frequency"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">System and Autonomous Frequency</font></h3>
+<h4><font color=\"#008000\">System and Autonomous Frequency</font></h4>
 <p>The frequency concept must fulfil several conditions.</p>
 <ul>
 <li>First it should provide a common system frequency (50 | 60 Hz) that is either<br>
@@ -151,7 +151,7 @@ Frequency-independent sub-systems within one model can therefore easily be defin
     class Transforms "Transforms"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Coordinate Transforms</font></h3>
+<h4><font color=\"#008000\">Coordinate Transforms</font></h4>
 <p>We consider the current and voltage signals <tt>i</tt> and <tt>v</tt> of the three-phase system as abstract signal vectors that can be represented in different reference frames.<br>
 In the following <tt>s</tt> is used for either <tt>i</tt> or <tt>v</tt>.<br>
 We distinguish between an 'absolute' system (<tt>s_abc</tt>) and a manifold of transformed systems (<tt>s_abc_theta</tt> and <tt>s_dqo_theta</tt>) depending on a transformation angle <tt>theta</tt>.
@@ -220,7 +220,7 @@ Here it is used in a generalised sense. Nevertheless we call it 'Park-transform'
     class Interfaces "Interfaces"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Interfaces and Ports</font></h3>
+<h4><font color=\"#008000\">Interfaces and Ports</font></h4>
 <p>Most connector-types exist as <b>pair</b>. Exceptions are the connectors for position and frequency (see <a href=\"modelica://Spot.Base.Interfaces\">Base.Interfaces</a>)<br>
 We use consistently the indices <b>_p</b> for 'positive' and <b>_n</b> for 'negative' connectors, for all types, electrical, mechanical and thermal.<br>
 Both connector types are physically identical. The only difference is the icon, filled for _p, empty for _n.</p>
@@ -269,7 +269,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
     class Precalculation "Precalculation"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Precalculation</font></h3>
+<h4><font color=\"#008000\">Precalculation</font></h4>
 <p>This part of the library is a bit hidden, contained in the package 'Base.Precalculation'. The main purpose of this collection of functions is to determine coefficient matrices of electric model equations from standard measurement data or from equivalent circuit diagram data, in particular for electrical AC machines.</p>
 <p>There are several different methods used for specifying machines.</p>
 <ol>
@@ -287,7 +287,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
     class Initialisation "Initialisation"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Transient and Steady-State Initialisation of three-phase models</font></h3>
+<h4><font color=\"#008000\">Transient and Steady-State Initialisation of three-phase models</font></h4>
 <p>Periodically driven systems tend towards a periodic solution after some time, if the systems are damped. For certain applications it is desirable or even necessary, to start the model already in a periodic state.</p>
 <p>The standard <b>steady-state</b> initial equation of an inductive and a capacitive device (for simplicity with constant coefficient matrices L and C) in an arbitrary reference frame (defined by <tt>theta[2]</tt>) is given by the dual equations</p>
 <pre>
@@ -314,7 +314,7 @@ For three-phase systems it is useful to consider both voltage and current as abs
     class Simulation "Simulation"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Transient and Steady-State Simulation of three-phase models</font></h3>
+<h4><font color=\"#008000\">Transient and Steady-State Simulation of three-phase models</font></h4>
 <p>The terms 'transient' and 'steady-state' simulation of three-phase systems always refer to the <b>electrical</b> equations within a model. Other equations are not affected. The steady-state simulation is a meaningful approximation, if dynamic time-constants of electrical components are short compared to other time-constants as for example mechanical or thermal ones.</p>
 
 <p>The standard <b>transient</b> form of an inductive and a capacitive device (for simplicity with constant coefficient matrices L and C) is given by the dual equations</p>
@@ -351,7 +351,7 @@ algebraic ones.</p>
     class Visualisation "Visualisation"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Visualisation</font></h3>
+<h4><font color=\"#008000\">Visualisation</font></h4>
 <p>Power transfer in electric networks is strongly dependent on phase relations.
 Therefore a rough dynamical visualisation of phasors and power flow is often useful.</p>
 <p>For models in dqo-representation, phasors are directly obtained as first two components of voltage and current (dq-components).<br>
@@ -365,7 +365,7 @@ In abc-representation phasors are obtained by an appropriate
     class Examples "Examples"
 
         annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Introductory Examples</font></h3>
+<h4><font color=\"#008000\">Introductory Examples</font></h4>
 <p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.<br>
 The examples are based on most elementary configurations. A meter is added for convenience.</p>
 <ul>
@@ -394,7 +394,7 @@ The examples are based on most elementary configurations. A meter is added for c
     end Examples;
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Introduction</font></h3>
+<h4><font color=\"#008000\" size=5>Introduction</font></h4>
 <p>The detailed <b>theoretical basis</b> of SPOT is published in the separate package <b>'SpotTheory'.</b></p>
 <p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
@@ -403,7 +403,7 @@ The examples are based on most elementary configurations. A meter is added for c
   class Overview "Overview"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Overview over library content</font></h3>
+<h4><font color=\"#008000\" size=5>Overview over library content</font></h4>
 
 <font color=\"#008000\">
 <p>Note: 'abc' and 'dqo' denote different representations of the same physical models. See UsersGuide.Introduction.<br>
@@ -452,7 +452,7 @@ Introductory examples, example models for testing single components, drives, inv
   class Examples "Examples"
 
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Package SpotExamples</font></h3>
+<h4><font color=\"#008000\" size=5>Package SpotExamples</font></h4>
 <li><a href=\"modelica://SpotExamples.Data\"><b>Data</b></a><br>
 Contains data records for breakers, lines, machines, transformers, and turbines.</li>
 <p><a href=\"modelica://SpotExamples.a_Introduction\"><b>Introductory examples</b></a><br>
@@ -604,7 +604,7 @@ Calculation of Z-matrix from transient data or from equivalent circuit data.</p>
   class Version_0_706_1 "Version 0.706.1"
 
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.706.1 (2014 April 9)</font></h3>
+<h4><font color=\"#008000\">Version 0.706.1 (2014 April 9)</font></h4>
 <p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 <p>
 A clean up version of the latest (undocumented) version 0.706 (2007 June). Annotations were cleaned up in order to get it to work properly with Modelica tools that follow the Modelica Specification.</p>
@@ -623,7 +623,7 @@ Be aware that there are several issues within this library which are still not f
   class Version_0_705 "Version 0.705"
 
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.705 (2007 May 1)</font></h3>
+<h4><font color=\"#008000\">Version 0.705 (2007 May 1)</font></h4>
 <p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 <p>
 The following <b>changes</b> have been performed in the <b>Spot 0.705</b> library:
@@ -641,7 +641,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.705</b> librar
   class Version_0_606 "Version 0.606"
 
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.606 (2006 June 26)</font></h3>
+<h4><font color=\"#008000\">Version 0.606 (2006 June 26)</font></h4>
 <p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 <p>
 The following <b>changes</b> have been performed in the <b>Spot 0.606</b> library:
@@ -659,7 +659,7 @@ unconnected neutral is 'isolated neutral' (before: 'ideally grounded')</li>
   class Version_0_605 "Version 0.605"
 
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.605 (2006 May 01)</font></h3>
+<h4><font color=\"#008000\">Version 0.605 (2006 May 01)</font></h4>
 <p>Version 0.605 is not fully compatible with version 0.506.</p>
 <p>
 The following <b>changes</b> have been performed in the <b>Spot 0.605</b> library:
@@ -674,14 +674,14 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
   class Version_0_506 "Version 0.506"
 
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.506 (2005 June 01)</font></h3>
+<h4><font color=\"#008000\">Version 0.506 (2005 June 01)</font></h4>
 <p> This is the actual state of the SPOT library in development.</p>
 <p><a href=\"modelica://Spot.UsersGuide.ReleaseNotes\">up</a></p>
 </html>"));
   end Version_0_506;
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Release Notes</font></h3>
-<h3><font color=\"#008000\">Actual version 0.705 (2007 May 1)</font></h3>
+<h4><font color=\"#008000\" size=5>Release Notes</font></h4>
+<h4><font color=\"#008000\">Actual version 0.705 (2007 May 1)</font></h4>
 <p>Releases:</p>
 <ul>
 <li> <a href=\"modelica://Spot.UsersGuide.ReleaseNotes.Version_0_706_1\">Version 0.706.1</a> (2014 April 9)</li>
@@ -697,7 +697,7 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
   class Contact "Contact"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Contact</font></h3>
+<h4><font color=\"#008000\" size=5>Contact</font></h4>
 <dl>
 <dt>The orginal author of the power systems library 'SPOT' was:</dt><br>
 <dd>Hans J&uuml;rg Wiesmann (&dagger; 2015)<br>
@@ -711,8 +711,8 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
   class ModelicaLicense "Modelica license"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>The Modelica License
-(Version 1.1 of June 30, 2000) </font></h3>
+<h4><font color=\"#008000\" size=5>The Modelica License
+(Version 1.1 of June 30, 2000) </font></h4>
 <p>Redistribution and use in source and binary forms, with or without
 modification are permitted, provided that the following conditions are met:</p>
 <ol>
@@ -727,7 +727,7 @@ that the conditions under (1) are met.</li>
 </html>"));
   end ModelicaLicense;
   annotation (DocumentationClass=true, Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Users Guide to the Modelica Power Systems Library SPOT</font></h3>
+<h4><font color=\"#008000\" size=5>Users Guide to the Modelica Power Systems Library SPOT</font></h4>
 <p>The library is a Modelica package providing components to model
 <br><b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>This package contains the <b>users guide</b> to the library.</p>
@@ -897,7 +897,7 @@ annotation (preferredView="info",
   versionDate="2014-04-09",
   Settings(NewStateSelection=true),
   Documentation(info="<html>
-<h3><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT</font></h3>
+<h4><font color=\"#000080\" size=5>Modelica Power Systems Library SPOT</font></h4>
 <p>The library is a Modelica package providing components to model<br>
 <b>power systems</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"modelica://Spot.UsersGuide\"><b>here</b></a>.</p>
