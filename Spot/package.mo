@@ -699,14 +699,10 @@ The following <b>changes</b> have been performed in the <b>Spot 0.605</b> librar
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Contact</font></h3>
 <dl>
-<dt>Author of the power systems library 'SPOT':</dt><br>
-<dd>Hans J&uuml;rg Wiesmann<br>
+<dt>The orginal author of the power systems library 'SPOT' was:</dt><br>
+<dd>Hans J&uuml;rg Wiesmann (&dagger; 2015)<br>
     Dr.sc.nat, dipl.phys. ETH<br>
-    1973-2004: Corporate Research, ABB Switzerland<br><br>
-<dt>Address:</dt><br>
-<dd>Hans J&uuml;rg Wiesmann<br>
-    CH-8607 Seegr&auml;ben (Z&uuml;rich)<br><br>
-    email: <A HREF=\"mailto:hj.wiesmann@bluewin.ch\">hj.wiesmann@bluewin.ch</A></dd>
+    1973-2004: Corporate Research, ABB Switzerland</dd>
 </dl>
 <p><a href=\"modelica://Spot.UsersGuide\">up</a></p>
 </html>"));
