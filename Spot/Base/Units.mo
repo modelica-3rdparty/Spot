@@ -3,7 +3,7 @@ package Units "Units and nominal"
   extends Icons.Base;
 
 
-partial model Nominal "Units and nominal values"
+partial record Nominal "Units and nominal values"
 
   parameter Base.Types.Units units=Types.pu "SI | pu"
     annotation(Evaluate=true, Dialog(group="Nominal"));
@@ -36,7 +36,7 @@ These remain <b>always</b> in SI-units. It only affects input of parameter value
 "));
 end Nominal;
 
-partial model NominalAC "Units and nominal values AC"
+partial record NominalAC "Units and nominal values AC"
   extends Nominal;
 
   parameter SI.Frequency f_nom=system.f_nom "nom frequency"
@@ -50,7 +50,7 @@ partial model NominalAC "Units and nominal values AC"
 "));
 end NominalAC;
 
-partial model NominalDC "Units and nominal values DC"
+partial record NominalDC "Units and nominal values DC"
   extends Nominal;
 
   parameter SIpu.AngularVelocity_rpm rpm_nom=system.rpm_nom "nom r.p.m."
@@ -68,7 +68,7 @@ partial model NominalDC "Units and nominal values DC"
 "));
 end NominalDC;
 
-partial model NominalVI "Nominal values"
+partial record NominalVI "Nominal values"
 
   parameter SI.Voltage V_nom(final min=0)=1 "nom Voltage"
     annotation(Evaluate=true, Dialog(group="Nominal"));
