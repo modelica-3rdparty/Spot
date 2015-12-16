@@ -13,8 +13,8 @@ package Breakers "Switches and Breakers 3-phase"
     SI.Time t0(start=-Modelica.Constants.inf, fixed=true);
     Real[2] r(start={0,1});
     Real[3] s;
-    Boolean open(start=not control[1])=not control[1];
-    Boolean closed(start=control[1])=control[1];
+    Boolean open(start=not control[1], fixed=true)=not control[1];
+    Boolean closed(start=control[1], fixed=true)=control[1];
     function relaxation=Base.Math.relaxation;
 
   equation
